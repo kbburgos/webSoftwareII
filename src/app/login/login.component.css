@@ -1,5 +1,5 @@
 .container2 {
-  background: url("https://i.pinimg.com/originals/69/1c/70/691c70984942ede78bc4e5f1b25eac02.jpg")
+  background: url("https://food.fnr.sndimg.com/content/dam/images/food/fullset/2007/2/16/0/ry0401_carrotcake.jpg.rend.hgtvcom.616.462.suffix/1552488933139.jpeg")
     no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -8,29 +8,49 @@
   overflow: hidden;
   width: 100%;
   min-height: 100vh;
+  filter: blur(4px);
+  -webkit-filter: blur(4px);
 }
 
-img {
+/*img {
   display: block;
   margin: auto;
   width: 100%;
   height: auto;
+}*/
+
+.form {
+  margin-top: 3rem;
 }
 
-#login-button {
-  cursor: pointer;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
+.col-img {
+  background-color: white;
+
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  align-content: center;
+  align-items: center;
+}
+
+.col {
+  padding: 1rem;
+  height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  align-content: center;
+  align-items: center;
+}
+
+img {
+  padding-top: 8rem;
   width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: rgba(3, 3, 3, 0.8);
-  overflow: hidden;
-  box-shadow: 10px 10px 30px #000;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  align-content: center;
+  align-items: center;
 }
 
 #container {
@@ -40,8 +60,8 @@ img {
   right: 0;
   bottom: 0;
   margin: auto;
-  width: 50%;
-  height: 260px;
+  width: 60%;
+  height: 500px;
   border-radius: 5px;
   background: rgba(3, 3, 3, 0.226);
   box-shadow: 1px 1px 50px #000;
@@ -87,12 +107,12 @@ img {
   }
 }
 
-h1 {
+h4 {
   font-family: "Open Sans Condensed", sans-serif;
   position: relative;
-  margin-top: 0px;
+  margin-top: 7rem;
   text-align: center;
-  font-size: 40px;
+  font-size: 30px;
   color: #ddd;
   text-shadow: 3px 3px 10px #000;
 }
@@ -101,6 +121,11 @@ h1 {
   background: rgba(3, 3, 3, 0.7);
   width: 100%;
   min-height: 100vh;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  top: 50%;
+  left: 50%;
 }
 
 a,
@@ -112,11 +137,11 @@ input {
   display: block;
   margin: 9px auto;
   font-size: 17px;
-  color: #fff;
+  color: white;
   padding: 8px;
   border-radius: 6px;
   border: none;
-  background: rgba(3, 3, 3, 0.1);
+  background: rgba(3, 3, 3, 0.3);
   -webkit-transition: all 2s ease-in-out;
   -moz-transition: all 2s ease-in-out;
   -o-transition: all 2s ease-in-out;
@@ -124,15 +149,16 @@ input {
 }
 
 input:focus {
+  color: white;
   outline: none;
   box-shadow: 3px 3px 10px #333;
-  background: rgba(243, 239, 239, 0.18);
+  background: rgba(243, 239, 239, 0.13);
 }
 
 /* Link */
 .btnLogin {
   font-family: "Open Sans Condensed", sans-serif;
-  margin-top: 5%;
+  margin-top: 2rem;
   height: 40px;
   width: 50%;
   padding: 5px;
@@ -167,13 +193,4 @@ input:focus {
 
 .col-social {
   width: 50%;
-}
-
-.centrado {
-  margin-left: auto;
-  margin-right: auto;
-  align-self: center;
-  align-items: center;
-  text-align: center;
-  background-color: red;
 }

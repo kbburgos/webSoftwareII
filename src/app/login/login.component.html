@@ -1,34 +1,41 @@
-
-<body class="container2">
+<body>
+  <div class="container2"></div>
   <div class="contLogin">
     <div id="container">
-      <h1>Iniciar Sesión</h1>
-      <form class="mx-auto" [formGroup]="form">
-        <input
-          type="text"
-          name="email"
-          placeholder="Usuario"
-          formControlName="email"
-        />
+      <div class="row">
+        <div class="col-5 col-img">
+          <img src="../../assets/img/logoOmiPali.jpg" />
+        </div>
 
-        <input
-          type="password"
-          name="pass"
-          placeholder="Clave"
-          formControlName="pass"
-        />
-        <!--div class="row">
-          <div class="col-sm-5 centrado">6</div>
-          <div class="col-sm-5 centrado">6</div>
-        </div-->
-        <button
-          [disabled]="form.invalid"
-          class="btn btn-outline-info btnLogin text-align-center"
-          (click)="ingresar()"
-        >
-          Iniciar Sesión
-        </button>
-      </form>
+        <div class="col">
+          <h4>Iniciar Sesión</h4>
+          <form class="mx-auto form" [formGroup]="form">
+            <input
+              type="text"
+              name="email"
+              placeholder="Usuario"
+              formControlName="email"
+            />
+
+            <input
+              type="password"
+              name="pass"
+              placeholder="Clave"
+              formControlName="pass"
+            />
+            <!--div class="row">
+              <div class="col-sm-5 centrado">6</div>
+              <div class="col-sm-5 centrado">6</div>
+            </div-->
+            <button
+              class="btn btn-outline-info btnLogin text-align-center"
+              (click)="ingresar()"
+            >
+              Iniciar Sesión
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </body>
