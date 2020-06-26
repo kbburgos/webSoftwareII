@@ -1,0 +1,179 @@
+.container2 {
+  background: url("https://i.pinimg.com/originals/69/1c/70/691c70984942ede78bc4e5f1b25eac02.jpg")
+    no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  overflow: hidden;
+  width: 100%;
+  min-height: 100vh;
+}
+
+img {
+  display: block;
+  margin: auto;
+  width: 100%;
+  height: auto;
+}
+
+#login-button {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(3, 3, 3, 0.8);
+  overflow: hidden;
+  box-shadow: 10px 10px 30px #000;
+}
+
+#container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 50%;
+  height: 260px;
+  border-radius: 5px;
+  background: rgba(3, 3, 3, 0.226);
+  box-shadow: 1px 1px 50px #000;
+  animation: fadein 3s;
+  -moz-animation: fadein 5s; /* Firefox */
+  -webkit-animation: fadein 5s; /* Safari and Chrome */
+  -o-animation: fadein 5s; /* Opera */
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 2;
+  }
+}
+@-moz-keyframes fadein {
+  /* Firefox */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadein {
+  /* Safari and Chrome */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes fadein {
+  /* Opera */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+h1 {
+  font-family: "Open Sans Condensed", sans-serif;
+  position: relative;
+  margin-top: 0px;
+  text-align: center;
+  font-size: 40px;
+  color: #ddd;
+  text-shadow: 3px 3px 10px #000;
+}
+
+.contLogin {
+  background: rgba(3, 3, 3, 0.7);
+  width: 100%;
+  min-height: 100vh;
+}
+
+a,
+input {
+  font-family: "Open Sans Condensed", sans-serif;
+  text-decoration: none;
+  position: relative;
+  width: 80%;
+  display: block;
+  margin: 9px auto;
+  font-size: 17px;
+  color: #fff;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  background: rgba(3, 3, 3, 0.1);
+  -webkit-transition: all 2s ease-in-out;
+  -moz-transition: all 2s ease-in-out;
+  -o-transition: all 2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 3px 3px 10px #333;
+  background: rgba(243, 239, 239, 0.18);
+}
+
+/* Link */
+.btnLogin {
+  font-family: "Open Sans Condensed", sans-serif;
+  margin-top: 5%;
+  height: 40px;
+  width: 50%;
+  padding: 5px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-color: white;
+  color: white;
+  font-size: 0.8rem;
+}
+
+@media screen and (max-width: 640px) {
+  /* reglas CSS */
+  #container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 90%;
+    height: 260px;
+    border-radius: 5px;
+    background: rgba(3, 3, 3, 0.226);
+    box-shadow: 1px 1px 50px #000;
+    animation: fadein 3s;
+    -moz-animation: fadein 5s; /* Firefox */
+    -webkit-animation: fadein 5s; /* Safari and Chrome */
+    -o-animation: fadein 5s; /* Opera */
+  }
+}
+
+.col-social {
+  width: 50%;
+}
+
+.centrado {
+  margin-left: auto;
+  margin-right: auto;
+  align-self: center;
+  align-items: center;
+  text-align: center;
+  background-color: red;
+}
