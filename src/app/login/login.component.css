@@ -1,5 +1,5 @@
-.container2 {
-  background: url("https://food.fnr.sndimg.com/content/dam/images/food/fullset/2007/2/16/0/ry0401_carrotcake.jpg.rend.hgtvcom.616.462.suffix/1552488933139.jpeg")
+#div-background {
+  background: url("https://i.pinimg.com/originals/69/1c/70/691c70984942ede78bc4e5f1b25eac02.jpg")
     no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -8,128 +8,39 @@
   overflow: hidden;
   width: 100%;
   min-height: 100vh;
-  filter: blur(4px);
-  -webkit-filter: blur(4px);
+
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
 }
 
-/*img {
-  display: block;
-  margin: auto;
+#div-mate {
+  background: rgba(3, 3, 3, 0.7);
   width: 100%;
-  height: auto;
-}*/
-
-.form {
-  margin-top: 3rem;
+  min-height: 100vh;
+  top: 0;
+  position: absolute;
 }
 
-.col-img {
-  background-color: white;
-
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  align-content: center;
-  align-items: center;
-}
-
-.col {
-  padding: 1rem;
-  height: 500px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  align-content: center;
-  align-items: center;
-}
-
-img {
-  padding-top: 8rem;
-  width: 200px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  align-content: center;
-  align-items: center;
-}
-
-#container {
+.grid-lista-programas {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   margin: auto;
-  width: 60%;
-  height: 500px;
-  border-radius: 5px;
-  background: rgba(3, 3, 3, 0.226);
-  box-shadow: 1px 1px 50px #000;
-  animation: fadein 3s;
-  -moz-animation: fadein 5s; /* Firefox */
-  -webkit-animation: fadein 5s; /* Safari and Chrome */
-  -o-animation: fadein 5s; /* Opera */
-}
-
-@keyframes fadein {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 2;
-  }
-}
-@-moz-keyframes fadein {
-  /* Firefox */
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@-webkit-keyframes fadein {
-  /* Safari and Chrome */
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@-o-keyframes fadein {
-  /* Opera */
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-h4 {
-  font-family: "Open Sans Condensed", sans-serif;
-  position: relative;
-  margin-top: 7rem;
   text-align: center;
-  font-size: 30px;
-  color: #ddd;
-  text-shadow: 3px 3px 10px #000;
+  width: 60%;
+  height: 60%;
+  background: rgba(243, 237, 237, 0.541);
 }
 
-.contLogin {
-  background: rgba(3, 3, 3, 0.7);
-  width: 100%;
-  min-height: 100vh;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  top: 50%;
-  left: 50%;
+.login {
+  margin-top: 2rem;
 }
 
-a,
-input {
+.login input {
+  background: rgba(243, 237, 237, 0.349);
+  
   font-family: "Open Sans Condensed", sans-serif;
   text-decoration: none;
   position: relative;
@@ -137,60 +48,61 @@ input {
   display: block;
   margin: 9px auto;
   font-size: 17px;
-  color: white;
+
   padding: 8px;
   border-radius: 6px;
   border: none;
-  background: rgba(3, 3, 3, 0.3);
+
+
   -webkit-transition: all 2s ease-in-out;
   -moz-transition: all 2s ease-in-out;
   -o-transition: all 2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
 
-input:focus {
-  color: white;
-  outline: none;
-  box-shadow: 3px 3px 10px #333;
-  background: rgba(243, 239, 239, 0.13);
+
+
+::placeholder {
+  color: black;
+  opacity: 0.7; /* Firefox */
 }
 
-/* Link */
-.btnLogin {
+
+img {
+  margin-top: 1rem;
+  width: 25%;
+}
+
+h2 {
   font-family: "Open Sans Condensed", sans-serif;
-  margin-top: 2rem;
-  height: 40px;
-  width: 50%;
-  padding: 5px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  border-color: white;
+  position: relative;
+  margin-top: 0px;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: black;
+  font-size: 2rem;
+}
+
+.btnLogin{
+  margin-top: 1rem;
+  border-color: skyblue;
   color: white;
-  font-size: 0.8rem;
 }
 
-@media screen and (max-width: 640px) {
-  /* reglas CSS */
-  #container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    width: 90%;
-    height: 260px;
-    border-radius: 5px;
-    background: rgba(3, 3, 3, 0.226);
-    box-shadow: 1px 1px 50px #000;
-    animation: fadein 3s;
-    -moz-animation: fadein 5s; /* Firefox */
-    -webkit-animation: fadein 5s; /* Safari and Chrome */
-    -o-animation: fadein 5s; /* Opera */
+
+@media screen and (max-width:640px) {
+  img {
+    margin-top: 1.5rem;
+    width: 40%;
   }
-}
 
-.col-social {
-  width: 50%;
+  h2 {
+    font-family: "Open Sans Condensed", sans-serif;
+    position: relative;
+    margin-top: 0px;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: black;
+    font-size: 1.5rem;
+  }
 }

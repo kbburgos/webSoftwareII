@@ -1,41 +1,37 @@
 <body>
-  <div class="container2"></div>
-  <div class="contLogin">
-    <div id="container">
-      <div class="row">
-        <div class="col-5 col-img">
-          <img src="../../assets/img/logoOmiPali.jpg" />
-        </div>
+  <div id="div-background"></div>
+  <div id="div-mate"></div>
 
-        <div class="col">
-          <h4>Iniciar Sesión</h4>
-          <form class="mx-auto form" [formGroup]="form">
-            <input
-              type="text"
-              name="email"
-              placeholder="Usuario"
-              formControlName="email"
-            />
+  <div class="grid-lista-programas">
+    <img
+      src="/assets/img/logoOmiPali.jpg"
+      class="rounded-circle"
+      alt="Cinque Terre"
+    />
 
-            <input
-              type="password"
-              name="pass"
-              placeholder="Clave"
-              formControlName="pass"
-            />
-            <!--div class="row">
-              <div class="col-sm-5 centrado">6</div>
-              <div class="col-sm-5 centrado">6</div>
-            </div-->
-            <button
-              class="btn btn-outline-info btnLogin text-align-center"
-              (click)="ingresar()"
-            >
-              Iniciar Sesión
-            </button>
-          </form>
-        </div>
-      </div>
+    <div class="login">
+      <h2>Iniciar Sesión</h2>
+      <form class="mx-auto form" [formGroup]="form">
+        <input
+          type="text"
+          name="email"
+          placeholder="Usuario"
+          formControlName="email"
+        />
+
+        <input
+          type="password"
+          name="pass"
+          placeholder="Clave"
+          formControlName="pass"
+        />
+        <button
+          class="btn btn-outline-info btnLogin text-align-center"
+          (click)="ingresar()"
+        >
+          Iniciar Sesión
+        </button>
+      </form>
     </div>
   </div>
 </body>
