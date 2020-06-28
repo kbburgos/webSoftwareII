@@ -9,8 +9,8 @@
   width: 100%;
   min-height: 100vh;
 
-  filter: blur(5px);
-  -webkit-filter: blur(5px);
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
 }
 
 #div-mate {
@@ -21,26 +21,43 @@
   position: absolute;
 }
 
-.grid-lista-programas {
+img {
+  display: block;
+  margin: auto;
+  width: 21%;
+  height: auto;
+  margin-top: 0.7rem;
+}
+
+/* Login container */
+#container {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   margin: auto;
+  width: 50%;
+  height: 50%;
+  border-radius: 15px;
+  background: rgba(228, 225, 225, 0.7);
+  box-shadow: 1px 1px 50px #000;
+}
+
+/* Heading */
+h1 {
+  font-family: "Open Sans Condensed", sans-serif;
+  position: relative;
+  margin-top: 0px;
   text-align: center;
-  width: 60%;
-  height: 60%;
-  background: rgba(243, 237, 237, 0.541);
+  font-size: 40px;
+  color: #ddd;
+  text-shadow: 3px 3px 10px #000;
 }
 
-.login {
-  margin-top: 2rem;
-}
-
-.login input {
-  background: rgba(243, 237, 237, 0.349);
-  
+/* Inputs */
+a,
+input {
   font-family: "Open Sans Condensed", sans-serif;
   text-decoration: none;
   position: relative;
@@ -48,61 +65,60 @@
   display: block;
   margin: 9px auto;
   font-size: 17px;
-
+  color: #fff;
   padding: 8px;
   border-radius: 6px;
   border: none;
-
-
+  background: rgba(56, 148, 160, 0.404);
   -webkit-transition: all 2s ease-in-out;
   -moz-transition: all 2s ease-in-out;
   -o-transition: all 2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
 
-
-
 ::placeholder {
-  color: black;
-  opacity: 0.7; /* Firefox */
+  color: rgba(255, 255, 255, 0.829);
+  opacity: 1;
 }
 
 
-img {
-  margin-top: 1rem;
-  width: 25%;
+input:focus {
+  outline: none;
+  box-shadow: 3px 3px 10px rgb(85, 84, 84);
+  background: rgba(5, 94, 114, 0.18);
 }
 
-h2 {
+/* Link */
+.btnLogin {
   font-family: "Open Sans Condensed", sans-serif;
-  position: relative;
-  margin-top: 0px;
-  text-align: center;
-  margin-bottom: 1rem;
-  color: black;
-  font-size: 2rem;
-}
-
-.btnLogin{
-  margin-top: 1rem;
-  border-color: skyblue;
+  width: 80%;
+  height: 40px;
+  margin-top: 6%;
+  padding: 5px;
+  border-radius: 6px;
   color: white;
+  border-color: teal;
+  font-size: 0.8rem;
+
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background: rgba(14, 99, 110, 0.589);
 }
 
-
-@media screen and (max-width:640px) {
-  img {
-    margin-top: 1.5rem;
-    width: 40%;
-  }
-
-  h2 {
-    font-family: "Open Sans Condensed", sans-serif;
-    position: relative;
-    margin-top: 0px;
-    text-align: center;
-    margin-bottom: 1rem;
-    color: black;
-    font-size: 1.5rem;
+@media screen and (max-width: 640px) {
+  /* reglas CSS */
+  #container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 90%;
+    height: 50%;
+    border-radius: 15px;
+    background: rgba(228, 225, 225, 0.7);
+    box-shadow: 1px 1px 50px #000;
   }
 }

@@ -1,37 +1,27 @@
 <body>
   <div id="div-background"></div>
   <div id="div-mate"></div>
-
-  <div class="grid-lista-programas">
+  <div id="container">
     <img
       src="/assets/img/logoOmiPali.jpg"
       class="rounded-circle"
-      alt="Cinque Terre"
+      alt="Logo Omi&Pali"
     />
-
-    <div class="login">
-      <h2>Iniciar Sesión</h2>
-      <form class="mx-auto form" [formGroup]="form">
-        <input
-          type="text"
-          name="email"
-          placeholder="Usuario"
-          formControlName="email"
-        />
-
-        <input
-          type="password"
-          name="pass"
-          placeholder="Clave"
-          formControlName="pass"
-        />
-        <button
-          class="btn btn-outline-info btnLogin text-align-center"
-          (click)="ingresar()"
-        >
-          Iniciar Sesión
-        </button>
-      </form>
-    </div>
+    <h1>Iniciar Sesión</h1>
+    <form class="mx-auto">
+      <input
+        type="text"
+        name="email"
+        placeholder="Usuario"
+      />
+      <input
+        type="password"
+        name="pass"
+        placeholder="Clave"
+      />
+      <button class="btn btn-outline-info btnLogin text-align-center">
+        Iniciar Sesión
+      </button>
+    </form>
   </div>
 </body>
