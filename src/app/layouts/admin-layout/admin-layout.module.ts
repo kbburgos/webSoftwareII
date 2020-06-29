@@ -4,8 +4,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { UserProfileComponent } from '../../user-profile/user-profile.component';
-import { TableListComponent } from '../../table-list/table-list.component';
+import { EnEsperaComponent } from '../../en-espera/en-espera.component';
+import { DespachadosComponent } from '../../despachados/despachados.component';
+import { ReportNewsComponent } from '../../report-news/report-news.component';
+import { ReportSalesComponent } from '../../report-sales/report-sales.component';
+import { ReportProductComponent } from '../../report-product/report-product.component';
 import { TypographyComponent } from '../../typography/typography.component';
 import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
@@ -17,6 +20,8 @@ import {MatRippleModule} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
+import {MatTableModule} from '@angular/material/table';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -30,11 +35,16 @@ import {MatSelectModule} from '@angular/material/select';
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    MatTableModule,
+    MatDialogModule,
   ],
   declarations: [
     DashboardComponent,
-    UserProfileComponent,
-    TableListComponent,
+    EnEsperaComponent,
+    DespachadosComponent,
+    ReportNewsComponent,
+    ReportSalesComponent,
+    ReportProductComponent,
     TypographyComponent,
     IconsComponent,
     MapsComponent,
