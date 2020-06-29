@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit {
     this.buildForm();
   }
 
-  private ingresar() {
+ ingresar() {
+   console.log("hello")
     this.router.navigateByUrl("/dashboard");
   }
 
