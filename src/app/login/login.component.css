@@ -24,7 +24,7 @@
 img {
   display: block;
   margin: auto;
-  width: 21%;
+  width: 12%;
   height: auto;
   margin-top: 0.7rem;
 }
@@ -107,6 +107,13 @@ input:focus {
 }
 
 @media screen and (max-width: 640px) {
+  img {
+    display: block;
+    margin: auto;
+    width: 20%;
+    height: auto;
+    margin-top: 0.7rem;
+  }
   /* reglas CSS */
   #container {
     position: absolute;
