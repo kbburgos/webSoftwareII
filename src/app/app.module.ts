@@ -11,8 +11,11 @@ import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { TableListComponent } from './table-list/table-list.component';
+import { EnEsperaComponent } from './en-espera/en-espera.component';
+import { DespachadosComponent } from './despachados/despachados.component';
+import { ReportNewsComponent } from './report-news/report-news.component';
+import { ReportSalesComponent } from './report-sales/report-sales.component';
+import { ReportProductComponent } from './report-product/report-product.component';
 import { TypographyComponent } from './typography/typography.component';
 import { IconsComponent } from './icons/icons.component';
 import { MapsComponent } from './maps/maps.component';

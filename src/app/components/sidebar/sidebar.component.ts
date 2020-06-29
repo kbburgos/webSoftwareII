@@ -4,18 +4,21 @@ declare const $: any;
 declare interface RouteInfo {
     path: string;
     title: string;
-    icon: string;
     class: string;
+    component: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: '/user-profile', title: 'User Profile',  icon:'person', class: '' },
-    { path: '/table-list', title: 'Table List',  icon:'content_paste', class: '' },
-    { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },
-    { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
-    { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
-    { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
-    { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
+    { path: '/dashboard', title: 'Dashboard',   class: '', component: 'DashboardComponent'},
+    { path: '/en-espera', title: 'Pedidos en espera',   class: '', component: 'EnEsperaComponent'},
+    { path: '/despachados', title: 'Pedidos despachados',  class: '', component: 'DespachadosComponent'},
+    { path: '/report-news', title: 'Novedades',  class: '', component: 'ReportNewsComponent'},
+    { path: '/report-sales', title: 'Ventas',  class: '', component: 'ReportSalesComponent'},
+    { path: '/report-product', title: 'Productos',  class: '', component: 'ReportProductComponent'},
+    { path: '/typography', title: 'Typography',   class: '', component: 'TypografyComponent'},
+    { path: '/icons', title: 'Icons',  class: '', component: 'IconsComponent'},
+    { path: '/maps', title: 'Maps',  class: '', component: 'MapsComponent'},
+    { path: '/notifications', title: 'Notifications',  class: '', component:  'NotificationsComponent'},
+    { path: '/upgrade', title: 'Upgrade to PRO',  class: 'active-pro', component: 'UpgradeComponent'},
 ];
 
 @Component({
