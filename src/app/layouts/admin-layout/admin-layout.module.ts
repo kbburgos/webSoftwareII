@@ -22,6 +22,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
+import {TableModule} from 'primeng/table';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatTooltipModule,
     MatTableModule,
     MatDialogModule,
+    TableModule
   ],
   declarations: [
     DashboardComponent,
