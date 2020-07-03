@@ -7,17 +7,17 @@
                       <h4 class="card-title">Lista de pedidos en espera</h4>
                   </div>
                   <div class="card-body">
-                    <p-table [columns]="cols" [value]="listonhold" sortMode="multiple" [paginator]="true" [rows]="3" #dt  >
+                    <div >
+                      <i class="pi pi-search" ></i>
+                      <input type="text" pInputText size="50" placeholder="Filtro Global" (input)="dt.filterGlobal($event.target.value, 'contains')" >
+                    </div>
+                    <p-table [columns]="cols" [value]="listonhold" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="3" #dt  >
+                      
                       <ng-template pTemplate="header" let-columns>
                           <tr>
                               <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                                   {{col.header}}
                                   <p-sortIcon [field]="col.field"></p-sortIcon>
-                              </th>
-                          </tr>
-                          <tr>
-                              <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                                  <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                               </th>
                           </tr>
                       </ng-template>
