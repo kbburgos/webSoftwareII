@@ -11,8 +11,8 @@ import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { EnEsperaComponent } from './en-espera/en-espera.component';
-import { DespachadosComponent } from './despachados/despachados.component';
+import { OnHoldComponent } from './on-hold/on-hold.component';
+import { DispatchedComponent} from './dispatched/dispatched.component';
 import { ReportNewsComponent } from './report-news/report-news.component';
 import { ReportSalesComponent } from './report-sales/report-sales.component';
 import { ReportProductComponent } from './report-product/report-product.component';

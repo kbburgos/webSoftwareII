@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EnEsperaComponent } from './en-espera.component';
+import { OnHoldComponent } from './on-hold.component';
 
 describe('UserProfileComponent', () => {
-  let component: EnEsperaComponent;
-  let fixture: ComponentFixture<EnEsperaComponent>;
+  let component: OnHoldComponent;
+  let fixture: ComponentFixture<OnHoldComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EnEsperaComponent ]
+      declarations: [ OnHoldComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EnEsperaComponent);
+    fixture = TestBed.createComponent(OnHoldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

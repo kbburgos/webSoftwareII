@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { EnEsperaComponent } from '../../en-espera/en-espera.component';
-import { DespachadosComponent } from '../../despachados/despachados.component';
+import { OnHoldComponent } from '../../on-hold/on-hold.component';
+import { DispatchedComponent } from '../../dispatched/dispatched.component';
 import { ReportNewsComponent } from '../../report-news/report-news.component';
 import { ReportSalesComponent } from '../../report-sales/report-sales.component';
 import { ReportProductComponent } from '../../report-product/report-product.component';
@@ -22,7 +22,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
+import {FlexLayoutModule} from '@angular/flex-layout';
 import {TableModule} from 'primeng/table';
+import {ButtonModule} from 'primeng/button';
+import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
   imports: [
@@ -38,12 +41,15 @@ import {TableModule} from 'primeng/table';
     MatTooltipModule,
     MatTableModule,
     MatDialogModule,
-    TableModule
+    TableModule,
+    ButtonModule,
+    DialogModule,
+    FlexLayoutModule
   ],
   declarations: [
     DashboardComponent,
-    EnEsperaComponent,
-    DespachadosComponent,
+    OnHoldComponent,
+    DispatchedComponent,
     ReportNewsComponent,
     ReportSalesComponent,
     ReportProductComponent,

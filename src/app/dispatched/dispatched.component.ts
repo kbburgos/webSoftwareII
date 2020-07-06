@@ -1,11 +1,11 @@
 import { Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-despachados',
-  templateUrl: './despachados.component.html',
-  styleUrls: ['./despachados.component.css']
+  selector: 'app-dispatched',
+  templateUrl: './dispatched.component.html',
+  styleUrls: ['./dispatched.component.css']
 })
-export class DespachadosComponent implements OnInit {
+export class DispatchedComponent implements OnInit {
   listdispatched: Dispatched[];
   cols: any[];
   constructor() { }

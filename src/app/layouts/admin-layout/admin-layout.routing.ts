@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { EnEsperaComponent } from '../../en-espera/en-espera.component';
-import { DespachadosComponent } from '../../despachados/despachados.component';
+import { OnHoldComponent } from '../../on-hold/on-hold.component';
+import { DispatchedComponent } from '../../dispatched/dispatched.component';
 import { ReportNewsComponent } from '../../report-news/report-news.component';
 import { ReportSalesComponent } from '../../report-sales/report-sales.component';
 import { ReportProductComponent } from '../../report-product/report-product.component';
@@ -56,8 +56,8 @@ export const AdminLayoutRoutes: Routes = [
     //     }]
     // }
     { path: 'dashboard',      component: DashboardComponent },
-    { path: 'en-espera',      component: EnEsperaComponent },
-    { path: 'despachados',    component: DespachadosComponent },
+    { path: 'on-hold',        component: OnHoldComponent },
+    { path: 'dispatched',     component: DispatchedComponent },
     { path: 'report-news',    component: ReportNewsComponent },
     { path: 'report-sales',   component: ReportSalesComponent },
     { path: 'report-product', component: ReportProductComponent },

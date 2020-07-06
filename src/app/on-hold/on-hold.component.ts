@@ -1,11 +1,11 @@
 import { Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-en-espera',
-  templateUrl: './en-espera.component.html',
-  styleUrls: ['./en-espera.component.css']
+  selector: 'app-on-hold',
+  templateUrl: './on-hold.component.html',
+  styleUrls: ['./on-hold.component.css']
 })
-export class EnEsperaComponent implements OnInit {
+export class OnHoldComponent implements OnInit {
   listonhold: OnHold[];
   cols: any[];
 

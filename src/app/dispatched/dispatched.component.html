@@ -14,11 +14,15 @@
                                     {{col.header}}
                                     <p-sortIcon [field]="col.field"></p-sortIcon>
                                 </th>
+                                <th>
+                                    ACCIONES
+                                </th>
                             </tr>
                             <tr>
-                                <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                                    <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                <th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid">
+                                    <input pInputText type="text" [style]="{'width':'100%'}" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                                 </th>
+                                
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-dispatched let-columns="columns">
@@ -26,7 +30,11 @@
                                 <td *ngFor="let col of columns">
                                     {{dispatched[col.field]}}
                                 </td>
+                                <td>
+                                    <button pButton type="button"  icon="pi pi-trash" class="ui-button-danger"></button>
+                                </td>
                             </tr>
+
                         </ng-template>
                       </p-table>
                     </div>
@@ -35,4 +43,5 @@
         </div>
     </div>
   </div>
+
   
