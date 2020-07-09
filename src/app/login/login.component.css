@@ -23,10 +23,10 @@ body{
     width: 100vw;
     height: 100vh;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     grid-gap :7rem;
     padding: 0 2rem;
-
+	text-align: center;
 }
 
 .img{
@@ -41,18 +41,14 @@ body{
 
 .login-content{
 	display: flex;
-	justify-content: flex-start;
+	justify-content: center;
 	align-items: center;
 	text-align: center;
 }
 
-.img img{
-	width: 700px;
-}
-
 form{
-	width: 500px;
-	background-color: rgba(255, 255, 255, 0.2);
+	width: 700px;
+	background-color: rgba(0,0,0,.30);
 	box-shadow: 0 5px 15px rgba(0,0,0,.25);
 }
 
@@ -71,8 +67,8 @@ form{
 	position: relative;
     display: grid;
     grid-template-columns: 7% 93%;
-    margin: 25px 0;
-    padding: 5px 0;
+    margin: 25px 5px;
+    padding: 5px 5px;
     border-bottom: 2px solid #ffffff;
 }
 
@@ -102,7 +98,7 @@ form{
 	top: 50%;
 	transform: translateY(-50%);
 	color: rgb(255, 255, 255);
-	font-size: 18px;
+	font-size: 22px;
 	transition: .3s;
 }
 
@@ -137,12 +133,16 @@ form{
 	color: #5fc6d8;
 }
 
+::placeholder{
+	color: white;
+}
+
 .input-div > div > input{
 	position: absolute;
 	left: 0;
 	top: 0;
-	width: 100%;
-	height: 100%;
+	width: 95%;
+	height: 95%;
 	border: none;
 	outline: none;
 	background: none;
@@ -170,8 +170,8 @@ a:hover{
 }
 
 .btn{
-	display: block;
-	width: 100%;
+	display: table-cell;
+	width: 90%;
 	height: 50px;
 	border-radius: 25px;
 	outline: none;
@@ -191,146 +191,103 @@ a:hover{
 }
 
 @media screen and (max-width: 1400px){
-	.container{
-		grid-gap: 7rem;
-  }
-  
+
   form{
-		width: 550px;
-  }
-  
-  .login-content h2{
-    font-size: 2.7rem;
-    margin: 8px 0;
-}
-
-  .img img{
-    width: 600px;
-  }
-}
-
-@media screen and (max-width: 1300px){
-	.container{
-		grid-gap: 6.5rem;
-  }
-  
-  form{
-		width: 500px;
-  }
-  
-  .login-content h2{
-    font-size: 2.7rem;
-    margin: 8px 0;
-}
-
-  .img img{
-    width: 530px;
+		width: 95%;
   }
 }
 
 @media screen and (max-width: 1200px){
-	.container{
-		grid-gap: 5rem;
-  }
-  
-  form{
-		width: 460px;
-  }
-  
-  .login-content h2{
-    font-size: 2.6rem;
-    margin: 8px 0;
-}
 
-  .img img{
-    width: 450px;
+	form{
+		  width: 90%;
+	}
   }
-}
+
 
 @media screen and (max-width: 1024px){
 	form{
-		width: 410px;
+		width: 90%;
 	}
 
-	.login-content h2{
-        font-size: 2.4rem;
-        margin: 8px 0;
-	}
-
-	.img img{
-		width: 350px;
-	}
 }
 
-@media screen and (max-width: 900px){
-	.container{
-		grid-template-columns: 1fr;
+@media screen and (max-width: 991px){
+	form{
+		  width: 100%;
+	  }
+	  .login-content h2{
+		font-size: 2.5rem;
 	}
-
-	.img{
-		display: none;
-	}
-
-	.wave{
-		display: none;
-	}
-
-	.login-content{
-		justify-content: center;
   }
-  
-  form{
-		width: 780px;
-	}
-}
 
 @media screen and (max-width: 815px){
   form{
-		width: 710px;
+		width: 100%;
+	}
+	.login-content h2{
+		font-size: 2.4rem;
 	}
 }
 
 @media screen and (max-width: 780px){
 
-  
-  form{
-		width: 650px;
+	.login-content h2{
+		font-size: 2.3rem;
 	}
 }
 
-@media screen and (max-width: 714px){
-  form{
-		width: 630px;
+@media screen and (max-width: 767px){
+
+	.login-content h2{
+		font-size: 2.2rem;
 	}
 }
 
 @media screen and (max-width: 661px){
-  form{
-		width: 570px;
+
+	.login-content h2{
+		font-size: 2.1rem;
 	}
 }
 
 @media screen and (max-width: 610px){
   form{
-		width: 500px;
+		width: 95%;
+	}
+
+	.login-content h2{
+		font-size: 2.0rem;
 	}
 }
 
 @media screen and (max-width: 530px){
   form{
-		width: 400px;
+		width: 90%;
+	}
+
+	.login-content h2{
+		font-size: 1.9rem;
 	}
 }
 
 
 @media screen and (max-width: 430px){
   form{
-		width: 300px;
+		width: 90%;
+	}
+
+	.login-content h2{
+		font-size: 1.8rem;
 	}
 }
 
 @media screen and (max-width: 330px){
   form{
-		width: 280px;
+		width: 85%;
+	}
+
+	.login-content h2{
+		font-size: 1.7rem;
 	}
 }
