@@ -9,6 +9,7 @@ import { DispatchedComponent } from '../../dispatched/dispatched.component';
 import { ReportNewsComponent } from '../../report-news/report-news.component';
 import { ReportSalesComponent } from '../../report-sales/report-sales.component';
 import { ReportProductComponent } from '../../report-product/report-product.component';
+import { ProductsComponent } from '../../products/products.component';
 import { TypographyComponent } from '../../typography/typography.component';
 import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
@@ -53,6 +54,7 @@ import {DialogModule} from 'primeng/dialog';
     ReportNewsComponent,
     ReportSalesComponent,
     ReportProductComponent,
+    ProductsComponent,
     TypographyComponent,
     IconsComponent,
     MapsComponent,
