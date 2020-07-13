@@ -10,9 +10,7 @@ import { ReportNewsComponent } from '../../report-news/report-news.component';
 import { ReportSalesComponent } from '../../report-sales/report-sales.component';
 import { ReportProductComponent } from '../../report-product/report-product.component';
 import { ProductsComponent } from '../../products/products.component';
-import { TypographyComponent } from '../../typography/typography.component';
-import { IconsComponent } from '../../icons/icons.component';
-import { MapsComponent } from '../../maps/maps.component';
+import { PromotionsComponent } from '../../promotions/promotions.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import {MatButtonModule} from '@angular/material/button';
@@ -55,9 +53,7 @@ import {DialogModule} from 'primeng/dialog';
     ReportSalesComponent,
     ReportProductComponent,
     ProductsComponent,
-    TypographyComponent,
-    IconsComponent,
-    MapsComponent,
+    PromotionsComponent,
     NotificationsComponent,
     UpgradeComponent,
   ]

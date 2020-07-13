@@ -1,0 +1,50 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Lista de promociones</h4>
+                    </div>
+                    <div class="card-body">
+                      <p-table [columns]="cols" [value]="listpromotions" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="3" #dt  >
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                </th>
+                                <th>
+                                    ACCIONES
+                                </th>
+                            </tr>
+                            <tr>
+                                <th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid">
+                                    <input pInputText type="text" [style]="{'width':'100%'}" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                </th>
+                                
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-promotions let-columns="columns">
+                            <tr>
+                                <td *ngFor="let col of columns">
+                                    {{promotions[col.field]}}
+                                </td>
+                                <td>
+                                    <div class="ui-dialog-buttonpane">
+                                        <button pButton type="button" icon="pi pi-pencil" class="ui-button-secundary"></button>
+                                        <button pButton type="button"  icon="pi pi-trash" class="ui-button-danger"></button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </ng-template>
+                      </p-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  

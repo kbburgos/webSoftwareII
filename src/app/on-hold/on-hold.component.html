@@ -7,7 +7,7 @@
                       <h4 class="card-title">Lista de pedidos en espera</h4>
                   </div>
                   <div class="card-body">
-                    <p-table [columns]="cols" [value]="listonhold" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="3" #dt  >
+                    <p-table [columns]="cols" [value]="listonhold" [(selection)]="selectedOnHold" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="3" #dt  >
                       
                       <ng-template pTemplate="header" let-columns>
                           <tr>
@@ -32,9 +32,9 @@
                                   {{onhold[col.field]}}
                               </td>
                               <td>
-                                <div class="form-group text-center">
-                                    <button pButton type="button"  icon="pi pi-file-o" class="ui-button-secundary"></button>
-                                    <button pButton type="button"  icon="pi pi-trash" class="ui-button-danger"></button>
+                                <div class="ui-dialog-buttonpane">
+                                    <button pButton type="button" (click)="showDialogOnHold()" icon="pi pi-file-o" class="ui-button-secundary"></button>
+                                    <button pButton type="button"  (click)="deleteOnHold()" icon="pi pi-trash" class="ui-button-danger"></button>
                                 </div>
                             </td>
                           </tr>
@@ -47,3 +47,6 @@
       </div>
   </div>
 </div>
+<p-dialog header="Detalle de pedido" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true">
+    <h2>Hola</h2>
+</p-dialog>
