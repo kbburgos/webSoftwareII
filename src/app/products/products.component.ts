@@ -6,6 +6,7 @@ import { Component, OnInit} from '@angular/core';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
+  display: boolean = false;
   listproducts: Products[];
   cols: any[];
   constructor() { }
@@ -29,6 +30,10 @@ export class ProductsComponent implements OnInit {
       {field: 'stock', header: 'STOCK'},
       {field: 'costoU', header: 'COSTO UNITARIO'},
     ];
+  }
+
+  showDialogProduct() {
+    this.display = true;
   }
 }
 

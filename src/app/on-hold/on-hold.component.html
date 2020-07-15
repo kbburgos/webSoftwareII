@@ -47,6 +47,25 @@
       </div>
   </div>
 </div>
-<p-dialog header="Detalle de pedido" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true">
-    <h2>Hola</h2>
+<p-dialog [(visible)]="display" [responsive]="true" showEffect="fade">
+    <p-header>
+        Detalle de pedido
+    </p-header>
+    <div>
+        <p-card header="Pedido">
+            Item 1<br> Item 2<br> Item 3<br>
+        </p-card>
+        <p-card header="Repartidor">
+            <div class="p-grid">
+                <div class="p-col-12"><p-radioButton name="groupname" value="Repartidor1" label="Repartidor 1" [(ngModel)]="selectedValue"></p-radioButton></div>
+                <div class="p-col-12"><p-radioButton name="groupname" value="Repartidor2" label="Repartidor 2"  [(ngModel)]="selectedValue"></p-radioButton></div>
+                <div class="p-col-12"><p-radioButton name="groupname" value="Repartidor3" label="Repartidor 3"  [(ngModel)]="selectedValue"></p-radioButton></div>
+            </div>
+        </p-card>
+    </div>
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Asignar pedido"></button>
+        <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Pedido entregado"></button>
+        <button type="button" pButton icon="pi pi-times" (click)="display=false" label="Cancelar pedido" class="ui-button-secondary"></button>
+    </p-footer>
 </p-dialog>

@@ -5,6 +5,7 @@
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <h4 class="card-title">Lista de promociones</h4>
+                        <button type="text" (click)="showDialogPtomotions()" pButton icon="pi pi-plus" label="Nueva promoci&oacute;n"></button>
                     </div>
                     <div class="card-body">
                       <p-table [columns]="cols" [value]="listpromotions" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="3" #dt  >
@@ -32,7 +33,7 @@
                                 </td>
                                 <td>
                                     <div class="ui-dialog-buttonpane">
-                                        <button pButton type="button" icon="pi pi-pencil" class="ui-button-secundary"></button>
+                                        <button pButton type="button" (click)="showDialogPromotions()" icon="pi pi-pencil" class="ui-button-secundary"></button>
                                         <button pButton type="button"  icon="pi pi-trash" class="ui-button-danger"></button>
                                     </div>
                                 </td>
@@ -46,5 +47,30 @@
         </div>
     </div>
   </div>
+
+  <p-dialog [(visible)]="display" [responsive]="true" showEffect="fade">
+    <p-header>
+        Editar Promoci&oacute;n
+    </p-header>
+    <div class="p-col-12 p-md-4">
+        <h5>Producto</h5>
+        <textarea rows="5" cols="30" pInputTextarea autoResize="autoResize"></textarea>
+    </div>
+    <div class="p-col-12 p-md-4">
+        <h5>Fecha de inicio</h5>
+        <p-calendar [(ngModel)]="date1" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="2020:2060"></p-calendar>
+    </div>
+    <div class="p-col-12 p-md-4">
+        <h5>Fecha de finalizaci&oacute;n</h5>
+        <p-calendar [(ngModel)]="date2" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="2020:2060"></p-calendar>
+    </div>
+    <div class="p-col-12 p-md-4">
+        <h5>Condiciones</h5>
+        <textarea rows="5" cols="30" pInputTextarea autoResize="autoResize"></textarea>
+    </div>
+    <p-footer>
+        <button type="button" pButton icon="pi pi-save" (click)="display=false" label="Modificar"></button>
+    </p-footer>
+</p-dialog>
 
   

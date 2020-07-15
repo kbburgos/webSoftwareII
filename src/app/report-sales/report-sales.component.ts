@@ -6,6 +6,7 @@ import { Component, OnInit} from '@angular/core';
   styleUrls: ['./report-sales.component.css']
 })
 export class ReportSalesComponent implements OnInit {
+  display: boolean = false;
   listreportsales: ReportSales[];
   cols: any[];
   constructor() { }
@@ -28,6 +29,9 @@ export class ReportSalesComponent implements OnInit {
     ];
   }
 
+  showDialogSales() {
+    this.display = true;
+  }
 }
 
 export interface ReportSales {

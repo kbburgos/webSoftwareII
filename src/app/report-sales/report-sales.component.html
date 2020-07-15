@@ -14,10 +14,13 @@
                                   {{col.header}}
                                   <p-sortIcon [field]="col.field"></p-sortIcon>
                               </th>
+                              <th>
+                                ACCIONES
+                            </th>
                           </tr>
                           <tr>
                               <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                                  <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                  <input pInputText type="text" [style]="{'width':'100%'}"  (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                               </th>
                           </tr>
                       </ng-template>
@@ -26,6 +29,11 @@
                               <td *ngFor="let col of columns">
                                   {{reportsales[col.field]}}
                               </td>
+                              <td>
+                                <div class="ui-dialog-buttonpane">
+                                    <button pButton type="button" (click)="showDialogSales()" icon="pi pi-file-o" class="ui-button-secundary"></button>
+                                </div>
+                            </td>
                           </tr>
                       </ng-template>
                     </p-table>
@@ -35,3 +43,15 @@
       </div>
   </div>
 </div>
+
+<p-dialog [(visible)]="display" [responsive]="true" showEffect="fade">
+    <p-header>
+        Detalle de pedido
+    </p-header>
+    Item 1<br>
+    Item 2<br>
+    Item 3<br>
+    <p-footer>
+        <button type="button" pButton icon="pi pi-save" (click)="display=false" label="Modificar"></button>
+    </p-footer>
+</p-dialog>

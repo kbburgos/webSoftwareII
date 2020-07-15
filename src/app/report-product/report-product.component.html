@@ -17,7 +17,7 @@
                           </tr>
                           <tr>
                               <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                                  <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                                  <input pInputText type="text" [style]="{'width':'100%'}" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                               </th>
                           </tr>
                       </ng-template>

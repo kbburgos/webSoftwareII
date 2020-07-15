@@ -6,6 +6,10 @@ import { Component, OnInit} from '@angular/core';
   styleUrls: ['./promotions.component.css']
 })
 export class PromotionsComponent implements OnInit {
+  display: boolean = false;
+  date1: Date;
+  date2: Date;
+  calendary: any;
   listpromotions: Promotions[];
   cols: any[];
   constructor() { }
@@ -26,7 +30,23 @@ export class PromotionsComponent implements OnInit {
       {field: 'vigencia', header: 'FECHA DE VIGENCIA'},
       {field: 'condicion', header: 'CONDICION'},
     ];
+
+    this.calendary={
+      firstDayOfWeek: 1,
+      dayNames: ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'],
+      dayNamesShort: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
+      dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+      monthNames: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+      monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+      today: 'Hoy',
+      clear: 'Borrar'
+    }
   }
+
+  showDialogPromotions() {
+    this.display = true;
+  }
+
 }
 
 export interface Promotions {

@@ -4,7 +4,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title">Lista de Productos</h4>
+                            <h4 class="card-title">Lista de Productos</h4>
+                            <button type="text" (click)="showDialogProduct()" pButton icon="pi pi-plus" label="Nuevo producto"></button>
+                        
                     </div>
                     <div class="card-body">
                       <p-table [columns]="cols" [value]="listproducts" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="3" #dt  >
@@ -31,7 +33,10 @@
                                     {{products[col.field]}}
                                 </td>
                                 <td>
-                                    <button pButton type="button"  icon="pi pi-trash" class="ui-button-danger"></button>
+                                    <div class="ui-dialog-buttonpane">
+                                        <button pButton type="button" (click)="showDialogProduct()" icon="pi pi-file-o" class="ui-button-secundary"></button>
+                                        <button pButton type="button"  icon="pi pi-trash" class="ui-button-danger"></button>
+                                    </div>
                                 </td>
                             </tr>
 
@@ -43,5 +48,30 @@
         </div>
     </div>
   </div>
+
+  <p-dialog [(visible)]="display" [responsive]="true" showEffect="fade">
+    <p-header>
+        Modificar Producto
+    </p-header>
+    <div class="p-col-12 p-md-3">
+            <h5>Nombre del producto</h5>
+            <input type="text" pInputText/>  
+    </div>    
+    <div class="p-col-12 p-md-3">
+        <h5>Precio unitario</h5>
+        <input type="text" pInputText/>  
+    </div> 
+    <div class="p-col-12 p-md-3">
+        <h5>Stock</h5>
+        <input type="text" pInputText/>  
+    </div> 
+    <div class="p-col-12 p-md-3">
+        <h5>Categor&iacute;a</h5>
+        <input type="text" pInputText/>  
+    </div>    
+    <p-footer>
+        <button type="button" pButton icon="pi pi-save" (click)="display=false" label="Modificar"></button>
+    </p-footer>
+</p-dialog>
 
   

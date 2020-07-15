@@ -16,6 +16,7 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatRippleModule} from '@angular/material/core';
+import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
@@ -25,6 +26,10 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
+import {CardModule} from 'primeng/card';
+import {RadioButtonModule} from 'primeng/radiobutton';
+import {CalendarModule} from 'primeng/calendar';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 @NgModule({
   imports: [
@@ -39,11 +44,16 @@ import {DialogModule} from 'primeng/dialog';
     MatSelectModule,
     MatTooltipModule,
     MatTableModule,
+    MatIconModule,
     MatDialogModule,
     TableModule,
     ButtonModule,
     DialogModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    CardModule,
+    RadioButtonModule,
+    CalendarModule,
+    InputTextareaModule
   ],
   declarations: [
     DashboardComponent,
