@@ -18,6 +18,9 @@ import { ReportNewsComponent } from './report-news/report-news.component';
 import { ReportSalesComponent } from './report-sales/report-sales.component';
 import { ReportProductComponent } from './report-product/report-product.component';
 import { PromotionsComponent } from './promotions/promotions.component';
+import { UsersComponent } from './users/users.component';
+import { CustomersComponent } from './customers/customers.component';
+import { ConflictingComponent } from './conflicting/conflicting.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { UpgradeComponent } from './upgrade/upgrade.component';
 import {

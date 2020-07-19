@@ -7,7 +7,10 @@ import { ReportNewsComponent } from '../../report-news/report-news.component';
 import { ReportSalesComponent } from '../../report-sales/report-sales.component';
 import { ReportProductComponent } from '../../report-product/report-product.component';
 import { ProductsComponent } from '../../products/products.component';
+import { UsersComponent } from '../../users/users.component';
 import { PromotionsComponent } from '../../promotions/promotions.component';
+import { CustomersComponent } from '../../customers/customers.component';
+import { ConflictingComponent } from '../../conflicting/conflicting.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 
@@ -62,6 +65,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'report-product', component: ReportProductComponent },
     { path: 'products',       component: ProductsComponent},
     { path: 'promotions',     component: PromotionsComponent},
+    { path: 'users',          component: UsersComponent},
+    { path: 'customers',      component: CustomersComponent },
+    { path: 'conflicting',    component: ConflictingComponent },
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
 ];

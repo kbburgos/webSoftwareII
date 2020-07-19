@@ -4,11 +4,10 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title">Lista de promociones</h4>
-                        <button type="text" (click)="showDialogPtomotions()" pButton icon="pi pi-plus" label="Nueva promoci&oacute;n"></button>
+                        <h4 class="card-title">Lista de clientes registrados</h4>
                     </div>
                     <div class="card-body">
-                      <p-table [columns]="cols" [value]="listpromotions" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="3" #dt  >
+                      <p-table [columns]="cols" [value]="listcustomers" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="3" #dt  >
                         <ng-template pTemplate="header" let-columns>
                             <tr>
                                 <th *ngFor="let col of columns" [pSortableColumn]="col.field">
@@ -26,14 +25,14 @@
                                 
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-promotions let-columns="columns">
+                        <ng-template pTemplate="body" let-customers let-columns="columns">
                             <tr>
                                 <td *ngFor="let col of columns">
-                                    {{promotions[col.field]}}
+                                    {{customers[col.field]}}
                                 </td>
                                 <td>
                                     <div class="ui-dialog-buttonpane">
-                                        <button pButton type="button" (click)="showDialogPromotions()" icon="pi pi-pencil" class="ui-button-secundary"></button>
+                                        <button pButton type="button" (click)="showDialogCustomers()" icon="pi pi-pencil" class="ui-button-secundary"></button>
                                         <button pButton type="button"  icon="pi pi-trash" class="ui-button-danger"></button>
                                     </div>
                                 </td>
@@ -48,29 +47,30 @@
     </div>
   </div>
 
-<p-dialog [(visible)]="display" [responsive]="true" showEffect="fade">
+  <p-dialog [(visible)]="display" [responsive]="true" showEffect="fade">
     <p-header>
-        Modificar Producto
+        Editar cliente
     </p-header>
-    <div class="p-col-12 p-md-4">
-        <h5>Producto</h5>
-        <textarea rows="5" cols="30" pInputTextarea autoResize="autoResize"></textarea>
-    </div>
-    <div class="p-col-12 p-md-4">
-        <h5>Fecha de inicio</h5>
-        <p-calendar [(ngModel)]="date1" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="2020:2060"></p-calendar>
-    </div>
-    <div class="p-col-12 p-md-4">
-        <h5>Fecha de finalizaci&oacute;n</h5>
-        <p-calendar [(ngModel)]="date2" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="2020:2060"></p-calendar>
-    </div>
-    <div class="p-col-12 p-md-4">
-        <h5>Condiciones</h5>
-        <textarea rows="5" cols="30" pInputTextarea autoResize="autoResize"></textarea>
+    <div class="p-col-12 p-md-3">
+            <h5>Nombre</h5>
+            <input type="text" pInputText/>  
+    </div>    
+    <div class="p-col-12 p-md-3">
+        <h5>Apellido</h5>
+        <input type="text" pInputText/>  
+    </div> 
+    <div class="p-col-12 p-md-3">
+        <h5>Correo</h5>
+        <input type="text" pInputText/>  
+    </div> 
+    <div class="p-col-12 p-md-3">
+        <h5>Tel&eacute;fono</h5>
+        <input type="text" pInputText/>  
     </div>
     <p-footer>
-        <button type="button" pButton icon="pi pi-save" (click)="display=false" label="Modificar"></button>
+        <button type="button" pButton icon="pi pi-save" (click)="display=false" label="Editar"></button>
     </p-footer>
 </p-dialog>
+
 
   
