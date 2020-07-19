@@ -3,19 +3,17 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
-import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { OnHoldComponent } from '../../on-hold/on-hold.component';
-import { DispatchedComponent } from '../../dispatched/dispatched.component';
-import { ReportNewsComponent } from '../../report-news/report-news.component';
-import { ReportSalesComponent } from '../../report-sales/report-sales.component';
-import { ReportProductComponent } from '../../report-product/report-product.component';
-import { ProductsComponent } from '../../products/products.component';
-import { PromotionsComponent } from '../../promotions/promotions.component';
-import { UsersComponent } from '../../users/users.component';
-import { CustomersComponent } from '../../customers/customers.component';
-import { ConflictingComponent } from '../../conflicting/conflicting.component';
-import { NotificationsComponent } from '../../notifications/notifications.component';
-import { UpgradeComponent } from '../../upgrade/upgrade.component';
+import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
+import { OnHoldComponent } from '../../pages/on-hold/on-hold.component';
+import { DispatchedComponent } from '../../pages/dispatched/dispatched.component';
+import { ReportNewsComponent } from '../../pages/report-news/report-news.component';
+import { ReportSalesComponent } from '../../pages/report-sales/report-sales.component';
+import { ReportProductComponent } from '../../pages/report-product/report-product.component';
+import { ProductsComponent } from '../../pages/products/products.component';
+import { PromotionsComponent } from '../../pages/promotions/promotions.component';
+import { UsersComponent } from '../../pages/users/users.component';
+import { CustomersComponent } from '../../pages/customers/customers.component';
+import { ConflictingComponent } from '../../pages/conflicting/conflicting.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatRippleModule} from '@angular/material/core';
@@ -70,8 +68,6 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     UsersComponent,
     CustomersComponent,
     ConflictingComponent,
-    NotificationsComponent,
-    UpgradeComponent,
   ]
 })
 

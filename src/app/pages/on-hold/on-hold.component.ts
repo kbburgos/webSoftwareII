@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { OnHold } from '../resource/interface/onhold';
+import { OnHold } from '../../resource/interface/onhold';
 
 @Component({
   selector: 'app-on-hold',

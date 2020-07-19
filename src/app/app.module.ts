@@ -10,24 +10,22 @@ import { ComponentsModule } from './components/components.module';
 
 import { AppComponent } from './app.component';
 
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { OnHoldComponent } from './on-hold/on-hold.component';
-import { DispatchedComponent} from './dispatched/dispatched.component';
-import { ProductsComponent } from './products/products.component';
-import { ReportNewsComponent } from './report-news/report-news.component';
-import { ReportSalesComponent } from './report-sales/report-sales.component';
-import { ReportProductComponent } from './report-product/report-product.component';
-import { PromotionsComponent } from './promotions/promotions.component';
-import { UsersComponent } from './users/users.component';
-import { CustomersComponent } from './customers/customers.component';
-import { ConflictingComponent } from './conflicting/conflicting.component';
-import { NotificationsComponent } from './notifications/notifications.component';
-import { UpgradeComponent } from './upgrade/upgrade.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { OnHoldComponent } from './pages/on-hold/on-hold.component';
+import { DispatchedComponent} from './pages/dispatched/dispatched.component';
+import { ProductsComponent } from './pages/products/products.component';
+import { ReportNewsComponent } from './pages/report-news/report-news.component';
+import { ReportSalesComponent } from './pages/report-sales/report-sales.component';
+import { ReportProductComponent } from './pages/report-product/report-product.component';
+import { PromotionsComponent } from './pages/promotions/promotions.component';
+import { UsersComponent } from './pages/users/users.component';
+import { CustomersComponent } from './pages/customers/customers.component';
+import { ConflictingComponent } from './pages/conflicting/conflicting.component';
 import {
   AgmCoreModule
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   imports: [

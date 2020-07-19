@@ -1,18 +1,16 @@
 import { Routes } from '@angular/router';
 
-import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { OnHoldComponent } from '../../on-hold/on-hold.component';
-import { DispatchedComponent } from '../../dispatched/dispatched.component';
-import { ReportNewsComponent } from '../../report-news/report-news.component';
-import { ReportSalesComponent } from '../../report-sales/report-sales.component';
-import { ReportProductComponent } from '../../report-product/report-product.component';
-import { ProductsComponent } from '../../products/products.component';
-import { UsersComponent } from '../../users/users.component';
-import { PromotionsComponent } from '../../promotions/promotions.component';
-import { CustomersComponent } from '../../customers/customers.component';
-import { ConflictingComponent } from '../../conflicting/conflicting.component';
-import { NotificationsComponent } from '../../notifications/notifications.component';
-import { UpgradeComponent } from '../../upgrade/upgrade.component';
+import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
+import { OnHoldComponent } from '../../pages/on-hold/on-hold.component';
+import { DispatchedComponent } from '../../pages/dispatched/dispatched.component';
+import { ReportNewsComponent } from '../../pages/report-news/report-news.component';
+import { ReportSalesComponent } from '../../pages/report-sales/report-sales.component';
+import { ReportProductComponent } from '../../pages/report-product/report-product.component';
+import { ProductsComponent } from '../../pages/products/products.component';
+import { UsersComponent } from '../../pages/users/users.component';
+import { PromotionsComponent } from '../../pages/promotions/promotions.component';
+import { CustomersComponent } from '../../pages/customers/customers.component';
+import { ConflictingComponent } from '../../pages/conflicting/conflicting.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -68,6 +66,4 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'users',          component: UsersComponent},
     { path: 'customers',      component: CustomersComponent },
     { path: 'conflicting',    component: ConflictingComponent },
-    { path: 'notifications',  component: NotificationsComponent },
-    { path: 'upgrade',        component: UpgradeComponent },
 ];
