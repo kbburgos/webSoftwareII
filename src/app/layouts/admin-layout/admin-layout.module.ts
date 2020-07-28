@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+//Components
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { OnHoldComponent } from '../../pages/on-hold/on-hold.component';
@@ -14,6 +16,10 @@ import { PromotionsComponent } from '../../pages/promotions/promotions.component
 import { UsersComponent } from '../../pages/users/users.component';
 import { CustomersComponent } from '../../pages/customers/customers.component';
 import { ConflictingComponent } from '../../pages/conflicting/conflicting.component';
+
+//Services
+import{ ProductsService } from '../../resource/service/products.service';
+
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatRippleModule} from '@angular/material/core';
@@ -68,6 +74,9 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     UsersComponent,
     CustomersComponent,
     ConflictingComponent,
+  ],
+  providers: [
+    ProductsService
   ]
 })
 
