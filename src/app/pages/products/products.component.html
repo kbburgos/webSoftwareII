@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-header card-header-danger">
                             <h4 class="card-title">Lista de Productos</h4>
-                            <button type="text" (click)="showDialogProduct()" pButton icon="pi pi-plus" label="Nuevo producto"></button>
+                            <button type="text" (click)="showDialogProduct()" pButton icon="pi pi-plus" label="&nbsp; Nuevo producto"></button>
                         
                     </div>
                     <div class="card-body">
@@ -31,6 +31,7 @@
                                 <td>
                                     <div class="ui-dialog-buttonpane">
                                         <button pButton type="button" (click)="showDialogProduct()" icon="pi pi-file-o" class="ui-button-secundary"></button>
+                                        &nbsp;
                                         <button pButton type="button"  icon="pi pi-trash" class="ui-button-danger"></button>
                                     </div>
                                 </td>
@@ -46,7 +47,7 @@
   </div>
 
   <p-dialog [(visible)]="display" [responsive]="true" showEffect="fade">
-    <p-header>
+    <p-header >
         Modificar Producto
     </p-header>
     <div class="p-col-12 p-md-3">
