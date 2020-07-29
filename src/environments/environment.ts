@@ -14,5 +14,15 @@ export const environment = {
     messagingSenderId: "1021916524711",
     appId: "1:1021916524711:web:53ad66cdb16967169eeb82",
     measurementId: "G-0WPXHE9SG1"
+  },
+  nombresColecciones: 
+  {
+    promociones: "promociones",
+    producto: "producto"
+  },
+  estados: {
+    activo: "A",
+    inactivo: "I",
+    anulado: "AN"
   }
 };

@@ -8,17 +8,28 @@ import { ComponentsModule } from './components/components.module';
 
 import { AppComponent } from './app.component';
 
+
+//firebase
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from "@angular/fire/firestore";
+
 
 import {AgmCoreModule} from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './pages/login/login.component';
 
+
+import { ProductoService  } from './services/producto.service'
+
+
+
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
+    AngularFirestoreModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
@@ -37,7 +48,7 @@ import { LoginComponent } from './pages/login/login.component';
     LoginComponent,
 
   ],
-  providers: [],
+  providers: [ProductoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

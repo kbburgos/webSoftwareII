@@ -1,7 +1,8 @@
 export class Products {
-    $idproducto: string;
-    categoria: string;
     descripcion: string;
+    foto: string;
+    idCategoria: string;
+    idProducto?: string;
     nombre: string;
     precio: number;
     stock: number;

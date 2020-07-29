@@ -18,7 +18,8 @@ import { CustomersComponent } from '../../pages/customers/customers.component';
 import { ConflictingComponent } from '../../pages/conflicting/conflicting.component';
 
 //Services
-import{ ProductsService } from '../../resource/service/products.service';
+import{ ProductoService } from '../../services/producto.service';
+import { PromocionesService } from '../../services/promociones.service'
 
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
@@ -76,7 +77,8 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     ConflictingComponent,
   ],
   providers: [
-    ProductsService
+    ProductoService,
+    PromocionesService
   ]
 })
 
