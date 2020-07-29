@@ -24,5 +24,10 @@ export const environment = {
     activo: "A",
     inactivo: "I",
     anulado: "AN"
+  },
+  rutas:{
+    login: "https://omipalisf2.herokuapp.com/api/login/usuario",
+    refresh: "https://omipalisf2.herokuapp.com/api/login/token",
+    logOut: "https://omipalisf2.herokuapp.com/api/login/reject"
   }
 };

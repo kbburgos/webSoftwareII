@@ -9,7 +9,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form">
+				<form class="login100-form " [formGroup]="form">
 					<span class="login100-form-logo">
 						<img class="avatar" src="/assets/img/logoOmiPali.jpg">
 					</span>
@@ -19,12 +19,12 @@
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Ingese usuario">
-						<input class="input100" type="text" name="correo" placeholder="Correo electrónico">
+						<input class="input100" type="text" name="correo" placeholder="Correo electrónico" formControlName="email">
 						<span class="focus-input100"><i class="material-icons" style="color: white;">account_box</i></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Ingrese Clave">
-						<input class="input100" type="password" name="pass" placeholder="Clave">
+						<input class="input100" type="password" name="pass" placeholder="Clave" formControlName="pass">
 						<span class="focus-input100"><i class="material-icons" style="color: white;">lock</i></span>
 						
 					</div>

@@ -6,7 +6,7 @@ import {
   FormControl,
   Validators,
 } from "@angular/forms";
-
+import { AuthService } from "app/services/auth.service";
 
 @Component({
   selector: "app-login",
@@ -15,15 +15,17 @@ import {
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
-  constructor(private formBuilder: FormBuilder, private router: Router) {}
+  constructor(private formBuilder: FormBuilder, private router: Router, private auth: AuthService) {}
 
   ngOnInit(): void {
     this.buildForm();
   }
 
  ingresar() {
-   console.log("hello")
-    this.router.navigateByUrl("/dashboard");
+
+    if(this.form.valid){      
+      this.auth.login(this.form.value.email, this.form.value.pass);
+    }
   }
 
   private buildForm() {
