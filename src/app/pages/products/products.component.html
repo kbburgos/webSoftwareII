@@ -9,7 +9,7 @@
                         
                     </div>
                     <div class="card-body">
-                      <p-table [columns]="cols" [value]="listproducts" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="3" #dt  >
+                      <p-table [columns]="cols" [value]="productos" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="3" #dt  >
                         <ng-template pTemplate="header" let-columns>
                             <tr>
                                 <th>NOMBRE</th>
@@ -17,17 +17,19 @@
                                 <th>CATEGORIA</th>
                                 <th>PRECIO</th>
                                 <th>STOCK</th>
+                                <th>FOTO</th>
                                 <th>ACCIONES</th>
                             </tr>
                             
                         </ng-template>
-                        <ng-template pTemplate="body" let-products>
-                            <tr *ngFor="let products of listproducts">
+                        <ng-template pTemplate="body">
+                            <tr *ngFor="let products of productos">
                                 <td> {{products.nombre}} </td>
-                                <td> {{products.descipcion}} </td>
-                                <td> {{products.categoria}} </td>
+                                <td> {{products.descripcion}} </td>
+                                <td> {{products.idCategoria}} </td>
                                 <td> {{products.precio}} </td>
                                 <td> {{products.stock}} </td>
+                                <td><img src="{{products.foto}}" width="50" height="50"></td>
                                 <td>
                                     <div class="ui-dialog-buttonpane">
                                         <button pButton type="button" (click)="showDialogProduct()" icon="pi pi-file-o" class="ui-button-secundary"></button>
