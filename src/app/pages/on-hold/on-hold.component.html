@@ -7,37 +7,35 @@
                       <h4 class="card-title">Lista de pedidos en espera</h4>
                   </div>
                   <div class="card-body">
-                    <p-table [columns]="cols" [value]="listonhold" [(selection)]="selectedOnHold" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="3" #dt  >
-                      
+                    <!--<p-table [columns]="cols" [value]="pedidos" [(selection)]="selectedOnHold" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="10" #dt  >-->
+                    <p-table [columns]="cols" [value]="pedidos" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="6" #dt  >  
                       <ng-template pTemplate="header" let-columns>
-                          <tr>
-                              <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                                  {{col.header}}
-                                  <p-sortIcon [field]="col.field"></p-sortIcon>
-                              </th>
-                              <th>
-                                ACCIONES
-                            </th>
-                          </tr>
-                          <tr>
-                            <th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid">
-                                <input pInputText type="text" [style]="{'width':'100%'}" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                            </th>
-                            
+                        <tr>
+                            <th>PEDIDO</th>
+                            <th>COMPRA</th>
+                            <th>PRODUCTOS</th>
+                            <th>CANTIDAD</th>
+                            <th>SUBTOTAL</th>
+                            <th>CUBIERTOS</th>
+                            <th>ACCIONES</th>
                         </tr>
                       </ng-template>
-                      <ng-template pTemplate="body" let-onhold let-columns="columns">
-                          <tr>
-                              <td *ngFor="let col of columns">
-                                  {{onhold[col.field]}}
-                              </td>
-                              <td>
+                      <ng-template pTemplate="body">
+                        <tr *ngFor="let pedido of pedidos">
+                            <td> {{pedido.idPedido}} </td>
+                            <td> {{pedido.idcompra}} </td>
+                            <td> {{pedido.productos}} </td>
+                            <td> {{pedido.cantidad}} </td>
+                            <td> {{pedido.subtotal}} </td>
+                            <td> {{pedido.cubiertos}} </td>
+                            <td>
                                 <div class="ui-dialog-buttonpane">
-                                    <button pButton type="button" (click)="showDialogOnHold()" icon="pi pi-file-o" class="ui-button-secundary"></button>
-                                    <button pButton type="button"  (click)="deleteOnHold()" icon="pi pi-trash" class="ui-button-danger"></button>
+                                    <button pButton type="button" (click)="showDialogOnHold()" icon="pi pi-user-plus" class="ui-button-secundary"></button>
+                                    &nbsp;
                                 </div>
                             </td>
-                          </tr>
+                        </tr> 
+                        
                       </ng-template>
                     </p-table>
                     
@@ -49,19 +47,42 @@
 </div>
 <p-dialog [(visible)]="display" [responsive]="true" showEffect="fade">
     <p-header>
-        Detalle de pedido
+        Asignación del Repartidor
     </p-header>
     <div>
-        <p-card header="Pedido">
-            Item 1<br> Item 2<br> Item 3<br>
-        </p-card>
         <p-card header="Repartidor">
+            <p-table [columns]="cols" [value]="repartidores" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="6" #dt  >  
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                      <th>NOMBRES</th>
+                      <th>APELLIDOS</th>
+                      <th>TELEFONO</th>
+                      <th>PEDIDOS</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body">
+                    <tr *ngFor="let repartidor of repartidores">
+                        <td> {{repartidor.nombre}} </td>
+                        <td> {{repartidor.apellido}} </td>
+                        <td> {{repartidor.telefono}} </td>
+                        <td> {{repartidor.pedidos}} </td>
+                        <td>
+                            <div class="ui-dialog-buttonpane">
+                                <button pButton type="button" (click)="showDialogOnHold()" icon="pi pi-user-plus" class="ui-button-secundary"></button>
+                                &nbsp;
+                            </div>
+                        </td>
+                    </tr>
+                  </ng-template>
+            </p-table>  
+        </p-card>
+        <!--<p-card header="Repartidor">
             <div class="p-grid">
                 <div class="p-col-12"><p-radioButton name="groupname" value="Repartidor1" label="Repartidor 1" [(ngModel)]="selectedValue"></p-radioButton></div>
                 <div class="p-col-12"><p-radioButton name="groupname" value="Repartidor2" label="Repartidor 2"  [(ngModel)]="selectedValue"></p-radioButton></div>
                 <div class="p-col-12"><p-radioButton name="groupname" value="Repartidor3" label="Repartidor 3"  [(ngModel)]="selectedValue"></p-radioButton></div>
             </div>
-        </p-card>
+        </p-card>-->
     </div>
     <p-footer>
         <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Asignar pedido"></button>

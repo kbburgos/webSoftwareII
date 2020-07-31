@@ -4,7 +4,7 @@ import {
   AngularFirestoreDocument,
 } from "@angular/fire/firestore";
 
-import { Orders } from 'app/resource/interface/orders';
+import { Deliveryman } from 'app/resource/interface/deliveryman';
 import { environment } from "../../environments/environment";
 import { map } from "rxjs/operators";
 
@@ -12,24 +12,22 @@ import { map } from "rxjs/operators";
 @Injectable({
   providedIn: 'root'
 })
-export class PedidoService {
-
-  PedidosDoc: AngularFirestoreDocument<Orders>;
+export class DeliverymanService {
 
 
   constructor(private firebase: AngularFirestore) { }
 
-  getPedidos() {
+  getRepartidores() {
     return this.firebase
-      .collection(environment.nombresColecciones.pedido)
+      .collection(environment.nombresColecciones.repartidor)
       .snapshotChanges()
       .pipe(
-        map((producto) => {
-          return producto.map((e) => {
-            return e.payload.doc.data() as Orders;
+        map((repartidor) => {
+          return repartidor.map((e) => {
+            console.log(repartidor);
+            return e.payload.doc.data() as Deliveryman;
           });
         })
       );
   }
-
 }

@@ -1,5 +1,9 @@
 import { Component, OnInit} from '@angular/core';
 import { OnHold } from '../../resource/interface/onhold';
+import { PedidoService } from 'app/services/pedido.service';
+import { Orders } from 'app/resource/interface/orders';
+import { Deliveryman } from 'app/resource/interface/deliveryman';
+import { DeliverymanService } from 'app/services/deliveryman.service';
 
 @Component({
   selector: 'app-on-hold',
@@ -12,26 +16,24 @@ export class OnHoldComponent implements OnInit {
   listonhold: OnHold[];
   cols: any[];
   selectedValue: string;
+  pedidos : Orders[];
+  repartidores:Deliveryman[];
 
-  constructor() { }
+  constructor(private pedidoService: PedidoService, private deliveryManService: DeliverymanService) { }
 
   ngOnInit() {
-    this.listonhold=[
-        {codigo: 1, cliente: 'Carlos Mendez', entrega: 'domicilio', fecha: '28/06/2020', 'monto': '5.00'},
-        {codigo: 2, cliente: 'Lucia Meza', entrega: 'domicilio', fecha: '28/06/2020', 'monto': '15.48'},
-        {codigo: 3, cliente: 'Marco Solis', entrega: 'domicilio', fecha: '28/06/2020', 'monto': '12.45'},
-        {codigo: 4, cliente: 'Juan Naraez', entrega: 'domicilio', fecha: '28/06/2020', 'monto': '6.50'},
-        {codigo: 5, cliente: 'Byron Perez', entrega: 'domicilio', fecha: '28/06/2020', 'monto': '7.00'},
-        {codigo: 6, cliente: 'Dayanna Velez', entrega: 'domicilio', fecha: '28/06/2020', 'monto': '9.00'},
-      ];
-    
-    this.cols=[
-      {field: 'codigo', header: 'CODIGO'},
-      {field: 'cliente', header: 'CLIENTE'},
-      {field: 'entrega', header: 'ENTREGA'},
-      {field: 'fecha', header: 'FECHA'},
-      {field: 'monto', header: 'MONTO'},
-    ];
+    this.pedidos = [];
+    this.repartidores = [];
+    let sub = this.pedidoService.getPedidos().subscribe((item: any) => {   
+      this.pedidos = item;
+      //console.log("HELLO MUNDO ", item);
+    });
+
+    let rep = this.deliveryManService.getRepartidores().subscribe((item: any) =>{
+      this.repartidores = item;
+      //console.log("HELLO MUNDO ", item);
+    })
+
   }
 
   showDialogOnHold() {

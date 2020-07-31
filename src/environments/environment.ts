@@ -18,7 +18,9 @@ export const environment = {
   nombresColecciones: 
   {
     promociones: "promociones",
-    producto: "producto"
+    producto: "producto",
+    pedido: "pedido",
+    repartidor: "repartidor"
   },
   estados: {
     activo: "A",
@@ -28,6 +30,6 @@ export const environment = {
   rutas:{
     login: "https://omipalisf2.herokuapp.com/api/login/usuario",
     refresh: "https://omipalisf2.herokuapp.com/api/login/token",
-    logOut: "https://omipalisf2.herokuapp.com/api/login/reject"
+    logOut: "https://omipalisf2.herokuapp.com/api/login/reject",
   }
 };
