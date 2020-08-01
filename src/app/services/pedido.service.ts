@@ -31,5 +31,8 @@ export class PedidoService {
         })
       );
   }
-
+  deletePedido(idPedido: string) {
+    this.PedidosDoc = this.firebase.doc(`pedido/${idPedido}`);
+    this.PedidosDoc.delete();
+  }
 }

@@ -13,7 +13,7 @@ import { map } from "rxjs/operators";
   providedIn: 'root'
 })
 export class DeliverymanService {
-
+  DeliverDoc: AngularFirestoreDocument<Deliveryman>;
 
   constructor(private firebase: AngularFirestore) { }
 
@@ -24,10 +24,13 @@ export class DeliverymanService {
       .pipe(
         map((repartidor) => {
           return repartidor.map((e) => {
-            console.log(repartidor);
             return e.payload.doc.data() as Deliveryman;
           });
         })
       );
+  }
+  updateDeliveryMan(deliveryman: Deliveryman){
+    this.DeliverDoc = this.firebase.doc(`repartidor/${deliveryman.idRepartidor}`);
+    this.DeliverDoc.update(deliveryman);
   }
 }

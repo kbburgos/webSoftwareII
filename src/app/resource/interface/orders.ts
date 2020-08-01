@@ -1,7 +1,7 @@
 export interface Orders{
     idPedido: string;
-    idcompra: string;
-    productos: [];
+    idCompra: string;
+    Productos: [];
     cantidad: number;
     subtotal: number;
     cubiertos: string;

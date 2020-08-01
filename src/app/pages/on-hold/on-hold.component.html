@@ -4,7 +4,7 @@
           <div class="col-md-12">
               <div class="card">
                   <div class="card-header card-header-danger">
-                      <h4 class="card-title">Lista de pedidos en espera</h4>
+                      <h4 class="card-title"   >Lista de pedidos en espera</h4>
                   </div>
                   <div class="card-body">
                     <!--<p-table [columns]="cols" [value]="pedidos" [(selection)]="selectedOnHold" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="10" #dt  >-->
@@ -23,14 +23,14 @@
                       <ng-template pTemplate="body">
                         <tr *ngFor="let pedido of pedidos">
                             <td> {{pedido.idPedido}} </td>
-                            <td> {{pedido.idcompra}} </td>
-                            <td> {{pedido.productos}} </td>
+                            <td> {{pedido.idCompra}} </td>
+                            <td> {{pedido.Productos}} </td>
                             <td> {{pedido.cantidad}} </td>
                             <td> {{pedido.subtotal}} </td>
                             <td> {{pedido.cubiertos}} </td>
                             <td>
                                 <div class="ui-dialog-buttonpane">
-                                    <button pButton type="button" (click)="showDialogOnHold()" icon="pi pi-user-plus" class="ui-button-secundary"></button>
+                                    <button pButton type="button" (click)="showDialogOnHold(pedido)" icon="pi pi-user-plus" class="ui-button-secundary" ></button>
                                     &nbsp;
                                 </div>
                             </td>
@@ -58,6 +58,8 @@
                       <th>APELLIDOS</th>
                       <th>TELEFONO</th>
                       <th>PEDIDOS</th>
+                      <th>CANTIDAD</th>
+                      <th>ACCIONES</th>
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="body">
@@ -66,27 +68,15 @@
                         <td> {{repartidor.apellido}} </td>
                         <td> {{repartidor.telefono}} </td>
                         <td> {{repartidor.pedidos}} </td>
+                        <td> {{repartidor.cantidad}} </td>
                         <td>
                             <div class="ui-dialog-buttonpane">
-                                <button pButton type="button" (click)="showDialogOnHold()" icon="pi pi-user-plus" class="ui-button-secundary"></button>
-                                &nbsp;
+                                <button pButton type="button" (click)="assignOrderOnHold(repartidor)"  class="ui-button-secundary " label="Asignar Pedido" ></button>
                             </div>
                         </td>
                     </tr>
-                  </ng-template>
+                </ng-template>
             </p-table>  
         </p-card>
-        <!--<p-card header="Repartidor">
-            <div class="p-grid">
-                <div class="p-col-12"><p-radioButton name="groupname" value="Repartidor1" label="Repartidor 1" [(ngModel)]="selectedValue"></p-radioButton></div>
-                <div class="p-col-12"><p-radioButton name="groupname" value="Repartidor2" label="Repartidor 2"  [(ngModel)]="selectedValue"></p-radioButton></div>
-                <div class="p-col-12"><p-radioButton name="groupname" value="Repartidor3" label="Repartidor 3"  [(ngModel)]="selectedValue"></p-radioButton></div>
-            </div>
-        </p-card>-->
     </div>
-    <p-footer>
-        <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Asignar pedido"></button>
-        <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Pedido entregado"></button>
-        <button type="button" pButton icon="pi pi-times" (click)="display=false" label="Cancelar pedido" class="ui-button-secondary"></button>
-    </p-footer>
 </p-dialog>
