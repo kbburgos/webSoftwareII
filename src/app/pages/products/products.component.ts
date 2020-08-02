@@ -25,14 +25,7 @@ export class ProductsComponent implements OnInit {
     let sub = this.productosService.getProductos().subscribe((item: any) => {
       this.productos = [];
       this.productos = item;
-      console.log("HELLO MUNDO ", item);
-      //this.listproducts = [];
     });
-  }
-
-  deleteProduct(producto: Products) {
-    this.clearState();
-    this.productosService.deleteProduct(producto);
   }
 
   showDialogProduct() {
@@ -41,6 +34,41 @@ export class ProductsComponent implements OnInit {
 
   updateProduct(producto: Products) {
     this.productosService.updateProduct(producto);
+    this.clearState();
+  }
+
+  addProduct() {
+    let producto: Products = {
+      descripcion: "string",
+      foto: "string",
+      idCategoria: "1",
+      nombre: "string",
+      precio: 55,
+      stock: 44,
+    };
+    console.log(producto);
+    this.productosService
+      .pushProductos(producto)
+      .then((data: any) => {
+        console.log(data);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+    this.clearState();
+  }
+
+  eliminarProduct() {
+    let producto: Products = {
+      idProducto: "qdPDqyZVzWCORqWfcDVz",
+      descripcion: "string",
+      foto: "string",
+      idCategoria: "1",
+      nombre: "string",
+      precio: 55,
+      stock: 44,
+    };
+    this.productosService.deleteProduct();
     this.clearState();
   }
 

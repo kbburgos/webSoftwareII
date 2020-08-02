@@ -1,7 +1,6 @@
-import { Injectable } from "@angular/core";
+import { Injectable, ɵConsole } from "@angular/core";
 import {
   AngularFirestore,
-  AngularFirestoreDocument,
 } from "@angular/fire/firestore";
 import { Products } from "../resource/interface/products";
 import { environment } from "../../environments/environment";
@@ -11,9 +10,7 @@ import { map } from "rxjs/operators";
   providedIn: "root",
 })
 export class ProductoService {
-  ProductDoc: AngularFirestoreDocument<Products>;
-
-
+  
   constructor(private firebase: AngularFirestore) {}
 
   getProductos() {
@@ -40,14 +37,22 @@ export class ProductoService {
       .set(producto);
   }
 
-  deleteProduct(producto: Products) {
-    this.ProductDoc = this.firebase.doc(`products/${producto.idProducto}`);
-    this.ProductDoc.delete();
+  deleteProduct() {
+    console.log("A VER QUE ONDITA");
+    this.firebase
+      .collection("producto")
+      .doc("qdPDqyZVzWCORqWfcDVz")
+      .delete()
+      .then(function () {
+        console.log("Document successfully deleted!");
+      })
+      .catch(function (error) {
+        console.error("Error removing document: ", error);
+      });
   }
 
-
-  updateProduct(producto: Products){
+  /*updateProduct(producto: Products) {
     this.ProductDoc = this.firebase.doc(`products/${producto.idProducto}`);
     this.ProductDoc.update(producto);
-  }
+  }*/
 }

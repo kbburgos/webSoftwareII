@@ -1,76 +1,105 @@
 <div class="main-content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                            <h4 class="card-title">Lista de Productos</h4>
-                            <button type="text" (click)="showDialogProduct()" pButton icon="pi pi-plus" label="&nbsp; Nuevo producto"></button>
-                        
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Lista de Productos</h4>
+            <button
+              type="text"
+              (click)="addProduct()"
+              pButton
+              icon="pi pi-plus"
+              label="&nbsp; Nuevo producto"
+            ></button>
+          </div>
+          <div class="card-body">
+            <p-table
+              [columns]="cols"
+              [value]="productos"
+              [responsive]="true"
+              sortMode="multiple"
+              [paginator]="true"
+              [rows]="3"
+              #dt
+            >
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th>NOMBRE</th>
+                  <th>DESCRIPCION</th>
+                  <th>CATEGORIA</th>
+                  <th>PRECIO</th>
+                  <th>STOCK</th>
+                  <th>FOTO</th>
+                  <th>ACCIONES</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body">
+                <tr *ngFor="let products of productos">
+                  <td>{{ products.nombre }}</td>
+                  <td>{{ products.descripcion }}</td>
+                  <td>{{ products.idCategoria }}</td>
+                  <td>{{ products.precio }}</td>
+                  <td>{{ products.stock }}</td>
+                  <td>
+                    <img src="{{ products.foto }}" width="50" height="50" />
+                  </td>
+                  <td>
+                    <div class="ui-dialog-buttonpane">
+                      <button
+                        pButton
+                        type="button"
+                        (click)="showDialogProduct()"
+                        icon="pi pi-file-o"
+                        class="ui-button-secundary"
+                      ></button>
+                      &nbsp;
+                      <button
+                        pButton
+                        type="button"
+                        icon="pi pi-trash"
+                        (click)="eliminarProduct()"
+                        class="ui-button-danger"
+                      ></button>
                     </div>
-                    <div class="card-body">
-                      <p-table [columns]="cols" [value]="productos" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="3" #dt  >
-                        <ng-template pTemplate="header" let-columns>
-                            <tr>
-                                <th>NOMBRE</th>
-                                <th>DESCRIPCION</th>
-                                <th>CATEGORIA</th>
-                                <th>PRECIO</th>
-                                <th>STOCK</th>
-                                <th>FOTO</th>
-                                <th>ACCIONES</th>
-                            </tr>
-                            
-                        </ng-template>
-                        <ng-template pTemplate="body">
-                            <tr *ngFor="let products of productos">
-                                <td> {{products.nombre}} </td>
-                                <td> {{products.descripcion}} </td>
-                                <td> {{products.idCategoria}} </td>
-                                <td> {{products.precio}} </td>
-                                <td> {{products.stock}} </td>
-                                <td><img src="{{products.foto}}" width="50" height="50"></td>
-                                <td>
-                                    <div class="ui-dialog-buttonpane">
-                                        <button pButton type="button" (click)="showDialogProduct()" icon="pi pi-file-o" class="ui-button-secundary"></button>
-                                        &nbsp;
-                                        <button pButton type="button"  icon="pi pi-trash" class="ui-button-danger"></button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                        </ng-template>
-                      </p-table>
-                    </div>
-                </div>
-            </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
         </div>
+      </div>
     </div>
   </div>
+</div>
 
-  <p-dialog [(visible)]="display" [responsive]="true" showEffect="fade">
-    <p-header >
-        Modificar Producto
-    </p-header>
-    <div class="p-col-12 p-md-3">
-            <h5>Nombre del producto</h5>
-            <input type="text" pInputText/>  
-    </div>    
-    <div class="p-col-12 p-md-3">
-        <h5>Precio unitario</h5>
-        <input type="text" pInputText/>  
-    </div> 
-    <div class="p-col-12 p-md-3">
-        <h5>Stock</h5>
-        <input type="text" pInputText/>  
-    </div> 
-    <div class="p-col-12 p-md-3">
-        <h5>Categor&iacute;a</h5>
-        <input type="text" pInputText/>  
-    </div>    
-    <p-footer>
-        <button type="button" pButton icon="pi pi-save" (click)="display=false" label="Modificar"></button>
-    </p-footer>
+<p-dialog [(visible)]="display" [responsive]="true" showEffect="fade">
+  <p-header>
+    Modificar Producto
+  </p-header>
+  <div class="p-col-12 p-md-3">
+    <h5>Nombre del producto</h5>
+    <input type="text" pInputText />
+  </div>
+  <div class="p-col-12 p-md-3">
+    <h5>Precio unitario</h5>
+    <input type="text" pInputText />
+  </div>
+  <div class="p-col-12 p-md-3">
+    <h5>Stock</h5>
+    <input type="text" pInputText />
+  </div>
+  <div class="p-col-12 p-md-3">
+    <h5>Categor&iacute;a</h5>
+    <input type="text" pInputText />
+  </div>
+  <p-footer>
+    <button
+      type="button"
+      pButton
+      icon="pi pi-save"
+      (click)="display = false"
+      label="Modificar"
+    ></button>
+  </p-footer>
 </p-dialog>
-
-  
