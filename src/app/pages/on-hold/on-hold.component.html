@@ -62,8 +62,8 @@
                       <th>ACCIONES</th>
                   </tr>
                 </ng-template>
-                <ng-template pTemplate="body">
-                    <tr *ngFor="let repartidor of repartidores">
+                <ng-template pTemplate="body" let-repartidor>
+                    <tr >
                         <td> {{repartidor.nombre}} </td>
                         <td> {{repartidor.apellido}} </td>
                         <td> {{repartidor.telefono}} </td>

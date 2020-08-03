@@ -34,8 +34,8 @@
                   <th>ACCIONES</th>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="body">
-                <tr *ngFor="let products of productos">
+              <ng-template pTemplate="body" let-products>
+                <tr>
                   <td>{{ products.nombre }}</td>
                   <td>{{ products.descripcion }}</td>
                   <td>{{ products.idCategoria }}</td>

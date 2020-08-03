@@ -25,15 +25,16 @@ export class ProductsComponent implements OnInit {
     let sub = this.productosService.getProductos().subscribe((item: any) => {
       this.productos = [];
       this.productos = item;
+      console.log(this.productos);
     });
   }
-
+  
   showDialogProduct() {
     this.display = true;
   }
 
   updateProduct(producto: Products) {
-    this.productosService.updateProduct(producto);
+    //this.productosService.updateProduct(producto);
     this.clearState();
   }
 
