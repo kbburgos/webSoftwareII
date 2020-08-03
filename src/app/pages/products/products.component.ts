@@ -32,10 +32,10 @@ export class ProductsComponent implements OnInit {
     this.display = true;
   }
 
-  updateProduct(producto: Products) {
+  /*updateProduct(producto: Products) {
     this.productosService.updateProduct(producto);
     this.clearState();
-  }
+  }*/
 
   addProduct() {
     let producto: Products = {
