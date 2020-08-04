@@ -34,6 +34,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
 import {CardModule} from 'primeng/card';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {CalendarModule} from 'primeng/calendar';
@@ -57,6 +59,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     TableModule,
     ButtonModule,
     DialogModule,
+    ConfirmDialogModule,
     FlexLayoutModule,
     CardModule,
     RadioButtonModule,
@@ -78,6 +81,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
   ],
   providers: [
     ProductoService,
+    ConfirmationService,
     PromocionesService
   ]
 })

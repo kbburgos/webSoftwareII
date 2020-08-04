@@ -51,8 +51,17 @@ export class ProductoService {
       });
   }
 
-  /*updateProduct(producto: Products) {
-    this.ProductDoc = this.firebase.doc(`products/${producto.idProducto}`);
-    this.ProductDoc.update(producto);
-  }*/
+  updateProduct(producto: Products){
+    this.firebase
+    .collection("producto")
+    .doc(producto.idProducto)
+    .update(producto)
+    .then(function(){
+      console.log("Producto editado con exito.");
+    })
+    .catch(function(){
+      console.error("Error al editar el producto");
+    });
+  }
+  
 }

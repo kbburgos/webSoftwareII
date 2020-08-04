@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ProductoService } from "../../services/producto.service";
 import { Products } from "../../resource/interface/products";
+import {ConfirmationService} from 'primeng/api';
 //import { Promociones } from "../../resource/interface/promociones"
 //import { PromocionesService } from "../../services/promociones.service";
 
@@ -17,25 +18,31 @@ export class ProductsComponent implements OnInit {
   editState: boolean = false;
   ProductEdit: Products;
 
-  constructor(private productosService: ProductoService) {}
+  constructor(private productosService: ProductoService, private confirmationService: ConfirmationService) {}
 
   ngOnInit() {
     console.log("A VER QUE ONDIA");
+    this.productos = [];
 
     let sub = this.productosService.getProductos().subscribe((item: any) => {
-      this.productos = [];
       this.productos = item;
       console.log(this.productos);
     });
   }
   
-  showDialogProduct() {
+  showDialogProduct(productos) {
     this.display = true;
+    this.ProductEdit = productos;
   }
 
-  updateProduct(producto: Products) {
-    //this.productosService.updateProduct(producto);
-    this.clearState();
+  confirmarEditar(){
+    this.confirmationService.confirm({
+      message: '¿Est&aacute; seguro que desea editar el producto?',
+      accept: () => {
+          this.productosService.updateProduct(this.ProductEdit);
+          this.clearState();
+      }
+  });
   }
 
   addProduct() {
@@ -74,7 +81,7 @@ export class ProductsComponent implements OnInit {
   }
 
   clearState() {
-    this.editState = false;
+    this.display = false;
     this.ProductEdit = null;
   }
 }
