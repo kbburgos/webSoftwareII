@@ -8,7 +8,7 @@
                   </div>
                   <div class="card-body">
                     <!--<p-table [columns]="cols" [value]="pedidos" [(selection)]="selectedOnHold" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="10" #dt  >-->
-                    <p-table [columns]="cols" [value]="pedidos" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="6" #dt  >  
+                    <p-table [columns]="cols" [value]="pedidos" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="10" #dt  >  
                       <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th>PEDIDO</th>
@@ -62,8 +62,8 @@
                       <th>ACCIONES</th>
                   </tr>
                 </ng-template>
-                <ng-template pTemplate="body">
-                    <tr *ngFor="let repartidor of repartidores">
+                <ng-template pTemplate="body" let-repartidor>
+                    <tr >
                         <td> {{repartidor.nombre}} </td>
                         <td> {{repartidor.apellido}} </td>
                         <td> {{repartidor.telefono}} </td>
@@ -72,6 +72,8 @@
                         <td>
                             <div class="ui-dialog-buttonpane">
                                 <button pButton type="button" (click)="assignOrderOnHold(repartidor)"  class="ui-button-secundary " label="Asignar Pedido" ></button>
+                                &nbsp;
+                                <button pButton type="button" (click)="notifyOrder()" class="ui-button-success " label="Notificar" ></button>
                             </div>
                         </td>
                     </tr>

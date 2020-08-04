@@ -4,14 +4,20 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-danger">
-            <h4 class="card-title">Lista de Productos</h4>
-            <button
-              type="text"
-              (click)="addProduct()"
-              pButton
-              icon="pi pi-plus"
-              label="&nbsp; Nuevo producto"
-            ></button>
+            <div class="row">
+              <div class="col-md-10">
+                <h4 class="card-title">Productos</h4>
+              </div>
+              <div class="col-md-2">
+                <button
+                  type="text"
+                  (click)="showAddDialog()"
+                  pButton
+                  icon="pi pi-plus"
+                  label="  Nuevo"
+                ></button>
+              </div>
+            </div>
           </div>
           <div class="card-body">
             <p-table
@@ -34,8 +40,8 @@
                   <th>ACCIONES</th>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="body">
-                <tr *ngFor="let products of productos">
+              <ng-template pTemplate="body" let-products>
+                <tr>
                   <td>{{ products.nombre }}</td>
                   <td>{{ products.descripcion }}</td>
                   <td>{{ products.idCategoria }}</td>
@@ -91,6 +97,45 @@
   </div>
   <div class="p-col-12 p-md-3">
     <h5>Categor&iacute;a</h5>
+    <input type="text" pInputText />
+  </div>
+  <p-footer>
+    <button
+      type="button"
+      pButton
+      icon="pi pi-save"
+      (click)="display = false"
+      label="Modificar"
+    ></button>
+  </p-footer>
+</p-dialog>
+
+<p-dialog [(visible)]="bandera" [responsive]="true" showEffect="fade">
+  <p-header>
+    Agregar Producto
+  </p-header>
+  <div class="p-col-12 p-md-3">
+    <h5>Nombre</h5>
+    <input type="text" pInputText />
+  </div>
+  <div class="p-col-12 p-md-3">
+    <h5>Descrip&oacute;n</h5>
+    <input type="text" pInputText />
+  </div>
+  <div class="p-col-12 p-md-3">
+    <h5>Categor&iacute;a</h5>
+    <input type="text" pInputText />
+  </div>
+  <div class="p-col-12 p-md-3">
+    <h5>Precio unitario</h5>
+    <input type="text" pInputText />
+  </div>
+  <div class="p-col-12 p-md-3">
+    <h5>Stock</h5>
+    <input type="text" pInputText />
+  </div>
+  <div class="p-col-12 p-md-3">
+    <h5>Foto</h5>
     <input type="text" pInputText />
   </div>
   <p-footer>

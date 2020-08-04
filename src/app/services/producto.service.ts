@@ -1,4 +1,4 @@
-import { Injectable, ɵConsole } from "@angular/core";
+import { Injectable } from "@angular/core";
 import {
   AngularFirestore,
 } from "@angular/fire/firestore";
@@ -19,9 +19,9 @@ export class ProductoService {
       .snapshotChanges()
       .pipe(
         map((producto) => {
-          console.log("VA UNA ", producto);
+         // console.log("VA UNA ", producto);
           return producto.map((e) => {
-            console.log("VA DOS ", e);
+           // console.log("VA DOS ", e);
             return e.payload.doc.data() as Products;
           });
         })
@@ -38,7 +38,7 @@ export class ProductoService {
   }
 
   deleteProduct() {
-    console.log("A VER QUE ONDITA");
+    //console.log("A VER QUE ONDITA");
     this.firebase
       .collection("producto")
       .doc("qdPDqyZVzWCORqWfcDVz")

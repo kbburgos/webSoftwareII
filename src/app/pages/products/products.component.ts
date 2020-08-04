@@ -11,8 +11,11 @@ import { Products } from "../../resource/interface/products";
 })
 export class ProductsComponent implements OnInit {
   display: boolean = false;
+  bandera: boolean = false;
   productos: Products[];
   cols: any[];
+
+  previewUrl: any = null;
 
   editState: boolean = false;
   ProductEdit: Products;
@@ -20,29 +23,36 @@ export class ProductsComponent implements OnInit {
   constructor(private productosService: ProductoService) {}
 
   ngOnInit() {
-    console.log("A VER QUE ONDIA");
+   // console.log("A VER QUE ONDIA");
 
     let sub = this.productosService.getProductos().subscribe((item: any) => {
       this.productos = [];
       this.productos = item;
+     // console.log(this.productos);
     });
   }
-
+  
   showDialogProduct() {
     this.display = true;
   }
 
-  /*updateProduct(producto: Products) {
-    this.productosService.updateProduct(producto);
+
+  showAddDialog() {
+    this.bandera = true;
+  }
+
+
+  updateProduct(producto: Products) {
+    //this.productosService.updateProduct(producto);
     this.clearState();
-  }*/
+  }
 
   addProduct() {
     let producto: Products = {
       descripcion: "string",
       foto: "string",
       idCategoria: "1",
-      nombre: "string",
+      nombre: "sfsfsdf",
       precio: 55,
       stock: 44,
     };
