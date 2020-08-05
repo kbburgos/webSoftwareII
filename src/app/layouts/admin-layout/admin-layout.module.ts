@@ -16,6 +16,7 @@ import { PromotionsComponent } from '../../pages/promotions/promotions.component
 import { UsersComponent } from '../../pages/users/users.component';
 import { CustomersComponent } from '../../pages/customers/customers.component';
 import { ConflictingComponent } from '../../pages/conflicting/conflicting.component';
+import { ProductNewComponent } from '../../pages/product-new/product-new.component';
 
 //Services
 import{ ProductoService } from '../../services/producto.service';
@@ -34,6 +35,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
 import {CardModule} from 'primeng/card';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {CalendarModule} from 'primeng/calendar';
@@ -57,6 +60,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     TableModule,
     ButtonModule,
     DialogModule,
+    ConfirmDialogModule,
     FlexLayoutModule,
     CardModule,
     RadioButtonModule,
@@ -71,6 +75,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     ReportSalesComponent,
     ReportProductComponent,
     ProductsComponent,
+    ProductNewComponent,
     PromotionsComponent,
     UsersComponent,
     CustomersComponent,
@@ -78,6 +83,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
   ],
   providers: [
     ProductoService,
+    ConfirmationService,
     PromocionesService
   ]
 })

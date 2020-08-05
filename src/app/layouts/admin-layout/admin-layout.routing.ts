@@ -11,6 +11,7 @@ import { UsersComponent } from '../../pages/users/users.component';
 import { PromotionsComponent } from '../../pages/promotions/promotions.component';
 import { CustomersComponent } from '../../pages/customers/customers.component';
 import { ConflictingComponent } from '../../pages/conflicting/conflicting.component';
+import { ProductNewComponent } from '../../pages/product-new/product-new.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -66,4 +67,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'users',          component: UsersComponent},
     { path: 'customers',      component: CustomersComponent },
     { path: 'conflicting',    component: ConflictingComponent },
+    { path: 'product-new',    component: ProductNewComponent},
 ];

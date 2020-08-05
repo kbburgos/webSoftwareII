@@ -22,7 +22,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { LoginComponent } from './pages/login/login.component';
 
 
-import { ProductoService  } from './services/producto.service'
+import { ProductoService  } from './services/producto.service';
 
 
 
@@ -48,7 +48,6 @@ import { ProductoService  } from './services/producto.service'
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
-
   ],
   providers: [ProductoService],
   bootstrap: [AppComponent]

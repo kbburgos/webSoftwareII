@@ -26,7 +26,7 @@
               [responsive]="true"
               sortMode="multiple"
               [paginator]="true"
-              [rows]="3"
+              [rows]="5"
               #dt
             >
               <ng-template pTemplate="header" let-columns>
@@ -55,7 +55,7 @@
                       <button
                         pButton
                         type="button"
-                        (click)="showDialogProduct()"
+                        (click)="showDialogProduct(products)"
                         icon="pi pi-file-o"
                         class="ui-button-secundary"
                       ></button>
@@ -67,6 +67,100 @@
                         (click)="eliminarProduct()"
                         class="ui-button-danger"
                       ></button>
+                      <p-dialog
+                        [(visible)]="display"
+                        [responsive]="true"
+                        showEffect="fade"
+                      >
+                        <p-header>
+                          Editar Producto
+                        </p-header>
+                        <div>
+                          <p-table
+                            [columns]="cols"
+                            [value]="productos"
+                            [responsive]="true"
+                            sortMode="multiple"
+                            #dt
+                          >
+                            <ng-template pTemplate="header" let-columns>
+                              <tr>
+                                <th>NOMBRE</th>
+                                <th>DESCRIPCION</th>
+                                <th>CATEGORIA</th>
+                                <th>PRECIO</th>
+                                <th>STOCK</th>
+                                <th>FOTO</th>
+                              </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-products>
+                              <tr
+                                *ngIf="
+                                  display &&
+                                  ProductEdit.idProducto == products.idProducto
+                                "
+                              >
+                                <td>
+                                  <input
+                                    class="input-table"
+                                    type="text"
+                                    [(ngModel)]="ProductEdit.nombre"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="input-table"
+                                    [(ngModel)]="ProductEdit.descripcion"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="input-table"
+                                    [(ngModel)]="ProductEdit.idCategoria"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="input-table"
+                                    [(ngModel)]="ProductEdit.precio"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="input-table"
+                                    [(ngModel)]="ProductEdit.stock"
+                                  />
+                                </td>
+                                <td style="text-align: center;">
+                                  <img
+                                    src="{{ products.foto }}"
+                                    width="50"
+                                    height="50"
+                                  />
+                                </td>
+                              </tr>
+                            </ng-template>
+                          </p-table>
+                        </div>
+
+                        <p-footer>
+                          <p-confirmDialog
+                            header="Confirmaci&oacute;n"
+                            icon="pi pi-exclamation-triangle"
+                          ></p-confirmDialog>
+                          <button
+                            type="button"
+                            pButton
+                            icon="pi pi-save"
+                            (click)="confirmarEditar()"
+                            label="Editar"
+                          ></button>
+                        </p-footer>
+                      </p-dialog>
                     </div>
                   </td>
                 </tr>
@@ -79,72 +173,17 @@
   </div>
 </div>
 
-<p-dialog [(visible)]="display" [responsive]="true" showEffect="fade">
-  <p-header>
-    Modificar Producto
-  </p-header>
-  <div class="p-col-12 p-md-3">
-    <h5>Nombre del producto</h5>
-    <input type="text" pInputText />
-  </div>
-  <div class="p-col-12 p-md-3">
-    <h5>Precio unitario</h5>
-    <input type="text" pInputText />
-  </div>
-  <div class="p-col-12 p-md-3">
-    <h5>Stock</h5>
-    <input type="text" pInputText />
-  </div>
-  <div class="p-col-12 p-md-3">
-    <h5>Categor&iacute;a</h5>
-    <input type="text" pInputText />
-  </div>
-  <p-footer>
-    <button
-      type="button"
-      pButton
-      icon="pi pi-save"
-      (click)="display = false"
-      label="Modificar"
-    ></button>
-  </p-footer>
-</p-dialog>
-
 <p-dialog [(visible)]="bandera" [responsive]="true" showEffect="fade">
-  <p-header>
-    Agregar Producto
-  </p-header>
-  <div class="p-col-12 p-md-3">
-    <h5>Nombre</h5>
-    <input type="text" pInputText />
+  <div class="container-fluid" style="width: 500px; background-color: aqua;">
+    <div *ngIf="bandera" class="row">
+      <div class="col-12">
+        hello mima
+      </div>
+      <h1>Hello Diosito!</h1>
+      <input type="file" accept=".png, .jpg" (change)="onFileUpload($event)" />
+      <button type="button" (click)="save()">
+        Guardar
+      </button>
+    </div>
   </div>
-  <div class="p-col-12 p-md-3">
-    <h5>Descrip&oacute;n</h5>
-    <input type="text" pInputText />
-  </div>
-  <div class="p-col-12 p-md-3">
-    <h5>Categor&iacute;a</h5>
-    <input type="text" pInputText />
-  </div>
-  <div class="p-col-12 p-md-3">
-    <h5>Precio unitario</h5>
-    <input type="text" pInputText />
-  </div>
-  <div class="p-col-12 p-md-3">
-    <h5>Stock</h5>
-    <input type="text" pInputText />
-  </div>
-  <div class="p-col-12 p-md-3">
-    <h5>Foto</h5>
-    <input type="text" pInputText />
-  </div>
-  <p-footer>
-    <button
-      type="button"
-      pButton
-      icon="pi pi-save"
-      (click)="display = false"
-      label="Modificar"
-    ></button>
-  </p-footer>
 </p-dialog>

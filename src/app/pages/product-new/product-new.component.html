@@ -1,0 +1,142 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <form [formGroup]="form">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Nombre:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="nombre"
+                  placeholder="Nombre de equipo"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Código:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="codigo"
+                  placeholder="Código de equipo"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Marca:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="marca"
+                  placeholder="Marca de equipo"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Modelo:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="modelo"
+                  placeholder="Modelo de equipo"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Serie:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="serie"
+                  placeholder="Serie de equipo"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Proveedor:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="proveedor"
+                  placeholder="Código de proveedor"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6"></div>
+            <div class="col-sm-4">
+              <div class="dropdown">
+                <button
+                  href="#"
+                  class="btn dropdown-toggle btn-primary"
+                  data-toggle="dropdown"
+                  aria-expanded="true"
+                >
+                  Estado
+                  <b class="caret"></b>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a (click)="guardarEstado('A')">Activo</a></li>
+                  <li><a (click)="guardarEstado('I')">Inactivo</a></li>
+                  <li><a (click)="guardarEstado('AN')">Anulado</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="dropdown">
+                <button
+                  href="#"
+                  class="btn dropdown-toggle btn-primary"
+                  data-toggle="dropdown"
+                  aria-expanded="true"
+                >
+                  Area
+                  <b class="caret"></b>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a (click)="guardarDepartamento('d1')">Area 1</a></li>
+                  <li><a (click)="guardarDepartamento('d2')">Area 2</a></li>
+                  <li><a (click)="guardarDepartamento('d3')">Area 3</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-sm-12 mt-2">
+              <p-fileUpload
+                *ngIf="!previewUrl"
+                multiple="true"
+                customUpload="false"
+                (uploadHandler)="onFileUpload($event)"
+                accept="image/*"
+              >
+              </p-fileUpload>
+              <div class="mb-3 text-center" *ngIf="previewUrl">
+                <img [src]="previewUrl" class="rounded image-preview" />
+              </div>
+            </div>
+            <div class="col-sm-12 mx-auto text-center">
+              <button
+                mat-raised-button
+                class="btn btn-success"
+                [disabled]="
+                  form.invalid ||
+                  estado == '' ||
+                  departamento == '' ||
+                  previewUrl == null
+                "
+                (click)="guardarEquipo()"
+              >
+                Guardar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
