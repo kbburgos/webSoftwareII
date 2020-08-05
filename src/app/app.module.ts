@@ -21,8 +21,10 @@ import {AgmCoreModule} from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './pages/login/login.component';
 
-
-import { ProductoService  } from './services/producto.service'
+import { ProductoService  } from './services/producto.service';
+import { PedidoService } from './services/pedido.service';
+import { DeliverymanService } from './services/deliveryman.service';
+import { DeliverymanComponent } from '../app/pages/deliveryman/deliveryman.component';
 
 
 
@@ -48,9 +50,11 @@ import { ProductoService  } from './services/producto.service'
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
+    DeliverymanComponent,
+    
 
   ],
-  providers: [ProductoService],
+  providers: [ProductoService,PedidoService,DeliverymanService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,48 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title"   >Lista de pedidos asignados</h4>
+                    </div>
+                    <div class="card-body">
+                        <p-table [columns]="cols" [value]="pedidosAsignados" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="10" #dt  >  
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th>PEDIDO</th>
+                                    <th>COMPRA</th>
+                                    <th>PRODUCTOS</th>
+                                    <th>CANTIDAD</th>
+                                    <th>SUBTOTAL</th>
+                                    <th>CUBIERTOS</th>
+                                    <th>ACCIONES</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-pedidosAsignados>
+                                <tr>
+                                    <td> {{pedidosAsignados.idPedido}} </td>
+                                    <td> {{pedidosAsignados.idCompra}} </td>
+                                    <td> {{pedidosAsignados.Productos}} </td>
+                                    <td> {{pedidosAsignados.cantidad}} </td>
+                                    <td> {{pedidosAsignados.subtotal}} </td>
+                                    <td> {{pedidosAsignados.cubiertos}} </td>
+                                    <td>
+                                        <div class="ui-dialog-buttonpane">
+                                            <button pButton type="button" (click)="assinggnOrder(pedidosAsignados)" icon="pi pi-user-plus" class="ui-button-secundary" ></button>
+                                            &nbsp;
+                                        </div>
+                                    </td>
+                                </tr> 
+                                
+                            </ng-template>
+                        </p-table>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  

@@ -31,5 +31,6 @@ export const environment = {
     login: "https://omipalisf2.herokuapp.com/api/login/usuario",
     refresh: "https://omipalisf2.herokuapp.com/api/login/token",
     logOut: "https://omipalisf2.herokuapp.com/api/login/reject",
+    usuarioXid : "https://omipalisf2.herokuapp.com/api/usersS/",
   }
 };

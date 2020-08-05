@@ -11,6 +11,8 @@ import { UsersComponent } from '../../pages/users/users.component';
 import { PromotionsComponent } from '../../pages/promotions/promotions.component';
 import { CustomersComponent } from '../../pages/customers/customers.component';
 import { ConflictingComponent } from '../../pages/conflicting/conflicting.component';
+import { AssignedComponent } from 'app/pages/assigned/assigned.component';
+import { DeliverymanComponent } from 'app/pages/deliveryman/deliveryman.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -57,6 +59,7 @@ export const AdminLayoutRoutes: Routes = [
     // }
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'on-hold',        component: OnHoldComponent },
+    { path: 'assigned',        component: AssignedComponent },
     { path: 'dispatched',     component: DispatchedComponent },
     { path: 'report-news',    component: ReportNewsComponent },
     { path: 'report-sales',   component: ReportSalesComponent },
@@ -66,4 +69,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'users',          component: UsersComponent},
     { path: 'customers',      component: CustomersComponent },
     { path: 'conflicting',    component: ConflictingComponent },
+    { path: 'delivery',    component: DeliverymanComponent },
 ];

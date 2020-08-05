@@ -31,6 +31,15 @@ export class AuthService {
 
   }
 
+  /*usuario(token: string){
+    let headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+ token};
+    this.http.get(environment.rutas.usuarioXid+"0924995426",{headers}).subscribe( usuario =>{
+      console.log(usuario["cedula"]+" "+usuario["email"]);
+    });
+  }*/
+
 
   refreshToken() {
     return this.http.post<any>(environment.rutas.refresh,
@@ -61,6 +70,7 @@ export class AuthService {
     console.log(this.loggedUser);
     let tokens : Tokens =  {token : data.token, refreshToken: data.refreshToken};
     this.storeTokens(tokens);
+    //this.usuario(data.token);
     this.router.navigateByUrl("/dashboard");
   }
 
