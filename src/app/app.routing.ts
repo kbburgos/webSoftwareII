@@ -5,6 +5,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { LoginComponent } from "../app/pages//login/login.component";
 
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
+import { DeliverymanComponent } from "./pages/deliveryman/deliveryman.component";
 
 const routes: Routes = [
   {
@@ -15,6 +16,15 @@ const routes: Routes = [
   {
     path: "login",
     component: LoginComponent,
+  },
+  {
+    path: "",
+    redirectTo: "deliveryman",
+    pathMatch: "full",
+  },
+  {
+    path: "deliveryman",
+    component: DeliverymanComponent,
   },
   {
     path: "dashboard",
@@ -32,6 +42,7 @@ const routes: Routes = [
       },
     ],
   },
+  
 ];
 
 @NgModule({
@@ -42,6 +53,7 @@ const routes: Routes = [
       useHash: true,
     }),
   ],
+
   exports: [],
 })
 export class AppRoutingModule {}

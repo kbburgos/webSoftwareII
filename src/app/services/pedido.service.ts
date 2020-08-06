@@ -35,4 +35,9 @@ export class PedidoService {
     this.PedidosDoc = this.firebase.doc(`pedido/${idPedido}`);
     this.PedidosDoc.delete();
   }
+
+  updatePedidos(pedido: Orders){
+    this.PedidosDoc =  this.firebase.doc(`pedido/${pedido.idPedido}`);
+    this.PedidosDoc.update(pedido);
+  }
 }

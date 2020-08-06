@@ -21,7 +21,7 @@ export class ProductoService {
         map((producto) => {
          // console.log("VA UNA ", producto);
           return producto.map((e) => {
-           // console.log("VA DOS ", e);
+          //  console.log("VA DOS ", e);
             return e.payload.doc.data() as Products;
           });
         })
@@ -37,11 +37,11 @@ export class ProductoService {
       .set(producto);
   }
 
-  deleteProduct() {
+  deleteProduct(idProducto) {
     //console.log("A VER QUE ONDITA");
     this.firebase
       .collection("producto")
-      .doc("qdPDqyZVzWCORqWfcDVz")
+      .doc(idProducto)
       .delete()
       .then(function () {
         console.log("Document successfully deleted!");

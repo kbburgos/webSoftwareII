@@ -3,6 +3,15 @@ import { ProductoService } from "../../services/producto.service";
 import { Products } from "../../resource/interface/products";
 import { ConfirmationService } from "primeng/api";
 import { HttpClientModule } from "@angular/common/http";
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from "@angular/forms";
+
+import { Categoria } from "../../resource/interface/categoria";
+import { CategoriaService } from "../../services/categoria.service";
 
 @Component({
   selector: "app-products",
@@ -10,9 +19,12 @@ import { HttpClientModule } from "@angular/common/http";
   styleUrls: ["./products.component.css"],
 })
 export class ProductsComponent implements OnInit {
+  form: FormGroup;
   display: boolean = false;
   bandera: boolean = false;
   productos: Products[];
+  categorias: Categoria[];
+
   cols: any[];
 
   editState: boolean = false;
@@ -20,23 +32,36 @@ export class ProductsComponent implements OnInit {
 
   selectedFile: File = null;
 
+  private categoria: string = 'Dulces';
+
   private fileData: File = null;
   previewUrl: any = null;
 
   constructor(
     private productosService: ProductoService,
     private confirmationService: ConfirmationService,
-    private httpClient: HttpClientModule
+    private httpClient: HttpClientModule,
+    private formBuilder: FormBuilder,
+    private categoriasService: CategoriaService
   ) {}
 
   ngOnInit() {
     //  console.log("A VER QUE ONDIA");
     this.productos = [];
+    //this.categorias = [];
+
     let sub = this.productosService.getProductos().subscribe((item: any) => {
       this.productos = item;
       // console.log(this.productos);
     });
+
+/*    let subC = this.categoriasService.getCategorias().subscribe((item: any)=>{
+      this.categorias = item;
+    })
+*/
+    this.buildForm();
   }
+
 
   save() {
     console.log("ESTAMOS AQUI!!!");
@@ -49,7 +74,6 @@ export class ProductsComponent implements OnInit {
   }
 
   private preview() {
-    // Show preview
     var mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
@@ -87,17 +111,19 @@ export class ProductsComponent implements OnInit {
 
   addProduct() {
     let producto: Products = {
-      descripcion: "ojala ojala",
+      descripcion: this.form.get("descripcion").value,
       foto: this.previewUrl,
-      idCategoria: "1",
-      nombre: "ojala",
-      precio: 55,
-      stock: 44,
+      idCategoria: this.categoria,
+      nombre: this.form.get("nombre").value,
+      precio: this.form.get("precio").value,
+      stock: this.form.get("stock").value,
     };
     console.log(producto);
+
     this.productosService
       .pushProductos(producto)
       .then((data: any) => {
+        this.bandera = false;
         console.log(data);
       })
       .catch((err: any) => {
@@ -106,22 +132,40 @@ export class ProductsComponent implements OnInit {
     this.clearState();
   }
 
-  eliminarProduct() {
-    let producto: Products = {
-      idProducto: "qdPDqyZVzWCORqWfcDVz",
-      descripcion: "string",
-      foto: "string",
-      idCategoria: "1",
-      nombre: "string",
-      precio: 55,
-      stock: 44,
-    };
-    this.productosService.deleteProduct();
+  eliminarProduct(producto) {
+    console.log(producto);
+    this.productosService.deleteProduct(producto.idProducto);
     this.clearState();
   }
 
   clearState() {
     this.display = false;
     this.ProductEdit = null;
+  }
+
+  private buildForm() {
+    this.form = this.formBuilder.group({
+      nombre: new FormControl("", [
+        Validators.required,
+        Validators.minLength(1),
+      ]),
+      descripcion: new FormControl("", [
+        Validators.required,
+        Validators.minLength(1),
+      ]),
+      precio: new FormControl("", [
+        Validators.required,
+        Validators.minLength(1),
+      ]),
+      stock: new FormControl("", [
+        Validators.required,
+        Validators.minLength(1),
+      ]),
+    });
+  }
+
+  guardarCategoria(categoria: string) {
+    this.categoria = categoria;
+    console.log(this.categoria);
   }
 }

@@ -30,42 +30,54 @@ export class OnHoldComponent implements OnInit {
   constructor(private pedidoService: PedidoService, private deliveryManService: DeliverymanService) { }
 
   ngOnInit() {
-    this.pedidos = [];
+    
     this.repartidores = [];
     this.listaPedidos = [];
-    this.pedidosSuscribe = this.pedidoService.getPedidos().subscribe((item: any) => {   
-
-      this.pedidos = item;
-      //console.log("PEDIDOS: ", item);
+    this.pedidosSuscribe = this.pedidoService.getPedidos().subscribe((item: any) => {  
+      this.pedidos = []; 
+      console.log(item);
+     // this.pedidos = item;
+      for(let i = 0; i < item.length; i++){
+        if(item[i]["estado"] == "espera"){
+          //console.log(item[i]["estado"]);
+          this.pedidos.push(item[i]);
+          //console.log(this.pedidos);
+        }
+      }
+      
       
     });
-
+    
+    this.repartidoresSuscribe = this.deliveryManService.getRepartidores().subscribe((item: any) =>{     
+      this.repartidores = item;
+    });
     
 
   }
 
-  showDialogOnHold(pedido: Orders) {
+  assinggnOrder(pedido: Orders) {
     this.pedido = pedido;
-    this.display = true;
-    this.idPedido = pedido["idPedido"];
-    this.repartidoresSuscribe = this.deliveryManService.getRepartidores().subscribe((item: any) =>{     
-      for(let i = 0; i < item.length; i++){
-        console.log(i," - ",item[i]["idRepartidor"]," - ",item[i]["pedidos"]," - ",item[i]["cantidad"]);
-        //item[i]["cantidad"] = item[i]["pedidos"].length;
-        //console.log(item[i]["idRepartidor"]," ",item[i]["cantidad"] );
+    //this.pedido.estado = "asignado";    
+    this.idPedido = pedido["idPedido"];   
+    //this.pedidoService.updatePedidos(this.pedido);
+    
+    this.repartidores.sort(function(a,b){
+      if(a.cantidad < b.cantidad){
+        return -1;
       }
-      this.repartidores = item;
-    })
+    });
+    console.log(this.repartidores);
+    this.listaPedidos = this.repartidores[0]["pedidos"]; 
+    this.listaPedidos.push(this.idPedido);
+    this.repartidores[0]["cantidad"] = this.repartidores[0]["pedidos"].length;
+    console.log(this.repartidores[0]);
+    this.deliveryManService.updateDeliveryMan(this.repartidores[0]);
+    this.notifyOrder(this.repartidores[0]);
 
   }
 
-  deleteOnHold() {
-    let index = this.listonhold.indexOf(this.selectedOnHold);
-    this.listonhold = this.listonhold.filter((val, i) => i != index);
-    this.display = false;
-  }
 
-  assignOrderOnHold(repartidor: Deliveryman){
+  /*assignOrderOnHold(repartidor: Deliveryman){
     this.repartidor = repartidor;
     this.listaPedidos = repartidor["pedidos"]; 
     if(this.idPedido == undefined || this.idPedido == null || this.idPedido == '' || this.idPedido == " "){
@@ -79,7 +91,7 @@ export class OnHoldComponent implements OnInit {
     }
 
     
-  }
+  }*/
   
   ngOnDestroy(): void{
     if(this.pedidosSuscribe){
@@ -90,15 +102,25 @@ export class OnHoldComponent implements OnInit {
     }
   }
 
-  notifyOrder(){
-    /*if(repartidor){
-      alert.("Para notificar, debe asignar el pedido al repartidor");
-    }*/
-    console.log(this.repartidor);
-    let text = "Hola%20"+this.repartidor["nombre"]+"%20"+this.repartidor["apellido"]+"%20,"+"%20debes%20entregar%20el%20siguiente%20pedido%20";
-    let pedido = "%20:%20"+this.pedido.idPedido;  
-    //repartidor.telefono
-    window.open('https://api.whatsapp.com/send?phone='+'5930968918012'+'&text='+text+pedido);
+  notifyOrder(repartidor: Deliveryman){
+    console.log(repartidor);
+    let telefono = '593'+repartidor.telefono;
+    let text = "Hola%20"+repartidor["nombre"]+"%20"+repartidor["apellido"]+"%20,"+"%20debes%20entregar%20el%20siguiente%20pedido%20";
+    let pedido = "%20:%20"+this.pedido.idPedido+"%20"; 
+    let url = "https://www.youtube.com/?hl=es&gl=EC"; 
+    let url_prueba = "http://localhost:4200/login";
+    let cuerpo_mensaje = 
+      "Hola "+repartidor.nombre+" "+repartidor.apellido+" "+
+      "Tienes un nuevo pedido por entregar: "+
+      "*"+this.pedido.idPedido+"*"+
+      "Ingresa a este enlace para finalizar el pedido cuando lo hayas entregado: "+
+      url_prueba;
+
+
+
+
+
+    window.open('https://api.whatsapp.com/send?phone='+telefono+'&text='+cuerpo_mensaje);
     
   }
 }

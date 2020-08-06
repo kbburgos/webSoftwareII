@@ -20,6 +20,7 @@ export const environment = {
     producto: "producto",
     pedido: "pedido",
     repartidor: "repartidor",
+    categorias: "categorias"
   },
   estados: {
     activo: "A",
@@ -32,5 +33,10 @@ export const environment = {
     logOut: "https://omipalisf2.herokuapp.com/api/login/reject",
     urlGetUser: "https://omipalisf2.herokuapp.com/api/usersS/",
     urlToken: "https://omipalisf2.herokuapp.com/api/login/token",
+    //usuarioXid : "https://omipalisf2.herokuapp.com/api/usersS/",
+    usersS: "https://omipalisf2.herokuapp.com/api/usersS/",
   },
+  variables: {
+    usuariosSistema:[],
+  }
 };
