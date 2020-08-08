@@ -16,6 +16,8 @@ import { PromotionsComponent } from '../../pages/promotions/promotions.component
 import { UsersComponent } from '../../pages/users/users.component';
 import { CustomersComponent } from '../../pages/customers/customers.component';
 import { ConflictingComponent } from '../../pages/conflicting/conflicting.component';
+import { DeliveryNotificationComponent } from '../../pages/delivery-notification/delivery-notification.component';
+import { UserNotificationComponent } from '../../pages/user-notification/user-notification.component';
 import { ProductNewComponent } from '../../pages/product-new/product-new.component';
 
 //Services
@@ -80,6 +82,8 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     UsersComponent,
     CustomersComponent,
     ConflictingComponent,
+    DeliveryNotificationComponent,
+    UserNotificationComponent,
   ],
   providers: [
     ProductoService,

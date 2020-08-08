@@ -1,0 +1,55 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <div class="row">
+              <div class="col-md-10">
+                <h4 class="card-title">Lista novedades: Repartidores</h4>
+              </div>
+              <div class="col-md-2">
+                <button
+                  type="text"
+                  (click)="showAddDialog()"
+                  pButton
+                  icon="pi pi-plus"
+                  label="  Nuevo"
+                ></button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p-table
+              [columns]="cols"
+              [value]="deliverymannew"
+              [responsive]="true"
+              sortMode="multiple"
+              [paginator]="true"
+              [rows]="5"
+              #dt
+            >
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th>REPARTIDOR</th>
+                  <th>PEDIDO</th>
+                  <th>NOVEDAD</th>
+                  <th>FECHA</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-deliverymannew>
+                <tr>
+                  <td>{{ deliverymannew.idRepartidor }}</td>
+                  <td>{{ deliverymannew.idPedido }}</td>
+                  <td>{{ deliverymannew.novedad }}</td>
+                  <td>{{ deliverymannew.fecha.toMillis() | date:'yyyy/MM/dd h:mm:ss a' }}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

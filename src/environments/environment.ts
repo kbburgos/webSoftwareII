@@ -20,7 +20,8 @@ export const environment = {
     producto: "producto",
     pedido: "pedido",
     repartidor: "repartidor",
-    categorias: "categorias"
+    categorias: "categorias",
+    novedadesRepartidor: "novedadesRepartidor"
   },
   estados: {
     activo: "A",
@@ -35,8 +36,12 @@ export const environment = {
     urlToken: "https://omipalisf2.herokuapp.com/api/login/token",
     //usuarioXid : "https://omipalisf2.herokuapp.com/api/usersS/",
     usersS: "https://omipalisf2.herokuapp.com/api/usersS/",
+    noveltys: "https://omipalisf2.herokuapp.com/api/noveltys/",
+    orders: "https://omipalisf2.herokuapp.com/api/orders/",
   },
   variables: {
     usuariosSistema:[],
+    clientesNovedades:[],
+    pedidosClientes:[],
   }
 };
