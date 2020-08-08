@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  firebase:{
+  firebase: {
     apiKey: "AIzaSyAiPTePHyltKbiZeyXkuzMHQCfOVSz_Ezo",
     authDomain: "omi-y-pali-80d1d.firebaseapp.com",
     databaseURL: "https://omi-y-pali-80d1d.firebaseio.com",
@@ -13,27 +13,37 @@ export const environment = {
     storageBucket: "omi-y-pali-80d1d.appspot.com",
     messagingSenderId: "1021916524711",
     appId: "1:1021916524711:web:53ad66cdb16967169eeb82",
-    measurementId: "G-0WPXHE9SG1"
+    measurementId: "G-0WPXHE9SG1",
   },
-  nombresColecciones: 
-  {
+  nombresColecciones: {
     promociones: "promociones",
     producto: "producto",
     pedido: "pedido",
     repartidor: "repartidor",
     novedadesRepartidor: "novedadesRepartidor",
+    categorias: "categorias"
+
   },
   estados: {
     activo: "A",
     inactivo: "I",
-    anulado: "AN"
+    anulado: "AN",
   },
-  rutas:{
+  rutas: {
     login: "https://omipalisf2.herokuapp.com/api/login/usuario",
     refresh: "https://omipalisf2.herokuapp.com/api/login/token",
     logOut: "https://omipalisf2.herokuapp.com/api/login/reject",
     usuarioXid : "https://omipalisf2.herokuapp.com/api/usersS/",
     novedades:"https://omipalisf2.herokuapp.com/api/noveltys/"
   },
-  keyCrypto: "abcdefghijklmnopqrstuvwxyz123456789"
+  keyCrypto: "abcdefghijklmnopqrstuvwxyz123456789",
+  urlGetUser: "https://omipalisf2.herokuapp.com/api/usersS/",
+  urlToken: "https://omipalisf2.herokuapp.com/api/login/token",
+  //usuarioXid : "https://omipalisf2.herokuapp.com/api/usersS/",
+  usersS: "https://omipalisf2.herokuapp.com/api/usersS/",
+  
+  variables: {
+    usuariosSistema:[],
+  }
 };
+

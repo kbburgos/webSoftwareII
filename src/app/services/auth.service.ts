@@ -31,14 +31,14 @@ export class AuthService {
 
   }
 
-  /*usuario(token: string){
+  usuario(token: string){
     let headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer '+ token};
-    this.http.get(environment.rutas.usuarioXid+"0924995426",{headers}).subscribe( usuario =>{
-      console.log(usuario["cedula"]+" "+usuario["email"]);
+    this.http.get(environment.rutas.usersS,{headers}).subscribe( usuario =>{
+      environment.variables.usuariosSistema.push(usuario)
     });
-  }*/
+  }
 
   novedades(token: string){
     let headers = {

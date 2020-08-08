@@ -11,6 +11,7 @@ import { UsersComponent } from '../../pages/users/users.component';
 import { PromotionsComponent } from '../../pages/promotions/promotions.component';
 import { CustomersComponent } from '../../pages/customers/customers.component';
 import { ConflictingComponent } from '../../pages/conflicting/conflicting.component';
+import { ProductNewComponent } from '../../pages/product-new/product-new.component';
 import { AssignedComponent } from 'app/pages/assigned/assigned.component';
 import { DeliverymanComponent } from 'app/pages/deliveryman/deliveryman.component';
 import { DeliveryOrderComponent } from 'app/pages/delivery-order/delivery-order.component';
@@ -71,6 +72,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'users',          component: UsersComponent},
     { path: 'customers',      component: CustomersComponent },
     { path: 'conflicting',    component: ConflictingComponent },
+    { path: 'product-new',    component: ProductNewComponent},
     { path: 'delivery',    component: DeliverymanComponent },
     { path: 'delivery-order',    component: DeliveryOrderComponent, canActivate : [AuthDeliverymanGuard]},
 ];

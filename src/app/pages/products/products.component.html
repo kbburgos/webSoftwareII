@@ -4,14 +4,20 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-danger">
-            <h4 class="card-title">Lista de Productos</h4>
-            <button
-              type="text"
-              (click)="addProduct()"
-              pButton
-              icon="pi pi-plus"
-              label="&nbsp; Nuevo producto"
-            ></button>
+            <div class="row">
+              <div class="col-md-10">
+                <h4 class="card-title">Productos</h4>
+              </div>
+              <div class="col-md-2">
+                <button
+                  type="text"
+                  (click)="showAddDialog()"
+                  pButton
+                  icon="pi pi-plus"
+                  label="  Nuevo"
+                ></button>
+              </div>
+            </div>
           </div>
           <div class="card-body">
             <p-table
@@ -20,7 +26,7 @@
               [responsive]="true"
               sortMode="multiple"
               [paginator]="true"
-              [rows]="3"
+              [rows]="5"
               #dt
             >
               <ng-template pTemplate="header" let-columns>
@@ -58,48 +64,101 @@
                         pButton
                         type="button"
                         icon="pi pi-trash"
-                        (click)="eliminarProduct()"
+                        (click)="eliminarProduct(products)"
                         class="ui-button-danger"
                       ></button>
-                      <p-dialog [(visible)]="display" [responsive]="true" showEffect="fade">
-                        <p-header >
-                            Editar Producto
+                      <p-dialog
+                        [(visible)]="display"
+                        [responsive]="true"
+                        showEffect="fade"
+                      >
+                        <p-header>
+                          Editar Producto
                         </p-header>
-                        <div >
-                            <p-table 
-                              [columns]="cols" 
-                              [value]="productos" 
-                              [responsive]="true" 
-                              sortMode="multiple" 
-                              #dt  
-                            >
-                                <ng-template pTemplate="header" let-columns>
-                                    <tr>
-                                        <th>NOMBRE</th>
-                                        <th>DESCRIPCION</th>
-                                        <th>CATEGORIA</th>
-                                        <th>PRECIO</th>
-                                        <th>STOCK</th>
-                                        <th>FOTO</th>
-                                    </tr>
-                                    
-                                </ng-template>
-                                <ng-template pTemplate="body" let-products>
-                                    <tr *ngIf="display && ProductEdit.idProducto == products.idProducto">
-                                      <td> <input type="text" [(ngModel)]="ProductEdit.nombre"></td>
-                                      <td> <input type="text" [(ngModel)]="ProductEdit.descripcion"></td>
-                                      <td> <input type="text" [(ngModel)]="ProductEdit.idCategoria"> </td>
-                                      <td> <input type="text" [(ngModel)]="ProductEdit.precio"> </td>
-                                      <td> <input type="text" [(ngModel)]="ProductEdit.stock"> </td>
-                                      <td><img src="{{products.foto}}" width="50" height="50"></td>
-                                    </tr>
-                                </ng-template>
-                              </p-table>
+                        <div>
+                          <p-table
+                            [columns]="cols"
+                            [value]="productos"
+                            [responsive]="true"
+                            sortMode="multiple"
+                            #dt
+                          >
+                            <ng-template pTemplate="header" let-columns>
+                              <tr>
+                                <th>NOMBRE</th>
+                                <th>DESCRIPCION</th>
+                                <th>CATEGORIA</th>
+                                <th>PRECIO</th>
+                                <th>STOCK</th>
+                                <th>FOTO</th>
+                              </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-products>
+                              <tr
+                                *ngIf="
+                                  display &&
+                                  ProductEdit.idProducto == products.idProducto
+                                "
+                              >
+                                <td>
+                                  <input
+                                    class="input-table"
+                                    type="text"
+                                    [(ngModel)]="ProductEdit.nombre"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="input-table"
+                                    [(ngModel)]="ProductEdit.descripcion"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="input-table"
+                                    [(ngModel)]="ProductEdit.idCategoria"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="input-table"
+                                    [(ngModel)]="ProductEdit.precio"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="input-table"
+                                    [(ngModel)]="ProductEdit.stock"
+                                  />
+                                </td>
+                                <td style="text-align: center;">
+                                  <img
+                                    src="{{ products.foto }}"
+                                    width="50"
+                                    height="50"
+                                  />
+                                </td>
+                              </tr>
+                            </ng-template>
+                          </p-table>
                         </div>
-                        
+
                         <p-footer>
-                            <p-confirmDialog header="Confirmaci&oacute;n" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-                            <button type="button" pButton icon="pi pi-save" (click)="confirmarEditar()" label="Editar"></button>
+                          <p-confirmDialog
+                            header="Confirmaci&oacute;n"
+                            icon="pi pi-exclamation-triangle"
+                          ></p-confirmDialog>
+                          <button
+                            type="button"
+                            pButton
+                            icon="pi pi-save"
+                            (click)="confirmarEditar()"
+                            label="Editar"
+                          ></button>
                         </p-footer>
                       </p-dialog>
                     </div>
@@ -113,3 +172,94 @@
     </div>
   </div>
 </div>
+
+<p-dialog [(visible)]="bandera" [responsive]="true" showEffect="fade">
+  <p-header>
+      Nuevo Producto
+  </p-header>
+  <div class="container-fluid" style="width: 500px;">
+    <div *ngIf="bandera" class="row">
+      <form [formGroup]="form">
+        <div class="form-group col-sm-12">
+          <label>Nombre:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="nombre"
+            placeholder="Nombre del producto"
+          />
+        </div>
+        <div class="form-group col-sm-8" style="float: left;">
+          <label>Descripción:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="descripcion"
+            placeholder="Descripción"
+          />
+        </div>
+        <br />
+        <div class="form-group col-sm-2" style="float: left;">
+          <div class="dropdown">
+            <button
+              href="#"
+              class="btn dropdown-toggle btn-primary"
+              data-toggle="dropdown"
+              aria-expanded="true"
+            >
+              Categoría
+              <b class="caret"></b>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a (click)="guardarCategoria('Promociones')">Promociones</a></li>
+              <li><a (click)="guardarCategoria('Bebidas')">Bebidas</a></li>
+              <li><a (click)="guardarCategoria('Dulces')">Dulces</a></li>
+              <li><a (click)="guardarCategoria('Tortas')">Tortas</a></li>
+              <li><a (click)="guardarCategoria('Postres')">Postres</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="form-group col-sm-6" style="float: left;">
+          <label>Precio:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="precio"
+            placeholder="Precio"
+          />
+        </div>
+        <div class="form-group col-sm-6" style="float: left;">
+          <label>Stock:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="stock"
+            placeholder="Stock"
+          />
+        </div>
+      </form>
+      <div class="col-sm-8">
+        <label>Imagen:</label>
+        <input
+          type="file"
+          accept=".png, .jpg"
+          (change)="onFileUpload($event)"
+        />
+      </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <div class="col-sm-12 button-save">
+        <button
+          class="save"
+          type="text"
+          (click)="save()"
+          pButton
+          label="GUARDAR"
+        ></button>
+      </div>
+    </div>
+  </div>
+</p-dialog>

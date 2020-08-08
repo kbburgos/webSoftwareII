@@ -1,4 +1,7 @@
 import { Component, OnInit} from '@angular/core';
+import { Usuarios } from '../../resource/interface/Usuarios'
+import { environment } from '../../../environments/environment'
+
 
 @Component({
   selector: 'app-promotions',
@@ -6,34 +9,19 @@ import { Component, OnInit} from '@angular/core';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  display: boolean = false;
-  listusers: Users[];
-  cols: any[];
+  usuarios: Usuarios[];
+  cols: any[]
+  
   constructor() { }
 
   ngOnInit() {
-    this.listusers=[
-      {nombre: 'Luciana', apellido: 'Gamboa', correo: 'lucianaGamboa@hotmail.com', telefono: '0984625896', rol: 'Administrador'},
-    ];
-    this.cols=[
-      {field: 'nombre', header: 'NOMBRE'},
-      {field: 'apellido', header: 'APELLIDOS'},
-      {field: 'correo', header: 'CORREO'},
-      {field: 'telefono', header: 'TELEFONO'},
-      {field: 'rol', header: 'ROL'},
-    ];
+    console.log(environment.variables.usuariosSistema)
+    this.usuarios= environment.variables.usuariosSistema
+    console.log(this.usuarios)
   }
 
-  showDialogUsers() {
-    this.display = true;
-  }
 
-}
 
-export interface Users {
-  nombre: string;
-  apellido: string;
-  correo: string;
-  telefono: string;
-  rol: string;
+ 
+
 }

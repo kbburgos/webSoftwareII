@@ -1,4 +1,4 @@
-export class Products {
+export interface  Products {
     descripcion: string;
     foto: string;
     idCategoria: string;

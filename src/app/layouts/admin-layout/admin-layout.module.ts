@@ -16,6 +16,7 @@ import { PromotionsComponent } from '../../pages/promotions/promotions.component
 import { UsersComponent } from '../../pages/users/users.component';
 import { CustomersComponent } from '../../pages/customers/customers.component';
 import { ConflictingComponent } from '../../pages/conflicting/conflicting.component';
+import { ProductNewComponent } from '../../pages/product-new/product-new.component';
 
 //Services
 import{ ProductoService } from '../../services/producto.service';
@@ -79,6 +80,7 @@ import { AuthDeliverymanGuard } from 'app/auth/guard/auth-deliveryman.guard';
     ReportSalesComponent,
     ReportProductComponent,
     ProductsComponent,
+    ProductNewComponent,
     PromotionsComponent,
     UsersComponent,
     CustomersComponent,
