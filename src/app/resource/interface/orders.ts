@@ -6,4 +6,5 @@ export interface Orders{
     subtotal: number;
     cubiertos: string;
     estado: string;
+    idCliente: string;
 }

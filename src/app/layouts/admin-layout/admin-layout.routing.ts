@@ -13,6 +13,8 @@ import { CustomersComponent } from '../../pages/customers/customers.component';
 import { ConflictingComponent } from '../../pages/conflicting/conflicting.component';
 import { AssignedComponent } from 'app/pages/assigned/assigned.component';
 import { DeliverymanComponent } from 'app/pages/deliveryman/deliveryman.component';
+import { DeliveryOrderComponent } from 'app/pages/delivery-order/delivery-order.component';
+import { AuthDeliverymanGuard } from 'app/auth/guard/auth-deliveryman.guard';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -70,4 +72,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'customers',      component: CustomersComponent },
     { path: 'conflicting',    component: ConflictingComponent },
     { path: 'delivery',    component: DeliverymanComponent },
+    { path: 'delivery-order',    component: DeliveryOrderComponent, canActivate : [AuthDeliverymanGuard]},
 ];

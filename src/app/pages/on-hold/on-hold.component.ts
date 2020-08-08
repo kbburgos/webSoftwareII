@@ -35,13 +35,9 @@ export class OnHoldComponent implements OnInit {
     this.listaPedidos = [];
     this.pedidosSuscribe = this.pedidoService.getPedidos().subscribe((item: any) => {  
       this.pedidos = []; 
-      console.log(item);
-     // this.pedidos = item;
       for(let i = 0; i < item.length; i++){
         if(item[i]["estado"] == "espera"){
-          //console.log(item[i]["estado"]);
           this.pedidos.push(item[i]);
-          //console.log(this.pedidos);
         }
       }
       
@@ -57,41 +53,28 @@ export class OnHoldComponent implements OnInit {
 
   assinggnOrder(pedido: Orders) {
     this.pedido = pedido;
-    //this.pedido.estado = "asignado";    
+    this.pedido.estado = "asignado";    
     this.idPedido = pedido["idPedido"];   
-    //this.pedidoService.updatePedidos(this.pedido);
-    
+    this.pedidoService.updatePedidos(this.pedido);  
     this.repartidores.sort(function(a,b){
       if(a.cantidad < b.cantidad){
         return -1;
       }
     });
-    console.log(this.repartidores);
     this.listaPedidos = this.repartidores[0]["pedidos"]; 
-    this.listaPedidos.push(this.idPedido);
-    this.repartidores[0]["cantidad"] = this.repartidores[0]["pedidos"].length;
-    console.log(this.repartidores[0]);
+    
+    this.listaPedidos.push({"idPedido":this.idPedido,"idCliente": this.pedido.idCliente});
+     
+    this.repartidores[0]["cantidad"] = this.listaPedidos.length;
+    /*console.log(this.repartidores[0]["idRepartidor"],'--',this.repartidores[0]["cedula"],'--',this.repartidores[0]["nombre"])
+    console.log(this.listaPedidos); 
+    console.log(this.repartidores[0]["cantidad"]);*/ 
     this.deliveryManService.updateDeliveryMan(this.repartidores[0]);
-    this.notifyOrder(this.repartidores[0]);
+     
+    //this.notifyOrder(this.repartidores[0]);
 
   }
 
-
-  /*assignOrderOnHold(repartidor: Deliveryman){
-    this.repartidor = repartidor;
-    this.listaPedidos = repartidor["pedidos"]; 
-    if(this.idPedido == undefined || this.idPedido == null || this.idPedido == '' || this.idPedido == " "){
-      alert("El pedido ya fué asignado");
-    }else{
-      this.listaPedidos.push(this.idPedido);
-      repartidor["cantidad"] = this.listaPedidos.length;
-      this.idPedido = "";
-      //this.deliveryManService.updateDeliveryMan(repartidor);
-      //this.pedidoService.deletePedido(this.idPedido);
-    }
-
-    
-  }*/
   
   ngOnDestroy(): void{
     if(this.pedidosSuscribe){
@@ -105,9 +88,6 @@ export class OnHoldComponent implements OnInit {
   notifyOrder(repartidor: Deliveryman){
     console.log(repartidor);
     let telefono = '593'+repartidor.telefono;
-    let text = "Hola%20"+repartidor["nombre"]+"%20"+repartidor["apellido"]+"%20,"+"%20debes%20entregar%20el%20siguiente%20pedido%20";
-    let pedido = "%20:%20"+this.pedido.idPedido+"%20"; 
-    let url = "https://www.youtube.com/?hl=es&gl=EC"; 
     let url_prueba = "http://localhost:4200/login";
     let cuerpo_mensaje = 
       "Hola "+repartidor.nombre+" "+repartidor.apellido+" "+

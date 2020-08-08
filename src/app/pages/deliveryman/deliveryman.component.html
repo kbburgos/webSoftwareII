@@ -1,1 +1,49 @@
-<p>deliveryman works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form " [formGroup]="form">
+					<span class="login100-form-logo">
+						<img class="avatar" src="/assets/img/logoOmiPali.jpg">
+					</span>
+
+					<span class="login100-form-title p-b-34 p-t-27">
+						Iniciar Sesi&oacute;n
+					</span>
+
+					<div class="wrap-input100 validate-input" data-validate = "Ingrese su cédula">
+						<input class="input100" type="text" name="cedula" placeholder="Cédula" formControlName="cedula">
+						<span class="focus-input100"><i class="material-icons" style="color: white;">account_box</i></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Ingrese su contraseña">
+						<input class="input100" type="password" name="pass" placeholder="Contraseña" formControlName="pass">
+						<span class="focus-input100"><i class="material-icons" style="color: white;">lock</i></span>
+						
+					</div>
+
+
+
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" (click)="ingresar()">
+							Login
+						</button>
+					</div>
+
+					
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="main.js"></script>
+
+</body>
+</html>

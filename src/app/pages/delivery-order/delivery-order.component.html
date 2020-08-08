@@ -1,0 +1,56 @@
+
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title"  >Finalizar Pedido</h4>
+                    </div>
+                    <div class="card-body">
+                        <p-table [columns]="cols"  [value]="dato" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="10" #dt  >  
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th>PEDIDO</th>
+                                    <th>CLIENTE</th>
+                                    <th>ACCIONES</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-pedidoCulminado>
+                                <tr>
+                                    <td> {{pedidoCulminado.idPedido}} </td>
+                                    <td> {{pedidoCulminado.idCliente}} </td>
+                                    <td>
+                                        <div class="ui-dialog-buttonpane">
+                                            <button pButton type="button" (click)="assinggnOrder(pedidoCulminado)" icon="pi pi-pencil" class="ui-button-secundary" label="&nbsp;Finalizar"></button>
+                                            &nbsp;
+                                        </div>
+                                    </td>
+                                </tr>                             
+                            </ng-template>
+                        </p-table>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<p-dialog [(visible)]="display" [responsive]="true" showEffect="fade">
+    <p-header>  Finalizar proceso del pedido
+    </p-header>
+    <div>
+        <p-card header="Pedido">
+            {{this.pedidoid}}
+        </p-card>
+        <p-card header="¿Tiene alguna novedad?">
+            <div>
+                <textarea  cols="30" rows="5" pInputTextarea autoResize="autoResize" [(ngModel)]= 'textarea'></textarea>
+            </div>
+        </p-card>
+    </div>
+<p-footer>
+    <button type="button" pButton icon="pi pi-check" (click)="sendFinallyOrder(this.pedido)" label="&nbsp;Enviar"></button>

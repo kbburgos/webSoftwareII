@@ -20,7 +20,8 @@ export const environment = {
     promociones: "promociones",
     producto: "producto",
     pedido: "pedido",
-    repartidor: "repartidor"
+    repartidor: "repartidor",
+    novedadesRepartidor: "novedadesRepartidor",
   },
   estados: {
     activo: "A",
@@ -32,5 +33,7 @@ export const environment = {
     refresh: "https://omipalisf2.herokuapp.com/api/login/token",
     logOut: "https://omipalisf2.herokuapp.com/api/login/reject",
     usuarioXid : "https://omipalisf2.herokuapp.com/api/usersS/",
-  }
+    novedades:"https://omipalisf2.herokuapp.com/api/noveltys/"
+  },
+  keyCrypto: "abcdefghijklmnopqrstuvwxyz123456789"
 };

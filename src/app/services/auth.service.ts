@@ -40,6 +40,14 @@ export class AuthService {
     });
   }*/
 
+  novedades(token: string){
+    let headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+ token};
+    this.http.get(environment.rutas.novedades,{headers}).subscribe( data =>{
+        console.log(data);
+    });
+  }
 
   refreshToken() {
     return this.http.post<any>(environment.rutas.refresh,
@@ -67,10 +75,9 @@ export class AuthService {
 
   private  doLoginUser(data){
     this.loggedUser = data.data["email"];
-    console.log(this.loggedUser);
     let tokens : Tokens =  {token : data.token, refreshToken: data.refreshToken};
     this.storeTokens(tokens);
-    //this.usuario(data.token);
+    this.novedades(data.token);
     this.router.navigateByUrl("/dashboard");
   }
 
