@@ -28,12 +28,15 @@ import { DeliverymanComponent } from '../app/pages/deliveryman/deliveryman.compo
 
 
 
+import { NgxSpinnerModule } from "ngx-spinner";
+
 
 @NgModule({
   imports: [
     BrowserAnimationsModule,
     HttpClientModule,
     AngularFirestoreModule,
+    NgxSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,

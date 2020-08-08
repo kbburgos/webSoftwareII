@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 //Components
 import { AdminLayoutRoutes } from './admin-layout.routing';
@@ -65,7 +66,8 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     CardModule,
     RadioButtonModule,
     CalendarModule,
-    InputTextareaModule
+    InputTextareaModule,
+    NgxSpinnerModule
   ],
   declarations: [
     DashboardComponent,

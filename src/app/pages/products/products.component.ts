@@ -3,6 +3,7 @@ import { ProductoService } from "../../services/producto.service";
 import { Products } from "../../resource/interface/products";
 import { ConfirmationService } from "primeng/api";
 import { HttpClientModule } from "@angular/common/http";
+import { NgxSpinnerService } from "ngx-spinner";
 import {
   FormGroup,
   FormControl,
@@ -24,17 +25,12 @@ export class ProductsComponent implements OnInit {
   bandera: boolean = false;
   productos: Products[];
   categorias: Categoria[];
-
   cols: any[];
-
   editState: boolean = false;
   ProductEdit: Products;
-
   selectedFile: File = null;
-
-  private categoria: string = 'Dulces';
-
-  private fileData: File = null;
+  categoria: string = "3";
+  fileData: File = null;
   previewUrl: any = null;
 
   constructor(
@@ -42,35 +38,30 @@ export class ProductsComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private httpClient: HttpClientModule,
     private formBuilder: FormBuilder,
-    private categoriasService: CategoriaService
+    private categoriasService: CategoriaService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {
-    //  console.log("A VER QUE ONDIA");
+    this.spinner.show();
     this.productos = [];
-    //this.categorias = [];
 
     let sub = this.productosService.getProductos().subscribe((item: any) => {
       this.productos = item;
-      // console.log(this.productos);
+      this.spinner.hide();
+      sub.unsubscribe();
     });
-
-/*    let subC = this.categoriasService.getCategorias().subscribe((item: any)=>{
-      this.categorias = item;
-    })
-*/
     this.buildForm();
   }
 
-
   save() {
-    console.log("ESTAMOS AQUI!!!");
     this.addProduct();
   }
 
   private fileProgress(fileInput: any) {
+    console.log("LOS DOCUMENTOS", fileInput);
     this.fileData = <File>fileInput;
-    this.preview();
+    // this.preview();
   }
 
   private preview() {
@@ -87,7 +78,7 @@ export class ProductsComponent implements OnInit {
   }
 
   onFileUpload(event) {
-    this.fileProgress(event.target.files[0]);
+    this.fileProgress(event.target.files);
   }
 
   showDialogProduct(productos) {
@@ -117,6 +108,7 @@ export class ProductsComponent implements OnInit {
       nombre: this.form.get("nombre").value,
       precio: this.form.get("precio").value,
       stock: this.form.get("stock").value,
+      slide: [],
     };
     console.log(producto);
 
