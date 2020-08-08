@@ -17,6 +17,8 @@ import { PromotionsComponent } from '../../pages/promotions/promotions.component
 import { UsersComponent } from '../../pages/users/users.component';
 import { CustomersComponent } from '../../pages/customers/customers.component';
 import { ConflictingComponent } from '../../pages/conflicting/conflicting.component';
+import { DeliveryNotificationComponent } from '../../pages/delivery-notification/delivery-notification.component';
+import { UserNotificationComponent } from '../../pages/user-notification/user-notification.component';
 import { ProductNewComponent } from '../../pages/product-new/product-new.component';
 
 //Services
@@ -42,6 +44,11 @@ import {CardModule} from 'primeng/card';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {CalendarModule} from 'primeng/calendar';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import { PedidoService } from 'app/services/pedido.service';
+import { DeliverymanService } from 'app/services/deliveryman.service';
+import { AssignedComponent } from 'app/pages/assigned/assigned.component';
+import { DeliveryOrderComponent } from 'app/pages/delivery-order/delivery-order.component';
+import { AuthDeliverymanGuard } from 'app/auth/guard/auth-deliveryman.guard';
 
 @NgModule({
   imports: [
@@ -82,11 +89,18 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     UsersComponent,
     CustomersComponent,
     ConflictingComponent,
+    DeliveryNotificationComponent,
+    UserNotificationComponent,
+    AssignedComponent,
+    DeliveryOrderComponent
   ],
   providers: [
     ProductoService,
     ConfirmationService,
-    PromocionesService
+    PromocionesService,
+    PedidoService,
+    DeliverymanService,
+    AuthDeliverymanGuard
   ]
 })
 

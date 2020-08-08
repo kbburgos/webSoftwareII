@@ -31,12 +31,26 @@ export class PedidoService {
         })
       );
   }
+
+  getPedidosByClienteId(cedula:string){
+    return this.firebase
+      .collection(environment.nombresColecciones.pedido,ref => ref.where("idCliente","==",cedula))
+      .snapshotChanges()
+      .pipe(
+        map((producto) => {
+          return producto.map((e) => {
+            return e.payload.doc.data() as Orders;
+          });
+        })
+      );
+  }
+
   deletePedido(idPedido: string) {
     this.PedidosDoc = this.firebase.doc(`pedido/${idPedido}`);
     this.PedidosDoc.delete();
   }
 
-  updatePedidos(pedido: Orders){
+  updatePedidos(pedido: Orders){   
     this.PedidosDoc =  this.firebase.doc(`pedido/${pedido.idPedido}`);
     this.PedidosDoc.update(pedido);
   }
