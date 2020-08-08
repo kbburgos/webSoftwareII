@@ -32,16 +32,20 @@ export const environment = {
     login: "https://omipalisf2.herokuapp.com/api/login/usuario",
     refresh: "https://omipalisf2.herokuapp.com/api/login/token",
     logOut: "https://omipalisf2.herokuapp.com/api/login/reject",
-    urlGetUser: "https://omipalisf2.herokuapp.com/api/usersS/",
-    urlToken: "https://omipalisf2.herokuapp.com/api/login/token",
-    //usuarioXid : "https://omipalisf2.herokuapp.com/api/usersS/",
+    usuarioXid : "https://omipalisf2.herokuapp.com/api/usersS/",
     usersS: "https://omipalisf2.herokuapp.com/api/usersS/",
-    noveltys: "https://omipalisf2.herokuapp.com/api/noveltys/",
-    orders: "https://omipalisf2.herokuapp.com/api/orders/",
+    novedades:"https://omipalisf2.herokuapp.com/api/noveltys/"
   },
+  keyCrypto: "abcdefghijklmnopqrstuvwxyz123456789",
+  urlGetUser: "https://omipalisf2.herokuapp.com/api/usersS/",
+  urlToken: "https://omipalisf2.herokuapp.com/api/login/token",
+  //usuarioXid : "https://omipalisf2.herokuapp.com/api/usersS/",
+  usersS: "https://omipalisf2.herokuapp.com/api/usersS/",
+  
   variables: {
     usuariosSistema:[],
     clientesNovedades:[],
     pedidosClientes:[],
   }
 };
+

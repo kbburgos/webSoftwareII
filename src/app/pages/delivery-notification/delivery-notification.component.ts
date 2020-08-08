@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { DeliverymanNewsService } from "../../services/deliveryman-news.service";
-import { DeliveryManNews } from "../../resource/interface/deliverymanNews";
+import { DelivermanReporterService } from "../../services/deliverman-reporter.service";
+import { NovelyDeliverman } from "../../resource/interface/noveltyDeliverman";
 import { ConfirmationService } from "primeng/api";
 import { HttpClientModule } from "@angular/common/http";
 
@@ -15,7 +15,7 @@ import { CategoriaService } from "../../services/categoria.service";
 export class DeliveryNotificationComponent implements OnInit {
   display: boolean = false;
   bandera: boolean = false;
-  deliverymannew: DeliveryManNews[];
+  deliverymannew: NovelyDeliverman[];
   categorias: Categoria[];
 
   cols: any[];
@@ -26,7 +26,7 @@ export class DeliveryNotificationComponent implements OnInit {
 
 
   constructor(
-    private deliverymanService: DeliverymanNewsService,
+    private deliverymanService: DelivermanReporterService,
     private confirmationService: ConfirmationService,
     private httpClient: HttpClientModule,
     private categoriasService: CategoriaService

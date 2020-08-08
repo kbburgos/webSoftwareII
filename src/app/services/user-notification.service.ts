@@ -24,7 +24,7 @@ export class UserNotificationService {
     let headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer '+ token};
-    return this.http.get(environment.rutas.noveltys,{headers});
+    return this.http.get(environment.rutas.novedades,{headers});
   }
 
   private storeTokens(tokens: Tokens) {

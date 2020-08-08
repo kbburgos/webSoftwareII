@@ -6,7 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
-
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
 import { AppComponent } from './app.component';
 
 
@@ -25,6 +26,9 @@ import { ProductoService  } from './services/producto.service';
 import { PedidoService } from './services/pedido.service';
 import { DeliverymanService } from './services/deliveryman.service';
 import { DeliverymanComponent } from '../app/pages/deliveryman/deliveryman.component';
+import { DeliveryOrderComponent } from './pages/delivery-order/delivery-order.component';
+import { AuthDeliverymanGuard } from './auth/guard/auth-deliveryman.guard';
+import { DialogModule } from 'primeng/dialog';
 
 
 
@@ -42,6 +46,8 @@ import { DeliverymanComponent } from '../app/pages/deliveryman/deliveryman.compo
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
+    //DialogModule,
+    //ConfirmDialogModule,
     /*AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })*/
@@ -51,6 +57,7 @@ import { DeliverymanComponent } from '../app/pages/deliveryman/deliveryman.compo
     AdminLayoutComponent,
     LoginComponent,
     DeliverymanComponent,
+    
     
 
   ],

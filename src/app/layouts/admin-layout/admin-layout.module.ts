@@ -43,6 +43,11 @@ import {CardModule} from 'primeng/card';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {CalendarModule} from 'primeng/calendar';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import { PedidoService } from 'app/services/pedido.service';
+import { DeliverymanService } from 'app/services/deliveryman.service';
+import { AssignedComponent } from 'app/pages/assigned/assigned.component';
+import { DeliveryOrderComponent } from 'app/pages/delivery-order/delivery-order.component';
+import { AuthDeliverymanGuard } from 'app/auth/guard/auth-deliveryman.guard';
 
 @NgModule({
   imports: [
@@ -84,11 +89,16 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     ConflictingComponent,
     DeliveryNotificationComponent,
     UserNotificationComponent,
+    AssignedComponent,
+    DeliveryOrderComponent
   ],
   providers: [
     ProductoService,
     ConfirmationService,
-    PromocionesService
+    PromocionesService,
+    PedidoService,
+    DeliverymanService,
+    AuthDeliverymanGuard
   ]
 })
 

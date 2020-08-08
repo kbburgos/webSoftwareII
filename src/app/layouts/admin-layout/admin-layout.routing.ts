@@ -16,6 +16,8 @@ import { UserNotificationComponent } from '../../pages/user-notification/user-no
 import { ProductNewComponent } from '../../pages/product-new/product-new.component';
 import { AssignedComponent } from 'app/pages/assigned/assigned.component';
 import { DeliverymanComponent } from 'app/pages/deliveryman/deliveryman.component';
+import { DeliveryOrderComponent } from 'app/pages/delivery-order/delivery-order.component';
+import { AuthDeliverymanGuard } from 'app/auth/guard/auth-deliveryman.guard';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -76,4 +78,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'user-notification',    component: UserNotificationComponent },
     { path: 'product-new',    component: ProductNewComponent},
     { path: 'delivery',    component: DeliverymanComponent },
+    { path: 'delivery-order',    component: DeliveryOrderComponent, canActivate : [AuthDeliverymanGuard]},
 ];

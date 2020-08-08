@@ -6,6 +6,9 @@ import { LoginComponent } from "../app/pages//login/login.component";
 
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { DeliverymanComponent } from "./pages/deliveryman/deliveryman.component";
+import { DeliveryOrderComponent } from "./pages/delivery-order/delivery-order.component";
+import { AuthDeliverymanGuard } from "./auth/guard/auth-deliveryman.guard";
+
 
 const routes: Routes = [
   {
@@ -26,6 +29,15 @@ const routes: Routes = [
     path: "deliveryman",
     component: DeliverymanComponent,
   },
+  /*{
+    path: "",
+    redirectTo: "delivery-order",
+    pathMatch: "full",
+  },
+  {
+    path: "delivery-order",
+    component: DeliveryOrderComponent,
+  },*/
   {
     path: "dashboard",
     redirectTo: "dashboard",
