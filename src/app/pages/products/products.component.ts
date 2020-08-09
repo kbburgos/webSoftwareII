@@ -2,7 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { ProductoService } from "../../services/producto.service";
 import { Products } from "../../resource/interface/products";
 import { ConfirmationService } from "primeng/api";
+
 import { HttpClientModule } from "@angular/common/http";
+import { NgxSpinnerService } from "ngx-spinner";
 import {
   FormGroup,
   FormControl,
@@ -19,75 +21,97 @@ import { CategoriaService } from "../../services/categoria.service";
   styleUrls: ["./products.component.css"],
 })
 export class ProductsComponent implements OnInit {
-  form: FormGroup;
+  private form: FormGroup;
   display: boolean = false;
   bandera: boolean = false;
+  imgChange: boolean = false;
   productos: Products[];
   categorias: Categoria[];
 
-  cols: any[];
+  cols: any = [];
 
-  editState: boolean = false;
+  categoriasNames: string[] = [];
+
   ProductEdit: Products;
 
-  selectedFile: File = null;
+  categoria: string = "";
+  //private fileData: File[] = [];
+  Urls: any = [];
+  //previewUrl: any[] = [];
+  promocion: boolean = false;
+  // file: File = null;
+  allfiles: any = [];
 
-  private categoria: string = 'Dulces';
-
-  private fileData: File = null;
   previewUrl: any = null;
+
+  lista: any[];
 
   constructor(
     private productosService: ProductoService,
     private confirmationService: ConfirmationService,
-    private httpClient: HttpClientModule,
     private formBuilder: FormBuilder,
-    private categoriasService: CategoriaService
+    private caterogiasService: CategoriaService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {
-    //  console.log("A VER QUE ONDIA");
+    this.spinner.show();
     this.productos = [];
-    //this.categorias = [];
 
-    let sub = this.productosService.getProductos().subscribe((item: any) => {
+    let pro = this.productosService.getProductos().subscribe((item: any) => {
       this.productos = item;
-      // console.log(this.productos);
+      console.log("productos", this.productos);
+      this.spinner.hide();
+      // sub.unsubscribe();
     });
 
-/*    let subC = this.categoriasService.getCategorias().subscribe((item: any)=>{
+    let cat = this.caterogiasService.getCategorias().subscribe((item: any) => {
       this.categorias = item;
-    })
-*/
+      item.map((categoria) => {
+        this.categoriasNames.push(categoria.nombre);
+      });
+      console.log("categorias Nombres ", this.categoriasNames);
+      console.log("categorias ", this.categorias);
+      this.productos.map((producto) => {
+        this.catNames(producto);
+      });
+    });
+
     this.buildForm();
   }
 
-
   save() {
-    console.log("ESTAMOS AQUI!!!");
     this.addProduct();
   }
 
-  private fileProgress(fileInput: any) {
-    this.fileData = <File>fileInput;
-    this.preview();
-  }
+  isPromocion(event) {
+    this.promocion = event.checked;
 
-  private preview() {
-    var mimeType = this.fileData.type;
-    if (mimeType.match(/image\/*/) == null) {
-      return;
+    if (this.promocion) {
+      let catPromocion = "1";
+      this.validateCat(catPromocion);
     }
-
-    var reader = new FileReader();
-    reader.readAsDataURL(this.fileData);
-    reader.onload = (_event) => {
-      this.previewUrl = reader.result;
-    };
+    console.log(this.promocion);
   }
 
   onFileUpload(event) {
-    this.fileProgress(event.target.files[0]);
+    this.spinner.show();
+    const files = event.files;
+    this.fileProgress(files);
+    this.spinner.hide();
+  }
+
+  fileProgress(file: any) {
+    for (let i = 0; i < file.length; i++) {
+      this.allfiles.push(file[i]);
+      console.log(file[i]);
+      const reader = new FileReader();
+      reader.onload = (fileData) => {
+        this.previewUrl = reader.result;
+        this.Urls.push(this.previewUrl);
+      };
+      reader.readAsDataURL(file[i]);
+    }
   }
 
   showDialogProduct(productos) {
@@ -99,10 +123,14 @@ export class ProductsComponent implements OnInit {
     this.confirmationService.confirm({
       message: "¿Est&aacute; seguro que desea editar el producto?",
       accept: () => {
-        this.productosService.updateProduct(this.ProductEdit);
-        this.clearState();
+        this.catId(this.ProductEdit);
       },
     });
+  }
+
+  update(producto: Products) {
+    this.productosService.updateProduct(producto);
+    this.clearState();
   }
 
   showAddDialog() {
@@ -110,6 +138,11 @@ export class ProductsComponent implements OnInit {
   }
 
   addProduct() {
+    // console.log(this.previewUrl);
+    //console.log(this.Urls)
+
+    console.log(this.categoria);
+
     let producto: Products = {
       descripcion: this.form.get("descripcion").value,
       foto: this.previewUrl,
@@ -117,6 +150,7 @@ export class ProductsComponent implements OnInit {
       nombre: this.form.get("nombre").value,
       precio: this.form.get("precio").value,
       stock: this.form.get("stock").value,
+      slide: this.Urls,
     };
     console.log(producto);
 
@@ -141,6 +175,9 @@ export class ProductsComponent implements OnInit {
   clearState() {
     this.display = false;
     this.ProductEdit = null;
+    this.previewUrl = null;
+    this.Urls = [];
+    this.form.reset();
   }
 
   private buildForm() {
@@ -165,7 +202,66 @@ export class ProductsComponent implements OnInit {
   }
 
   guardarCategoria(categoria: string) {
-    this.categoria = categoria;
-    console.log(this.categoria);
+    console.log(categoria);
+    this.validateCat(categoria);
+  }
+
+  validateCat(categoria: string) {
+    let categoriapro = parseInt(categoria);
+    for (let i = 0; i < this.categorias.length; i++) {
+      if (this.categorias[i].codigo == categoriapro) {
+        console.log(this.categorias[i].codigo);
+        console.log(this.categorias[i].idCategoria);
+        this.categoria = this.categorias[i].idCategoria;
+      }
+    }
+  }
+
+  catNames(producto: Products) {
+    //console.log("entra???")
+    let catname: string = "";
+    for (let i = 0; i < this.categorias.length; i++) {
+      if (this.categorias[i].idCategoria == producto.idCategoria) {
+        catname = this.categorias[i].nombre;
+        let colcat = {
+          nombre: producto.nombre,
+          descripcion: producto.descripcion,
+          idCategoria: catname,
+          foto: producto.foto,
+          precio: producto.precio,
+          stock: producto.stock,
+          idProducto: producto.idProducto,
+          slide: producto.slide,
+        };
+        this.cols.push(colcat);
+      }
+    }
+    console.log("Columnas ", this.cols);
+    this.lista = this.cols;
+  }
+
+  catId(producto: Products) {
+    let slide = [];
+    if (producto.slide) {
+      slide = producto.slide;
+    }
+    let catname: string = "";
+    for (let i = 0; i < this.categorias.length; i++) {
+      if (this.categorias[i].nombre == producto.idCategoria) {
+        catname = this.categorias[i].idCategoria;
+        let colcat = {
+          nombre: producto.nombre,
+          descripcion: producto.descripcion,
+          idCategoria: catname,
+          foto: producto.foto,
+          precio: producto.precio,
+          stock: producto.stock,
+          idProducto: producto.idProducto,
+          slide: slide,
+        };
+
+        this.update(colcat);
+      }
+    }
   }
 }
