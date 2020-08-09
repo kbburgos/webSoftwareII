@@ -36,6 +36,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {TableModule} from 'primeng/table';
+import {CheckboxModule} from 'primeng/checkbox';
+import {FileUploadModule} from 'primeng/fileupload';
 import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
@@ -49,13 +51,17 @@ import { DeliverymanService } from 'app/services/deliveryman.service';
 import { AssignedComponent } from 'app/pages/assigned/assigned.component';
 import { DeliveryOrderComponent } from 'app/pages/delivery-order/delivery-order.component';
 import { AuthDeliverymanGuard } from 'app/auth/guard/auth-deliveryman.guard';
+import {CarouselModule} from 'primeng/carousel';
+import {TooltipModule} from 'primeng/tooltip';
 
 @NgModule({
   imports: [
     CommonModule,
+    TooltipModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     ReactiveFormsModule,
+    CarouselModule,
     MatButtonModule,
     MatRippleModule,
     MatFormFieldModule,
@@ -74,7 +80,9 @@ import { AuthDeliverymanGuard } from 'app/auth/guard/auth-deliveryman.guard';
     RadioButtonModule,
     CalendarModule,
     InputTextareaModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    CheckboxModule,
+    FileUploadModule
   ],
   declarations: [
     DashboardComponent,

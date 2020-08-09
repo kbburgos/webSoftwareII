@@ -131,6 +131,7 @@ export class UserNotificationComponent implements OnInit {
       nombre: this.form.get("nombre").value,
       precio: this.form.get("precio").value,
       stock: this.form.get("stock").value,
+      slide:[]
     };
     console.log(producto);
 

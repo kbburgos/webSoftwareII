@@ -24,3 +24,21 @@ table {
   border-color: DARKMAGENTA;;
 }
 
+.upload{
+  background-color: yellowgreen;
+}
+
+.image-preview{
+  width: 150px;
+}
+
+
+.btn{
+  background-color: white;
+  width: 100%;
+  color: black;
+  font-size: 0.7rem;
+}
+
+
+
