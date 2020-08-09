@@ -4,8 +4,6 @@ import { NovelyDeliverman } from "../../resource/interface/noveltyDeliverman";
 import { ConfirmationService } from "primeng/api";
 import { HttpClientModule } from "@angular/common/http";
 
-import { Categoria } from "../../resource/interface/categoria";
-import { CategoriaService } from "../../services/categoria.service";
 
 @Component({
   selector: "app-delivery-notification",
@@ -16,30 +14,27 @@ export class DeliveryNotificationComponent implements OnInit {
   display: boolean = false;
   bandera: boolean = false;
   deliverymannew: NovelyDeliverman[];
-  categorias: Categoria[];
 
   cols: any[];
 
-  editState: boolean = false;
-
-  private categoria: string = 'Dulces';
-
-
   constructor(
-    private deliverymanService: DelivermanReporterService,
+    private deliverymanreportService: DelivermanReporterService,
     private confirmationService: ConfirmationService,
-    private httpClient: HttpClientModule,
-    private categoriasService: CategoriaService
-  ) {}
+    private httpClient: HttpClientModule
+  ) { }
 
   ngOnInit() {
-    this.deliverymannew = [];
 
-    let sub = this.deliverymanService.getNovedadesRepartidores().subscribe((item: any) => {
+    let sub = this.deliverymanreportService.getNovedadesRepartidores().subscribe((item: any) => {
       this.deliverymannew = item;
+      console.log(this.deliverymannew);
     });
 
   }
 
+  eliminarRepartidorNovedad(novelydeliverman){
+    console.log("Eliminar novedad de repartidor");
+    this.deliverymanreportService.deleteNovedadRepartidor(novelydeliverman.idNovedad);
+  }
 
 }
