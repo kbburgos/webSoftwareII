@@ -1,4 +1,6 @@
 import { Component, OnInit} from '@angular/core';
+import { PedidoService } from 'app/services/pedido.service';
+
 
 @Component({
   selector: 'app-dispatched',
@@ -7,10 +9,15 @@ import { Component, OnInit} from '@angular/core';
 })
 export class DispatchedComponent implements OnInit {
   listdispatched: Dispatched[];
+  listaPedidos: any = [];
   cols: any[];
-  constructor() { }
+  token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA5MjQ5OTU0MjYiLCJpYXQiOjE1OTY5NTExMjMsImV4cCI6MTU5Njk1MjAyM30.uR79EmM_t-WqGAtU_tmqz8eCnWjCfbYoM086TDJYVR8";
+  constructor(private pedidosService: PedidoService) { }
 
   ngOnInit() {
+
+    this.listaPedidos = this.pedidosService.getPedidosDispatchedFromApi(this.token);
+    
     this.listdispatched=[
       {codigo: 1, cliente: 'Marcos', entrega: 'Domicilio', fecha: '25/06/2020', monto:10, novedad:''},
       {codigo: 2, cliente: 'Leticia', entrega: 'Domicilio', fecha: '25/06/2020',monto:12, novedad:''},
@@ -32,7 +39,17 @@ export class DispatchedComponent implements OnInit {
       {field: 'novedad', header: 'NOVEDAD'},
     ];
   }
+
+  
+  ver(){
+    console.log(this.listaPedidos);
+  }
+
+
+
 }
+
+
 
 export interface Dispatched {
   codigo: number;

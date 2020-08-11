@@ -5,43 +5,128 @@
               <div class="card">
                   <div class="card-header card-header-danger">
                       <h4 class="card-title"   >Lista de pedidos en espera</h4>
-                  </div>
+                  </div>                 
                   <div class="card-body">
-                    <!--<p-table [columns]="cols" [value]="pedidos" [(selection)]="selectedOnHold" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="10" #dt  >-->
-                    <p-table [columns]="cols" [value]="pedidos" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="10" #dt  >  
-                      <ng-template pTemplate="header" let-columns>
-                        <tr>
-                            <th>PEDIDO</th>
-                            <th>COMPRA</th>
-                            <th>PRODUCTOS</th>
-                            <th>CANTIDAD</th>
-                            <th>SUBTOTAL</th>
-                            <th>CUBIERTOS</th>
-                            <th>ACCIONES</th>
-                        </tr>
-                      </ng-template>
-                      <ng-template pTemplate="body" let-pedidos>
-                        <tr>
-                            <td> {{pedidos.idPedido}} </td>
-                            <td> {{pedidos.idCompra}} </td>
-                            <td> {{pedidos.Productos}} </td>
-                            <td> {{pedidos.cantidad}} </td>
-                            <td> {{pedidos.subtotal}} </td>
-                            <td> {{pedidos.cubiertos}} </td>
-                            <td>
-                                <div class="ui-dialog-buttonpane">
-                                    <button pButton type="button" (click)="assinggnOrder(pedidos)" icon="pi pi-user-plus" class="ui-button-secundary" ></button>
-                                    &nbsp;
-                                </div>
-                            </td>
-                        </tr> 
-                        
-                      </ng-template>
-                    </p-table>
-                    
+                    <p-accordion>
+                      <p-accordionTab header="Simbología">
+                         <div class="divSimbology">
+                          <i class="pi pi-user-plus"></i>
+                          &nbsp;
+                          Asigna al repartidor autom&aacute;ticamente
+                         </div>
+                         <div class="divSimbology">
+                          <i class="pi pi-arrow-circle-right"></i>
+                          &nbsp;
+                          Env&iacute;a el pedido a pestaña despachados
+                        </div>
+                         <div class="divSimbology">
+                          <i class="pi pi-money-bill"></i>
+                          &nbsp;
+                          Pago realizado en efectivo
+                        </div>
+                        <div class="divSimbology">
+                          <i class="pi pi-id-card"></i>
+                          &nbsp;
+                          Pago realizado por dep&oacute;sito o transferencia
+                        </div>
+                      </p-accordionTab>
+                    </p-accordion>
+                    <p-tabView>
+                      <p-tabPanel header="Pedidos a Domicilio">
+                        <p-table [columns]="cols" [value]="pedidosDomicilio" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="10" #dt  >  
+                          <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th>PEDIDO</th>
+                                <th>CLIENTE</th>
+                                <th>PRODUCTOS</th>
+                                <th>CUBIERTOS</th>
+                                <th>TOTAL A PAGAR</th>
+                                <th>ACCIONES</th>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-pedidos>
+                            <tr>
+                                <td> {{pedidos.idPedido}} </td>
+                                <td> {{pedidos.idUsuario}} </td>
+                                <td> <u (click)="DetailsProducts(pedidos.productos, pedidos.cantidades)" class="uDetail" > ver detalle </u></td>
+                                <td> <span *ngIf="!pedidos.cubiertos"> no </span> <span *ngIf="pedidos.cubiertos"> si  </span> </td>
+                                <td> <i *ngIf="pedidos.isEfectivo" class="pi pi-money-bill"></i><i *ngIf="!pedidos.isEfectivo" class="pi pi-id-card"></i>&nbsp; &nbsp;{{pedidos.total}} </td>
+                                <td>
+                                    <div class="ui-dialog-buttonpane">
+                                        <button pButton type="button" (click)="assinggnOrder(pedidos)" icon="pi pi-user-plus" class="ui-button-secundary" ></button>
+                                        &nbsp;
+                                    </div>
+                                </td>
+                            </tr>            
+                          </ng-template>
+                        </p-table>
+                      </p-tabPanel>
+                      <p-tabPanel header="Pedidos en Local">
+                        <p-table [columns]="cols" [value]="pedidosLocal" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="10" #dt  >  
+                          <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th>PEDIDO</th>
+                                <th>CLIENTE</th>
+                                <th>PRODUCTOS</th>
+                                <th>CUBIERTOS</th>
+                                <th>TOTAL A PAGAR</th>
+                                <th>ACCIONES</th>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-pedidoLocal>
+                            <tr>
+                                <td> {{pedidoLocal.idPedido}} </td>
+                                <td> {{pedidoLocal.idUsuario}} </td>
+                                <td> <u (click)="DetailsProducts(pedidoLocal.productos, pedidoLocal.cantidades)" class="uDetail" > ver detalle </u></td>
+                                <td> <span *ngIf="!pedidoLocal.cubiertos"> no </span> <span *ngIf="pedidoLocal.cubiertos"> si </span> </td>
+                                <td> <i *ngIf="pedidoLocal.isEfectivo" class="pi pi-money-bill"></i><i *ngIf="!pedidoLocal.isEfectivo" class="pi pi-id-card"></i>&nbsp; &nbsp;{{pedidoLocal.total}} </td>
+                                <td>
+                                    <div class="ui-dialog-buttonpane">
+                                        <button pButton type="button" (click)="dispatchedOrder(pedidoLocal)" icon="pi pi-arrow-circle-right" class="ui-button-secundary" ></button>
+                                        &nbsp;
+                                    </div>
+                                </td>
+                            </tr> 
+                            
+                          </ng-template>
+                        </p-table>
+                      </p-tabPanel>
+                    </p-tabView>
                   </div>
               </div>
           </div>
       </div>
   </div>
 </div>
+
+
+
+<p-dialog [(visible)]="display" [responsive]="true" showEffect="fade">
+  <div class = "divCard">
+    <p-card>
+      <div class="datosDiv">
+          Información de Productos
+      </div>
+      <p-table [columns]="cols" [value]="listaProductos" styleClass="p-datatable-sm" [resizableColumns]="true" >  
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+              <th>NOMBRE</th>
+              <th>CANTIDAD</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-productos>
+          <tr>
+              <td> {{productos.producto}} </td>
+              <td> {{productos.cantidad}} </td>
+          </tr>      
+        </ng-template>
+        
+      </p-table>
+      <div class="datosDivFooter">
+        Cantidad total de productos: &nbsp; {{cantidadTotalProductosxPedido}}
+      </div>
+  </p-card> 
+  </div> 
+<p-footer>
+  
+

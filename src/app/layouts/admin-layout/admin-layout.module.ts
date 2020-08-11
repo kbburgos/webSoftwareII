@@ -38,6 +38,7 @@ import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {TabViewModule} from 'primeng/tabview';
 import {ConfirmationService} from 'primeng/api';
 import {CardModule} from 'primeng/card';
 import {RadioButtonModule} from 'primeng/radiobutton';
@@ -48,7 +49,8 @@ import { DeliverymanService } from 'app/services/deliveryman.service';
 import { AssignedComponent } from 'app/pages/assigned/assigned.component';
 import { DeliveryOrderComponent } from 'app/pages/delivery-order/delivery-order.component';
 import { AuthDeliverymanGuard } from 'app/auth/guard/auth-deliveryman.guard';
-
+import {PanelModule} from 'primeng/panel';
+import {AccordionModule} from 'primeng/accordion';
 @NgModule({
   imports: [
     CommonModule,
@@ -72,7 +74,10 @@ import { AuthDeliverymanGuard } from 'app/auth/guard/auth-deliveryman.guard';
     CardModule,
     RadioButtonModule,
     CalendarModule,
-    InputTextareaModule
+    InputTextareaModule,
+    TabViewModule,
+    PanelModule,
+    AccordionModule
   ],
   declarations: [
     DashboardComponent,

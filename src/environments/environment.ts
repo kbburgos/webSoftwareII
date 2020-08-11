@@ -34,7 +34,8 @@ export const environment = {
     logOut: "https://omipalisf2.herokuapp.com/api/login/reject",
     usuarioXid : "https://omipalisf2.herokuapp.com/api/usersS/",
     usersS: "https://omipalisf2.herokuapp.com/api/usersS/",
-    novedades:"https://omipalisf2.herokuapp.com/api/noveltys/"
+    novedades:"https://omipalisf2.herokuapp.com/api/noveltys/",
+    pedidos: "https://omipalisf2.herokuapp.com/api/orders/getAll",
   },
   keyCrypto: "abcdefghijklmnopqrstuvwxyz123456789",
   urlGetUser: "https://omipalisf2.herokuapp.com/api/usersS/",
