@@ -6,4 +6,5 @@ export interface  Products {
     nombre: string;
     precio: number;
     stock: number;
+    slide: string[]
 }

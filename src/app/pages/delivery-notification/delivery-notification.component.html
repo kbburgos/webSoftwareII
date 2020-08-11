@@ -36,15 +36,27 @@
                   <th>CLIENTE</th>
                   <th>NOVEDAD</th>
                   <th>FECHA</th>
+                  <th>ACCI&Oacute;N</th>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="body" let-deliverymannew>
+              <ng-template pTemplate="body" let-novelydeliverman>
                 <tr>
-                  <td>{{ deliverymannew.idRepartidor }}</td>
-                  <td>{{ deliverymannew.idPedido }}</td>
-                  <td>{{ deliverymannew.idCliente }}</td>
-                  <td>{{ deliverymannew.novedad }}</td>
-                  <td>{{ deliverymannew.fecha.toMillis() | date:'yyyy/MM/dd h:mm:ss a' }}</td>
+                  <td>{{ novelydeliverman.idRepartidor }}</td>
+                  <td>{{ novelydeliverman.idPedido }}</td>
+                  <td>{{ novelydeliverman.idCliente }}</td>
+                  <td>{{ novelydeliverman.novedad }}</td>
+                  <td>{{ novelydeliverman.fecha }}</td>
+                  <td>
+                    <div>
+                      <button
+                        pButton
+                        type="button"
+                        icon="pi pi-trash"
+                        (click)="eliminarRepartidorNovedad(novelydeliverman)"
+                        class="ui-button-danger"
+                      ></button>
+                    </div>
+                  </td>
                 </tr>
               </ng-template>
             </p-table>

@@ -22,7 +22,7 @@
           <div class="card-body">
             <p-table
               [columns]="cols"
-              [value]="productos"
+              [value]="lista"
               [responsive]="true"
               sortMode="multiple"
               [paginator]="true"
@@ -78,7 +78,7 @@
                         <div>
                           <p-table
                             [columns]="cols"
-                            [value]="productos"
+                            [value]="lista"
                             [responsive]="true"
                             sortMode="multiple"
                             #dt
@@ -116,6 +116,8 @@
                                 </td>
                                 <td>
                                   <input
+                                    pTooltip="promociones, bebidas, dulces, tortas o postres"
+                                    tooltipPosition="top"
                                     type="text"
                                     class="input-table"
                                     [(ngModel)]="ProductEdit.idCategoria"
@@ -126,6 +128,8 @@
                                     type="text"
                                     class="input-table"
                                     [(ngModel)]="ProductEdit.precio"
+                                    type="number"
+                                    step="any"
                                   />
                                 </td>
                                 <td>
@@ -133,6 +137,8 @@
                                     type="text"
                                     class="input-table"
                                     [(ngModel)]="ProductEdit.stock"
+                                    type="number"
+                                    step="any"
                                   />
                                 </td>
                                 <td style="text-align: center;">
@@ -173,10 +179,23 @@
   </div>
 </div>
 
-<p-dialog [(visible)]="bandera" [responsive]="true" showEffect="fade">
+<p-dialog
+  [(visible)]="bandera"
+  [responsive]="true"
+  showEffect="fade"
+  (onHide)="clearState()"
+>
   <p-header>
-      Nuevo Producto
+    Nuevo Producto
+    <p-checkbox
+      style="margin-left: 1.5rem;"
+      name="groupname"
+      value="val1"
+      label="Promoción"
+      (onChange)="isPromocion($event)"
+    ></p-checkbox>
   </p-header>
+
   <div class="container-fluid" style="width: 500px;">
     <div *ngIf="bandera" class="row">
       <form [formGroup]="form">
@@ -186,7 +205,7 @@
             type="text"
             class="form-control"
             formControlName="nombre"
-            placeholder="Nombre del producto"
+            placeholder="...Cheessecake de fresa"
           />
         </div>
         <div class="form-group col-sm-8" style="float: left;">
@@ -195,11 +214,15 @@
             type="text"
             class="form-control"
             formControlName="descripcion"
-            placeholder="Descripción"
+            placeholder="...En dulzado con splenda y fresa"
           />
         </div>
         <br />
-        <div class="form-group col-sm-2" style="float: left;">
+        <div
+          *ngIf="!promocion"
+          class="form-group col-sm-2"
+          style="float: left;"
+        >
           <div class="dropdown">
             <button
               href="#"
@@ -211,50 +234,73 @@
               <b class="caret"></b>
             </button>
             <ul class="dropdown-menu">
-              <li><a (click)="guardarCategoria('Promociones')">Promociones</a></li>
-              <li><a (click)="guardarCategoria('Bebidas')">Bebidas</a></li>
-              <li><a (click)="guardarCategoria('Dulces')">Dulces</a></li>
-              <li><a (click)="guardarCategoria('Tortas')">Tortas</a></li>
-              <li><a (click)="guardarCategoria('Postres')">Postres</a></li>
+              <li><a (click)="guardarCategoria('3')">Bebidas</a></li>
+              <li><a (click)="guardarCategoria('3')">Dulces</a></li>
+              <li><a (click)="guardarCategoria('4')">Tortas</a></li>
+              <li><a (click)="guardarCategoria('5')">Postres</a></li>
             </ul>
           </div>
         </div>
         <div class="form-group col-sm-6" style="float: left;">
           <label>Precio:</label>
           <input
-            type="text"
             class="form-control"
             formControlName="precio"
-            placeholder="Precio"
+            type="number"
+            step="any"
           />
         </div>
         <div class="form-group col-sm-6" style="float: left;">
           <label>Stock:</label>
           <input
-            type="text"
+            type="number"
+            step="any"
             class="form-control"
             formControlName="stock"
-            placeholder="Stock"
           />
         </div>
       </form>
-      <div class="col-sm-8">
+      <div class="col-sm-12">
         <label>Imagen:</label>
-        <input
-          type="file"
-          accept=".png, .jpg"
-          (change)="onFileUpload($event)"
-        />
+        <br />
+        <br />
+
+        <p-fileUpload
+          *ngIf="!previewUrl"
+          multiple="true"
+          customUpload="false"
+          (uploadHandler)="onFileUpload($event)"
+          accept="image/*"
+        >
+        </p-fileUpload>
+        <div class="mb-3 text-center" *ngIf="previewUrl">
+          <p-carousel [value]="Urls" [numVisible]="2" [numScroll]="1">
+            <ng-template let-item pTemplate="item">
+              <img [src]="item" class="rounded image-preview" />
+            </ng-template>
+          </p-carousel>
+        </div>
       </div>
       <br />
       <br />
-      <br />
-      <br />
-      <br />
+
       <div class="col-sm-12 button-save">
+        <br />
+        <br />
+        <br />
         <button
+          mat-raised-button
+          class="btn btn-success"
+          [disabled]="
+            form.invalid ||
+            categoria == '' ||
+            nombre == '' ||
+            descripcion == '' ||
+            precio == '' ||
+            stock == '' ||
+            previewUrl == null
+          "
           class="save"
-          type="text"
           (click)="save()"
           pButton
           label="GUARDAR"
@@ -263,3 +309,4 @@
     </div>
   </div>
 </p-dialog>
+

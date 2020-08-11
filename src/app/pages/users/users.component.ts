@@ -1,7 +1,10 @@
 import { Component, OnInit} from '@angular/core';
 import { Usuarios } from '../../resource/interface/Usuarios'
-import { environment } from '../../../environments/environment'
+import { HttpClient } from '@angular/common/http';
 
+import { UsersService } from "../../services/users.service";
+import { AuthService } from "../../services/auth.service";
+import { environment } from "environments/environment";
 
 @Component({
   selector: 'app-promotions',
@@ -9,19 +12,22 @@ import { environment } from '../../../environments/environment'
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  usuarios: Usuarios[];
+  token:any;
+  listusuarios: Usuarios[];
   cols: any[]
   
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+    private userList: UsersService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
-    console.log(environment.variables.usuariosSistema)
-    this.usuarios= environment.variables.usuariosSistema
-    console.log(this.usuarios)
+    this.token = this.authService.getJwtToken();
+    this.userList.usuarios(this.token).subscribe((data: any) => {
+      this.listusuarios = data;
+      console.log(this.listusuarios);
+    });
   }
-
-
-
- 
 
 }

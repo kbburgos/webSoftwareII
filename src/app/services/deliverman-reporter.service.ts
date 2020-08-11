@@ -38,4 +38,17 @@ export class DelivermanReporterService {
       .set(novedad);
   }
 
+  deleteNovedadRepartidor(idNovedad){
+    this.firebase
+      .collection("novedadesRepartidor")
+      .doc(idNovedad)
+      .delete()
+      .then(function () {
+        console.log("Document successfully deleted!");
+      })
+      .catch(function (error) {
+        console.error("Error removing document: ", error);
+      });
+  }
+
 }

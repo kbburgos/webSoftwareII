@@ -32,12 +32,15 @@ import { DialogModule } from 'primeng/dialog';
 
 
 
+import { NgxSpinnerModule } from "ngx-spinner";
+
 
 @NgModule({
   imports: [
     BrowserAnimationsModule,
     HttpClientModule,
     AngularFirestoreModule,
+    NgxSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,

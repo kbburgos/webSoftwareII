@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 //Components
 import { AdminLayoutRoutes } from './admin-layout.routing';
@@ -35,6 +36,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {TableModule} from 'primeng/table';
+import {CheckboxModule} from 'primeng/checkbox';
+import {FileUploadModule} from 'primeng/fileupload';
 import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
@@ -51,12 +54,17 @@ import { DeliveryOrderComponent } from 'app/pages/delivery-order/delivery-order.
 import { AuthDeliverymanGuard } from 'app/auth/guard/auth-deliveryman.guard';
 import {PanelModule} from 'primeng/panel';
 import {AccordionModule} from 'primeng/accordion';
+import {CarouselModule} from 'primeng/carousel';
+import {TooltipModule} from 'primeng/tooltip';
+
 @NgModule({
   imports: [
     CommonModule,
+    TooltipModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     ReactiveFormsModule,
+    CarouselModule,
     MatButtonModule,
     MatRippleModule,
     MatFormFieldModule,
@@ -75,8 +83,9 @@ import {AccordionModule} from 'primeng/accordion';
     RadioButtonModule,
     CalendarModule,
     InputTextareaModule,
-    TabViewModule,
-    PanelModule,
+    NgxSpinnerModule,
+    CheckboxModule,
+    FileUploadModule,
     AccordionModule
   ],
   declarations: [

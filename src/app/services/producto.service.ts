@@ -52,6 +52,7 @@ export class ProductoService {
   }
 
   updateProduct(producto: Products){
+    console.log(producto)
     this.firebase
     .collection("producto")
     .doc(producto.idProducto)
