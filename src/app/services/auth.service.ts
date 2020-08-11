@@ -40,6 +40,8 @@ export class AuthService {
     });
   }
 
+  //antes del suscribe
+  
   novedades(token: string){
     let headers = {
       'Content-Type': 'application/json',

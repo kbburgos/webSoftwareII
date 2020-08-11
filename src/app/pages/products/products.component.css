@@ -33,5 +33,16 @@ table {
 }
 
 
+.slide{
+  border: none;
+}
+
+
+.image-slide{
+    width:  150px;
+    height: 150px;
+    object-fit: cover;
+}
+
 
 

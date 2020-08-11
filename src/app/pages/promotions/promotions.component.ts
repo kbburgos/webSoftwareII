@@ -1,56 +1,74 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { ProductoService } from "../../services/producto.service";
+import { Products } from "../../resource/interface/products";
+import { NgxSpinnerService } from "ngx-spinner";
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from "@angular/forms";
+import { Categoria } from "../../resource/interface/categoria";
+import { CategoriaService } from "../../services/categoria.service";
 
 @Component({
-  selector: 'app-promotions',
-  templateUrl: './promotions.component.html',
-  styleUrls: ['./promotions.component.css']
+  selector: "app-promotions",
+  templateUrl: "./promotions.component.html",
+  styleUrls: ["./promotions.component.css"],
 })
 export class PromotionsComponent implements OnInit {
+
   display: boolean = false;
-  date1: Date;
-  date2: Date;
-  calendary: any;
-  listpromotions: Promotions[];
-  cols: any[];
-  constructor() { }
+  imagen: any;
+  productos: Products[];
 
-  ngOnInit() {
-    this.listpromotions=[
-      {producto: 'Producto 1', vigencia: '15/07/2020', condicion: 'Condición 1'},
-      {producto: "Producto 4", vigencia: '20/07/2020', condicion: 'Condición 2'},
-      {producto: "Producto 10", vigencia: '20/07/2020', condicion: 'Condición 3'},
-      {producto: "Producto 7", vigencia: '25/07/2020', condicion: 'Condición 4'},
-      {producto: "Producto 8", vigencia: '25/07/2020', condicion: 'Condición 5'},
-      {producto: "Producto 2", vigencia: '30/07/2020', condicion: 'Condición 6'},
-      {producto: "Producto 5", vigencia: '30/07/2020', condicion: 'Condición 7'},
-      {producto: "Producto 12", vigencia: '30/07/2020', condicion: 'Condición 8'},
-    ];
-    this.cols=[
-      {field: 'producto', header: 'PRODUCTO'},
-      {field: 'vigencia', header: 'FECHA DE VIGENCIA'},
-      {field: 'condicion', header: 'CONDICION'},
-    ];
+  colsdata: Products[]
 
-    this.calendary={
-      firstDayOfWeek: 1,
-      dayNames: ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'],
-      dayNamesShort: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
-      dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
-      monthNames: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
-      monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
-      today: 'Hoy',
-      clear: 'Borrar'
-    }
+  cols = [
+    { field: 'nombre', header: 'Nombre' },
+    { field: 'descripcion', header: 'Descripcion' },
+    { field: 'categoria', header: 'Categoria' },
+    { field: 'precio', header: 'Precio' },
+    { field: 'stock', header: 'Stock' },
+    { field: 'imagen', header: 'Imagen' }
+  ];
+
+  constructor(
+    private productosService: ProductoService,
+    private formBuilder: FormBuilder,
+    private caterogiasService: CategoriaService,
+    private spinner: NgxSpinnerService
+  ) {}
+
+  ngOnInit(): void {
+    this.spinner.show();
+    this.colsdata=[];
+
+    let subs = this.productosService.getProductos().subscribe(
+      (data: any) => {
+        data.map(item=>{
+          if(item.idCategoria==='B9MwktyLd7z4onQIKKAw' && item.isActivo){
+            this.colsdata.push(item)
+          }
+        })
+        this.productos = [];
+        this.productos = this.colsdata;
+        console.log(this.productos)
+        this.spinner.hide();
+        subs.unsubscribe();
+      },
+      (err: any) => {
+        console.log(err);
+        this.spinner.hide();
+        subs.unsubscribe();
+      }
+    );
   }
 
-  showDialogPromotions() {
+  showDialog(imagen:any) {
     this.display = true;
+    this.imagen = imagen;
   }
 
-}
-
-export interface Promotions {
-  producto: string;
-  vigencia: string;
-  condicion: string;
+  
 }
