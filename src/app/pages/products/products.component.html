@@ -67,106 +67,7 @@
                         (click)="eliminarProduct(products)"
                         class="ui-button-danger"
                       ></button>
-                      <p-dialog
-                        [(visible)]="display"
-                        [responsive]="true"
-                        showEffect="fade"
-                      >
-                        <p-header>
-                          Editar Producto
-                        </p-header>
-                        <div>
-                          <p-table
-                            [columns]="cols"
-                            [value]="lista"
-                            [responsive]="true"
-                            sortMode="multiple"
-                            #dt
-                          >
-                            <ng-template pTemplate="header" let-columns>
-                              <tr>
-                                <th>NOMBRE</th>
-                                <th>DESCRIPCION</th>
-                                <th>CATEGORIA</th>
-                                <th>PRECIO</th>
-                                <th>STOCK</th>
-                                <th>FOTO</th>
-                              </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-products>
-                              <tr
-                                *ngIf="
-                                  display &&
-                                  ProductEdit.idProducto == products.idProducto
-                                "
-                              >
-                                <td>
-                                  <input
-                                    class="input-table"
-                                    type="text"
-                                    [(ngModel)]="ProductEdit.nombre"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    class="input-table"
-                                    [(ngModel)]="ProductEdit.descripcion"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    pTooltip="promociones, bebidas, dulces, tortas o postres"
-                                    tooltipPosition="top"
-                                    type="text"
-                                    class="input-table"
-                                    [(ngModel)]="ProductEdit.idCategoria"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    class="input-table"
-                                    [(ngModel)]="ProductEdit.precio"
-                                    type="number"
-                                    step="any"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    class="input-table"
-                                    [(ngModel)]="ProductEdit.stock"
-                                    type="number"
-                                    step="any"
-                                  />
-                                </td>
-                                <td style="text-align: center;">
-                                  <img
-                                    src="{{ products.foto }}"
-                                    width="50"
-                                    height="50"
-                                  />
-                                </td>
-                              </tr>
-                            </ng-template>
-                          </p-table>
-                        </div>
-
-                        <p-footer>
-                          <p-confirmDialog
-                            header="Confirmaci&oacute;n"
-                            icon="pi pi-exclamation-triangle"
-                          ></p-confirmDialog>
-                          <button
-                            type="button"
-                            pButton
-                            icon="pi pi-save"
-                            (click)="confirmarEditar()"
-                            label="Editar"
-                          ></button>
-                        </p-footer>
-                      </p-dialog>
+                      
                     </div>
                   </td>
                 </tr>
@@ -308,5 +209,104 @@
       </div>
     </div>
   </div>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="display"
+  [responsive]="true"
+  showEffect="fade"
+  (onHide)="clearState()"
+  >
+  <p-header>
+    Editar Producto
+  </p-header>
+  <div class="container-fluid" style="width: 500px;">
+    <div *ngIf="display" class="row">
+      <form [formGroup]="form">
+        <div class="form-group col-sm-12">
+          <label>Nombre:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="nombre"
+            [(ngModel)]="ProductEdit.nombre"
+          />
+        </div>
+        
+        <div class="form-group col-sm-12">
+          <label>Descripci&oacute;n:</label>
+            <input
+            type="text"
+            class="form-control"
+            formControlName="descripcion"
+            [(ngModel)]="ProductEdit.descripcion"
+          />
+        </div>
+        <!--
+        <div class="p-field">
+          <label class="p-mb-3">Categoria</label>
+          <div class="p-formgrid p-grid">
+              <div class="p-field-radiobutton p-col-6">
+                  <p-radioButton id="category2" value="2" [(ngModel)]="ProductEdit.idCategoria"></p-radioButton>
+                  <label for="category2">Bebidas</label>
+              </div>
+              <div class="p-field-radiobutton p-col-6">
+                  <p-radioButton id="category3" value="3" [(ngModel)]="ProductEdit.idCategoria"></p-radioButton>
+                  <label for="category3">Dulces</label>
+              </div>
+              <div class="p-field-radiobutton p-col-6">
+                  <p-radioButton id="category4" value="4" [(ngModel)]="ProductEdit.idCategoria"></p-radioButton>
+                  <label for="category4">Tortas</label>
+              </div>
+              <div class="p-field-radiobutton p-col-6">
+                  <p-radioButton id="category5" value="5" [(ngModel)]="ProductEdit.idCategoria"></p-radioButton>
+                  <label for="category5">Postres</label>
+              </div>
+           </div>
+        </div>
+        -->
+        
+        <div class="form-group col-sm-6" style="float: left;">
+          <label>Precio:</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="precio"
+              [(ngModel)]="ProductEdit.precio"
+            />
+        </div>
+        <div class="form-group col-sm-6" style="float: left;">
+          <label>Stock:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="stock"
+            [(ngModel)]="ProductEdit.stock"
+          />
+        </div>
+        <!--<div class="form-group col-sm-12">
+          <label>Foto:</label>
+          <img
+            src="{{ productEdit.foto }}"
+            width="50"
+            height="50"
+          />
+        </div>-->
+      </form>
+    </div>
+  </div>
+  <p-footer>
+    <p-confirmDialog
+      header="Confirmaci&oacute;n"
+      icon="pi pi-exclamation-triangle"
+    ></p-confirmDialog>
+    <button
+      type="button"
+      pButton
+      icon="pi pi-save"
+      (click)="confirmarEditar()"
+      label="Editar"
+    ></button>
+  </p-footer>
 </p-dialog>
 

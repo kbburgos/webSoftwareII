@@ -7,6 +7,12 @@ import { HttpClientModule } from "@angular/common/http";
 import { UserNotificationService } from "../../services/user-notification.service";
 import { AuthService } from "../../services/auth.service";
 import { environment } from "environments/environment";
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from "@angular/forms";
 
 @Component({
   selector: "app-user-notification",
@@ -14,33 +20,68 @@ import { environment } from "environments/environment";
   styleUrls: ["./user-notification.component.css"],
 })
 export class UserNotificationComponent implements OnInit {
-
+  private form: FormGroup;
   token:any;
-
+  display: boolean = false;
   cols: any[];
-
+  dato: string;
+  envU = environment;
   listCustomerNews: CustomerNews[];
 
   constructor(
     private confirmationService: ConfirmationService,
     private http: HttpClient,
     private userNotification: UserNotificationService,
-    private authService: AuthService
+    private authService: AuthService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
 
     this.token = this.authService.getJwtToken();
-    console.log(this.token);
     this.userNotification.clienteNotification(this.token).subscribe((data: any) => {
       this.listCustomerNews = data;
-      console.log(this.listCustomerNews);
     });
 
+    this.dato = this.envU.variables.usuarioL['data']["cedula"];
+    console.log(this.dato);
+    this.buildForm();
+  }
+
+  showAddDialog() {
+    this.display = true;
   }
 
   eliminarClienteNovedad(customernews){
     console.log("Eliminar novedad de cliente");
   }
+  
+  addNovedad(){
+    let novedadAdmin: CustomerNews = {
+      idusuarioReportado: this.form.get("cedula").value,
+      descripcion: this.form.get("novedad").value,
+      idusuarioReporta: "Admin",
+    };
 
+    this.userNotification.pushUserNotification();
+    this.clearState();
+  }
+
+  private buildForm() {
+    this.form = this.formBuilder.group({
+      cedula: new FormControl("", [
+        Validators.required,
+        Validators.minLength(1),
+      ]),
+      novedad: new FormControl("", [
+        Validators.required,
+        Validators.minLength(1),
+      ]),
+    });
+  }
+
+  clearState() {
+    this.display = false;
+    this.form.reset();
+  }
 }

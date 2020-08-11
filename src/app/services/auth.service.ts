@@ -15,6 +15,7 @@ export class AuthService {
   private readonly JWT_TOKEN = 'JWT_TOKEN';
   private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
   private loggedUser : string;
+  envUsuario = environment;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -24,6 +25,7 @@ export class AuthService {
     this.http.post(environment.rutas.login,usuario).subscribe(data =>{
       if(data != null){
         this.doLoginUser(data);
+        this.envUsuario.variables.usuarioL = data;
       }else{
         alert("No se pudo iniciar sesión");
       }

@@ -1,8 +1,8 @@
 export interface CustomerNews{
-    idnovedad: Number;
+    idnovedad?: Number;
     idusuarioReporta: string;
     idusuarioReportado: string;
     descripcion: string;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

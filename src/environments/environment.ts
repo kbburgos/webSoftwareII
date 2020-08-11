@@ -47,6 +47,7 @@ export const environment = {
     usuariosSistema:[],
     clientesNovedades:[],
     pedidosClientes:[],
+    usuarioL: {} ,
   }
 };
 
