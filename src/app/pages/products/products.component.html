@@ -224,7 +224,7 @@
           />
         </div>
 
-        <div class="form-group col-sm-12">
+        <div class="form-group col-sm-8" style="float: left;">
           <label>Descripci&oacute;n:</label>
           <input
             type="text"
@@ -233,29 +233,26 @@
             [(ngModel)]="ProductEdit.descripcion"
           />
         </div>
-        <!--
-        <div class="p-field">
-          <label class="p-mb-3">Categoria</label>
-          <div class="p-formgrid p-grid">
-              <div class="p-field-radiobutton p-col-6">
-                  <p-radioButton id="category2" value="2" [(ngModel)]="ProductEdit.idCategoria"></p-radioButton>
-                  <label for="category2">Bebidas</label>
-              </div>
-              <div class="p-field-radiobutton p-col-6">
-                  <p-radioButton id="category3" value="3" [(ngModel)]="ProductEdit.idCategoria"></p-radioButton>
-                  <label for="category3">Dulces</label>
-              </div>
-              <div class="p-field-radiobutton p-col-6">
-                  <p-radioButton id="category4" value="4" [(ngModel)]="ProductEdit.idCategoria"></p-radioButton>
-                  <label for="category4">Tortas</label>
-              </div>
-              <div class="p-field-radiobutton p-col-6">
-                  <p-radioButton id="category5" value="5" [(ngModel)]="ProductEdit.idCategoria"></p-radioButton>
-                  <label for="category5">Postres</label>
-              </div>
-           </div>
+
+        <div class="form-group col-sm-2" style="float: left;">
+          <div class="dropdown">
+            <button
+              href="#"
+              class="btn dropdown-toggle btn-primary"
+              data-toggle="dropdown"
+              aria-expanded="true"
+            >
+              {{ catName }}
+              <b class="caret"></b>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a (click)="guardarCategoria('bebidas')">Bebidas</a></li>
+              <li><a (click)="guardarCategoria('dulces')">Dulces</a></li>
+              <li><a (click)="guardarCategoria('tortas')">Tortas</a></li>
+              <li><a (click)="guardarCategoria('postres')">Postres</a></li>
+            </ul>
+          </div>
         </div>
-        -->
 
         <div class="form-group col-sm-6" style="float: left;">
           <label>Precio:</label>
@@ -295,7 +292,7 @@
       type="button"
       pButton
       icon="pi pi-save"
-      (click)="confirmarEditar()"
+      (click)="confirmar()"
       label="Editar"
     ></button>
   </p-footer>
