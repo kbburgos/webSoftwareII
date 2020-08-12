@@ -24,14 +24,18 @@ export class ProductsComponent implements OnInit {
   display: boolean = false;
   bandera: boolean = false;
   slide: boolean = false;
-  productos: Products[]=[];
-  categorias: Categoria[]=[];
+  mensaje: boolean = false;
+
+  productos: Products[] = [];
+  categorias: Categoria[] = [];
 
   cols: any = [];
 
   ProductEdit: Products;
 
   categoria: string = "";
+
+  catName: string = "Categoría";
 
   Urls: any = [];
 
@@ -40,6 +44,11 @@ export class ProductsComponent implements OnInit {
   previewUrl: any = null;
 
   producSlide: any = [];
+
+  message: any = {
+    mensaje: "",
+    accion: "",
+  };
 
   constructor(
     private productosService: ProductoService,
@@ -58,27 +67,28 @@ export class ProductsComponent implements OnInit {
     });
 
     let pro = this.productosService.getProductos().subscribe((item: any) => {
-      item.map((pro) => {
-        if (pro.idCategoria != "B9MwktyLd7z4onQIKKAw") {
-          this.productos.push(pro);
-          this.validarCols(pro);
-        }
-      });
+      console.log(item);
+      
+      this.productos = item;
       this.spinner.hide();
       // sub.unsubscribe();
     });
 
-    this.buildForm();
-  }
+    /*
+    item.map((pro) => {
+        if (pro.idCategoria != "B9MwktyLd7z4onQIKKAw") {
+          this.productos.push(pro);
+          for (let i = 0; i < this.categorias.length; i++) {
+            if (this.categorias[i].idCategoria == pro.idCategoria) {
+              (pro.idCategoria = this.categorias[i].nombre),
+                this.cols.push(pro);
+            }
+          }
+        }
+      });
+    */
 
-  validarCols(producto: Products) {
-    for (let i = 0; i < this.categorias.length; i++) {
-      if (this.categorias[i].idCategoria == producto.idCategoria) {
-        (producto.idCategoria = this.categorias[i].nombre),
-          this.cols.push(producto);
-      }
-    }
-    console.log(this.cols)
+    this.buildForm();
   }
 
   save() {
@@ -94,7 +104,6 @@ export class ProductsComponent implements OnInit {
 
   fileProgress(file: any) {
     for (let i = 0; i < file.length; i++) {
-
       var mimeType = file[i].type;
       if (mimeType.match(/image\/*/) == null) {
         return;
@@ -126,6 +135,13 @@ export class ProductsComponent implements OnInit {
   }
 
   update(producto: Products) {
+    this.mensaje = true;
+
+    this.message = {
+      mensaje: "Se ha modificado el producto de la lista",
+      accion: "Nuevos detalles!",
+    };
+
     this.guardarCategoria(producto.idCategoria);
     producto.idCategoria = this.categoria;
     this.productosService.updateProduct(producto);
@@ -158,6 +174,12 @@ export class ProductsComponent implements OnInit {
       .pushProductos(producto)
       .then((data: any) => {
         this.bandera = false;
+        this.mensaje = true;
+
+        this.message = {
+          mensaje: "Se ha agregado el producto a la lista",
+          accion: "Nueva Producto!",
+        };
         console.log("Guardado");
       })
       .catch((err: any) => {
@@ -168,6 +190,14 @@ export class ProductsComponent implements OnInit {
 
   eliminarProduct(producto: Products) {
     console.log(producto);
+
+    this.mensaje = true;
+
+    this.message = {
+      mensaje: "Se ha eliminado el producto de la lista",
+      accion: "Elimado!",
+    };
+
     this.productosService.deleteProduct(producto.idProducto);
     this.clearState();
   }
@@ -204,6 +234,7 @@ export class ProductsComponent implements OnInit {
   guardarCategoria(categoria: string) {
     for (let i = 0; i < this.categorias.length; i++) {
       if (this.categorias[i].nombre == categoria) {
+        this.catName = this.categorias[i].nombre;
         console.log(this.categorias[i].nombre);
         console.log(this.categorias[i].idCategoria);
         this.categoria = this.categorias[i].idCategoria;
@@ -211,9 +242,8 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  showSlide(producto: any[],) {
-    console.log(producto.length)
-    this.producSlide = producto
+  showSlide(producto: any[]) {
+    this.producSlide = producto;
     this.slide = true;
   }
 }

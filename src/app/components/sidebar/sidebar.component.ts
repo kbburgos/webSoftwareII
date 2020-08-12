@@ -17,6 +17,10 @@ export const ROUTES: RouteInfo[] = [
     { path: '/report-product', title: 'Productos',  class: '', component: 'ReportProductComponent'},
     { path: '/products', title: 'Productos',  class: '', component: 'ProductsComponent'},
     { path: '/promotions', title: 'Promociones',  class: '', component: 'PromotionsComponent'},
+    
+    { path: '/current-promotion', title: 'Activas',  class: '', component: 'CurrentPromotionComponent'},
+    { path: '//old-promotion', title: 'Inactivas',  class: '', component: 'OldPromotionComponent'},
+    
     { path: '/users', title: 'Usuarios',  class: '', component: 'UsersComponent'},
     { path: '/user-notification', title: 'Lista de novedades por el cliente',  class: '', component: 'UserNotificationComponent'},
     { path: '/delivery-notification', title: 'Registro de novedad de cliente',  class: '', component: 'DeliveryNotificationComponent'},

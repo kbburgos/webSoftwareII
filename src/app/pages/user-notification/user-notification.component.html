@@ -64,3 +64,45 @@
     </div>
   </div>
 </div>
+
+<p-dialog
+  [(visible)]="display"
+  [responsive]="true"
+  showEffect="fade"
+  (onHide)="clearState()"
+  >
+  <p-header>
+    Crear novedad a repartidor
+  </p-header>
+  <div class="container-fluid" style="width: 400px;">
+    <div *ngIf="display" class="row">
+      <form [formGroup]="form">
+        <div class="form-group col-sm-12" style="float: left;">
+          <label>C&eacute;dula repartidor</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="cedula"
+            />
+        </div>
+        <div class="form-group col-sm-12" style="float: left;">
+          <label>Novedad:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="novedad"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+  <p-footer>
+    <button
+      type="button"
+      pButton
+      icon="pi pi-save"
+      (click)="addNovedad()"
+      label="Crear novedad"
+    ></button>
+  </p-footer>
+</p-dialog>

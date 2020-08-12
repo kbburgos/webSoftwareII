@@ -1,0 +1,15 @@
+.datosDiv{
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    background-color:#ea4643;
+    color: white;
+    padding: 5px;
+}
+
+.labelCard{
+    color: black;
+    font-weight: bold;
+}
+

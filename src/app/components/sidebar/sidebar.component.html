@@ -1,18 +1,27 @@
 <div class="logo">
-    <a href="https://www.creative-tim.com" class="simple-text">
-        <div class="logo-img">
-            <img src="/assets/img/logoOmiPali.jpg"/>
-        </div>
-        Omi&Pali
-    </a>
+  <a href="https://www.creative-tim.com" class="simple-text">
+    <div class="logo-img">
+      <img src="/assets/img/logoOmiPali.jpg" />
+    </div>
+    Omi&Pali
+  </a>
 </div>
 <div class="sidebar-wrapper">
   <div *ngIf="isMobileMenu()">
     <form class="navbar-form">
       <span class="bmd-form-group">
         <div class="input-group no-border">
-          <input type="text" value="" class="form-control" placeholder="Search...">
-          <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
+          <input
+            type="text"
+            value=""
+            class="form-control"
+            placeholder="Search..."
+          />
+          <button
+            mat-raised-button
+            type="submit"
+            class="btn btn-white btn-round btn-just-icon"
+          >
             <i class="material-icons">search</i>
             <div class="ripple-container"></div>
           </button>
@@ -20,105 +29,193 @@
       </span>
     </form>
     <ul class="nav navbar-nav nav-mobile-menu">
-        <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0)">
-                <i class="material-icons">dashboard</i>
-                <p>
-                    <span class="d-lg-none d-md-block">Stats</span>
-                </p>
-            </a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="material-icons">notifications</i>
-                <span class="notification">5</span>
-                <p>
-                    <span class="d-lg-none d-md-block">Some Actions</span>
-                </p>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                <a class="dropdown-item" href="#">Another Notification</a>
-                <a class="dropdown-item" href="#">Another One</a>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0)">
-                <i class="material-icons">person</i>
-                <p>
-                    <span class="d-lg-none d-md-block">Account</span>
-                </p>
-            </a>
-        </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0)">
+          <i class="material-icons">dashboard</i>
+          <p>
+            <span class="d-lg-none d-md-block">Stats</span>
+          </p>
+        </a>
+      </li>
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link"
+          href="javascript:void(0)"
+          id="navbarDropdownMenuLink"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="material-icons">notifications</i>
+          <span class="notification">5</span>
+          <p>
+            <span class="d-lg-none d-md-block">Some Actions</span>
+          </p>
+        </a>
+        <div
+          class="dropdown-menu dropdown-menu-right"
+          aria-labelledby="navbarDropdownMenuLink"
+        >
+          <a class="dropdown-item" href="#"
+            >Mike John responded to your email</a
+          >
+          <a class="dropdown-item" href="#">You have 5 new tasks</a>
+          <a class="dropdown-item" href="#">You're now friend with Andrew</a>
+          <a class="dropdown-item" href="#">Another Notification</a>
+          <a class="dropdown-item" href="#">Another One</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0)">
+          <i class="material-icons">person</i>
+          <p>
+            <span class="d-lg-none d-md-block">Account</span>
+          </p>
+        </a>
+      </li>
     </ul>
   </div>
-    <ul class="nav">
-        <li routerLinkActive="active" class="nav-item">
-            <a class="nav-link" routerLink="/dashboard">
-            <i class="material-icons">dashboard</i>Dashboard</a>
-        </li>
-        <li class="nav-item dropdown" routerLinkActive="active">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" 
-            aria-haspopup="true" aria-expanded="false"><i class="material-icons">content_paste</i>Pedidos</a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="/on-hold">
-                    <i class="material-icons">pending_action</i>En espera</a>
-                    <a class="nav-link" routerLink="/assigned">
-                    <i class="material-icons">assignment</i>Asignados</a>
-                    <a class="nav-link" routerLink="/dispatched">
-                    <i class="material-icons">verified</i>Despachados</a>
-            </div>
-        </li>
-        <li routerLinkActive="active" class="nav-item">
-            <a class="nav-link" routerLink="/products">
-            <i class="material-icons">shopping_bag</i>Productos</a>
-        </li>
-        <li class="nav-item dropdown" routerLinkActive="active">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" 
-            aria-haspopup="true" aria-expanded="false"><i class="material-icons">analytics</i>Reportes</a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="/report-sales">
-                    <i class="material-icons">attach_money</i>Ventas</a>
+  <ul class="nav">
+    <li routerLinkActive="active" class="nav-item">
+      <a class="nav-link" routerLink="/dashboard">
+        <i class="material-icons">dashboard</i>Dashboard</a
+      >
+    </li>
+    <li class="nav-item dropdown" routerLinkActive="active">
+      <a
+        class="nav-link dropdown-toggle"
+        href="#"
+        id="navbarDropdown"
+        role="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        ><i class="material-icons">content_paste</i>Pedidos</a
+      >
+      <div
+        class="dropdown-menu dropdown-menu-right"
+        aria-labelledby="navbarDropdown"
+      >
+        <a class="dropdown-item" routerLink="/on-hold">
+          <i class="material-icons">pending_action</i>En espera</a
+        >
+        <a class="nav-link" routerLink="/assigned">
+          <i class="material-icons">assignment</i>Asignados</a
+        >
+        <a class="nav-link" routerLink="/dispatched">
+          <i class="material-icons">verified</i>Despachados</a
+        >
+      </div>
+    </li>
+    <li routerLinkActive="active" class="nav-item">
+      <a class="nav-link" routerLink="/products">
+        <i class="material-icons">shopping_bag</i>Productos</a
+      >
+    </li>
+    <li class="nav-item dropdown" routerLinkActive="active">
+      <a
+        class="nav-link dropdown-toggle"
+        href="#"
+        id="navbarDropdown"
+        role="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        ><i class="material-icons">analytics</i>Reportes</a
+      >
+      <div
+        class="dropdown-menu dropdown-menu-right"
+        aria-labelledby="navbarDropdown"
+      >
+        <a class="dropdown-item" routerLink="/report-sales">
+          <i class="material-icons">attach_money</i>Ventas</a
+        >
 
-                    <a class="nav-link" routerLink="/report-product">
-                    <i class="material-icons">local_mall</i>Producto</a>
+        <a class="nav-link" routerLink="/report-product">
+          <i class="material-icons">local_mall</i>Producto</a
+        >
 
-                    <a class="nav-link" routerLink="/report-news">
-                    <i class="material-icons">mood_bad</i>Novedades</a>
-            </div>
-        </li>
-        <li routerLinkActive="active" class="nav-item">
-            <a class="nav-link" routerLink="/promotions">
-            <i class="material-icons">local_offer</i>Promociones</a>
-        </li>
-        <li routerLinkActive="active" class="nav-item">
-            <a class="nav-link" routerLink="/users">
-            <i class="material-icons">account_circle</i>Usuarios</a>
-        </li>
-        <li class="nav-item dropdown" routerLinkActive="active">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" 
-            aria-haspopup="true" aria-expanded="false"><i class="material-icons">notifications</i>Novedades</a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="/user-notification">
-                    <i class="material-icons">list_alt</i>Novedades clientes</a>
+        <a class="nav-link" routerLink="/report-news">
+          <i class="material-icons">mood_bad</i>Novedades</a
+        >
+      </div>
+    </li>
+    <li class="nav-item dropdown" routerLinkActive="active">
+      <a
+        class="nav-link dropdown-toggle"
+        href="#"
+        id="navbarDropdown"
+        role="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        ><i class="material-icons">local_offer</i>Promociones</a
+      >
+      <div
+        class="dropdown-menu dropdown-menu-right"
+        aria-labelledby="navbarDropdown"
+      >
+        <a class="dropdown-item" routerLink="/current-promotion">
+          <i class="material-icons">hourglass_empty</i>Activas</a
+        >
+        <a class="nav-link" routerLink="/old-promotion">
+          <i class="material-icons">hourglass_disabled</i>Inactivas</a
+        >
+      </div>
+    </li>
 
-                    <a class="nav-link" routerLink="/delivery-notification">
-                    <i class="material-icons">bike_scooter</i>Novedades repartidor</a>
+    <li routerLinkActive="active" class="nav-item">
+      <a class="nav-link" routerLink="/users">
+        <i class="material-icons">account_circle</i>Usuarios</a
+      >
+    </li>
+    <li class="nav-item dropdown" routerLinkActive="active">
+      <a
+        class="nav-link dropdown-toggle"
+        href="#"
+        id="navbarDropdown"
+        role="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        ><i class="material-icons">notifications</i>Novedades</a
+      >
+      <div
+        class="dropdown-menu dropdown-menu-right"
+        aria-labelledby="navbarDropdown"
+      >
+        <a class="dropdown-item" routerLink="/user-notification">
+          <i class="material-icons">list_alt</i>Novedades clientes</a
+        >
 
-            </div>
-        </li>
-        <li class="nav-item dropdown" routerLinkActive="active">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" 
-            aria-haspopup="true" aria-expanded="false"><i class="material-icons">supervisor_account</i>Clientes</a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="/customers">
-                    <i class="material-icons">how_to_reg</i>Registrados</a>
+        <a class="nav-link" routerLink="/delivery-notification">
+          <i class="material-icons">bike_scooter</i>Novedades repartidor</a
+        >
+      </div>
+    </li>
+    <li class="nav-item dropdown" routerLinkActive="active">
+      <a
+        class="nav-link dropdown-toggle"
+        href="#"
+        id="navbarDropdown"
+        role="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        ><i class="material-icons">supervisor_account</i>Clientes</a
+      >
+      <div
+        class="dropdown-menu dropdown-menu-right"
+        aria-labelledby="navbarDropdown"
+      >
+        <a class="dropdown-item" routerLink="/customers">
+          <i class="material-icons">how_to_reg</i>Registrados</a
+        >
 
-                    <a class="nav-link" routerLink="/conflicting">
-                    <i class="material-icons">person_remove</i>Conflictivos</a>
-            </div>
-        </li>
-    </ul>
+        <a class="nav-link" routerLink="/conflicting">
+          <i class="material-icons">person_remove</i>Conflictivos</a
+        >
+      </div>
+    </li>
+  </ul>
 </div>

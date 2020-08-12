@@ -1,0 +1,93 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <div class="row">
+              <div class="col-md-10">
+                <h4 class="card-title">Promociones</h4>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p-table
+              #dt
+              [value]="productos"
+              [scrollable]="true"
+              [paginator]="true"
+              [rows]="10"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>NOMBRE</th>
+                  <th>DESCRIPCION</th>
+                  <th>PRECIO</th>
+                  <th>STOCK</th>
+                  <th>FOTO</th>
+                  <th>ACCION</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-product>
+                <tr
+                  *ngIf="
+                    product.idCategoria == 'B9MwktyLd7z4onQIKKAw' &&
+                    !product.isActivo
+                  "
+                >
+                  <td>{{ product.nombre }}</td>
+                  <td>{{ product.descripcion }}</td>
+                  <td>{{ product.precio }}</td>
+                  <td>{{ product.stock }}</td>
+
+                  <td>
+                    <button class="slide" (click)="showSlide(product.slide)">
+                      <img src="{{ product.foto }}" width="50" height="50" />
+                    </button>
+                  </td>
+
+                  <td>
+                    <div class="ui-dialog-buttonpane">
+                      <button
+                        pButton
+                        type="button"
+                        icon="pi pi-refresh"
+                        (click)="editarEstado(product)"
+                        class="ui-button-secundary"
+                      ></button>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog
+  class="notification"
+  [(visible)]="slide"
+  position="right"
+  [style]="{ width: '40vw' }"
+>
+  <div class="mb-3 text-center">
+    <p-carousel [value]="producSlide" [numVisible]="1" [numScroll]="1">
+      <ng-template let-item pTemplate="item">
+        <img [src]="item" class="rounded image-preview" />
+      </ng-template>
+    </p-carousel>
+  </div>
+</p-dialog>
+
+<p-dialog
+  class="notification"
+  header="{{ message.accion }}"
+  [(visible)]="mensaje"
+  position="right"
+  [style]="{ width: '40vw' }"
+>
+  <h4>{{ message.mensaje }}</h4>
+</p-dialog>

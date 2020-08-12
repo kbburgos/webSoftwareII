@@ -53,4 +53,15 @@
         </p-card>
     </div>
 <p-footer>
-    <button type="button" pButton icon="pi pi-check" (click)="sendFinallyOrder(this.pedido)" label="&nbsp;Enviar"></button>
+    <p-confirmDialog
+          header="Confirmaci&oacute;n"
+          icon="pi pi-exclamation-triangle"
+    ></p-confirmDialog>
+    <button type="button" pButton icon="pi pi-check" (click)="confirm()" label="&nbsp;Enviar"></button>
+        <button
+          type="button"
+          pButton
+          icon="pi pi-save"
+          (click)="confirm()"
+          label="Editar"
+        ></button>

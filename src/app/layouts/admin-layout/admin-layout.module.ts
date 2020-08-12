@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxSpinnerModule } from "ngx-spinner";
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 //Components
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { OnHoldComponent } from '../../pages/on-hold/on-hold.component';
+import { CurrentPromotionComponent } from '../../pages/current-promotion/current-promotion.component';
+import { OldPromotionComponent } from '../../pages/old-promotion/old-promotion.component'
 import { DispatchedComponent } from '../../pages/dispatched/dispatched.component';
 import { ReportNewsComponent } from '../../pages/report-news/report-news.component';
 import { ReportSalesComponent } from '../../pages/report-sales/report-sales.component';
@@ -41,6 +43,7 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {TabViewModule} from 'primeng/tabview';
 import {ConfirmationService} from 'primeng/api';
 import {CardModule} from 'primeng/card';
 import {RadioButtonModule} from 'primeng/radiobutton';
@@ -51,13 +54,18 @@ import { DeliverymanService } from 'app/services/deliveryman.service';
 import { AssignedComponent } from 'app/pages/assigned/assigned.component';
 import { DeliveryOrderComponent } from 'app/pages/delivery-order/delivery-order.component';
 import { AuthDeliverymanGuard } from 'app/auth/guard/auth-deliveryman.guard';
+import {PanelModule} from 'primeng/panel';
+import {AccordionModule} from 'primeng/accordion';
 import {CarouselModule} from 'primeng/carousel';
 import {TooltipModule} from 'primeng/tooltip';
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
 
 
 @NgModule({
   imports: [
     CommonModule,
+    ToastModule,
     TooltipModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
@@ -83,11 +91,14 @@ import {TooltipModule} from 'primeng/tooltip';
     InputTextareaModule,
     NgxSpinnerModule,
     CheckboxModule,
-    FileUploadModule
+    FileUploadModule,
+    AccordionModule
   ],
   declarations: [
     DashboardComponent,
     OnHoldComponent,
+    CurrentPromotionComponent,
+    OldPromotionComponent,
     DispatchedComponent,
     ReportNewsComponent,
     ReportSalesComponent,
@@ -109,7 +120,8 @@ import {TooltipModule} from 'primeng/tooltip';
     PromocionesService,
     PedidoService,
     DeliverymanService,
-    AuthDeliverymanGuard
+    AuthDeliverymanGuard,
+    MessageService
   ]
 })
 
