@@ -85,4 +85,8 @@ export class DeliverymanService {
     return decrypt;
   }
 
+  removeDeliveryStorage(){
+    localStorage.removeItem('repartidor');
+  }
+
 }

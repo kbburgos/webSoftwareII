@@ -85,9 +85,5 @@ export const AdminLayoutRoutes: Routes = [
   { path: "promotion-", component: PromotionNewComponent },
   { path: "current-promotion", component: CurrentPromotionComponent },
   { path: "old-promotion", component: OldPromotionComponent},
-  {
-    path: "delivery-order",
-    component: DeliveryOrderComponent,
-    canActivate: [AuthDeliverymanGuard],
-  },
+
 ];

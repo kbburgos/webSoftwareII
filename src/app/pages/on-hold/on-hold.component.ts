@@ -94,7 +94,8 @@ export class OnHoldComponent implements OnInit {
     this.pedido.estadoDelPedido = 1;
     this.pedidoService.updatePedidos(this.pedido);
     this.listaPedidos = this.repartidores[0].pedidos;
-    this.listaPedidos.push(pedido.idPedido);
+    this.listaPedidos.push({'idPedido': pedido.idPedido, 'codigoCliente': pedido.idUsuario,
+     'productos': pedido.productos, 'cantidades': pedido.cantidades});
     this.deliveryManService.updateDeliveryMan(this.repartidores[0]);
     //this.notifyOrder(this.repartidores[0]);
     this.showSuccess(true);

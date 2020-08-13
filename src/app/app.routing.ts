@@ -29,7 +29,7 @@ const routes: Routes = [
     path: "deliveryman",
     component: DeliverymanComponent,
   },
-  /*{
+  {
     path: "",
     redirectTo: "delivery-order",
     pathMatch: "full",
@@ -37,7 +37,8 @@ const routes: Routes = [
   {
     path: "delivery-order",
     component: DeliveryOrderComponent,
-  },*/
+    canActivate: [AuthDeliverymanGuard]
+  },
   {
     path: "dashboard",
     redirectTo: "dashboard",

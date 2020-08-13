@@ -54,7 +54,6 @@ import { DeliverymanService } from 'app/services/deliveryman.service';
 import { AssignedComponent } from 'app/pages/assigned/assigned.component';
 import { DeliveryOrderComponent } from 'app/pages/delivery-order/delivery-order.component';
 import { AuthDeliverymanGuard } from 'app/auth/guard/auth-deliveryman.guard';
-import {ToastModule} from 'primeng/toast';
 import {AccordionModule} from 'primeng/accordion';
 import {CarouselModule} from 'primeng/carousel';
 import {TooltipModule} from 'primeng/tooltip';
@@ -114,7 +113,6 @@ import {MessageService} from 'primeng/api';
     DeliveryNotificationComponent,
     UserNotificationComponent,
     AssignedComponent,
-    DeliveryOrderComponent
   ],
   providers: [
     ProductoService,
@@ -122,7 +120,6 @@ import {MessageService} from 'primeng/api';
     PromocionesService,
     PedidoService,
     DeliverymanService,
-    AuthDeliverymanGuard,
     MessageService
   ]
 })
