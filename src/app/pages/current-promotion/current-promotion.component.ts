@@ -8,23 +8,27 @@ import {
   Validators,
   FormBuilder,
 } from "@angular/forms";
-import { Categoria } from "../../resource/interface/categoria";
+//import { Categoria } from "../../resource/interface/categoria";
 import { CategoriaService } from "../../services/categoria.service";
-import { PromotionNewComponent } from "../promotion-new/promotion-new.component";
+//import { PromotionNewComponent } from "../promotion-new/promotion-new.component";
 import { Router } from "@angular/router";
 import { MessageService } from "primeng/api";
+import { ConfirmationService } from "primeng/api";
 
 @Component({
-  selector: "app-promotions",
-  templateUrl: "./promotions.component.html",
-  styleUrls: ["./promotions.component.css"],
+  selector: "app-current-promotion",
+  templateUrl: "./current-promotion.component.html",
+  styleUrls: ["./current-promotion.component.css"],
 })
-export class PromotionsComponent implements OnInit {
+export class CurrentPromotionComponent implements OnInit {
   private form: FormGroup;
 
   display: boolean = false;
   bandera: boolean = false;
   mensaje: boolean = false;
+  slide: boolean = false;
+
+  ProductEdit: Products;
 
   imagen: any;
   productos: Products[];
@@ -61,6 +65,7 @@ export class PromotionsComponent implements OnInit {
     private caterogiasService: CategoriaService,
     private spinner: NgxSpinnerService,
     private router: Router,
+    private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {}
 
@@ -107,9 +112,32 @@ export class PromotionsComponent implements OnInit {
     });
   }
 
-  showDialog(imagen: any) {
+  showDialogProduct(productos) {
     this.display = true;
-    this.imagen = imagen;
+    this.ProductEdit = productos;
+  }
+
+  confirmar() {
+    this.confirmationService.confirm({
+      message: "¿Est&aacute; seguro que desea editar el producto?",
+      accept: () => {
+        this.update(this.ProductEdit);
+      },
+    });
+  }
+
+  update(producto: Products) {
+    producto.idCategoria = this.categoria;
+    this.productosService.updateProduct(producto);
+  
+    this.mensaje = true;
+
+    this.message = {
+      mensaje: "Se ha modificado la promoción de la lista",
+      accion: "Nuevos detalles!",
+    };
+
+    this.clearState();
   }
 
   newPromotion() {
@@ -198,5 +226,10 @@ export class PromotionsComponent implements OnInit {
       .catch((err: any) => {
         console.log(err);
       });
+  }
+
+  showSlide(producto: any[]) {
+    this.producSlide = producto;
+    this.slide = true;
   }
 }

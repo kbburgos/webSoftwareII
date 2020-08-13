@@ -11,8 +11,8 @@
               <div class="col-md-2">
                 <button
                   type="text"
-                  (click)="showDialogUsers()"
                   pButton
+                  (click)="newUser()"
                   icon="pi pi-plus"
                   label="  Nuevo"
                 ></button>
@@ -21,60 +21,41 @@
           </div>
           <div class="card-body">
             <p-table
-              [columns]="cols"
-              [value]="listusers"
-              [responsive]="true"
-              sortMode="multiple"
-              [paginator]="true"
-              [rows]="3"
               #dt
+              [value]="usuarios"
+              [scrollable]="true"
+              [paginator]="true"
+              [rows]="10"
             >
-              <ng-template pTemplate="header" let-columns>
+              <ng-template pTemplate="header">
                 <tr>
-                  <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                    {{ col.header }}
-                    <p-sortIcon [field]="col.field"></p-sortIcon>
-                  </th>
-                  <th>
-                    ACCIONES
-                  </th>
-                </tr>
-                <tr>
-                  <th
-                    *ngFor="let col of columns"
-                    [ngSwitch]="col.field"
-                    class="ui-fluid"
-                  >
-                    <input
-                      pInputText
-                      type="text"
-                      [style]="{ width: '100%' }"
-                      (input)="
-                        dt.filter(
-                          $event.target.value,
-                          col.field,
-                          col.filterMatchMode
-                        )
-                      "
-                    />
-                  </th>
-                  <th></th>
+                  <th>CEDULA</th>
+                  <th>NOMBRE</th>
+                  <th>APELLIDO</th>
+                  <th>EMAIL</th>
+                  <th>DIRECCION</th>
+                  <th>TELEFONO</th>
+                  <th>ACCION</th>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="body" let-users let-columns="columns">
-                <tr>
-                  <td *ngFor="let col of columns">
-                    {{ users[col.field] }}
-                  </td>
+              <ng-template pTemplate="body" let-user>
+                <tr *ngIf="user.rol != 3">
+                  <td>{{ user.cedula }}</td>
+                  <td>{{ user.nombre }}</td>
+                  <td>{{ user.apellido }}</td>
+                  <td>{{ user.email }}</td>
+                  <td>{{ user.direccion }}</td>
+                  <td>{{ user.telefono }}</td>
+
                   <td>
                     <div class="ui-dialog-buttonpane">
                       <button
                         pButton
                         type="button"
-                        (click)="showDialogUsers()"
                         icon="pi pi-pencil"
                         class="ui-button-secundary"
                       ></button>
+                      &nbsp;
                       <button
                         pButton
                         type="button"
@@ -93,37 +74,77 @@
   </div>
 </div>
 
-<p-dialog [(visible)]="display" [responsive]="true" showEffect="fade">
+<p-dialog
+  [(visible)]="display"
+  [responsive]="true"
+  showEffect="fade"
+  (onHide)="clearState()"
+>
   <p-header>
-    Editar usuario
+    Nuevo Usuario
   </p-header>
-  <div class="p-col-12 p-md-3">
-    <h5>Nombre</h5>
-    <input type="text" pInputText />
+
+  <div class="container-fluid" style="width: 400px;">
+    <div *ngIf="display" class="row">
+      <form [formGroup]="form">
+        <div class="form-group col-sm-6" style="float: left;">
+          <label>Nombre:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="nombre"
+            placeholder="...Jhon Allan"
+          />
+        </div>
+        <div class="form-group col-sm-6" style="float: left;">
+          <label>Apellido:</label>
+          <input
+            class="form-control"
+            formControlName="apellido"
+            type="text"
+            placeholder="...Doe Renner"
+          />
+        </div>
+        <div class="form-group col-sm-6" style="float: left;">
+          <label>Cédula:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="cedula"
+            placeholder="...09999999999"
+          />
+        </div>
+        <br />
+        <div class="form-group col-sm-6" style="float: left;">
+          <label>Teléfono:</label>
+          <input class="form-control" formControlName="telefono" type="text" />
+        </div>
+        <div class="form-group col-sm-12">
+          <label>Dirección:</label>
+          <input type="text" class="form-control" formControlName="direccion" />
+        </div>
+      </form>
+
+      <div class="col-sm-12 button-save">
+        <br />
+        <button
+          mat-raised-button
+          class="btn btn-success"
+          [disabled]="
+            form.invalid ||
+            nombre == '' ||
+            email == '' ||
+            direccion == '' ||
+            cedula == '' ||
+            apellido == '' ||
+            telefono == ''
+          "
+          class="save"
+          (click)="save()"
+          pButton
+          label="GUARDAR"
+        ></button>
+      </div>
+    </div>
   </div>
-  <div class="p-col-12 p-md-3">
-    <h5>Apellido</h5>
-    <input type="text" pInputText />
-  </div>
-  <div class="p-col-12 p-md-3">
-    <h5>Correo</h5>
-    <input type="text" pInputText />
-  </div>
-  <div class="p-col-12 p-md-3">
-    <h5>Tel&eacute;fono</h5>
-    <input type="text" pInputText />
-  </div>
-  <div class="p-col-12 p-md-3">
-    <h5>Rol</h5>
-    <input type="text" pInputText />
-  </div>
-  <p-footer>
-    <button
-      type="button"
-      pButton
-      icon="pi pi-save"
-      (click)="display = false"
-      label="Editar"
-    ></button>
-  </p-footer>
 </p-dialog>

@@ -8,9 +8,10 @@ table {
   width: 100%;
 }
 
-.input-table {
-  width: 100%;
+.slide {
+  border: none;
 }
+
 
 .button-save{
   align-items: center;
@@ -19,19 +20,13 @@ table {
   border-radius: 5px 5px 5px 5px;
 }
 
-.save{
-  background-color: DARKMAGENTA;
-  border-color: DARKMAGENTA;;
-}
-
-.upload{
-  background-color: yellowgreen;
-}
 
 .image-preview{
   width: 150px;
 }
 
 
-
-
+.save{
+  background-color: DARKMAGENTA;
+  border-color: DARKMAGENTA;;
+}

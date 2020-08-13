@@ -8,6 +8,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { OnHoldComponent } from '../../pages/on-hold/on-hold.component';
+import { CurrentPromotionComponent } from '../../pages/current-promotion/current-promotion.component';
+import { OldPromotionComponent } from '../../pages/old-promotion/old-promotion.component'
 import { DispatchedComponent } from '../../pages/dispatched/dispatched.component';
 import { ReportNewsComponent } from '../../pages/report-news/report-news.component';
 import { ReportSalesComponent } from '../../pages/report-sales/report-sales.component';
@@ -56,10 +58,14 @@ import {ToastModule} from 'primeng/toast';
 import {AccordionModule} from 'primeng/accordion';
 import {CarouselModule} from 'primeng/carousel';
 import {TooltipModule} from 'primeng/tooltip';
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
+
 
 @NgModule({
   imports: [
     CommonModule,
+    ToastModule,
     TooltipModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
@@ -93,6 +99,8 @@ import {TooltipModule} from 'primeng/tooltip';
   declarations: [
     DashboardComponent,
     OnHoldComponent,
+    CurrentPromotionComponent,
+    OldPromotionComponent,
     DispatchedComponent,
     ReportNewsComponent,
     ReportSalesComponent,
@@ -114,7 +122,8 @@ import {TooltipModule} from 'primeng/tooltip';
     PromocionesService,
     PedidoService,
     DeliverymanService,
-    AuthDeliverymanGuard
+    AuthDeliverymanGuard,
+    MessageService
   ]
 })
 

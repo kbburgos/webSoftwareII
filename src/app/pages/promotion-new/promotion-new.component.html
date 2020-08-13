@@ -1,0 +1,98 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <div class="row">
+              <div class="col-md-10">
+                <h4 class="card-title">Nueva Promoción</h4>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="col-sm-12" style="background-color: red;">
+                <p-fileUpload
+                  multiple="true"
+                  customUpload="false"
+                  (uploadHandler)="onFileUpload($event)"
+                  accept="image/*"
+                >
+                </p-fileUpload>
+                <div class="mb-3 text-center">
+                  <p-carousel [value]="Urls" [numVisible]="2" [numScroll]="1">
+                    <ng-template let-item pTemplate="item">
+                      <img [src]="item" class="rounded image-preview" />
+                    </ng-template>
+                  </p-carousel>
+                </div>
+              </div>
+            <form [formGroup]="form">
+              <div class="form-group col-sm-12">
+                <label>Nombre:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="nombre"
+                  placeholder="...Cheessecake de fresa"
+                />
+              </div>
+              <div class="form-group col-sm-12" style="float: left;">
+                <label>Descripción:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="descripcion"
+                  placeholder="...En dulzado con splenda y fresa"
+                />
+              </div>
+              <br />
+              <div
+                *ngIf="!promocion"
+                class="form-group col-sm-2"
+                style="float: left;"
+              >
+                <div class="dropdown">
+                  <button
+                    href="#"
+                    class="btn dropdown-toggle btn-primary"
+                    data-toggle="dropdown"
+                    aria-expanded="true"
+                  >
+                    Categoría
+                    <b class="caret"></b>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a (click)="guardarCategoria('3')">Bebidas</a></li>
+                    <li><a (click)="guardarCategoria('3')">Dulces</a></li>
+                    <li><a (click)="guardarCategoria('4')">Tortas</a></li>
+                    <li><a (click)="guardarCategoria('5')">Postres</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="form-group col-sm-6" style="float: left;">
+                <label>Precio:</label>
+                <input
+                  class="form-control"
+                  formControlName="precio"
+                  type="number"
+                  step="any"
+                />
+              </div>
+              <div class="form-group col-sm-6" style="float: left;">
+                <label>Stock:</label>
+                <input
+                  type="number"
+                  step="any"
+                  class="form-control"
+                  formControlName="stock"
+                />
+              </div>
+            </form>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -27,6 +27,9 @@ export class UserNotificationService {
     return this.http.get(environment.rutas.novedades,{headers});
   }
 
+   pushUserNotification(){
+  }
+  
   private storeTokens(tokens: Tokens) {
     localStorage.setItem(this.JWT_TOKEN, tokens.token);
     localStorage.setItem(this.REFRESH_TOKEN, tokens.refreshToken);
