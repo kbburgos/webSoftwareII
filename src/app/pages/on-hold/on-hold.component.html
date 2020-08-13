@@ -48,7 +48,7 @@
                             <tr>
                                 <td> {{pedidos.idPedido}} </td>
                                 <td> {{pedidos.idUsuario}} </td>
-                                <td> <u (click)="DetailsProducts(pedidos.productos, pedidos.cantidades)" class="uDetail" > ver detalle </u></td>
+                                <td> <u (click)="detailsProducts(pedidos.productos, pedidos.cantidades)" class="uDetail" > ver detalle </u></td>
                                 <td> <span *ngIf="!pedidos.cubiertos"> no </span> <span *ngIf="pedidos.cubiertos"> si  </span> </td>
                                 <td> <i *ngIf="pedidos.isEfectivo" class="pi pi-money-bill"></i><i *ngIf="!pedidos.isEfectivo" class="pi pi-id-card"></i>&nbsp; &nbsp;{{pedidos.total}} </td>
                                 <td>
@@ -77,12 +77,12 @@
                             <tr>
                                 <td> {{pedidoLocal.idPedido}} </td>
                                 <td> {{pedidoLocal.idUsuario}} </td>
-                                <td> <u (click)="DetailsProducts(pedidoLocal.productos, pedidoLocal.cantidades)" class="uDetail" > ver detalle </u></td>
+                                <td> <u (click)="detailsProducts(pedidoLocal.productos, pedidoLocal.cantidades)" class="uDetail" > ver detalle </u></td>
                                 <td> <span *ngIf="!pedidoLocal.cubiertos"> no </span> <span *ngIf="pedidoLocal.cubiertos"> si </span> </td>
                                 <td> <i *ngIf="pedidoLocal.isEfectivo" class="pi pi-money-bill"></i><i *ngIf="!pedidoLocal.isEfectivo" class="pi pi-id-card"></i>&nbsp; &nbsp;{{pedidoLocal.total}} </td>
                                 <td>
                                     <div class="ui-dialog-buttonpane">
-                                        <button pButton type="button" (click)="dispatchedOrder(pedidoLocal)" icon="pi pi-arrow-circle-right" class="ui-button-secundary" ></button>
+                                        <button pButton type="button" (click)="confirm(pedidoLocal)" icon="pi pi-arrow-circle-right" class="ui-button-secundary" ></button>
                                         &nbsp;
                                     </div>
                                 </td>
@@ -99,7 +99,9 @@
   </div>
 </div>
 
-
+<p-toast position="center"></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle">
+</p-confirmDialog>
 
 <p-dialog [(visible)]="display" [responsive]="true" showEffect="fade">
   <div class = "divCard">
@@ -127,6 +129,6 @@
       </div>
   </p-card> 
   </div> 
-<p-footer>
+</p-dialog>
   
 

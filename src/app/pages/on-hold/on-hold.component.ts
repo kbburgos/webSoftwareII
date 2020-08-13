@@ -6,12 +6,14 @@ import { Deliveryman } from 'app/resource/interface/deliveryman';
 import { DeliverymanService } from 'app/services/deliveryman.service';
 import { ProductoService } from 'app/services/producto.service';
 import { Producto } from 'app/models/producto';
-
+import { MessageService } from 'primeng/api';
+import {ConfirmationService} from 'primeng/api';
 
 @Component({
   selector: 'app-on-hold',
   templateUrl: './on-hold.component.html',
-  styleUrls: ['./on-hold.component.css']
+  styleUrls: ['./on-hold.component.css'],
+  providers: [MessageService]
 })
 export class OnHoldComponent implements OnInit {
   display = false;
@@ -35,9 +37,12 @@ export class OnHoldComponent implements OnInit {
   private repartidoresSuscribe;
   private productosSubscribe;
 
-  constructor(private pedidoService: PedidoService
-    , private deliveryManService: DeliverymanService
-    , private productService: ProductoService) { }
+  constructor(
+    private pedidoService: PedidoService,
+    private deliveryManService: DeliverymanService,
+    private productService: ProductoService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.pedidosDomicilio = [];
@@ -47,6 +52,7 @@ export class OnHoldComponent implements OnInit {
 
     this.pedidosDomicilioSuscribe = this.pedidoService.getPedidosByEstadoByTipo(0 , true).subscribe((item: any) => {
       this.pedidosDomicilio = item;
+      console.log(this.pedidosDomicilio);
     });
     this.pedidosLocalSuscribe = this.pedidoService.getPedidosByEstadoByTipo(0 , false).subscribe((item: any) => {
       this.pedidosLocal = item;
@@ -60,7 +66,7 @@ export class OnHoldComponent implements OnInit {
     });
 
   }
-  DetailsProducts(productos: [], cantidades: []) {
+  detailsProducts(productos: [], cantidades: []) {
     this.display = true;
     this.listaProductos = [];
     let  productofinal = {};
@@ -80,31 +86,32 @@ export class OnHoldComponent implements OnInit {
 
   assinggnOrder(pedido: Orders) {
     this.repartidores.sort(function(a, b) {
-      if(a.pedidos.length < b.pedidos.length) {
+      if (a.pedidos.length < b.pedidos.length) {
         return -1;
       }
     });
-    console.log(this.repartidores);
     this.pedido = pedido;
     this.pedido.estadoDelPedido = 1;
     this.pedidoService.updatePedidos(this.pedido);
     this.listaPedidos = this.repartidores[0].pedidos;
     this.listaPedidos.push(pedido.idPedido);
-    this.repartidores[0].cantidad = this.listaPedidos.length;
     this.deliveryManService.updateDeliveryMan(this.repartidores[0]);
+    //this.notifyOrder(this.repartidores[0]);
+    this.showSuccess(true);
   }
 
-  dispatchedOrder(pedido: Orders) {
+  changeState(pedido: Orders) {
     console.log(pedido);
     this.pedido = pedido;
     this.pedido.estadoDelPedido = 2;
     this.pedidoService.updatePedidos(this.pedido);
+    this.showSuccess(false);
   }
   // tslint:disable-next-line: use-life-cycle-interface
   ngOnDestroy(): void {
     if (this.pedidosDomicilioSuscribe) {
       this.pedidosDomicilioSuscribe.unsubscribe();
-    } 
+    }
     if (this.pedidosLocalSuscribe) {
       this.pedidosLocalSuscribe.unsubscribe();
     }
@@ -119,20 +126,45 @@ export class OnHoldComponent implements OnInit {
   notifyOrder(repartidor: Deliveryman) {
     console.log(repartidor);
     const telefono = '593' + repartidor.telefono;
-    const url_prueba = 'http://localhost:4200/login';
+    const telefono2 = '593995248654';
+    const url_prueba = 'http://localhost:4200/deliveryman';
+    const enlaceMapa = 'https://www.google.com.ec/maps/@' + this.pedido.direccionEntrega['coordenadas'][0]
+    + ',' + this.pedido.direccionEntrega['coordenadas'][1];
+    const mapa = 'https://www.google.com.ec/maps/@-2.1008854,-79.9095824,18.08z';
     const cuerpo_mensaje =
       'Hola ' + repartidor.nombre + ' ' + repartidor.apellido + ' ' +
-      'Tienes un nuevo pedido por entregar: ' +
-      '*' + this.pedido.idPedido + '*' +
-      'Ingresa a este enlace para finalizar el pedido cuando lo hayas entregado: ' +
-      url_prueba;
+      ', tienes un nuevo pedido por entregar. El código del pedido es *' + this.pedido.idPedido +
+      '*, la cédula del cliente: *' + this.pedido.idUsuario +
+      '*, la dirección *' + this.pedido.direccionEntrega['direccion'] + ' ' + this.pedido.direccionEntrega['referencia'] +
+      '*, puedes ver la dirección del cliente en el siguiente enlace ' + mapa +
+      ' . Cuando entregues el pedido, ingresa a este enlace para finalizarlo: ' + url_prueba;
+    window.open('https://api.whatsapp.com/send?phone=' + telefono2 + '&text=' + cuerpo_mensaje);
 
+  }
 
+  showSuccess(esRepartidor: boolean) {
+    let detail: string;
+    if (esRepartidor) {
+      detail = 'El pedido se asignó correctamente';
+    } else {
+      detail = 'Se despachó el pedido correctamente';
+    }
+    this.messageService.add(
+      {severity: 'success', summary: 'Mensaje de confirmación',
+      detail: detail, life: 2000 });
+  }
 
-
-
-    window.open('https://api.whatsapp.com/send?phone=' + telefono + '&text=' + cuerpo_mensaje);
-
+  confirm(pedido: Orders) {
+    this.confirmationService.confirm({
+        header: 'Enviar el pedido a Pedidos Despachados',
+        message: '¿Estás seguro de realizar esta acción?',
+        accept: () => {
+          this.pedido = pedido;
+          this.pedido.estadoDelPedido = 2;
+          this.pedidoService.updatePedidos(this.pedido);
+          this.showSuccess(false);
+        }
+    });
   }
 }
 

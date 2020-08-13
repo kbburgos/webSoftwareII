@@ -48,9 +48,9 @@ export class PedidoService {
 
   getPedidosByEstadoByTipo(estado: number, isDomicilio: boolean) {
     return this.firebase
-      .collection(environment.nombresColecciones.pedido, ref => 
+      .collection(environment.nombresColecciones.pedido, ref =>
       ref.where('estadoDelPedido', '==', estado).
-      where('tipoEntrega', '==', isDomicilio))
+      where('isDomicilio', '==', isDomicilio))
       .snapshotChanges()
       .pipe(
         map((producto) => {
@@ -63,7 +63,7 @@ export class PedidoService {
 
   getPedidosByEstado(estado: number) {
     return this.firebase
-      .collection(environment.nombresColecciones.pedido, ref => 
+      .collection(environment.nombresColecciones.pedido, ref =>
       ref.where('estadoDelPedido', '==', estado))
       .snapshotChanges()
       .pipe(
