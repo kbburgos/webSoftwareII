@@ -32,10 +32,13 @@ export class OnHoldComponent implements OnInit {
   idPedido;
   listaPedidos;
   cantidadTotalProductosxPedido: number;
+  disabledButtonEraser = true;
+  fechaActual = new Date();
   private pedidosDomicilioSuscribe;
   private pedidosLocalSuscribe;
   private repartidoresSuscribe;
   private productosSubscribe;
+  private deleteOrder;
 
   constructor(
     private pedidoService: PedidoService,
@@ -49,23 +52,27 @@ export class OnHoldComponent implements OnInit {
     this.pedidosLocal = [];
     this.repartidores = [];
     this.listaPedidos = [];
-
     this.pedidosDomicilioSuscribe = this.pedidoService.getPedidosByEstadoByTipo(0 , true).subscribe((item: any) => {
       this.pedidosDomicilio = item;
-      console.log(this.pedidosDomicilio);
     });
     this.pedidosLocalSuscribe = this.pedidoService.getPedidosByEstadoByTipo(0 , false).subscribe((item: any) => {
       this.pedidosLocal = item;
+      for (let i  = 0; i < this.pedidosLocal.length; i++) {
+        this.pedidosLocal[i].horaDeRetiro = (this.pedidosLocal[i].horaDeRetiro.toDate());
+        if ( this.pedidosLocal[i].horaDeRetiro > this.fechaActual) {
+          console.log('es mayor');
+          this.disabledButtonEraser = true;
+        }
+      }
     });
     this.repartidoresSuscribe = this.deliveryManService.getRepartidores().subscribe((item: any) => {
       this.repartidores = item;
     });
-
     this.productosSubscribe = this.productService.getProductos().subscribe((item: any ) => {
       this.productos = item;
     });
-
   }
+
   detailsProducts(productos: [], cantidades: []) {
     this.display = true;
     this.listaProductos = [];
@@ -97,16 +104,15 @@ export class OnHoldComponent implements OnInit {
     this.listaPedidos.push({'idPedido': pedido.idPedido, 'codigoCliente': pedido.idUsuario,
      'productos': pedido.productos, 'cantidades': pedido.cantidades});
     this.deliveryManService.updateDeliveryMan(this.repartidores[0]);
-    //this.notifyOrder(this.repartidores[0]);
-    this.showSuccess(true);
+    // this.notifyOrder(this.repartidores[0]);
+    this.showSuccess('repartidor');
   }
 
   changeState(pedido: Orders) {
-    console.log(pedido);
     this.pedido = pedido;
     this.pedido.estadoDelPedido = 2;
     this.pedidoService.updatePedidos(this.pedido);
-    this.showSuccess(false);
+    this.showSuccess('local');
   }
   // tslint:disable-next-line: use-life-cycle-interface
   ngOnDestroy(): void {
@@ -143,12 +149,14 @@ export class OnHoldComponent implements OnInit {
 
   }
 
-  showSuccess(esRepartidor: boolean) {
+  showSuccess(esRepartidor: string) {
     let detail: string;
-    if (esRepartidor) {
+    if (esRepartidor === 'repartidor') {
       detail = 'El pedido se asignó correctamente';
-    } else {
+    } else if(esRepartidor === 'local'){
       detail = 'Se despachó el pedido correctamente';
+    } else if (esRepartidor === 'eliminar') {
+      detail = 'El pedido se eliminó correctamente';
     }
     this.messageService.add(
       {severity: 'success', summary: 'Mensaje de confirmación',
@@ -163,9 +171,30 @@ export class OnHoldComponent implements OnInit {
           this.pedido = pedido;
           this.pedido.estadoDelPedido = 2;
           this.pedidoService.updatePedidos(this.pedido);
-          this.showSuccess(false);
+          this.showSuccess('local');
         }
     });
+  }
+
+  eraserOrder(pedido: Orders){
+    this.confirmationService.confirm({
+      header: 'Eliminar pedido',
+      message: '¿Está seguro de eliminar el pedido?',
+      accept: () => {
+        this.erarserOrderSelectedd(pedido);
+        this.showSuccess('eliminar');
+      }
+    });
+  }
+
+  erarserOrderSelectedd(pedido: Orders){
+    /*for (let i = 0; i < this.pedidosLocal.length ; i++ ) {
+      if (this.pedidosLocal[i].idPedido === pedido.idPedido) {
+        this.pedidosLocal.splice(i, 1);
+      }
+    }
+    console.log(this.pedidosLocal);*/
+    this.deleteOrder = this.pedidoService.deletePedido(pedido.idPedido);
   }
 }
 

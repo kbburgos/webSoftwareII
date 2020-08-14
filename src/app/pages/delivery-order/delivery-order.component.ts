@@ -34,6 +34,8 @@ export class DeliveryOrderComponent implements OnInit {
   listaProductos: Array<any> = [];
   cantidadTotalProductosxPedido: number;
   ordenFinalizada: NovelyDeliverman;
+  private actual = new Date();
+  horaRetiro: any = new Date().setMinutes(this.actual.getMinutes() + 30);
   private deliveryman;
   private obtenerpedido;
   private productosSubscribe;
@@ -53,6 +55,7 @@ export class DeliveryOrderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.horaRetiro = new Date(this.horaRetiro);
     this.noveltys = [
       {name: 'Cliente molestoso', value : 'cliente molestoso'},
       {name: 'Cliente falta respeto', value : 'Cliente falta respeto'},
@@ -163,8 +166,8 @@ export class DeliveryOrderComponent implements OnInit {
       idPedido: pedido.idPedido,
       idRepartidor: this.cedulaRepartidor,
       novedad: novedadRepartidor,
-      idCliente: pedido.idUsuario
-
+      idCliente: pedido.idUsuario,
+      fecha: this.horaRetiro
     };
     console.log(this.ordenFinalizada);
     this.pedidoCambiaEstado.estadoDelPedido = 2;

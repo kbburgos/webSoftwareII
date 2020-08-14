@@ -54,7 +54,7 @@ export class AssignedComponent implements OnInit {
     this.displayDeliveryman = true;
     for (let i = 0; i < this.listaRepartidores.length; i++) {
       for (let j = 0; j < this.listaRepartidores[i].pedidos.length; j++ ) {
-        if (pedidosAsignados.idPedido === this.listaRepartidores[i].pedidos[j]) {
+        if (pedidosAsignados.idPedido === this.listaRepartidores[i].pedidos[j]['idPedido']) {
           this.repartidorxPedido = this.listaRepartidores[i];
         }
       }
