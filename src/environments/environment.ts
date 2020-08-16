@@ -21,7 +21,7 @@ export const environment = {
     pedido: "pedido",
     repartidor: "repartidor",
     categorias: "categorias",
-    novedadesRepartidor: "novedadesRepartidor"
+    novedadesRepartidor: "novedadesRepartidor",
   },
   estados: {
     activo: "A",
@@ -29,30 +29,31 @@ export const environment = {
     anulado: "AN",
   },
   rutas: {
-    urlLogin: 'https://omipalisf2.herokuapp.com/api/login/usuario',
+    urlLogin: "https://omipalisf2.herokuapp.com/api/login/usuario",
     refresh: "https://omipalisf2.herokuapp.com/api/login/token",
-    urlToken :  "https://omipalisf2.herokuapp.com/api/login/token",
+    urlToken: "https://omipalisf2.herokuapp.com/api/login/token",
     logOut: "https://omipalisf2.herokuapp.com/api/login/reject",
-    usuarioXid : "https://omipalisf2.herokuapp.com/api/usersS/",
+    usuarioXid: "https://omipalisf2.herokuapp.com/api/usersS/",
     usersS: "https://omipalisf2.herokuapp.com/api/usersS/",
-    novedades:"https://omipalisf2.herokuapp.com/api/noveltys/",
+    novedades: "https://omipalisf2.herokuapp.com/api/noveltys/",
     pedidos: "https://omipalisf2.herokuapp.com/api/orders/getAll",
   },
 
-  secretEncryp: "71bec6b99ebd7fbd65d44410eeaf17852de12204f176635b200c17986534d8cfbbab73a34baf7f91f567b90f76d74d61ab6e30f097ed4f49f24d11581527b89a",
-  secretToken: "7187ba3735b821b9ae7bd7d5dd98b61a07ec2e9cef2aad92b97a4ed6080290e6",
-  
+  secretEncryp:
+    "71bec6b99ebd7fbd65d44410eeaf17852de12204f176635b200c17986534d8cfbbab73a34baf7f91f567b90f76d74d61ab6e30f097ed4f49f24d11581527b89a",
+  secretToken:
+    "7187ba3735b821b9ae7bd7d5dd98b61a07ec2e9cef2aad92b97a4ed6080290e6",
+
   keyCrypto: "abcdefghijklmnopqrstuvwxyz123456789",
   urlGetUser: "https://omipalisf2.herokuapp.com/api/usersS/",
   urlToken: "https://omipalisf2.herokuapp.com/api/login/token",
   //usuarioXid : "https://omipalisf2.herokuapp.com/api/usersS/",
   usersS: "https://omipalisf2.herokuapp.com/api/usersS/",
-  
-  variables: {
-    usuariosSistema:[],
-    clientesNovedades:[],
-    pedidosClientes:[],
-    usuarioL: {} ,
-  }
-};
 
+  variables: {
+    usuariosSistema: [],
+    clientesNovedades: [],
+    pedidosClientes: [],
+    usuarioL: {},
+  },
+};

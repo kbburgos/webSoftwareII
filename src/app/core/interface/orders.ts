@@ -10,7 +10,7 @@ export interface Orders{
     isEfectivo: boolean;
     tipoEntrega: boolean;
     estadoDelPedido: number;
-    horaDeRetiro: Timestamp<Date>;
+    horaDeRetiro: any;
     direccionEntrega: {};
 
 }

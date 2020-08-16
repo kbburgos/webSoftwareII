@@ -129,7 +129,12 @@ export class ProductsComponent implements OnInit {
     this.confirmationService.confirm({
       message: "¿Est&aacute; seguro que desea editar el producto?",
       accept: () => {
-        this.update(this.ProductEdit);
+        if (this.categoria == ''){
+          this.update(this.ProductEdit);
+        }else{
+          this.ProductEdit.idCategoria = this.categoria;
+          this.update(this.ProductEdit);
+        }
       },
     });
   }

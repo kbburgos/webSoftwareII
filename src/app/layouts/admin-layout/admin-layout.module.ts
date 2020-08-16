@@ -99,7 +99,9 @@ import { TokenInterceptorService } from "app/core/services/interceptor/token-int
     CheckboxModule,
     FileUploadModule,
     AccordionModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    TabViewModule,
+    ToastModule
   ],
   declarations: [
     DashboardComponent,
@@ -119,7 +121,6 @@ import { TokenInterceptorService } from "app/core/services/interceptor/token-int
     DeliveryNotificationComponent,
     UserNotificationComponent,
     AssignedComponent,
-    DeliveryOrderComponent
   ],
   providers: [
     ProductoService,

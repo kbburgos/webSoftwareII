@@ -6,51 +6,56 @@ import { AuthService } from 'app/core/services/auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Deliveryman } from 'app/core/interface/deliveryman';
+import { Producto } from 'app/core/models/producto';
+import { ProductoService } from 'app/core/services/product/producto.service';
 @Component({
   selector: 'app-assigned',
   templateUrl: './assigned.component.html',
   styleUrls: ['./assigned.component.css']
 })
 export class AssignedComponent implements OnInit {
-  nombreRepartidor:string;
-  apellidoRepartidor:string;
-  telefonoRepartidor:string;
-  cedulaRepartidor:string;
-
-  pedidosAsignados: Orders[];
-  display: boolean = false;
-  cols: any;
-  token: any;
-  listaRepartidores: any;
+  nombreRepartidor: string;
+  apellidoRepartidor: string;
+  telefonoRepartidor: string;
+  cedulaRepartidor: string;
+  displayDetail = false;
+  displayDeliveryman = false;
+  cols: any[];
+  pedidosDomicilioAsignados: Orders[] = [];
+  productos: Producto[];
+  listaProductos: Array<any> = [];
+  listaRepartidores: Deliveryman[];
+  cantidadTotalProductosxPedido: number;
   repartidorxPedido: Deliveryman;
-  private pedidosAsignadosSuscribe;
-  private repartidoresSusbscribe;
+  private pedidosAsignadosSubscribe;
+  private repartidoresSubscribe;
+  private productosSubscribe
 
   constructor(
     private pedidoService: PedidoService,
     private http: HttpClient,
     private deliveryManService: DeliverymanService,
+    private productService: ProductoService,
     private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.pedidosAsignados = [];
-    this.pedidosAsignadosSuscribe = this.pedidoService.getPedidosByEstado(1).subscribe((item: any) => {  
-      this.pedidosAsignados = item;
-      console.log(this.pedidosAsignados);
+    this.pedidosAsignadosSubscribe = this.pedidoService.getPedidosByEstado(1).subscribe((item: any) => {
+      this.pedidosDomicilioAsignados = item;
     });
 
-    this.repartidoresSusbscribe = this.deliveryManService.getRepartidores().subscribe((item: any) =>{
+    this.productosSubscribe = this.productService.getProductos().subscribe((item: any ) => {
+      this.productos = item;
+    });
+    this.repartidoresSubscribe = this.deliveryManService.getRepartidores().subscribe((item: any) => {
       this.listaRepartidores = item;
-      
     });
-
   }
-  viewMoreInformation(pedidosAsignados: Orders){
-    this.display = true;
-    for(const repartidor of this.listaRepartidores){
-      for(const pedido of repartidor.pedidos){
-        if(pedido.idPedido == pedidosAsignados.idPedido){
-          this.repartidorxPedido = repartidor;
+  viewMoreInformationDelivery(pedidosAsignados: Orders) {
+    this.displayDeliveryman = true;
+    for (let i = 0; i < this.listaRepartidores.length; i++) {
+      for (let j = 0; j < this.listaRepartidores[i].pedidos.length; j++ ) {
+        if (pedidosAsignados.idPedido === this.listaRepartidores[i].pedidos[j]['idPedido']) {
+          this.repartidorxPedido = this.listaRepartidores[i];
         }
       }
     }
@@ -58,16 +63,36 @@ export class AssignedComponent implements OnInit {
     this.apellidoRepartidor = this.repartidorxPedido.apellido;
     this.cedulaRepartidor = this.repartidorxPedido.cedula;
     this.telefonoRepartidor = this.repartidorxPedido.telefono;
-
-
-
-
-
   }
 
-  ngOnDestroy(){
-    if(this.pedidosAsignadosSuscribe){
-      this.pedidosAsignadosSuscribe.unsubscribe();
+  detailsProducts(productos: [], cantidades: []) {
+    this.displayDetail = true;
+    this.listaProductos = [];
+    let  productofinal = {};
+    for (let i = 0 ; i < productos.length; i++) {
+      for (let j = 0 ; j < this.productos.length; j++) {
+        if ( productos[i] === this.productos[j].idProducto ) {
+          productofinal = {
+            'producto' : this.productos[j].nombre,
+            'cantidad' :  cantidades[i]
+          }
+          this.listaProductos.push(productofinal);
+        }
+      }
+    }
+    this.cantidadTotalProductosxPedido = cantidades.reduce( (a, b) => a + b , 0);
+  }
+
+  // tslint:disable-next-line: use-life-cycle-interface
+  ngOnDestroy() {
+    if (this.pedidosAsignadosSubscribe) {
+      this.pedidosAsignadosSubscribe.unsubscribe();
+    }
+    if (this.repartidoresSubscribe) {
+      this.repartidoresSubscribe.unsubscribe();
+    }
+    if (this.productosSubscribe) {
+      this.productosSubscribe.unsubscribe();
     }
   }
 
