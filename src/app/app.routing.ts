@@ -7,8 +7,9 @@ import { LoginComponent } from "../app/pages//login/login.component";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { DeliverymanComponent } from "./pages/deliveryman/deliveryman.component";
 import { DeliveryOrderComponent } from "./pages/delivery-order/delivery-order.component";
-import { AuthDeliverymanGuard } from "./auth/guard/auth-deliveryman.guard";
-
+import { AuthDeliverymanGuard } from "./core/guard/auth-deliveryman.guard";
+import { AuthGuard } from "./core/guard/auth.guard";
+import { RandomGuardGuard } from "./core/guard/random-guard.guard";
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
   {
     path: "login",
     component: LoginComponent,
+    //canActivate: [AuthGuard]
   },
   {
     path: "",
@@ -29,19 +31,11 @@ const routes: Routes = [
     path: "deliveryman",
     component: DeliverymanComponent,
   },
-  /*{
-    path: "",
-    redirectTo: "delivery-order",
-    pathMatch: "full",
-  },
-  {
-    path: "delivery-order",
-    component: DeliveryOrderComponent,
-  },*/
   {
     path: "dashboard",
     redirectTo: "dashboard",
     pathMatch: "full",
+    canActivate: [AuthGuard],
   },
   {
     path: "",
@@ -51,10 +45,10 @@ const routes: Routes = [
         path: "",
         loadChildren:
           "./layouts/admin-layout/admin-layout.module#AdminLayoutModule",
+        canLoad: [RandomGuardGuard],
       },
     ],
   },
-  
 ];
 
 @NgModule({

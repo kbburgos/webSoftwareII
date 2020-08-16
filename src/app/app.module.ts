@@ -20,18 +20,22 @@ import { AgmCoreModule } from "@agm/core";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { LoginComponent } from "./pages/login/login.component";
 
-import { ProductoService } from "./services/producto.service";
-import { PedidoService } from "./services/pedido.service";
-import { DeliverymanService } from "./services/deliveryman.service";
+import { ProductoService } from "./core/services/product/producto.service";
+import { PedidoService } from "./core/services/pedido/pedido.service";
+import { DeliverymanService } from "./core/services/deliverman/deliveryman.service";
 import { DeliverymanComponent } from "../app/pages/deliveryman/deliveryman.component";
 import { DeliveryOrderComponent } from "./pages/delivery-order/delivery-order.component";
-import { AuthDeliverymanGuard } from "./auth/guard/auth-deliveryman.guard";
+import { AuthDeliverymanGuard } from "./core/guard/auth-deliveryman.guard";
 import { DialogModule } from "primeng/dialog";
+import { AngularFireAuthModule } from "@angular/fire/auth";
 
 import { NgxSpinnerModule } from "ngx-spinner";
 import { PromotionNewComponent } from "./pages/promotion-new/promotion-new.component";
 //import { CurrentPromotionComponent } from './pages/current-promotion/current-promotion.component';
 //import { OldPromotionComponent } from './pages/old-promotion/old-promotion.component';
+
+import { TokenInterceptorService } from "./core/services/interceptor/token-interceptor.service";
+import { UserInfoService } from "./core/services/userInfo/user-info.service";
 
 @NgModule({
   imports: [
@@ -47,6 +51,7 @@ import { PromotionNewComponent } from "./pages/promotion-new/promotion-new.compo
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
+    AngularFireAuthModule,
     //DialogModule,
     //ConfirmDialogModule,
     /*AgmCoreModule.forRoot({
@@ -59,10 +64,21 @@ import { PromotionNewComponent } from "./pages/promotion-new/promotion-new.compo
     LoginComponent,
     DeliverymanComponent,
     PromotionNewComponent,
+
     // CurrentPromotionComponent,
     //OldPromotionComponent,
   ],
-  providers: [ProductoService, PedidoService, DeliverymanService],
+  providers: [
+    ProductoService,
+    PedidoService,
+    DeliverymanService,
+    UserInfoService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

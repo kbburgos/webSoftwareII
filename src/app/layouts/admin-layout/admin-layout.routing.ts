@@ -17,10 +17,11 @@ import { ProductNewComponent } from "../../pages/product-new/product-new.compone
 import { AssignedComponent } from "app/pages/assigned/assigned.component";
 import { DeliverymanComponent } from "app/pages/deliveryman/deliveryman.component";
 import { DeliveryOrderComponent } from "app/pages/delivery-order/delivery-order.component";
-import { AuthDeliverymanGuard } from "app/auth/guard/auth-deliveryman.guard";
+import { AuthDeliverymanGuard } from "app/core/guard/auth-deliveryman.guard";
 import { PromotionNewComponent } from "../../pages/promotion-new/promotion-new.component";
-import { CurrentPromotionComponent } from "../../pages/current-promotion/current-promotion.component"
-import { OldPromotionComponent } from "../../pages/old-promotion/old-promotion.component"
+import { CurrentPromotionComponent } from "../../pages/current-promotion/current-promotion.component";
+import { OldPromotionComponent } from "../../pages/old-promotion/old-promotion.component";
+import { AuthGuard } from "../../core/guard/auth.guard";
 
 export const AdminLayoutRoutes: Routes = [
   // {
@@ -65,26 +66,78 @@ export const AdminLayoutRoutes: Routes = [
   //         component: UpgradeComponent
   //     }]
   // }
-  { path: "dashboard", component: DashboardComponent },
+  {
+    path: "dashboard",
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
+  },
   { path: "on-hold", component: OnHoldComponent },
   { path: "assigned", component: AssignedComponent },
   { path: "dispatched", component: DispatchedComponent },
-  { path: "report-news", component: ReportNewsComponent },
-  { path: "report-sales", component: ReportSalesComponent },
-  { path: "report-product", component: ReportProductComponent },
-  { path: "products", component: ProductsComponent },
-  { path: "promotions", component: PromotionsComponent },
-  { path: "users", component: UsersComponent },
-  { path: "customers", component: CustomersComponent },
-  { path: "conflicting", component: ConflictingComponent },
+  {
+    path: "report-news",
+    component: ReportNewsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "report-sales",
+    component: ReportSalesComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "report-product",
+    component: ReportProductComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: "products", component: ProductsComponent, canActivate: [AuthGuard] },
+  {
+    path: "promotions",
+    component: PromotionsComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: "users", component: UsersComponent, canActivate: [AuthGuard] },
+  {
+    path: "customers",
+    component: CustomersComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "conflicting",
+    component: ConflictingComponent,
+    canActivate: [AuthGuard],
+  },
   { path: "delivery-notification", component: DeliveryNotificationComponent },
-  { path: "user-notification", component: UserNotificationComponent },
-  { path: "product-new", component: ProductNewComponent },
+  {
+    path: "user-notification",
+    component: UserNotificationComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "product-new",
+    component: ProductNewComponent,
+    canActivate: [AuthGuard],
+  },
   { path: "delivery", component: DeliverymanComponent },
-  { path: "promotion-new", component: PromotionNewComponent },
-  { path: "promotion-", component: PromotionNewComponent },
-  { path: "current-promotion", component: CurrentPromotionComponent },
-  { path: "old-promotion", component: OldPromotionComponent},
+  {
+    path: "promotion-new",
+    component: PromotionNewComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "promotion-",
+    component: PromotionNewComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "current-promotion",
+    component: CurrentPromotionComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "old-promotion",
+    component: OldPromotionComponent,
+    canActivate: [AuthGuard],
+  },
   {
     path: "delivery-order",
     component: DeliveryOrderComponent,

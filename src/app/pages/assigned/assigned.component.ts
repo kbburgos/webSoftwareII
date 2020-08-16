@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { PedidoService } from 'app/services/pedido.service';
-import { DeliverymanService } from 'app/services/deliveryman.service';
-import { Orders } from 'app/resource/interface/orders';
-import { AuthService } from 'app/services/auth.service';
+import { PedidoService } from 'app/core/services/pedido/pedido.service';
+import { DeliverymanService } from 'app/core/services/deliverman/deliveryman.service';
+import { Orders } from 'app/core/interface/orders';
+import { AuthService } from 'app/core/services/auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { Deliveryman } from 'app/resource/interface/deliveryman';
+import { Deliveryman } from 'app/core/interface/deliveryman';
 @Component({
   selector: 'app-assigned',
   templateUrl: './assigned.component.html',

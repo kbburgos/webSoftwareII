@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { DelivermanReporterService } from "../../services/deliverman-reporter.service";
-import { DeliverymanService } from "../../services/deliveryman.service";
-import { NovelyDeliverman } from "../../resource/interface/noveltyDeliverman";
+import { DelivermanReporterService } from "../../core/services/deliverman/deliverman-reporter.service";
+import { DeliverymanService } from "../../core/services/deliverman/deliveryman.service";
+import { NovelyDeliverman } from "../../core/interface/noveltyDeliverman";
 import { ConfirmationService } from "primeng/api";
 import { environment } from 'environments/environment';
 import { HttpClient } from '@angular/common/http';

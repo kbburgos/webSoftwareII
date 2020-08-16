@@ -6,9 +6,9 @@ import {
   FormControl,
 } from "@angular/forms";
 import { Router } from "@angular/router";
-import { AuthService } from "app/services/auth.service";
-import { DeliverymanService } from "app/services/deliveryman.service";
-import { Deliveryman } from "app/resource/interface/deliveryman";
+import { AuthService } from "app/core/services/auth/auth.service";
+import { DeliverymanService } from "app/core/services/deliverman/deliveryman.service";
+import { Deliveryman } from "app/core/interface/deliveryman";
 import * as CryptoJS from "crypto-js";
 
 @Component({
