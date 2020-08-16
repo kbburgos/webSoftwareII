@@ -39,13 +39,15 @@ export class OnHoldComponent implements OnInit {
   private repartidoresSuscribe;
   private productosSubscribe;
   private deleteOrder;
-
+  data: any;
   constructor(
     private pedidoService: PedidoService,
     private deliveryManService: DeliverymanService,
     private productService: ProductoService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService) { }
+    private confirmationService: ConfirmationService) { 
+
+    }
 
   ngOnInit() {
     this.pedidosDomicilio = [];
@@ -59,14 +61,33 @@ export class OnHoldComponent implements OnInit {
       this.pedidosLocal = item;
       for (let i  = 0; i < this.pedidosLocal.length; i++) {
         this.pedidosLocal[i].horaDeRetiro = (this.pedidosLocal[i].horaDeRetiro.toDate());
-        if ( this.pedidosLocal[i].horaDeRetiro > this.fechaActual) {
-          console.log('es mayor');
+        if ( this.pedidosLocal[i].horaDeRetiro < this.fechaActual) {
+          this.disabledButtonEraser = false;
+        } else if ( this.pedidosLocal[i].horaDeRetiro > this.fechaActual) {
           this.disabledButtonEraser = true;
         }
       }
     });
     this.repartidoresSuscribe = this.deliveryManService.getRepartidores().subscribe((item: any) => {
+      //let dataRepartidores = [];
+      //let labelsRepartidores =  [];
       this.repartidores = item;
+      console.log(this.repartidores);
+      /*for(let i = 0; i < this.repartidores.length; i++){
+        labelsRepartidores.push(this.repartidores[i].cedula);
+        dataRepartidores.push(this.repartidores[i].pedidos.length);
+      }
+      this.data = {
+        labels: labelsRepartidores,
+        datasets: [
+          {
+              label: 'Repartidores',
+              backgroundColor: '#42A5F5',
+              borderColor: '#1E88E5',
+              data: dataRepartidores
+          }
+        ]
+      }*/
     });
     this.productosSubscribe = this.productService.getProductos().subscribe((item: any ) => {
       this.productos = item;

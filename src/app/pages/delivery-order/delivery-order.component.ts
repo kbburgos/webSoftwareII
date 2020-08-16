@@ -35,7 +35,7 @@ export class DeliveryOrderComponent implements OnInit {
   cantidadTotalProductosxPedido: number;
   ordenFinalizada: NovelyDeliverman;
   private actual = new Date();
-  horaRetiro: any = new Date().setMinutes(this.actual.getMinutes() + 30);
+  horaRetiro: any = new Date().setMinutes(this.actual.getMinutes());
   private deliveryman;
   private obtenerpedido;
   private productosSubscribe;

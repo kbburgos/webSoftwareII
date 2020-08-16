@@ -59,7 +59,7 @@ import {CarouselModule} from 'primeng/carousel';
 import {TooltipModule} from 'primeng/tooltip';
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
-
+import {ChartModule} from 'primeng/chart';
 
 @NgModule({
   imports: [
@@ -93,7 +93,8 @@ import {MessageService} from 'primeng/api';
     FileUploadModule,
     AccordionModule,
     TabViewModule,
-    ToastModule
+    ToastModule,
+    ChartModule
   ],
   declarations: [
     DashboardComponent,

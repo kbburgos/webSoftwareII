@@ -59,6 +59,7 @@ export class AssignedComponent implements OnInit {
         }
       }
     }
+    //console.log(this.repartidorxPedido);
     this.nombreRepartidor = this.repartidorxPedido.nombre;
     this.apellidoRepartidor = this.repartidorxPedido.apellido;
     this.cedulaRepartidor = this.repartidorxPedido.cedula;
