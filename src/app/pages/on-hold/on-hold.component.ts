@@ -1,11 +1,11 @@
 import { Component, OnInit} from '@angular/core';
-import { OnHold } from '../../resource/interface/onhold';
-import { PedidoService } from 'app/services/pedido.service';
-import { Orders } from 'app/resource/interface/orders';
-import { Deliveryman } from 'app/resource/interface/deliveryman';
-import { DeliverymanService } from 'app/services/deliveryman.service';
-import { ProductoService } from 'app/services/producto.service';
-import { Producto } from 'app/models/producto';
+import { OnHold } from 'app/core/interface/onhold';
+import { PedidoService } from 'app/core/services/pedido/pedido.service';
+import { Orders } from 'app/core/interface/orders';
+import { Deliveryman } from 'app/core/interface/deliveryman';
+import { DeliverymanService } from 'app/core/services/deliverman/deliveryman.service';
+import { ProductoService } from 'app/core/services/product/producto.service';
+import { Producto } from 'app/core/models/producto';
 import { MessageService } from 'primeng/api';
 import {ConfirmationService} from 'primeng/api';
 

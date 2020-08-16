@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { ProductoService } from "../../services/producto.service";
-import { Products } from "../../resource/interface/products";
+import { ProductoService } from "../../core/services/product/producto.service";
+import { Products } from "../../core/interface/products";
 import { NgxSpinnerService } from "ngx-spinner";
 import {
   FormGroup,
@@ -9,7 +9,7 @@ import {
   FormBuilder,
 } from "@angular/forms";
 //import { Categoria } from "../../resource/interface/categoria";
-import { CategoriaService } from "../../services/categoria.service";
+import { CategoriaService } from "../../core/services/categoria/categoria.service";
 //import { PromotionNewComponent } from "../promotion-new/promotion-new.component";
 import { Router } from "@angular/router";
 import { MessageService } from "primeng/api";

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { ProductoService } from "../../services/producto.service";
-import { Products } from "../../resource/interface/products";
+import { ProductoService } from "../../core/services/product/producto.service";
+import { Products } from "../../core/interface/products";
 import { ConfirmationService } from "primeng/api";
 
 import { NgxSpinnerService } from "ngx-spinner";
@@ -11,8 +11,8 @@ import {
   FormBuilder,
 } from "@angular/forms";
 
-import { Categoria } from "../../resource/interface/categoria";
-import { CategoriaService } from "../../services/categoria.service";
+import { Categoria } from "../../core/interface/categoria";
+import { CategoriaService } from "../../core/services/categoria/categoria.service";
 
 @Component({
   selector: "app-products",

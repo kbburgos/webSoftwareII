@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
-import { CustomerNews } from "../../resource/interface/customerNews";
+import { CustomerNews } from "../../core/interface/customerNews";
 import { ConfirmationService } from "primeng/api";
 import { HttpClientModule } from "@angular/common/http";
 
-import { UserNotificationService } from "../../services/user-notification.service";
-import { AuthService } from "../../services/auth.service";
+import { UserNotificationService } from "../../core/services/user/user-notification.service";
+import { AuthService } from "../../core/services/auth/auth.service";
 import { environment } from "environments/environment";
 import {
   FormGroup,

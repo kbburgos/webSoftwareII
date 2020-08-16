@@ -23,9 +23,12 @@ import { DeliveryNotificationComponent } from '../../pages/delivery-notification
 import { UserNotificationComponent } from '../../pages/user-notification/user-notification.component';
 import { ProductNewComponent } from '../../pages/product-new/product-new.component';
 
+
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 //Services
-import{ ProductoService } from '../../services/producto.service';
-import { PromocionesService } from '../../services/promociones.service'
+import{ ProductoService } from '../../core/services/product/producto.service';
+import { PromocionesService } from '../../core/services/product/promociones.service'
+import { UserInfoService } from 'app/core/services/userInfo/user-info.service';
 
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
@@ -49,17 +52,21 @@ import {CardModule} from 'primeng/card';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {CalendarModule} from 'primeng/calendar';
 import {InputTextareaModule} from 'primeng/inputtextarea';
-import { PedidoService } from 'app/services/pedido.service';
-import { DeliverymanService } from 'app/services/deliveryman.service';
+import { PedidoService } from 'app/core/services/pedido/pedido.service';
+import { DeliverymanService } from 'app/core/services/deliverman/deliveryman.service';
 import { AssignedComponent } from 'app/pages/assigned/assigned.component';
 import { DeliveryOrderComponent } from 'app/pages/delivery-order/delivery-order.component';
-import { AuthDeliverymanGuard } from 'app/auth/guard/auth-deliveryman.guard';
+import { AuthDeliverymanGuard } from 'app/core/guard/auth-deliveryman.guard';
+import {PanelModule} from 'primeng/panel';
 import {AccordionModule} from 'primeng/accordion';
 import {CarouselModule} from 'primeng/carousel';
 import {TooltipModule} from 'primeng/tooltip';
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import {ChartModule} from 'primeng/chart';
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { TokenInterceptorService } from "app/core/services/interceptor/token-interceptor.service"
+
 
 @NgModule({
   imports: [
@@ -68,6 +75,7 @@ import {ChartModule} from 'primeng/chart';
     TooltipModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     CarouselModule,
     MatButtonModule,
@@ -92,6 +100,7 @@ import {ChartModule} from 'primeng/chart';
     CheckboxModule,
     FileUploadModule,
     AccordionModule,
+    AngularFireAuthModule,
     TabViewModule,
     ToastModule,
     ChartModule
@@ -119,9 +128,16 @@ import {ChartModule} from 'primeng/chart';
     ProductoService,
     ConfirmationService,
     PromocionesService,
+    UserInfoService,
     PedidoService,
     DeliverymanService,
-    MessageService
+    AuthDeliverymanGuard,
+    MessageService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
   ]
 })
 

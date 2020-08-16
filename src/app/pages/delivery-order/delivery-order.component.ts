@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { DeliverymanService } from 'app/services/deliveryman.service';
-import { Deliveryman } from 'app/resource/interface/deliveryman';
+import { DeliverymanService } from 'app/core/services/deliverman/deliveryman.service';
+import { Deliveryman } from 'app/core/interface/deliveryman';
 import { ConfirmationService } from 'primeng/api';
+<<<<<<< HEAD
+import { DelivermanReporterService } from 'app/core/services/deliverman/deliverman-reporter.service';
+import { NovelyDeliverman } from 'app/core/interface/noveltyDeliverman';
+import { PedidoService } from 'app/core/services/pedido/pedido.service';
+import { Orders } from 'app/core/interface/orders';
+
+=======
 import { DelivermanReporterService } from 'app/services/deliverman-reporter.service';
 import { NovelyDeliverman } from 'app/resource/interface/noveltyDeliverman';
 import { PedidoService } from 'app/services/pedido.service';
@@ -11,6 +18,7 @@ import { ProductoService } from 'app/services/producto.service';
 import { Producto } from 'app/models/producto';
 import { deliverymanNoveltys } from 'app/resource/interface/deliverymanNoveltys';
 import { Router } from '@angular/router';
+>>>>>>> 151fe3bc22ecf13e8a75e6ca99c62dc380477dee
 @Component({
   selector: 'app-delivery-order',
   templateUrl: './delivery-order.component.html',
