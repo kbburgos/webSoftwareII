@@ -37,6 +37,7 @@ export const environment = {
     usersS: "https://omipalisf2.herokuapp.com/api/usersS/",
     novedades:"https://omipalisf2.herokuapp.com/api/noveltys/",
     pedidos: "https://omipalisf2.herokuapp.com/api/orders/getAll",
+    deleteUser: "https://omipalisf2.herokuapp.com/api/usersS/",
   },
 
   secretEncryp: "71bec6b99ebd7fbd65d44410eeaf17852de12204f176635b200c17986534d8cfbbab73a34baf7f91f567b90f76d74d61ab6e30f097ed4f49f24d11581527b89a",
