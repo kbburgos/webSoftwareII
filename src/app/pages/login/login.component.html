@@ -1,57 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div class="limiter">
+      <div class="container-login100">
+        <div class="wrap-login100">
+          <form class="login100-form" [formGroup]="form">
+            <span class="login100-form-logo">
+              <img class="avatar" src="/assets/img/logoOmiPali.jpg" />
+            </span>
 
-</head>
-<body>
-	
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100">
-				<form class="login100-form " [formGroup]="form">
-					<span class="login100-form-logo">
-						<img class="avatar" src="/assets/img/logoOmiPali.jpg">
-					</span>
+            <span class="login100-form-title p-b-34 p-t-27">
+              Iniciar Sesi&oacute;n
+            </span>
 
-					<span class="login100-form-title p-b-34 p-t-27">
-						Iniciar Sesi&oacute;n
-					</span>
+            <div class="container-error-message" *ngIf="display">
+              <span class="material-icons danger-icon">
+                error
+              </span>
+              Usuario no autorizado
+            </div>
 
-					<div class="wrap-input100 validate-input" data-validate = "Ingese usuario">
-						<input class="input100" type="text" name="correo" placeholder="Correo electrónico" formControlName="email">
-						<span class="focus-input100"><i class="material-icons" style="color: white;">account_box</i></span>
-					</div>
+            <div class="container-error-message" *ngIf="notFound">
+              <span class="material-icons danger-icon">
+                error
+              </span>
+              correo o contraseña incorrectos
+            </div>
 
-					<div class="wrap-input100 validate-input" data-validate="Ingrese Clave">
-						<input class="input100" type="password" name="pass" placeholder="Clave" formControlName="pass">
-						<span class="focus-input100"><i class="material-icons" style="color: white;">lock</i></span>
-						
-					</div>
+            <div
+              class="wrap-input100 validate-input"
+              data-validate="Ingese usuario"
+            >
+              <input
+                class="input100"
+                type="text"
+                name="correo"
+                placeholder="Correo electrónico"
+                formControlName="email"
+              />
+              <span class="focus-input100"
+                ><i class="material-icons" style="color: white;"
+                  >account_box</i
+                ></span
+              >
+            </div>
+            <div
+              class="container-error-message"
+              *ngIf="getError('email') != ''"
+            >
+              <span class="material-icons danger-icon">
+                error
+              </span>
+              {{ getError("email") }}
+            </div>
 
-					<div class="text-center p-t-80">
-						<a class="txt1" href="#">
-							¿Olvid&oacute; su contrase&ntilde;a?
-						</a>
-						&nbsp;&nbsp;
-						<a class="txt1" href="#/deliveryman">
-							Ingresar como Repartidor
-						</a>
-					</div>
+            <div
+              class="wrap-input100 validate-input"
+              data-validate="Ingrese Clave"
+            >
+              <input
+                class="input100"
+                type="password"
+                name="pass"
+                placeholder="Clave"
+                formControlName="pass"
+              />
+              <span class="focus-input100"
+                ><i class="material-icons" style="color: white;">lock</i></span
+              >
+            </div>
 
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" (click)="ingresar()">
-							Login
-						</button>
-					</div>
+            <div class="container-error-message" *ngIf="getError('pass') != ''">
+              <span class="material-icons danger-icon">
+                error
+              </span>
+              {{ getError("pass") }}
+            </div>
 
-					
-				</form>
-			</div>
-		</div>
-	</div>
-	
-	<script type="text/javascript" src="main.js"></script>
+            <div class="text-center p-t-80">
+              <a class="txt1" href="#">
+                ¿Olvid&oacute; su contrase&ntilde;a?
+              </a>
+              &nbsp;&nbsp;
+              <a class="txt1" href="#/deliveryman">
+                Ingresar como Repartidor
+              </a>
+            </div>
 
-</body>
+            <div class="container-login100-form-btn">
+              <button class="login100-form-btn" (click)="ingresar()">
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="main.js"></script>
+  </body>
 </html>
