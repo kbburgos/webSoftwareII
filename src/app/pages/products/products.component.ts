@@ -29,7 +29,13 @@ export class ProductsComponent implements OnInit {
   productos: Products[] = [];
   categorias: Categoria[] = [];
 
-  cols: any = [];
+  cols: any = [
+    {field: "nombre" , header: "NOMBRE"},
+    {field: "descripcion" , header: "DESCRIPCION"},
+    {field: "categoria" , header: "CATEGORIA"},
+    {field: "precio" , header: "PRECIO"},
+    {field: "stock" , header: "STOCK"},
+  ];
 
   ProductEdit: Products;
 
@@ -129,7 +135,12 @@ export class ProductsComponent implements OnInit {
     this.confirmationService.confirm({
       message: "¿Est&aacute; seguro que desea editar el producto?",
       accept: () => {
-        this.update(this.ProductEdit);
+        if (this.categoria == ''){
+          this.update(this.ProductEdit);
+        }else{
+          this.ProductEdit.idCategoria = this.categoria;
+          this.update(this.ProductEdit);
+        }
       },
     });
   }
@@ -246,4 +257,6 @@ export class ProductsComponent implements OnInit {
     this.producSlide = producto;
     this.slide = true;
   }
+
+  
 }
