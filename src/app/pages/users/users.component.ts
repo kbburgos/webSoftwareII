@@ -5,7 +5,8 @@ import { UsersService } from "../../core/services/user/users.service";
 import { AuthService } from "../../core/services/auth/auth.service";
 import { environment } from "environments/environment";
 
-import { Usuarios } from "../../core/interface/Usuarios";
+import { Usuarios } from "app/core/interface/Usuarios";
+import { UserInfoService } from "app/core/services/userInfo/user-info.service";
 
 import { NgxSpinnerService } from "ngx-spinner";
 
@@ -15,6 +16,7 @@ import {
   Validators,
   FormBuilder,
 } from "@angular/forms";
+import { async } from "@angular/core/testing";
 
 @Component({
   selector: "app-promotions",
@@ -26,6 +28,10 @@ export class UsersComponent implements OnInit {
 
   token: any = this.auth.getJwtToken();
   usuarios: Usuarios[];
+
+  temp: any[] = [];
+
+  column: Usuarios[];
 
   display: boolean = false;
 
@@ -43,27 +49,22 @@ export class UsersComponent implements OnInit {
     private user: UsersService,
     private auth: AuthService,
     private authService: AuthService,
+    private userInfo: UserInfoService,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {
-
-
-    console.log("ESTAS EN TOKEN en usuario ",this.auth.token)
-
-    
     this.spinner.show();
     this.buildForm();
     this.clearState();
-    console.log(this.token)
+    console.log(this.token);
 
     let subs = this.user.usuarios(this.token).subscribe(
       (data: any) => {
-        console.log(data)
+        console.log(data);
         this.usuarios = data;
-        this.spinner.hide();
-        console.log(this.usuarios);
+        this.tableColumns(this.usuarios);
       },
       (err: any) => {
         console.log(err);
@@ -71,6 +72,24 @@ export class UsersComponent implements OnInit {
         subs.unsubscribe();
       }
     );
+  }
+
+  tableColumns(colection) {
+    colection.map((usuario) => {
+      let User: Usuarios = {
+        apellido: usuario.apellido,
+        cedula: usuario.cedula,
+        contrasenia: usuario.contrasenia,
+        direccion: usuario.direccion,
+        email: usuario.email,
+        nombre: usuario.nombre,
+        rol: usuario.rol,
+        telefono: usuario.telefono,
+      };
+      this.temp.push(User);
+      this.column = this.temp;
+      this.spinner.hide();
+    });
   }
 
   private buildForm() {

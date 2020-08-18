@@ -22,7 +22,7 @@
           <div class="card-body">
             <p-table
               #dt
-              [value]="usuarios"
+              [value]="column"
               [scrollable]="true"
               [paginator]="true"
               [rows]="10"
@@ -39,7 +39,8 @@
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-user>
-                <tr *ngIf="user.rol != 3">
+                <!--tr *ngIf="user.rol != 3"-->
+                <tr>
                   <td>{{ user.cedula }}</td>
                   <td>{{ user.nombre }}</td>
                   <td>{{ user.apellido }}</td>
