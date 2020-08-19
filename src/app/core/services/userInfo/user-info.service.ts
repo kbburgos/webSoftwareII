@@ -10,6 +10,7 @@ export class UserInfoService {
   public telefono: string = "";
   public email: string = "";
   public direccion: string = "";
+  public rol: number;
 
 
   constructor() { }

@@ -40,6 +40,7 @@ export const environment = {
     getPedidos: "https://omipalisf2.herokuapp.com/api/orders/getAll",
     createCompras: "https://omipalisf2.herokuapp.com/api/purchase/post",
     getCompras: "https://omipalisf2.herokuapp.com/api/purchase/getCompras",
+    deleteUser: "https://omipalisf2.herokuapp.com/api/usersS/",
   },
 
   secretEncryp:

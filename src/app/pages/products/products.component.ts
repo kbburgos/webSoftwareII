@@ -29,7 +29,13 @@ export class ProductsComponent implements OnInit {
   productos: Products[] = [];
   categorias: Categoria[] = [];
 
-  cols: any = [];
+  cols: any = [
+    {field: "nombre" , header: "NOMBRE"},
+    {field: "descripcion" , header: "DESCRIPCION"},
+    {field: "categoria" , header: "CATEGORIA"},
+    {field: "precio" , header: "PRECIO"},
+    {field: "stock" , header: "STOCK"},
+  ];
 
   ProductEdit: Products;
 
@@ -251,4 +257,6 @@ export class ProductsComponent implements OnInit {
     this.producSlide = producto;
     this.slide = true;
   }
+
+  
 }

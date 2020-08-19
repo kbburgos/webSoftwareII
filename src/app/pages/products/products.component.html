@@ -31,13 +31,23 @@
             >
               <ng-template pTemplate="header" let-columns>
                 <tr>
-                  <th>NOMBRE</th>
-                  <th>DESCRIPCION</th>
-                  <th>CATEGORIA</th>
-                  <th>PRECIO</th>
-                  <th>STOCK</th>
-                  <th>FOTO</th>
-                  <th>ACCIONES</th>
+                  <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                  </th>
+                  <th>
+                    FOTO
+                  </th>
+                  <th>
+                    ACCIONES
+                  </th>
+                </tr>
+                <tr>
+                  <th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid">
+                      <input pInputText type="text" [style]="{'width':'100%'}" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                  </th>
+                  <th> </th>
+                  <th> </th>  
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-products>

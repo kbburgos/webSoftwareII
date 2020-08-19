@@ -36,4 +36,11 @@ export class UsersService {
     };
     return this.http.get(environment.rutas.usersS + id, { headers });
   }
+  deleteUser(token: string, cedula: string){
+    let headers = {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    };
+    return this.http.delete(environment.rutas.deleteUser+cedula, {headers});
+  }
 }
