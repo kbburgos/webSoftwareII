@@ -2,23 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { DeliverymanService } from 'app/core/services/deliverman/deliveryman.service';
 import { Deliveryman } from 'app/core/interface/deliveryman';
 import { ConfirmationService } from 'primeng/api';
-<<<<<<< HEAD
 import { DelivermanReporterService } from 'app/core/services/deliverman/deliverman-reporter.service';
 import { NovelyDeliverman } from 'app/core/interface/noveltyDeliverman';
 import { PedidoService } from 'app/core/services/pedido/pedido.service';
 import { Orders } from 'app/core/interface/orders';
-
-=======
-import { DelivermanReporterService } from 'app/services/deliverman-reporter.service';
-import { NovelyDeliverman } from 'app/resource/interface/noveltyDeliverman';
-import { PedidoService } from 'app/services/pedido.service';
-import { Orders } from 'app/resource/interface/orders';
 import { MessageService } from 'primeng/api';
-import { ProductoService } from 'app/services/producto.service';
-import { Producto } from 'app/models/producto';
-import { deliverymanNoveltys } from 'app/resource/interface/deliverymanNoveltys';
+import { ProductoService } from 'app/core/services/product/producto.service';
+import { Producto } from 'app/core/models/producto';
+import { deliverymanNoveltys } from 'app/core/interface/deliverymanNoveltys';
 import { Router } from '@angular/router';
->>>>>>> 151fe3bc22ecf13e8a75e6ca99c62dc380477dee
+import { SeguridadService } from 'app/core/services/seguridad.service';
 @Component({
   selector: 'app-delivery-order',
   templateUrl: './delivery-order.component.html',
@@ -35,8 +28,8 @@ export class DeliveryOrderComponent implements OnInit {
   cols: any[];
   display = false;
   listaPedidosRepartidor: Array<string> = [];
-  pedidoid: string;
-  pedido: any;
+  pedidoidDelRepartidor: string;
+  pedidoDelRepartidor: any;
   dato: any;
   productos: Producto[];
   listaProductos: Array<any> = [];
@@ -59,6 +52,7 @@ export class DeliveryOrderComponent implements OnInit {
     private productService: ProductoService,
     private messageService: MessageService,
     private router: Router,
+    private seguridad: SeguridadService
   ) {
   }
 
@@ -68,7 +62,6 @@ export class DeliveryOrderComponent implements OnInit {
       {name: 'Cliente molestoso', value : 'cliente molestoso'},
       {name: 'Cliente falta respeto', value : 'Cliente falta respeto'},
       {name: 'Cliente se queja del pedido', value : 'Cliente se queja del pedido'},
-      {name: 'Otro', value : 'Cliente se queja del pedido'},
     ];
     this.cedulaRepartidor = this.deliveryManService.getdeliverIdStorage();
     this.deliveryman = this.deliveryManService.getDeliveryManByCedula(this.cedulaRepartidor).subscribe((data: any) => {
@@ -104,11 +97,11 @@ export class DeliveryOrderComponent implements OnInit {
     }
   }
 
-  assinggnOrder(pedidoCulminado) {
-    this.pedidoid = pedidoCulminado.idPedido;
-    this.pedido = pedidoCulminado;
+  finalOrder(pedidoCulminado) {
+    this.pedidoidDelRepartidor = pedidoCulminado.idPedido;
+    this.pedidoDelRepartidor = pedidoCulminado;
     this.display = true;
-    this.obtenerpedido = this.orderService.getPedidosByPedidoId(this.pedidoid).subscribe(data => {
+    this.obtenerpedido = this.orderService.getPedidosByPedidoId(this.pedidoidDelRepartidor).subscribe(data => {
       this.pedidoCambiaEstado = data[0];
     },
     (err) => {
@@ -167,26 +160,22 @@ export class DeliveryOrderComponent implements OnInit {
     let novedadRepartidor = '';
     if (this.selectednovelty != null) {
       novedadRepartidor = this.selectednovelty.value
-    } else {
-      novedadRepartidor = '';
+      this.ordenFinalizada = {
+        idPedido: pedido.idPedido,
+        idRepartidor: this.cedulaRepartidor,
+        novedad: novedadRepartidor,
+        idCliente: pedido.idUsuario,
+        fecha: this.horaRetiro
+      };
+      this.enviarNovedad = this.noveltyDelivermanService.pushPedidoFinal(this.ordenFinalizada).then((data: any) => {
+        this.display = false;
+      })
+      .catch((err: any) => {
+        alert('Hubo un problema al finalizar el pedido ');
+      });
     }
-    this.ordenFinalizada = {
-      idPedido: pedido.idPedido,
-      idRepartidor: this.cedulaRepartidor,
-      novedad: novedadRepartidor,
-      idCliente: pedido.idUsuario,
-      fecha: this.horaRetiro
-    };
-    console.log(this.ordenFinalizada);
-    this.pedidoCambiaEstado.estadoDelPedido = 2;
-    this.cambiarEstadoPedido = this.orderService.updatePedidos(this.pedidoCambiaEstado);
-    this.enviarNovedad = this.noveltyDelivermanService.pushPedidoFinal(this.ordenFinalizada).then((data: any) => {
-      this.display = false;
-    })
-    .catch((err: any) => {
-      alert('Hubo un problema al enviar el pedido finalizado');
-    });
-
+    pedido.estadoDelPedido = 3;
+    this.cambiarEstadoPedido = this.orderService.updatePedidos(pedido);
     for (let i = 0 ; i < this.dato.length; i++) {
       if (this.dato[i].idPedido === pedido.idPedido) {
         this.dato.splice(i, 1);

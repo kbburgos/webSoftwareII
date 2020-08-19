@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
-} from "@angular/fire/firestore";
+} from '@angular/fire/firestore';
 
 import { Deliveryman } from 'app/core/interface/deliveryman';
-import { environment } from "../../../../environments/environment";
-import { map } from "rxjs/operators";
+import { environment } from '../../../../environments/environment';
+import { map } from 'rxjs/operators';
 import * as CryptoJS from 'crypto-js';
+import { SeguridadService } from '../seguridad.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class DeliverymanService {
 
 
 
-  constructor(private firebase: AngularFirestore) { }
+  constructor(private firebase: AngularFirestore, private seguridad: SeguridadService) { }
 
   getRepartidores() {
     return this.firebase
@@ -31,15 +32,15 @@ export class DeliverymanService {
         })
       );
   }
-  updateDeliveryMan(deliveryman: Deliveryman){
+  updateDeliveryMan(deliveryman: Deliveryman) {
     this.DeliverDoc = this.firebase.doc(`repartidor/${deliveryman.idRepartidor}`);
     this.DeliverDoc.update(deliveryman);
   }
 
 
-  getDeliveryManByCedula(cedula: string): any{
+  getDeliveryManByCedula(cedula: string): any {
     return this.firebase
-    .collection(environment.nombresColecciones.repartidor,ref => ref.where('cedula','==',cedula))
+    .collection(environment.nombresColecciones.repartidor, ref => ref.where('cedula', '==', cedula))
     .snapshotChanges()
     .pipe(
       map((repartidor) => {
@@ -47,12 +48,12 @@ export class DeliverymanService {
           return e.payload.doc.data() as Deliveryman;
         });
       })
-    ); 
+    );
   }
 
-  getRepartidorLogin(cedula: any, contrasena: any){
+  getRepartidorLogin(cedula: any, contrasena: any) {
     return this.firebase
-    .collection(environment.nombresColecciones.repartidor,ref => ref.where('cedula','==',cedula).where('contrasenia','==',contrasena))
+    .collection(environment.nombresColecciones.repartidor, ref => ref.where('cedula', '==', cedula).where('contrasenia', '==', contrasena))
     .snapshotChanges()
     .pipe(
       map((repartidor) => {
@@ -64,28 +65,30 @@ export class DeliverymanService {
 
   }
 
-  setdeliverIdStorage(dato: string){
-    const encryptR = CryptoJS.AES.encrypt(dato.trim(),environment.keyCrypto.trim()).toString();
+  setdeliverIdStorage(dato: string) {
+    //const encryptR = CryptoJS.AES.encrypt(dato.trim(), environment.keyCrypto.trim()).toString();
+    const encryptR = this.seguridad.encriptar(dato.trim());
     localStorage.setItem('repartidor', encryptR);
   }
 
-  getdeliverIdStorage(){
+  getdeliverIdStorage() {
     const encryptext = localStorage.getItem('repartidor');
-    const decrypt = CryptoJS.AES.decrypt(encryptext.trim(),environment.keyCrypto.trim()).toString(CryptoJS.enc.Utf8);
+    //const decrypt = CryptoJS.AES.decrypt(encryptext.trim(), environment.keyCrypto.trim()).toString(CryptoJS.enc.Utf8);
+    const decrypt = this.seguridad.desencriptar(encryptext);
     return decrypt;
   }
 
-  getLoggin(){
-    return !! localStorage.getItem('repartidor');;
+  getLoggin() {
+    return !! localStorage.getItem('repartidor'); ;
   }
 
-  getClientIdStorage(){
-    let encryptext = localStorage.getItem("cliente");
-    let decrypt = CryptoJS.AES.decrypt(encryptext.trim(),environment.keyCrypto.trim()).toString(CryptoJS.enc.Utf8);
+  getClientIdStorage() {
+    const encryptext = localStorage.getItem('cliente');
+    const decrypt = CryptoJS.AES.decrypt(encryptext.trim(), environment.keyCrypto.trim()).toString(CryptoJS.enc.Utf8);
     return decrypt;
   }
 
-  removeDeliveryStorage(){
+  removeDeliveryStorage() {
     localStorage.removeItem('repartidor');
   }
 

@@ -5,10 +5,10 @@ export interface Orders{
     idUsuario: string;
     productos: string[];
     cantidades: number[];
-    totalProductos: number;
+    total: number;
     cubiertos: boolean;
     isEfectivo: boolean;
-    tipoEntrega: boolean;
+    isDomicilio: boolean;
     estadoDelPedido: number;
     horaDeRetiro: any;
     direccionEntrega: {};

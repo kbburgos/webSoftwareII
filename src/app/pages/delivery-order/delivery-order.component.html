@@ -14,8 +14,8 @@
                         <p-table [columns]="cols"  [value]="dato" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="10" #dt  >  
                             <ng-template pTemplate="header" let-columns>
                                 <tr>
+                                    <th>CEDULA_CLIENTE</th>
                                     <th>CLIENTE</th>
-                                    <th>NOMBRES</th>
                                     <th>PEDIDO</th>
                                     <th>PRODUCTOS</th>
                                     <th>ACCIONES</th>
@@ -24,12 +24,12 @@
                             <ng-template pTemplate="body" let-pedidoCulminado>
                                 <tr>
                                     <td> {{pedidoCulminado.codigoCliente}} </td>
-                                    <td> {{pedidoCulminado.codigoCliente}} </td>
+                                    <td> {{pedidoCulminado.nombreCliente}} </td>
                                     <td> {{pedidoCulminado.idPedido}} </td>
                                     <td> <u (click)="detailsProducts(pedidoCulminado.productos, pedidoCulminado.cantidades)" class="uDetail" > ver detalle </u></td>
                                     <td>
                                         <div class="ui-dialog-buttonpane">
-                                            <button pButton type="button" (click)="assinggnOrder(pedidoCulminado)" icon="pi pi-pencil" class="ui-button-secundary" label="&nbsp;Finalizar"></button>
+                                            <button pButton type="button" (click)="finalOrder(pedidoCulminado)" icon="pi pi-pencil" class="ui-button-secundary" label="&nbsp;Finalizar"></button>
                                             &nbsp;
                                         </div>
                                     </td>
@@ -49,17 +49,17 @@
 <p-dialog [(visible)]="display" [responsive]="true" showEffect="fade" >
     <p-header>  Finalizar proceso del pedido
     </p-header>
-    <div>
+    <div style="height: 250px;">
         <p-card header="Pedido">
-            {{this.pedidoid}}
+            {{this.pedidoidDelRepartidor}}
         </p-card>
         <p-card header="¿Tuvo alguna novedad al entregar el pedido?">
             <p-dropdown [options]="noveltys" [(ngModel)]="selectednovelty"  placeholder="Seleccione la novedad"  optionLabel="name" [showClear]="true"></p-dropdown>
+            <div style="margin-top: 30px; text-align: right;">
+                <button type="button" pButton icon="pi pi-check" (click)="confirm()" label="&nbsp;Enviar"></button>
+            </div>
         </p-card>
     </div>
-    <p-footer>
-        <button type="button" pButton icon="pi pi-check" (click)="confirm()" label="&nbsp;Enviar"></button>
-    </p-footer>
 </p-dialog>
 <p-confirmDialog
             header="Confirmaci&oacute;n"

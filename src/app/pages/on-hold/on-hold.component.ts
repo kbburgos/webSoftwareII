@@ -8,6 +8,11 @@ import { ProductoService } from 'app/core/services/product/producto.service';
 import { Producto } from 'app/core/models/producto';
 import { MessageService } from 'primeng/api';
 import {ConfirmationService} from 'primeng/api';
+import { AuthService } from 'app/core/services/auth/auth.service';
+import { UsersService } from 'app/core/services/user/users.service';
+import { Usuarios } from 'app/core/models/usuarios';
+import { SeguridadService } from 'app/core/services/seguridad.service';
+import { PurchaseService } from 'app/core/services/purchase/purchase.service';
 
 @Component({
   selector: 'app-on-hold',
@@ -18,11 +23,13 @@ import {ConfirmationService} from 'primeng/api';
 export class OnHoldComponent implements OnInit {
   display = false;
   productos: Producto[];
+  listaClientes: Usuarios[];
   listaProductos: Array<any> = [];
   repartidores: Deliveryman[];
   prueba: Deliveryman[];
   repartidor: Deliveryman;
   pedidosDomicilio: Orders[];
+  token: any = this.auth.getJwtToken();
   pedidosLocal: Orders[];
   pedido: Orders;
   selectedOnHold: OnHold;
@@ -34,19 +41,29 @@ export class OnHoldComponent implements OnInit {
   cantidadTotalProductosxPedido: number;
   disabledButtonEraser = true;
   fechaActual = new Date();
+  permiso;
+  cantidadCompras : number = 0;
   private pedidosDomicilioSuscribe;
   private pedidosLocalSuscribe;
   private repartidoresSuscribe;
   private productosSubscribe;
+  private clientexIdSubscribe;
   private deleteOrder;
-  data: any;
+  private crearCompraApi;
+  private verCompraApi;
+  private crearPedidoApi;
+
   constructor(
     private pedidoService: PedidoService,
     private deliveryManService: DeliverymanService,
     private productService: ProductoService,
     private messageService: MessageService,
+    private auth: AuthService,
+    private userService: UsersService,
+    private purchase: PurchaseService,
+    private seguridadService: SeguridadService,
     private confirmationService: ConfirmationService) { 
-
+      this.permiso = this.seguridadService.encriptar(this.token);
     }
 
   ngOnInit() {
@@ -54,6 +71,10 @@ export class OnHoldComponent implements OnInit {
     this.pedidosLocal = [];
     this.repartidores = [];
     this.listaPedidos = [];
+    this.verCompraApi = this.purchase.getPurchase(this.token).subscribe( (item: any) =>{
+      this.cantidadCompras = item.length;
+      console.log("cantidad de compra generada en ngoninit: ", this.cantidadCompras);
+    });
     this.pedidosDomicilioSuscribe = this.pedidoService.getPedidosByEstadoByTipo(0 , true).subscribe((item: any) => {
       this.pedidosDomicilio = item;
     });
@@ -69,28 +90,13 @@ export class OnHoldComponent implements OnInit {
       }
     });
     this.repartidoresSuscribe = this.deliveryManService.getRepartidores().subscribe((item: any) => {
-      //let dataRepartidores = [];
-      //let labelsRepartidores =  [];
       this.repartidores = item;
-      console.log(this.repartidores);
-      /*for(let i = 0; i < this.repartidores.length; i++){
-        labelsRepartidores.push(this.repartidores[i].cedula);
-        dataRepartidores.push(this.repartidores[i].pedidos.length);
-      }
-      this.data = {
-        labels: labelsRepartidores,
-        datasets: [
-          {
-              label: 'Repartidores',
-              backgroundColor: '#42A5F5',
-              borderColor: '#1E88E5',
-              data: dataRepartidores
-          }
-        ]
-      }*/
     });
     this.productosSubscribe = this.productService.getProductos().subscribe((item: any ) => {
       this.productos = item;
+    });
+    this.clientexIdSubscribe = this.userService.usuarios(this.token).subscribe((item: any) => {
+      this.listaClientes = item;
     });
   }
 
@@ -113,6 +119,12 @@ export class OnHoldComponent implements OnInit {
   }
 
   assinggnOrder(pedido: Orders) {
+    let cliente: Usuarios;
+    for (let i = 0; i < this.listaClientes.length; i++) {
+      if (this.listaClientes[i].cedula === pedido.idUsuario) {
+        cliente = this.listaClientes[i];
+      }
+    }
     this.repartidores.sort(function(a, b) {
       if (a.pedidos.length < b.pedidos.length) {
         return -1;
@@ -122,17 +134,58 @@ export class OnHoldComponent implements OnInit {
     this.pedido.estadoDelPedido = 1;
     this.pedidoService.updatePedidos(this.pedido);
     this.listaPedidos = this.repartidores[0].pedidos;
-    this.listaPedidos.push({'idPedido': pedido.idPedido, 'codigoCliente': pedido.idUsuario,
-     'productos': pedido.productos, 'cantidades': pedido.cantidades});
+    this.listaPedidos.push(
+      {'idPedido': pedido.idPedido,
+      'codigoCliente': cliente.cedula,
+      'nombreCliente': cliente.nombre + ' ' + cliente.apellido,
+      'productos': pedido.productos,
+      'cantidades': pedido.cantidades,
+      'permiso': this.permiso
+      }
+    );
     this.deliveryManService.updateDeliveryMan(this.repartidores[0]);
-    // this.notifyOrder(this.repartidores[0]);
+    this.notifyOrder(this.repartidores[0], cliente );
     this.showSuccess('repartidor');
   }
 
   changeState(pedido: Orders) {
     this.pedido = pedido;
-    this.pedido.estadoDelPedido = 2;
+    this.pedido.estadoDelPedido = 3;
     this.pedidoService.updatePedidos(this.pedido);
+    let productoApi: string = '';
+    for (let i = 0 ; i < this.pedido.productos.length; i++) {
+      productoApi = productoApi + this.pedido.productos[i] + ',';
+    }
+    productoApi = productoApi.substring(0, productoApi.length - 1);
+    const compraNueva = {
+      idcompra: null,
+      idusuario: this.pedido.idUsuario,
+      entregaDomocilio: this.pedido.isDomicilio,
+    }
+    this.crearCompraApi = this.purchase.createPurchase(this.token, compraNueva).subscribe( item => {
+      console.log(item);
+    },
+    error => {
+      console.log(error);
+    });
+    this.cantidadTotalProductosxPedido = this.pedido.cantidades.reduce( (a, b) => a + b , 0);
+    console.log(this.token);
+    const idCompraApi = this.cantidadCompras +1;
+    const pedidoNuevo = {
+      idpedido: null,
+      idcompra: idCompraApi,
+      idproducto: productoApi,
+      cantidad: this.cantidadTotalProductosxPedido,
+      subtotal: this.pedido.total,
+      cubiertos: this.pedido.cubiertos,
+      estado: '3',
+    }
+    this.crearPedidoApi = this.pedidoService.setPedidosToDispatched(this.token, pedidoNuevo).subscribe( item => {
+      console.log(item);
+    },
+    error => {
+      console.log(error);
+    });
     this.showSuccess('local');
   }
   // tslint:disable-next-line: use-life-cycle-interface
@@ -149,23 +202,42 @@ export class OnHoldComponent implements OnInit {
     if (this.productosSubscribe) {
       this.productosSubscribe.unsubscribe();
     }
+    if (this.clientexIdSubscribe) {
+      this.clientexIdSubscribe.unsubscribe();
+    }
+    if (this.crearCompraApi) {
+      this.crearCompraApi.unsubscribe();
+    }
+    if (this.crearPedidoApi) {
+      this.crearPedidoApi.unsubscribe();
+    }
   }
 
-  notifyOrder(repartidor: Deliveryman) {
-    console.log(repartidor);
-    const telefono = '593' + repartidor.telefono;
+  notifyOrder(repartidor: Deliveryman, cliente: Usuarios) {
+    let json;
+    let direccion;
+    let coordenadas;
+    const telefono = repartidor.telefono;
+    console.log(telefono);
     const telefono2 = '593995248654';
     const url_prueba = 'http://localhost:4200/deliveryman';
-    const enlaceMapa = 'https://www.google.com.ec/maps/@' + this.pedido.direccionEntrega['coordenadas'][0]
-    + ',' + this.pedido.direccionEntrega['coordenadas'][1];
-    const mapa = 'https://www.google.com.ec/maps/@-2.1008854,-79.9095824,18.08z';
+    if (this.pedido.direccionEntrega === 'S') {
+      direccion = cliente.direccion;
+    } else {
+      json = JSON.parse(JSON.stringify(this.pedido.direccionEntrega));
+      direccion = JSON.parse(json);
+    }
+    coordenadas = direccion.ubicacion.split(',');
+    const mapa = 'https://www.google.com/maps/search/?api=1&query=' + coordenadas[1] + ',' + coordenadas[0];
+    const datos = `htttp://www.google.com/maps/search/?api=1&query=${coordenadas[1]},coordenadas[0]`;
+
+
     const cuerpo_mensaje =
-      'Hola ' + repartidor.nombre + ' ' + repartidor.apellido + ' ' +
-      ', tienes un nuevo pedido por entregar. El código del pedido es *' + this.pedido.idPedido +
-      '*, la cédula del cliente: *' + this.pedido.idUsuario +
-      '*, la dirección *' + this.pedido.direccionEntrega['direccion'] + ' ' + this.pedido.direccionEntrega['referencia'] +
-      '*, puedes ver la dirección del cliente en el siguiente enlace ' + mapa +
-      ' . Cuando entregues el pedido, ingresa a este enlace para finalizarlo: ' + url_prueba;
+      'Hola ' + repartidor.nombre + '. Usa este enlace para finalizar el pedido ' + url_prueba +
+      ', el código del pedido es *' + this.pedido.idPedido +
+      '*, el cliente es *' + cliente.nombre + ' ' + cliente.apellido +
+      '*, la dirección es ' + direccion.direccion + ', su referencia es ' + datos  + '.'
+
     window.open('https://api.whatsapp.com/send?phone=' + telefono2 + '&text=' + cuerpo_mensaje);
 
   }
@@ -174,7 +246,7 @@ export class OnHoldComponent implements OnInit {
     let detail: string;
     if (esRepartidor === 'repartidor') {
       detail = 'El pedido se asignó correctamente';
-    } else if(esRepartidor === 'local'){
+    } else if (esRepartidor === 'local') {
       detail = 'Se despachó el pedido correctamente';
     } else if (esRepartidor === 'eliminar') {
       detail = 'El pedido se eliminó correctamente';
@@ -189,33 +261,27 @@ export class OnHoldComponent implements OnInit {
         header: 'Enviar el pedido a Pedidos Despachados',
         message: '¿Estás seguro de realizar esta acción?',
         accept: () => {
-          this.pedido = pedido;
-          this.pedido.estadoDelPedido = 2;
-          this.pedidoService.updatePedidos(this.pedido);
-          this.showSuccess('local');
+          //this.pedido.estadoDelPedido = 2;
+          this.changeState(pedido);
+          //this.pedidoService.updatePedidos(this.pedido);
+
         }
     });
   }
 
-  eraserOrder(pedido: Orders){
+  eraserOrder(pedido: Orders) {
     this.confirmationService.confirm({
       header: 'Eliminar pedido',
-      message: '¿Está seguro de eliminar el pedido?',
+      message: '¿Está seguro que el pedido no fue retirado?',
       accept: () => {
-        this.erarserOrderSelectedd(pedido);
+        this.pedido = pedido;
+        this.pedido.estadoDelPedido = 4;
+        this.pedidoService.updatePedidos(this.pedido);
         this.showSuccess('eliminar');
       }
     });
   }
 
-  erarserOrderSelectedd(pedido: Orders){
-    /*for (let i = 0; i < this.pedidosLocal.length ; i++ ) {
-      if (this.pedidosLocal[i].idPedido === pedido.idPedido) {
-        this.pedidosLocal.splice(i, 1);
-      }
-    }
-    console.log(this.pedidosLocal);*/
-    this.deleteOrder = this.pedidoService.deletePedido(pedido.idPedido);
-  }
+
 }
 
