@@ -1,3 +1,54 @@
 .footerOrder{
     text-align: center;
 }
+
+.uDetail{
+    color: blue;
+    cursor: pointer;
+}
+
+
+.datosDiv{
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    background-color:#ea4643;
+    color: white;
+    padding: 5px;
+}
+
+.labelCard{
+    color: black;
+    font-weight: bold;
+}
+
+.datosDivFooter{
+  text-align: left;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  background-color:#ea4643;
+  color: white;
+  padding: 5px;
+}
+
+@media screen and (min-width: 400px) {  
+  .divCard {
+    width: 400px;
+    margin: 0 auto;
+  }
+}
+
+.divSimbology{
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.logOut{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: right;
+  margin-right: 15px;
+}

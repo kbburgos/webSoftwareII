@@ -5,5 +5,4 @@ export interface Deliveryman{
     apellido: string;
     telefono: string;
     pedidos: [];
-    cantidad: number;
 }

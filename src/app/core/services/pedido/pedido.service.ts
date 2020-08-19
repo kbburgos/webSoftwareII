@@ -8,6 +8,7 @@ import { Orders } from 'app/core/interface/orders';
 import { environment } from '../../../../environments/environment';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { SeguridadService } from '../seguridad.service';
 
 @Injectable({
 
@@ -18,7 +19,7 @@ export class PedidoService {
   PedidosDoc: AngularFirestoreDocument<Orders>;
 
 
-  constructor(private firebase: AngularFirestore, private http: HttpClient) { }
+  constructor(private firebase: AngularFirestore, private http: HttpClient, private seguridad: SeguridadService) { }
 
   getPedidos() {
     return this.firebase
@@ -48,9 +49,9 @@ export class PedidoService {
 
   getPedidosByEstadoByTipo(estado: number, isDomicilio: boolean) {
     return this.firebase
-      .collection(environment.nombresColecciones.pedido, ref => 
+      .collection(environment.nombresColecciones.pedido, ref =>
       ref.where('estadoDelPedido', '==', estado).
-      where('tipoEntrega', '==', isDomicilio))
+      where('isDomicilio', '==', isDomicilio))
       .snapshotChanges()
       .pipe(
         map((producto) => {
@@ -63,7 +64,7 @@ export class PedidoService {
 
   getPedidosByEstado(estado: number) {
     return this.firebase
-      .collection(environment.nombresColecciones.pedido, ref => 
+      .collection(environment.nombresColecciones.pedido, ref =>
       ref.where('estadoDelPedido', '==', estado))
       .snapshotChanges()
       .pipe(
@@ -102,9 +103,17 @@ export class PedidoService {
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token};
-    this.http.get(environment.rutas.pedidos, {headers}).subscribe( pedidos => {
-      console.log('dentro del get del api: ', pedidos);
-      return pedidos;
-    });
+    return this.http.get(environment.rutas.getPedidos, { headers });
   }
+
+  setPedidosToDispatched(token: string, body) {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token};
+    const hash = this.seguridad.hashJSON(body);
+    body['hash'] = hash;
+    console.log(body);
+    return this.http.post(environment.rutas.createPedidos, body, { headers });
+  }
+
 }

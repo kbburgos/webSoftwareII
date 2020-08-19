@@ -38,11 +38,11 @@ export class DeliveryNotificationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     let sub = this.deliverymanreportService.getNovedadesRepartidores().subscribe((item: any) => {
       this.deliverymannew = item;
+
     });
-    
+
     this.dato = this.envU.variables.usuarioL['data']['cedula'];
     console.log(this.dato);
     this.buildForm();

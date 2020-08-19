@@ -32,6 +32,16 @@ const routes: Routes = [
     component: DeliverymanComponent,
   },
   {
+    path: "",
+    redirectTo: "delivery-order",
+    pathMatch: "full",
+  },
+  {
+    path: "delivery-order",
+    component: DeliveryOrderComponent,
+    canActivate: [AuthDeliverymanGuard]
+  },
+  {
     path: "dashboard",
     redirectTo: "dashboard",
     pathMatch: "full",
@@ -56,7 +66,7 @@ const routes: Routes = [
     CommonModule,
     BrowserModule,
     RouterModule.forRoot(routes, {
-      useHash: true,
+      useHash: false,
     }),
   ],
 

@@ -7,7 +7,7 @@ import { RouterModule } from "@angular/router";
 import { AppRoutingModule } from "./app.routing";
 import { ComponentsModule } from "./components/components.module";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
-import { ConfirmationService } from "primeng/api";
+import { ConfirmationService, MessageService } from "primeng/api";
 import { AppComponent } from "./app.component";
 
 //firebase
@@ -37,6 +37,32 @@ import { PromotionNewComponent } from "./pages/promotion-new/promotion-new.compo
 import { TokenInterceptorService } from "./core/services/interceptor/token-interceptor.service";
 import { UserInfoService } from "./core/services/userInfo/user-info.service";
 
+import { MatButtonModule } from "@angular/material/button";
+import { MatInputModule } from "@angular/material/input";
+import { MatRippleModule } from "@angular/material/core";
+import { MatIconModule } from "@angular/material/icon";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatSelectModule } from "@angular/material/select";
+import { MatTableModule } from "@angular/material/table";
+import { MatDialogModule } from "@angular/material/dialog";
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { TableModule } from "primeng/table";
+import { CheckboxModule } from "primeng/checkbox";
+import { FileUploadModule } from "primeng/fileupload";
+import { ButtonModule } from "primeng/button";
+import { TabViewModule } from "primeng/tabview";
+import { CardModule } from "primeng/card";
+import { RadioButtonModule } from "primeng/radiobutton";
+import { CalendarModule } from "primeng/calendar";
+import { InputTextareaModule } from "primeng/inputtextarea";
+import { AssignedComponent } from "app/pages/assigned/assigned.component";
+import { AccordionModule } from "primeng/accordion";
+import { CarouselModule } from "primeng/carousel";
+import { TooltipModule } from "primeng/tooltip";
+import { ToastModule } from "primeng/toast";
+import { DropdownModule } from "primeng/dropdown";
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -52,6 +78,22 @@ import { UserInfoService } from "./core/services/userInfo/user-info.service";
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    TableModule,
+    ButtonModule,
+    DialogModule,
+    ConfirmDialogModule,
+    FlexLayoutModule,
+    CardModule,
+    RadioButtonModule,
+    CalendarModule,
+    InputTextareaModule,
+    NgxSpinnerModule,
+    CheckboxModule,
+    FileUploadModule,
+    AccordionModule,
+    TabViewModule,
+    ToastModule,
+    DropdownModule,
     //DialogModule,
     //ConfirmDialogModule,
     /*AgmCoreModule.forRoot({
@@ -64,7 +106,7 @@ import { UserInfoService } from "./core/services/userInfo/user-info.service";
     LoginComponent,
     DeliverymanComponent,
     PromotionNewComponent,
-
+    DeliveryOrderComponent,
     // CurrentPromotionComponent,
     //OldPromotionComponent,
   ],
@@ -78,6 +120,11 @@ import { UserInfoService } from "./core/services/userInfo/user-info.service";
       useClass: TokenInterceptorService,
       multi: true,
     },
+
+    ConfirmationService,
+
+    AuthDeliverymanGuard,
+    MessageService,
   ],
   bootstrap: [AppComponent],
 })

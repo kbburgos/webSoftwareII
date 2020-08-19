@@ -55,7 +55,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import { PedidoService } from 'app/core/services/pedido/pedido.service';
 import { DeliverymanService } from 'app/core/services/deliverman/deliveryman.service';
 import { AssignedComponent } from 'app/pages/assigned/assigned.component';
-import { DeliveryOrderComponent } from 'app/pages/delivery-order/delivery-order.component';
+//import { DeliveryOrderComponent } from 'app/pages/delivery-order/delivery-order.component';
 import { AuthDeliverymanGuard } from 'app/core/guard/auth-deliveryman.guard';
 import {PanelModule} from 'primeng/panel';
 import {AccordionModule} from 'primeng/accordion';
@@ -63,6 +63,7 @@ import {CarouselModule} from 'primeng/carousel';
 import {TooltipModule} from 'primeng/tooltip';
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
+import {ChartModule} from 'primeng/chart';
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { TokenInterceptorService } from "app/core/services/interceptor/token-interceptor.service"
 
@@ -99,7 +100,10 @@ import { TokenInterceptorService } from "app/core/services/interceptor/token-int
     CheckboxModule,
     FileUploadModule,
     AccordionModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    TabViewModule,
+    ToastModule,
+    ChartModule
   ],
   declarations: [
     DashboardComponent,
@@ -119,7 +123,6 @@ import { TokenInterceptorService } from "app/core/services/interceptor/token-int
     DeliveryNotificationComponent,
     UserNotificationComponent,
     AssignedComponent,
-    DeliveryOrderComponent
   ],
   providers: [
     ProductoService,

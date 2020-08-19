@@ -1,3 +1,27 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td, th {
+    width: 25%;
+  }
+
+.someStyleClass 
+{
+  background-color: transparent;
+  color: black;
+  border: transparent;
+}
+.uDetail{
+  color: blue;
+  cursor: pointer;
+}
+
 .datosDiv{
     text-align: center;
     font-size: 1.25rem;
@@ -21,3 +45,29 @@ td{
     align-self: center;
   }
 
+.datosDivFooter{
+  text-align: left;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  background-color:#ea4643;
+  color: white;
+  padding: 5px;
+}
+
+@media screen and (min-width: 400px) {  
+  .divCard {
+    width: 400px;
+    margin: 0 auto;
+  }
+}
+
+.divSimbology{
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.tableOrder{
+  margin-top: 10px;
+}
