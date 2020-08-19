@@ -30,11 +30,11 @@ export class ProductsComponent implements OnInit {
   categorias: Categoria[] = [];
 
   cols: any = [
-    {field: "nombre" , header: "NOMBRE"},
-    {field: "descripcion" , header: "DESCRIPCION"},
-    {field: "categoria" , header: "CATEGORIA"},
-    {field: "precio" , header: "PRECIO"},
-    {field: "stock" , header: "STOCK"},
+    { field: "nombre", header: "NOMBRE" },
+    { field: "descripcion", header: "DESCRIPCION" },
+    { field: "categoria", header: "CATEGORIA" },
+    { field: "precio", header: "PRECIO" },
+    { field: "stock", header: "STOCK" },
   ];
 
   ProductEdit: Products;
@@ -74,7 +74,7 @@ export class ProductsComponent implements OnInit {
 
     let pro = this.productosService.getProductos().subscribe((item: any) => {
       console.log(item);
-      
+
       this.productos = item;
       this.spinner.hide();
       // sub.unsubscribe();
@@ -135,12 +135,21 @@ export class ProductsComponent implements OnInit {
     this.confirmationService.confirm({
       message: "¿Est&aacute; seguro que desea editar el producto?",
       accept: () => {
-        if (this.categoria == ''){
+        if (this.categoria == "") {
           this.update(this.ProductEdit);
-        }else{
+        } else {
           this.ProductEdit.idCategoria = this.categoria;
           this.update(this.ProductEdit);
         }
+      },
+    });
+  }
+
+  confirmarEliminar(producto: Products) {
+    this.confirmationService.confirm({
+      message: "¿Est&aacute; seguro que desea eliminar el producto?",
+      accept: () => {
+        this.eliminarProduct(producto);
       },
     });
   }
@@ -165,9 +174,6 @@ export class ProductsComponent implements OnInit {
   }
 
   addProduct() {
-    // console.log(this.previewUrl);
-    //console.log(this.Urls)
-
     console.log(this.categoria);
 
     let producto: Products = {
@@ -257,6 +263,4 @@ export class ProductsComponent implements OnInit {
     this.producSlide = producto;
     this.slide = true;
   }
-
-  
 }

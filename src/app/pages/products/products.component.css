@@ -10,7 +10,23 @@ table {
 
 .slide {
   border: none;
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+  align-content: center;
+  align-self: center;
 }
+
+
+
+td{
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+  align-content: center;
+  align-self: center;
+}
+
 
 
 .button-save{
@@ -29,4 +45,9 @@ table {
 .save{
   background-color: DARKMAGENTA;
   border-color: DARKMAGENTA;;
+}
+
+
+a:hover{
+  background-color: rgba(29, 185, 185, 0.356);
 }

@@ -7,7 +7,8 @@ import { Router } from "@angular/router";
 import { tap, mapTo, catchError } from "rxjs/operators";
 import { environment } from "../../../../environments/environment";
 import { map } from "rxjs/operators";
-import { Usuarios } from "app/core/interface/Usuarios";
+import { UsuarioInterface } from "app/core/interface/usuario-interface";
+import { SeguridadService } from "app/core/services/seguridad.service"
 
 import { Observable, of } from "rxjs";
 
@@ -22,7 +23,8 @@ export class UsersService {
 
  
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, 
+    private seguridad: SeguridadService) {}
 
   usuarios(token: string) {
     let headers = {
@@ -31,6 +33,7 @@ export class UsersService {
     };
     return this.http.get(environment.rutas.usersS, { headers });
   }
+  
 
   deleteUser(token: string, cedula: string){
     let headers = {
@@ -39,4 +42,15 @@ export class UsersService {
     };
     return this.http.delete(environment.rutas.deleteUser+cedula, {headers});
   }
+
+  guardarUser(datos: UsuarioInterface) {
+    const hash = this.seguridad.hashJSON(datos);
+    datos.hash = hash;
+
+    console.log(datos)
+    const url = environment.rutas.urlGetUser;
+    return this.http.post(url, datos);
+  }
+
+
 }

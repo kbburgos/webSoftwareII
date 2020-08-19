@@ -1,66 +1,77 @@
 <div class="main-content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                        <h4 class="card-title"   >Lista de pedidos a Domicilio Asignados</h4>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-info">
+            <h4 class="card-title">Lista de Pedidos a Domicilio Asignados</h4>
+          </div>
+          <div class="card-body">
+            <p-table
+              [columns]="cols"
+              [value]="pedidosAsignados"
+              [responsive]="true"
+              sortMode="multiple"
+              [paginator]="true"
+              [rows]="10"
+              #dt
+            >
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th>PEDIDO</th>
+                  <th>PRODUCTOS</th>
+                  <th>CANTIDAD</th>
+                  <th>CUBIERTOS</th>
+                  <th>TOTAL</th>
+                  <th>DETALLES</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-pedidosAsignados>
+                <tr>
+                  <td>{{ pedidosAsignados.idPedido }}</td>
+                  <td>{{ pedidosAsignados.Productos }}</td>
+                  <td>{{ pedidosAsignados.cantidad }}</td>
+                  <td>{{ pedidosAsignados.cubiertos }}</td>
+                  <td>{{ pedidosAsignados.subtotal }}</td>
+
+                  <td>
+                    <div class="ui-dialog-buttonpane">
+                      <button
+                        pButton
+                        type="button"
+                        (click)="viewMoreInformation(pedidosAsignados)"
+                        icon="pi pi-info-circle"
+                        class="ui-button-secundary"
+                      ></button>
                     </div>
-                    <div class="card-body">
-                        <p-table [columns]="cols" [value]="pedidosAsignados" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="10" #dt  >  
-                            <ng-template pTemplate="header" let-columns>
-                                <tr>
-                                    <th>PEDIDO</th>
-                                    <th>PRODUCTOS</th>
-                                    <th>CANTIDAD</th>
-                                    <th>CUBIERTOS</th>
-                                    <th>TOTAL</th>
-                                    <th>ACCIONES</th>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-pedidosAsignados>
-                                <tr>
-                                    <td> {{pedidosAsignados.idPedido}} </td>
-                                    <td> {{pedidosAsignados.Productos}} </td>
-                                    <td> {{pedidosAsignados.cantidad}} </td>
-                                    <td> {{pedidosAsignados.cubiertos}} </td>
-                                    <td> {{pedidosAsignados.subtotal}} </td>
-                                    
-                                    <td>
-                                        <div class="ui-dialog-buttonpane">
-                                            <button pButton type="button" (click)="viewMoreInformation(pedidosAsignados)" icon="pi pi-info-circle" class="ui-button-danger"></button>
-                                        </div>
-                                    </td>
-                                </tr> 
-                                
-                            </ng-template>
-                        </p-table>
-                      
-                    </div>
-                </div>
-            </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
         </div>
+      </div>
     </div>
   </div>
-  
-  
+</div>
+
 <p-dialog [(visible)]="display" [responsive]="true" showEffect="fade">
-    <p-header >  Información del Repartidor
-    </p-header>
-    <p-card>
-        <div class="datosDiv">
-            Datos
-        </div>
-        <div >
-            <label class="labelCard">Repartidor:</label>
-            {{this.nombreRepartidor}} {{this.apellidoRepartidor}}
-        </div>
-        <div>
-            <label class="labelCard">Cédula:</label>
-            {{this.cedulaRepartidor}}
-        </div>
-        <div>
-            <label class="labelCard">Teléfono:</label>
-            {{this.telefonoRepartidor}}
-        </div>
-    </p-card> 
+  <p-header> Información del Repartidor </p-header>
+  <p-card>
+    <div class="bg-info datosDiv">
+      Datos
+    </div>
+    <div>
+      <label class="labelCard">Repartidor:</label>
+      {{ this.nombreRepartidor }} {{ this.apellidoRepartidor }}
+    </div>
+    <div>
+      <label class="labelCard">Cédula:</label>
+      {{ this.cedulaRepartidor }}
+    </div>
+    <div>
+      <label class="labelCard">Teléfono:</label>
+      {{ this.telefonoRepartidor }}
+    </div>
+  </p-card>
+</p-dialog>

@@ -33,10 +33,23 @@ export const environment = {
     inactivo: "I",
     anulado: "AN",
   },
+  Adminrol: {
+    id: 1,
+    nombre: "admin",
+  },
+  Vendrol: {
+    id: 2,
+    nombre: "vendedor",
+  },
+  Genrol: {
+    id: 3,
+    nombre: "general",
+  },
   rutas: {
     urlLogin: "https://omipalisf2.herokuapp.com/api/login/usuario",
     refresh: "https://omipalisf2.herokuapp.com/api/login/token",
     urlToken: "https://omipalisf2.herokuapp.com/api/login/token",
+    urlGetUser: "https://omipalisf2.herokuapp.com/api/usersS/create",
     logOut: "https://omipalisf2.herokuapp.com/api/login/reject",
     usuarioXid: "https://omipalisf2.herokuapp.com/api/usersS/",
     usersS: "https://omipalisf2.herokuapp.com/api/usersS/",

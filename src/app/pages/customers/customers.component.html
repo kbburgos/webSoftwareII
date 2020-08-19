@@ -1,71 +1,86 @@
 <div class="main-content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4 class="card-title">Lista de clientes registrados</h4>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="card-body">
-                      <p-table 
-                        [columns]="cols" 
-                        [value]="clientes" 
-                        [responsive]="true" 
-                        sortMode="multiple" 
-                        [paginator]="true" 
-                        [rows]="10" 
-                        #dt  >
-                        <ng-template pTemplate="header" >
-                            <tr>
-                                <th>CEDULA</th>
-                                <th>NOMBRE</th>
-                                <th>APELLIDO</th>
-                                <th>EMAIL</th>
-                                <th>DIRECCION</th>
-                                <th>TELEFONO</th>
-                                <th>ACCIONES</th>
-                            </tr>
-                            <tr>
-                                <th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid">
-                                    <input pInputText type="text" [style]="{'width':'100%'}" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                                </th>
-                                
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-user>
-                            <tr *ngIf="user.rol === 3">
-                                <td>{{ user.cedula }}</td>
-                                <td>{{ user.nombre }}</td>
-                                <td>{{ user.apellido }}</td>
-                                <td>{{ user.email }}</td>
-                                <td>{{ user.direccion }}</td>
-                                <td>{{ user.telefono }}</td>
-                                <td>
-                                    <div class="ui-dialog-buttonpane">                                      
-                                            <p-confirmDialog
-                                                header="Confirmaci&oacute;n"
-                                                icon="pi pi-exclamation-triangle"
-                                            ></p-confirmDialog>
-                                            <button 
-                                            pButton 
-                                            type="button"
-                                            (click)="eliminarCustomers(user.cedula)"
-                                            icon="pi pi-trash" 
-                                            label=eliminar
-                                            class="ui-button-danger"></button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                        </ng-template>
-                      </p-table>
-                    </div>
-                </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-info">
+            <div class="row">
+              <div class="col-md-12">
+                <h4 class="card-title">Lista de Clientes Registrados</h4>
+              </div>
             </div>
+          </div>
+          <div class="card-body">
+            <p-table
+              [columns]="cols"
+              [value]="clientes"
+              [responsive]="true"
+              sortMode="multiple"
+              [paginator]="true"
+              [rows]="10"
+              #dt
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>CEDULA</th>
+                  <th>NOMBRE</th>
+                  <th>APELLIDO</th>
+                  <th>EMAIL</th>
+                  <th>DIRECCION</th>
+                  <th>TELEFONO</th>
+                  <th>ACCIONES</th>
+                </tr>
+                <tr>
+                  <th
+                    *ngFor="let col of columns"
+                    [ngSwitch]="col.field"
+                    class="ui-fluid"
+                  >
+                    <input
+                      pInputText
+                      type="text"
+                      [style]="{ width: '100%' }"
+                      (input)="
+                        dt.filter(
+                          $event.target.value,
+                          col.field,
+                          col.filterMatchMode
+                        )
+                      "
+                    />
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-user>
+                <tr *ngIf="user.rol === 3">
+                  <td>{{ user.cedula }}</td>
+                  <td>{{ user.nombre }}</td>
+                  <td>{{ user.apellido }}</td>
+                  <td>{{ user.email }}</td>
+                  <td>{{ user.direccion }}</td>
+                  <td>{{ user.telefono }}</td>
+                  <td>
+                    <div class="ui-dialog-buttonpane">
+                      <p-confirmDialog
+                        header="Confirmaci&oacute;n"
+                        icon="pi pi-exclamation-triangle"
+                      ></p-confirmDialog>
+                      <button
+                        pButton
+                        type="button"
+                        (click)="eliminarCustomers(user.cedula)"
+                        icon="pi pi-trash"
+                        label="eliminar"
+                        class="ui-button-danger"
+                      ></button>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
         </div>
+      </div>
     </div>
   </div>
+</div>

@@ -59,3 +59,13 @@ table {
   margin-left: 5px;
   margin-top: 5px;
 }
+
+
+
+td {
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+  align-content: center;
+  align-self: center;
+}

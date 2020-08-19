@@ -3,7 +3,6 @@
     font-size: 1.25rem;
     font-weight: bold;
     margin-bottom: 10px;
-    background-color:#ea4643;
     color: white;
     padding: 5px;
 }
@@ -12,4 +11,13 @@
     color: black;
     font-weight: bold;
 }
+
+
+td{
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    align-content: center;
+    align-self: center;
+  }
 

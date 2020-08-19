@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header card-header-danger">
+          <div class="card-header card-header-info">
             <div class="row">
               <div class="col-md-10">
                 <h4 class="card-title">Usuarios</h4>
@@ -11,6 +11,7 @@
               <div class="col-md-2">
                 <button
                   type="text"
+                  class="secundary"
                   pButton
                   (click)="newUser()"
                   icon="pi pi-plus"
@@ -25,7 +26,7 @@
               [value]="column"
               [scrollable]="true"
               [paginator]="true"
-              [rows]="10"
+              [rows]="5"
             >
               <ng-template pTemplate="header">
                 <tr>
@@ -88,7 +89,7 @@
   <div class="container-fluid" style="width: 400px;">
     <div *ngIf="display" class="row">
       <form [formGroup]="form">
-        <div class="form-group col-sm-6" style="float: left;">
+        <div class="form-group">
           <label>Nombre:</label>
           <input
             type="text"
@@ -97,7 +98,7 @@
             placeholder="...Jhon Allan"
           />
         </div>
-        <div class="form-group col-sm-6" style="float: left;">
+        <div class="form-group">
           <label>Apellido:</label>
           <input
             class="form-control"
@@ -106,7 +107,8 @@
             placeholder="...Doe Renner"
           />
         </div>
-        <div class="form-group col-sm-6" style="float: left;">
+
+        <div class="form-group">
           <label>Cédula:</label>
           <input
             type="text"
@@ -115,12 +117,22 @@
             placeholder="...09999999999"
           />
         </div>
+        <div class="form-group">
+          <label>EMAIL:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="email"
+            placeholder="...09999999999"
+          />
+        </div>
         <br />
-        <div class="form-group col-sm-6" style="float: left;">
+        <div class="form-group">
           <label>Teléfono:</label>
           <input class="form-control" formControlName="telefono" type="text" />
         </div>
-        <div class="form-group col-sm-12">
+        <br />
+        <div class="form-group">
           <label>Dirección:</label>
           <input type="text" class="form-control" formControlName="direccion" />
         </div>
@@ -140,7 +152,7 @@
             apellido == '' ||
             telefono == ''
           "
-          class="save"
+          class="secundary"
           (click)="save()"
           pButton
           label="GUARDAR"

@@ -119,9 +119,18 @@ export class CurrentPromotionComponent implements OnInit {
 
   confirmar() {
     this.confirmationService.confirm({
-      message: "¿Est&aacute; seguro que desea editar el producto?",
+      message: "¿Est&aacute; seguro que desea editar la promoción?",
       accept: () => {
         this.update(this.ProductEdit);
+      },
+    });
+  }
+
+  confirmarEliminar(producto: Products) {
+    this.confirmationService.confirm({
+      message: "¿Est&aacute; seguro que desea eliminar la promoción?",
+      accept: () => {
+        this.eliminarProduct(producto);
       },
     });
   }
@@ -129,7 +138,7 @@ export class CurrentPromotionComponent implements OnInit {
   update(producto: Products) {
     producto.idCategoria = this.categoria;
     this.productosService.updateProduct(producto);
-  
+
     this.mensaje = true;
 
     this.message = {
@@ -195,8 +204,6 @@ export class CurrentPromotionComponent implements OnInit {
   }
 
   addProduct() {
-    this.bandera = false;
-
     console.log(this.categoria);
 
     let producto: Products = {
@@ -210,13 +217,6 @@ export class CurrentPromotionComponent implements OnInit {
       slide: this.Urls,
     };
 
-    this.mensaje = true;
-
-    this.message = {
-      mensaje: "Se ha agregado la promoción a la lista",
-      accion: "Nueva Promoción!",
-    };
-
     this.productosService
       .pushProductos(producto)
       .then((data: any) => {
@@ -224,6 +224,13 @@ export class CurrentPromotionComponent implements OnInit {
         this.clearState();
       })
       .catch((err: any) => {
+        this.bandera = false;
+        this.mensaje = true;
+        this.message = {
+          mensaje: "Se ha agregado la promoción a la lista",
+          accion: "Nueva Promoción!",
+        };
+
         console.log(err);
       });
   }

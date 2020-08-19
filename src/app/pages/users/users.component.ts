@@ -6,9 +6,11 @@ import { AuthService } from "../../core/services/auth/auth.service";
 import { environment } from "environments/environment";
 
 import { Usuarios } from "app/core/interface/Usuarios";
+import { Rol } from "app/core/interface/rol";
 import { UserInfoService } from "app/core/services/userInfo/user-info.service";
 
 import { NgxSpinnerService } from "ngx-spinner";
+import { UsuarioInterface } from "app/core/interface/usuario-interface";
 
 import {
   FormGroup,
@@ -24,16 +26,15 @@ import { async } from "@angular/core/testing";
   styleUrls: ["./users.component.css"],
 })
 export class UsersComponent implements OnInit {
-  private form: FormGroup;
-
+  form: FormGroup;
   token: any = this.auth.getJwtToken();
   usuarios: Usuarios[];
-
   temp: any[] = [];
-
   column: Usuarios[];
-
   display: boolean = false;
+  rolName: String = "Rol";
+  datosUsuario: UsuarioInterface;
+  rol: number = 1;
 
   cols = [
     { field: "cedula", header: "Cedula" },
@@ -55,11 +56,13 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.spinner.show();
     this.buildForm();
     this.clearState();
-    console.log(this.token);
+    this.cargar();
+  }
 
+  cargar() {
+    this.spinner.show();
     let subs = this.user.usuarios(this.token).subscribe(
       (data: any) => {
         console.log(data);
@@ -92,7 +95,7 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  private buildForm() {
+  buildForm() {
     this.form = this.formBuilder.group({
       cedula: new FormControl("", [
         Validators.required,
@@ -125,8 +128,44 @@ export class UsersComponent implements OnInit {
     this.display = true;
   }
 
+  save() {
+    console.log("entra a save");
+    //let clave = String(Math.random() * (999999999 - 111111111) + 111111111);
+    this.datosUsuario = {
+      cedula: this.form.get("cedula").value,
+      nombre: this.form.get("nombre").value,
+      apellido: this.form.get("apellido").value,
+      telefono: this.form.get("telefono").value,
+      email: this.form.get("email").value,
+      contrasenia: "contrasenia",
+      rol: this.rol,
+      direccion: this.form.get("direccion").value,
+    };
+
+    this.user
+      .guardarUser(this.datosUsuario)
+      .toPromise()
+      .then((data: any) => {
+        console.log("Parece que si");
+        this.display = false;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   clearState() {
     this.display = false;
     this.form.reset();
+  }
+
+  guardarRol(rol: Number) {
+    if (rol == 1) {
+      this.rolName = "admin";
+      this.rol = 1;
+    } else {
+      this.rolName = "vendedor";
+      this.rol = 2;
+    }
   }
 }
