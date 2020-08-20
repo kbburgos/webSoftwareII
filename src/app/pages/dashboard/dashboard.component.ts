@@ -153,27 +153,4 @@ export class DashboardComponent implements OnInit {
       this.startAnimationForBarChart(websiteViewsChart);
   }
 
- hola() {
-    
-    const usuario = {
-      cedula: '0000111111',
-      nombre: 'repartidor',
-      apellido: 'repartidor',
-      telefono: '1111111111',
-      email: 'repartidorOmiPali@gmail.com',
-      contrasenia: 'repartidorOmiPali',
-      rol: 3,
-      direccion: 'sin direccion'
-    }
-    const hash = this.seguridad.hashJSON(usuario);
-    usuario['hash'] = hash;
-    console.log(usuario);
-    const headers = {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + this.token,
-    };
-    this.http.post('https://omipalisf2.herokuapp.com/api/usersS/create', usuario).subscribe( item => {
-      console.log(item);
-    });
-  }
 }

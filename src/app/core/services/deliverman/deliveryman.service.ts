@@ -65,31 +65,12 @@ export class DeliverymanService {
 
   }
 
-  setdeliverIdStorage(dato: string) {
-    //const encryptR = CryptoJS.AES.encrypt(dato.trim(), environment.keyCrypto.trim()).toString();
-    const encryptR = this.seguridad.encriptar(dato.trim());
-    localStorage.setItem('repartidor', encryptR);
-  }
 
-  getdeliverIdStorage() {
-    const encryptext = localStorage.getItem('repartidor');
-    //const decrypt = CryptoJS.AES.decrypt(encryptext.trim(), environment.keyCrypto.trim()).toString(CryptoJS.enc.Utf8);
-    const decrypt = this.seguridad.desencriptar(encryptext);
-    return decrypt;
-  }
-
-  getLoggin() {
-    return !! localStorage.getItem('repartidor'); ;
-  }
 
   getClientIdStorage() {
     const encryptext = localStorage.getItem('cliente');
     const decrypt = CryptoJS.AES.decrypt(encryptext.trim(), environment.keyCrypto.trim()).toString(CryptoJS.enc.Utf8);
     return decrypt;
-  }
-
-  removeDeliveryStorage() {
-    localStorage.removeItem('repartidor');
   }
 
 }
