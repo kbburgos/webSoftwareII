@@ -4,6 +4,11 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
+  usuario: {
+    cedula: "",
+    email: "",
+    rol: 0,
+  },
   production: false,
   firebase: {
     apiKey: 'AIzaSyAiPTePHyltKbiZeyXkuzMHQCfOVSz_Ezo',
@@ -28,19 +33,33 @@ export const environment = {
     inactivo: 'I',
     anulado: 'AN',
   },
+  Adminrol: {
+    id: 1,
+    nombre: "admin",
+  },
+  Vendrol: {
+    id: 2,
+    nombre: "vendedor",
+  },
+  Genrol: {
+    id: 3,
+    nombre: "general",
+  },
   rutas: {
-    urlLogin: 'https://omipalisf2.herokuapp.com/api/login/usuario',
-    refresh: 'https://omipalisf2.herokuapp.com/api/login/token',
-    urlToken: 'https://omipalisf2.herokuapp.com/api/login/token',
-    logOut: 'https://omipalisf2.herokuapp.com/api/login/reject',
-    usuarioXid: 'https://omipalisf2.herokuapp.com/api/usersS/',
-    usersS: 'https://omipalisf2.herokuapp.com/api/usersS/',
-    novedades: 'https://omipalisf2.herokuapp.com/api/noveltys/',
-    createPedidos: 'https://omipalisf2.herokuapp.com/api/orders/post',
-    getPedidos: 'https://omipalisf2.herokuapp.com/api/orders/getAll',
-    createCompras: 'https://omipalisf2.herokuapp.com/api/purchase/post',
-    getCompras: 'https://omipalisf2.herokuapp.com/api/purchase/getCompras',
-    deleteUser: 'https://omipalisf2.herokuapp.com/api/usersS/',
+    urlLogin: "https://omipalisf2.herokuapp.com/api/login/usuario",
+    refresh: "https://omipalisf2.herokuapp.com/api/login/token",
+    urlToken: "https://omipalisf2.herokuapp.com/api/login/token",
+    urlGetUser: "https://omipalisf2.herokuapp.com/api/usersS/create",
+    logOut: "https://omipalisf2.herokuapp.com/api/login/reject",
+    usuarioXid: "https://omipalisf2.herokuapp.com/api/usersS/",
+    usersS: "https://omipalisf2.herokuapp.com/api/usersS/",
+    novedades: "https://omipalisf2.herokuapp.com/api/noveltys/",
+    pedidos: "https://omipalisf2.herokuapp.com/api/orders/getAll",
+    createPedidos: "https://omipalisf2.herokuapp.com/api/orders/post",
+    getPedidos: "https://omipalisf2.herokuapp.com/api/orders/getAll",
+    createCompras: "https://omipalisf2.herokuapp.com/api/purchase/post",
+    getCompras: "https://omipalisf2.herokuapp.com/api/purchase/getCompras",
+    deleteUser: "https://omipalisf2.herokuapp.com/api/usersS/",
   },
 
   secretEncryp:

@@ -16,7 +16,7 @@ export class AuthService {
   private readonly JWT_TOKEN = "JWT_TOKEN";
   private readonly REFRESH_TOKEN = "REFRESH_TOKEN";
   envUsuario = environment;
-  private loggedUser: string;
+  loggedUser: string;
   token: Token;
   isAuth: boolean = false;
   dataUser: Usuarios;

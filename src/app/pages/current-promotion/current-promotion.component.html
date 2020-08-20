@@ -3,14 +3,15 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header card-header-danger">
+          <div class="card-header card-header-info">
             <div class="row">
               <div class="col-md-10">
-                <h4 class="card-title">Promociones</h4>
+                <h4 class="card-title">Lista de Promociones</h4>
               </div>
               <div class="col-md-2">
                 <button
                   type="text"
+                  class="secundary"
                   (click)="newPromotion()"
                   pButton
                   icon="pi pi-plus"
@@ -69,7 +70,7 @@
                         pButton
                         type="button"
                         icon="pi pi-trash"
-                        (click)="eliminarProduct(product)"
+                        (click)="confirmarEliminar(product)"
                         class="ui-button-danger"
                       ></button>
                     </div>
@@ -77,6 +78,10 @@
                 </tr>
               </ng-template>
             </p-table>
+            <p-confirmDialog
+              header="Confirmaci&oacute;n"
+              icon="pi pi-exclamation-triangle"
+            ></p-confirmDialog>
           </div>
         </div>
       </div>
@@ -191,7 +196,7 @@
         <br />
         <button
           mat-raised-button
-          class="btn btn-success"
+          class="btn btn-success secundary"
           [disabled]="
             form.invalid ||
             nombre == '' ||

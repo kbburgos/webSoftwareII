@@ -3,10 +3,10 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header card-header-danger">
+          <div class="card-header card-header-info">
             <div class="row">
               <div class="col-md-10">
-                <h4 class="card-title">Lista novedades: Repartidores</h4>
+                <h4 class="card-title">Lista de Novedades de Repartidores</h4>
               </div>
               <div class="col-md-2">
                 <!--<button
@@ -72,7 +72,7 @@
   [responsive]="true"
   showEffect="fade"
   (onHide)="clearState()"
-  >
+>
   <p-header>
     Crear novedad a cliente
   </p-header>
@@ -81,19 +81,11 @@
       <form [formGroup]="form">
         <div class="form-group col-sm-12" style="float: left;">
           <label>C&eacute;dula cliente</label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="idCliente"
-            />
+          <input type="text" class="form-control" formControlName="idCliente" />
         </div>
         <div class="form-group col-sm-12" style="float: left;">
           <label>Novedad:</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="novedad"
-          />
+          <input type="text" class="form-control" formControlName="novedad" />
         </div>
       </form>
     </div>
@@ -108,4 +100,3 @@
     ></button>
   </p-footer>
 </p-dialog>
-

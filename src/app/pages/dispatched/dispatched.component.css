@@ -7,7 +7,7 @@ table {
   width: 100%;
 }
 
-td, th {
+th {
   width: 25%;
 }
 
@@ -62,4 +62,11 @@ margin-top: 5px;
 
 .tableOrder{
 margin-top: 10px;
+}
+td {
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+  align-content: center;
+  align-self: center;
 }

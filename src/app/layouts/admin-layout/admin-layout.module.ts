@@ -55,7 +55,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import { PedidoService } from 'app/core/services/pedido/pedido.service';
 import { DeliverymanService } from 'app/core/services/deliverman/deliveryman.service';
 import { AssignedComponent } from 'app/pages/assigned/assigned.component';
-import { DeliveryOrderComponent } from 'app/pages/delivery-order/delivery-order.component';
+//import { DeliveryOrderComponent } from 'app/pages/delivery-order/delivery-order.component';
 import { AuthDeliverymanGuard } from 'app/core/guard/auth-deliveryman.guard';
 import {PanelModule} from 'primeng/panel';
 import {AccordionModule} from 'primeng/accordion';

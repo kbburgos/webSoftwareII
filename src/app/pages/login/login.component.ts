@@ -64,8 +64,9 @@ export class LoginComponent implements OnInit {
             refreshToken: dt.refreshToken,
             token: dt.token,
           };
-          console.log("estas en login ", dt);
-          console.log("aqui aqui ", dt.token);
+
+      //    console.log("estas en login ", dt);
+      //    console.log("aqui aqui ", dt.token);
           this.auth.doLoginUser(this.auth.token);
 
           this.auth.isAuth = true;
@@ -75,6 +76,11 @@ export class LoginComponent implements OnInit {
           this.userInfo.telefono = dt.data.telefono;
           this.userInfo.direccion = dt.data.direccion;
           this.userInfo.rol = dt.data.rol;
+
+          environment.usuario.cedula= dt.data.cedula;
+          environment.usuario.email=dt.data.email;
+          environment.usuario.rol=dt.data.rol;
+
           this.router.navigateByUrl("dashboard");
           /*   } else {
             this.spinner.hide();

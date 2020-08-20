@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header card-header-danger">
+          <div class="card-header card-header-info">
             <h4 class="card-title">Lista de pedidos a Domicilio Asignados</h4>
           </div>
           <div class="card-body accordionHeader">
@@ -44,7 +44,7 @@
                   <th>PRODUCTOS</th>
                   <th>CUBIERTOS</th>
                   <th>TOTAL A PAGAR</th>
-                  <th>ACCIONES</th>
+                  <th>DETALLES</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-pedidosAsignados>
@@ -95,7 +95,7 @@
                         (click)="sendOrder(pedidosAsignados)"
                         icon="pi pi-check"
                         class="ui-button-success"
-                    ></button>
+                      ></button>
                     </div>
                   </td>
                 </tr>
