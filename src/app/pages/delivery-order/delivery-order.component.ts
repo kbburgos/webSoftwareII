@@ -207,8 +207,8 @@ export class DeliveryOrderComponent implements OnInit {
         alert('Hubo un problema al finalizar el pedido ');
       });
     }
-    pedido.estadoDelPedido = 3;
-    this.cambiarEstadoPedido = this.orderService.updatePedidos(pedido);
+    //pedido.estadoDelPedido = 3;
+    //this.cambiarEstadoPedido = this.orderService.updatePedidos(pedido);
     for (let i = 0 ; i < this.dato.length; i++) {
       if (this.dato[i].idPedido === pedido.idPedido) {
         this.dato.splice(i, 1);
