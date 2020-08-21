@@ -39,7 +39,7 @@
                       </p-accordionTab>
                     </p-accordion>
                     <p-tabView>
-                      <p-tabPanel header="Pedidos a Domicilio">
+                      <p-tabPanel header="Pedidos a Domicilio" >
                         <p-table [columns]="cols" [value]="pedidosDomicilio" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="10" #dt  >  
                           <ng-template pTemplate="header" let-columns>
                             <tr>
@@ -60,7 +60,7 @@
                                 <td> <i *ngIf="pedidos.isEfectivo" class="pi pi-money-bill"></i><i *ngIf="!pedidos.isEfectivo" class="pi pi-id-card"></i>&nbsp; &nbsp;{{pedidos.total}} </td>
                                 <td>
                                     <div class="ui-dialog-buttonpane">
-                                        <button pButton type="button" (click)="assinggnOrder(pedidos)" icon="pi pi-user-plus" class="ui-button-secundary" ></button>
+                                        <button pButton type="button" (click)="assinggnOrder(pedidos)" icon="pi pi-user-plus" class="ui-button userOrder" ></button>
                                         &nbsp;
                                     </div>
                                 </td>
@@ -91,7 +91,7 @@
                                 <td> <i *ngIf="pedidoLocal.isEfectivo" class="pi pi-money-bill"></i><i *ngIf="!pedidoLocal.isEfectivo" class="pi pi-id-card"></i>&nbsp; &nbsp;{{pedidoLocal.total}} </td>
                                 <td>
                                     <div class="ui-dialog-buttonpane">
-                                        <button pButton type="button" (click)="confirm(pedidoLocal)" icon="pi pi-arrow-circle-right" class="ui-button-secundary" ></button>
+                                        <button pButton type="button" (click)="confirm(pedidoLocal)" icon="pi pi-arrow-circle-right" class="ui-button userOrder" ></button>
                                         &nbsp;
                                         <button pButton  type="button" (click)="eraserOrder(pedidoLocal)" icon="pi pi-trash" class="ui-button-danger" ></button>
                                     </div>

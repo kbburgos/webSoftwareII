@@ -4,16 +4,37 @@ import { UsersService } from 'app/core/services/user/users.service';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'app/core/services/auth/auth.service';
 import { SeguridadService } from 'app/core/services/seguridad.service';
-
+import {OrdersScroller} from 'app/core/interface/ordersScroller';
+import { PedidoService } from 'app/core/services/pedido/pedido.service';
+import {LazyLoadEvent, SelectItem} from 'primeng/api';
+import { ProductoService } from 'app/core/services/product/producto.service';
+import { Producto } from 'app/core/models/producto';
+import { Orders } from 'app/core/interface/orders';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
+  pedidosEntrantes: OrdersScroller[];
   token: any = this.auth.getJwtToken();
-  constructor(private userService: UsersService, private http: HttpClient, private auth: AuthService,private seguridad: SeguridadService ) { }
+  private pedidosSubscribe;
+  private productosSubscribe;
+  sortOptions: SelectItem[];
+  productos: Producto[];
+  sortKey: string;
+  cantidadTotalProductosxPedido: number;
+  cantidadPedidos: number;
+  display = false;
+  cols = [];
+  listaProductos: Array<any> = [];
+  constructor(private userService: UsersService, 
+    private productService: ProductoService, 
+    private spinner: NgxSpinnerService,
+    private auth: AuthService, 
+    private seguridad: SeguridadService,
+    private pedidoService: PedidoService ) { }
   startAnimationForLineChart(chart) {
       let seq: any, delays: any, durations: any;
       seq = 0;
@@ -71,6 +92,31 @@ export class DashboardComponent implements OnInit {
       seq2 = 0;
   };
   ngOnInit() {
+    this.spinner.show();
+    this.sortOptions = [
+      {label: 'Mayor valor', value: '!total'},
+      {label: 'Menor Valor', value: 'total'},
+    ];
+    this.pedidosSubscribe = this.pedidoService.getPedidosByEstado(0).subscribe( (item: any) => {
+      this.pedidosEntrantes = item;
+      this.cantidadPedidos = this.pedidosEntrantes.length;
+      this.spinner.hide();
+    });
+
+    this.productosSubscribe = this.productService.getProductos().subscribe((item: any ) => {
+      this.productos = item;
+    });
+
+
+
+
+
+
+
+
+
+
+
 
       /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
@@ -90,7 +136,7 @@ export class DashboardComponent implements OnInit {
           chartPadding: { top: 0, right: 0, bottom: 0, left: 0},
       }
 
-      let dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+      const dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
 
       this.startAnimationForLineChart(dailySalesChart);
 
@@ -113,7 +159,7 @@ export class DashboardComponent implements OnInit {
           chartPadding: { top: 0, right: 0, bottom: 0, left: 0}
       }
 
-      let completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
+      const completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
 
       // start animation for the Completed Tasks Chart - Line Chart
       this.startAnimationForLineChart(completedTasksChart);
@@ -122,14 +168,14 @@ export class DashboardComponent implements OnInit {
 
       /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
 
-      let datawebsiteViewsChart = {
+      const datawebsiteViewsChart = {
         labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
         series: [
           [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
 
         ]
       };
-      let optionswebsiteViewsChart = {
+      const optionswebsiteViewsChart = {
           axisX: {
               showGrid: false
           },
@@ -137,7 +183,7 @@ export class DashboardComponent implements OnInit {
           high: 1000,
           chartPadding: { top: 0, right: 5, bottom: 0, left: 0}
       };
-      let responsiveOptions: any[] = [
+      const responsiveOptions: any[] = [
         ['screen and (max-width: 640px)', {
           seriesBarDistance: 5,
           axisX: {
@@ -147,10 +193,58 @@ export class DashboardComponent implements OnInit {
           }
         }]
       ];
-      let websiteViewsChart = new Chartist.Bar('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
+      const websiteViewsChart = new Chartist.Bar('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
 
       // start animation for the Emails Subscription Chart
       this.startAnimationForBarChart(websiteViewsChart);
   }
+  onSortChange() {
+    console.log(this.sortKey);
+    if (this.sortKey.indexOf('!') === 0) {
+      this.sort(-1);
+    } else if (this.sortKey.indexOf('!') === -1) {
+      this.sort(1);
+    } 
+  }
 
+  sort(order: number): void {
+    const pedidos = [...this.pedidosEntrantes];
+    pedidos.sort((data1, data2) => {
+      const value1 = data1.total;
+      const value2 = data2.total;
+      const result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+
+      return (order * result);
+    });
+
+    this.pedidosEntrantes = pedidos;
+  }
+
+  selectPedido(pedido: Orders) {
+    this.display = true;
+    this.listaProductos = [];
+    let  productofinal = {};
+    for (let i = 0 ; i < pedido.productos.length; i++) {
+      for (let j = 0 ; j < this.productos.length; j++) {
+        if ( pedido.productos[i] === this.productos[j].idProducto ) {
+          productofinal = {
+            'producto' : this.productos[j].nombre,
+            'cantidad' :  pedido.cantidades[i]
+          }
+          this.listaProductos.push(productofinal);
+        }
+      }
+    }
+    this.cantidadTotalProductosxPedido = pedido.cantidades.reduce( (a, b) => a + b , 0);
+  }
+
+  // tslint:disable-next-line: use-life-cycle-interface
+  ngOnDestroy(){
+    if(this.productosSubscribe){
+      this.productosSubscribe.unsubscribe();
+    }
+    if(this.pedidosSubscribe){
+      this.pedidosSubscribe.unsubscribe();
+    }
+  }
 }

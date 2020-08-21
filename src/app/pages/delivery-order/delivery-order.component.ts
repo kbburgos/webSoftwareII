@@ -53,6 +53,7 @@ export class DeliveryOrderComponent implements OnInit {
   private crearCompraApi;
   private verCompraApi;
   private crearPedidoApi;
+  private deleteOrder;
 
   constructor(
     private deliveryManService: DeliverymanService,
@@ -126,6 +127,9 @@ export class DeliveryOrderComponent implements OnInit {
     if (this.verCompraApi) {
       this.verCompraApi.unsubscribe();
     }
+    if (this.deleteOrder) {
+      this.deleteOrder.unsubscribe();
+    }
   }
 
   finalOrder(pedidoCulminado) {
@@ -172,9 +176,6 @@ export class DeliveryOrderComponent implements OnInit {
         icon: 'pi pi-exclamation-circle',
         accept: () => {
           this.sendFinallyOrder(this.pedidoCambiaEstado);
-        },
-        reject: () => {
-
         }
     });
 
@@ -245,9 +246,9 @@ export class DeliveryOrderComponent implements OnInit {
     },
     error => {
       this.errorAction('pedido');
-      console.log(error);
     });
     this.display = false;
+    this.deleteOrder = this.orderService.deletePedido(pedido.idPedido);
   }
 
   logOut(){

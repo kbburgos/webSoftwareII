@@ -563,48 +563,56 @@
       </div>
       <div class="col-lg-6 col-md-12">
         <div class="card">
-          <div class="card-header card-header-warning">
-            <h4 class="card-title">Employees Stats</h4>
-            <p class="card-category">New employees on 15th September, 2016</p>
+          <div class="card-header card-header-info">
+            <h4 class="card-title titleCard" >Pedidos Entrantes</h4>
+            <p class="card-category subtitleCard">Cantidad de pedidos: <strong>{{cantidadPedidos}}</strong> </p>
+            <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordenar por" (onChange)="onSortChange()" [style]="{'min-width':'140px'}" class="dropdown"></p-dropdown>
           </div>
-          <div class="card-body table-responsive">
-            <table class="table table-hover">
-              <thead class="text-warning">
-                <th>ID</th>
-                <th>Name</th>
-                <th>Salary</th>
-                <th>Country</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Dakota Rice</td>
-                  <td>$36,738</td>
-                  <td>Niger</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Minerva Hooper</td>
-                  <td>$23,789</td>
-                  <td>Curaçao</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Sage Rodriguez</td>
-                  <td>$56,142</td>
-                  <td>Netherlands</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>Philip Chaney</td>
-                  <td>$38,735</td>
-                  <td>Korea, South</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <div class="card-body">
+            <p-virtualScroller [value]="pedidosEntrantes" scrollHeight="500px" [itemSize]="100">
+              <ng-template let-pedido pTemplate="item" let-i="index">
+                  <div class="car-details">
+                      <div>
+                          <div>
+                              <b><strong>{{i+1}}.&nbsp;{{pedido.idPedido}}</strong></b>
+                              <div><span *ngIf="pedido.isDomicilio">pedido a domicilio</span> <span *ngIf="!pedido.isDomicilio">pedido en local</span>&nbsp;-------&nbsp; Total a pagar:&nbsp; <strong>${{pedido.total}}</strong> </div> 
+                          </div>
+                      </div>
+                      <button pButton type="button" icon="pi pi-search" (click)="selectPedido(pedido)" class="buttonSearch"></button>
+                  </div>
+              </ng-template>
+            </p-virtualScroller>
+          </div>       
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<p-dialog [(visible)]="display" [responsive]="true" showEffect="fade">
+  <div class = "divCard">
+    <p-card>
+      <div class="datosDiv">
+          Información de Productos
+      </div>
+      <p-table [columns]="cols" [value]="listaProductos" styleClass="p-datatable-sm" [resizableColumns]="true" >  
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+              <th>NOMBRE</th>
+              <th>CANTIDAD</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-productos>
+          <tr>
+              <td> {{productos.producto}} </td>
+              <td> {{productos.cantidad}} </td>
+          </tr>      
+        </ng-template>
+        
+      </p-table>
+      <div class="datosDivFooter">
+        Cantidad total de productos: &nbsp; {{cantidadTotalProductosxPedido}}
+      </div>
+  </p-card> 
+  </div> 
+</p-dialog>

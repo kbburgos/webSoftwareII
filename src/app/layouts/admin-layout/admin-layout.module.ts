@@ -66,8 +66,8 @@ import {MessageService} from 'primeng/api';
 import {ChartModule} from 'primeng/chart';
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { TokenInterceptorService } from "app/core/services/interceptor/token-interceptor.service"
-
-
+import {VirtualScrollerModule} from 'primeng/virtualscroller';
+import {DropdownModule} from 'primeng/dropdown';
 @NgModule({
   imports: [
     CommonModule,
@@ -103,7 +103,9 @@ import { TokenInterceptorService } from "app/core/services/interceptor/token-int
     AngularFireAuthModule,
     TabViewModule,
     ToastModule,
-    ChartModule
+    ChartModule,
+    VirtualScrollerModule,
+    DropdownModule
   ],
   declarations: [
     DashboardComponent,
