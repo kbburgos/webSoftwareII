@@ -20,7 +20,7 @@
               </div>
             </div>
           </div>
-          <div class="card-body">
+          <div *ngIf="data" class="card-body">
             <p-table
               #dt
               [value]="column"
@@ -55,6 +55,7 @@
                         pButton
                         type="button"
                         icon="pi pi-pencil"
+                        (click)="abrirEditar(user)"
                         class="ui-button-secundary"
                       ></button>
                       &nbsp;
@@ -62,6 +63,7 @@
                         pButton
                         type="button"
                         icon="pi pi-trash"
+                        (click)="EliminarUser(user.cedula)"
                         class="ui-button-danger"
                       ></button>
                     </div>
@@ -156,6 +158,102 @@
           (click)="save()"
           pButton
           label="GUARDAR"
+        ></button>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="edit"
+  [responsive]="true"
+  showEffect="fade"
+  (onHide)="clearState()"
+>
+  <p-header>
+    Editar Usuario
+  </p-header>
+
+  <div class="container-fluid" style="width: 400px;">
+    <div *ngIf="edit" class="row">
+      <form [formGroup]="form">
+        <div class="form-group">
+          <label>Nombre:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="nombre"
+            [(ngModel)]="UsuarioEdit.nombre"
+          />
+        </div>
+        <div class="form-group">
+          <label>Apellido:</label>
+          <input
+            class="form-control"
+            formControlName="apellido"
+            type="text"
+            [(ngModel)]="UsuarioEdit.apellido"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Cédula:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="cedula"
+            [(ngModel)]="UsuarioEdit.cedula"
+          />
+        </div>
+        <div class="form-group">
+          <label>EMAIL:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="email"
+            [(ngModel)]="UsuarioEdit.email"
+          />
+        </div>
+        <br />
+        <div class="form-group">
+          <label>Teléfono:</label>
+          <input
+            class="form-control"
+            formControlName="telefono"
+            type="text"
+            [(ngModel)]="UsuarioEdit.telefono"
+          />
+        </div>
+        <br />
+        <div class="form-group">
+          <label>Dirección:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="direccion"
+            [(ngModel)]="UsuarioEdit.direccion"
+          />
+        </div>
+      </form>
+
+      <div class="col-sm-12 button-save">
+        <br />
+        <button
+          mat-raised-button
+          class="btn btn-success"
+          [disabled]="
+            form.invalid ||
+            nombre == '' ||
+            email == '' ||
+            direccion == '' ||
+            cedula == '' ||
+            apellido == '' ||
+            telefono == ''
+          "
+          class="secundary"
+          (click)="guardarCambios()"
+          pButton
+          label="GUARDAR CAMBIOS"
         ></button>
       </div>
     </div>
