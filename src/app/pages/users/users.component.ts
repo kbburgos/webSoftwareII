@@ -30,11 +30,14 @@ export class UsersComponent implements OnInit {
   token: any = this.auth.getJwtToken();
   usuarios: Usuarios[];
   temp: any[] = [];
-  column: Usuarios[];
+  column: any = "";
   display: boolean = false;
   rolName: String = "Rol";
   datosUsuario: UsuarioInterface;
+  data: any = "";
   rol: number = 1;
+  edit: boolean = false;
+  UsuarioEdit: UsersService;
 
   cols = [
     { field: "cedula", header: "Cedula" },
@@ -62,12 +65,14 @@ export class UsersComponent implements OnInit {
   }
 
   cargar() {
+    this.column = "";
     this.spinner.show();
     let subs = this.user.usuarios(this.token).subscribe(
       (data: any) => {
         console.log(data);
         this.usuarios = data;
         this.tableColumns(this.usuarios);
+        this.data = data;
       },
       (err: any) => {
         console.log(err);
@@ -77,7 +82,7 @@ export class UsersComponent implements OnInit {
     );
   }
 
-  tableColumns(colection) {
+  async tableColumns(colection) {
     colection.map((usuario) => {
       let User: Usuarios = {
         apellido: usuario.apellido,
@@ -130,6 +135,7 @@ export class UsersComponent implements OnInit {
 
   save() {
     console.log("entra a save");
+    this.data = "";
     //let clave = String(Math.random() * (999999999 - 111111111) + 111111111);
     this.datosUsuario = {
       cedula: this.form.get("cedula").value,
@@ -148,6 +154,7 @@ export class UsersComponent implements OnInit {
       .then((data: any) => {
         console.log("Parece que si");
         this.display = false;
+        this.cargar();
       })
       .catch((err) => {
         console.log(err);
@@ -167,5 +174,52 @@ export class UsersComponent implements OnInit {
       this.rolName = "vendedor";
       this.rol = 2;
     }
+  }
+
+  abrirEditar(user) {
+    console.log("LLEGAS");
+    this.edit = true;
+    this.UsuarioEdit = user;
+
+    console.log(this.UsuarioEdit);
+  }
+
+  //TIENE FALLAS
+  guardarCambios() {
+    this.datosUsuario = {
+      cedula: this.form.get("cedula").value,
+      nombre: this.form.get("nombre").value,
+      apellido: this.form.get("apellido").value,
+      telefono: this.form.get("telefono").value,
+      email: this.form.get("email").value,
+      contrasenia: "contrasenia",
+      rol: this.rol,
+      direccion: this.form.get("direccion").value,
+    };
+
+    this.user
+      .setUserInfo(this.token, this.datosUsuario)
+      .toPromise()
+      .then((data) => {
+        console.log("ingresado correctamente");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  EliminarUser(cedula: string) {
+    this.data = "";
+    this.user
+      .deleteUser(this.token, cedula)
+      .toPromise()
+      .then((data) => {
+        console.log("here we comes ");
+
+        this.cargar();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }

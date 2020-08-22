@@ -13,7 +13,7 @@
     font-size: 1.25rem;
     font-weight: bold;
     margin-bottom: 10px;
-    background-color:#ea4643;
+    background-color:#91CCDD;
     color: white;
     padding: 5px;
 }
@@ -29,7 +29,7 @@
   font-weight: bold;
   margin-top: 10px;
   margin-bottom: 5px;
-  background-color:#ea4643;
+  background-color:#91CCDD;
   color: white;
   padding: 5px;
 }
@@ -51,4 +51,9 @@
   margin-bottom: 10px;
   text-align: right;
   margin-right: 15px;
+}
+
+.buttonFinally{
+  background-color:#91CCDD;
+  border: none;
 }
