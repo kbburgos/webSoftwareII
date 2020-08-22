@@ -19,6 +19,7 @@ import { CustomerNews } from "app/core/interface/customerNews";
 export class UsersService {
   private readonly JWT_TOKEN = "JWT_TOKEN";
   private readonly REFRESH_TOKEN = "REFRESH_TOKEN";
+  public cedula: string;
 
   constructor(
     private http: HttpClient,
@@ -41,6 +42,7 @@ export class UsersService {
     };
     return this.http.get(environment.rutas.usersS + id, { headers });
   }
+
   deleteUser(token: string, cedula: string) {
     let headers = {
       "Content-Type": "application/json",
@@ -56,5 +58,18 @@ export class UsersService {
     console.log(datos);
     const url = environment.rutas.urlGetUser;
     return this.http.post(url, datos);
+  }
+
+  setUserInfo(token: string, datos: UsuarioInterface) {
+    console.log("this is the token ", token)
+    let headers = {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    };
+    const hash = this.seguridad.hashJSON(datos);
+    datos.hash = hash;
+    console.log(datos);
+    const url = environment.rutas.updateUser + datos.cedula;
+    return this.http.put(url, datos, { headers });
   }
 }

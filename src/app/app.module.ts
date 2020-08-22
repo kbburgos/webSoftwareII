@@ -62,6 +62,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { TooltipModule } from 'primeng/tooltip';
 import { ToastModule } from 'primeng/toast';
 import { DropdownModule } from 'primeng/dropdown';
+import { SalesComponent } from './pages/sales/sales.component';
 
 @NgModule({
   imports: [
@@ -107,6 +108,7 @@ import { DropdownModule } from 'primeng/dropdown';
     DeliverymanComponent,
     PromotionNewComponent,
     DeliveryOrderComponent,
+    SalesComponent,
     // CurrentPromotionComponent,
     // OldPromotionComponent,
   ],
