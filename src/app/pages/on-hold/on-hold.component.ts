@@ -149,12 +149,17 @@ export class OnHoldComponent implements OnInit {
   }
 
   changeState(pedido: Orders) {
-    this.spinner.show();
+    
     this.pedido = pedido;
+    console.log(this.pedido.cantidades);
     let productoApi: string = '';
+    let cantidadApi: string = '';
     for (let i = 0 ; i < this.pedido.productos.length; i++) {
-      productoApi = productoApi + this.pedido.productos[i] + ',';
+      productoApi +=  this.pedido.productos[i] + ',';
+      cantidadApi += this.pedido.cantidades[i] + ',';
+      console.log("cantidad del for: ",cantidadApi, this.pedido.cantidades[i] );
     }
+    cantidadApi = cantidadApi.substring(0, cantidadApi.length - 1);
     productoApi = productoApi.substring(0, productoApi.length - 1);
     const compraNueva = {
       idcompra: null,
@@ -166,6 +171,7 @@ export class OnHoldComponent implements OnInit {
       this.spinner.hide();
     },
     error => {
+      this.errorMessage("No se pudo realizar la compra, vuelva a intentarlo");
       console.log(error);
     });
     this.cantidadTotalProductosxPedido = this.pedido.cantidades.reduce( (a, b) => a + b , 0);
@@ -174,7 +180,7 @@ export class OnHoldComponent implements OnInit {
       idpedido: null,
       idcompra: idCompraApi,
       idproducto: productoApi,
-      cantidad: this.cantidadTotalProductosxPedido,
+      cantidad: cantidadApi,
       subtotal: this.pedido.total,
       cubiertos: this.pedido.cubiertos,
       estado: '3',
@@ -183,12 +189,12 @@ export class OnHoldComponent implements OnInit {
       console.log(item);
     },
     error => {
+      this.errorMessage("No se pudo realizar el pedido, vuelva a intentarlo");
       console.log(error);
     });
     this.showSuccess('local');
-    /*this.pedido.estadoDelPedido = 3;
-    this.pedidoService.updatePedidos(this.pedido);*/
-    //this.deleteOrder = this.pedidoService.deletePedido(this.pedido.idPedido);
+
+
   }
   // tslint:disable-next-line: use-life-cycle-interface
   ngOnDestroy(): void {
@@ -226,7 +232,6 @@ export class OnHoldComponent implements OnInit {
     let direccion;
     let coordenadas;
     const telefono = repartidor.telefono;
-    //console.log(telefono);
     const telefono2 = '593995248654';
     const url_prueba = 'http://localhost:4200/deliveryman';
     if (this.pedido.direccionEntrega === 'S') {
@@ -238,18 +243,15 @@ export class OnHoldComponent implements OnInit {
       direccion = JSON.parse(json);
       console.log('nueva: ',direccion);
     }
-
     coordenadas = direccion.coordenadas.split(',');
     const mapa = 'https://www.google.com/maps/search/?api=1%26query=' + coordenadas[1] + ',' + coordenadas[0];
-
     const cuerpo_mensaje =
       'Hola ' + repartidor.nombre + ', el código del pedido es *' + this.pedido.idPedido +
       '*, el cliente es *' + cliente.nombre + ' ' + cliente.apellido +
       '*, la dirección es ' + direccion.direccion + ', su referencia es ' + direccion.referencia  +
       ', puedes  ubicarte con: ' +mapa +
       ' . Usa este enlace para finalizar el pedido ' + url_prueba ;
-
-    window.open('https://api.whatsapp.com/send?phone=' + telefono2 + '&text=' + cuerpo_mensaje);
+    window.open('https://api.whatsapp.com/send?phone=' + telefono + '&text=' + cuerpo_mensaje);
 
   }
 
@@ -267,6 +269,18 @@ export class OnHoldComponent implements OnInit {
       detail: detail, life: 2000 });
   }
 
+  errorMessage(mensaje: string) {
+    this.messageService.add(
+      {severity: 'warning', summary: 'Mensaje de error',
+      detail: mensaje, life: 2000 });
+  }
+
+  createConfirmMessage(mensaje: string) {
+      this.messageService.add(
+        {severity: 'success', summary: 'Mensaje de confirmación',
+        detail: mensaje, life: 2000 });
+  }
+
   confirm(pedido: Orders) {
     this.verCompraApi = this.purchase.getPurchase(this.token).subscribe( (item: any) =>{
       this.cantidadCompras = item.length;
@@ -276,6 +290,7 @@ export class OnHoldComponent implements OnInit {
         header: 'Enviar el pedido a Pedidos Despachados',
         message: '¿Estás seguro de realizar esta acción?',
         accept: () => {
+          this.spinner.show();
           this.changeState(pedido);
           this.deleteOrder = this.pedidoService.deletePedido(this.pedido.idPedido);
         }

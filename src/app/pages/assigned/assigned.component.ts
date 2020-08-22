@@ -10,6 +10,7 @@ import {ConfirmationService} from 'primeng/api';
 import { Deliveryman } from 'app/core/interface/deliveryman';
 import { Producto } from 'app/core/models/producto';
 import { ProductoService } from 'app/core/services/product/producto.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-assigned',
   templateUrl: './assigned.component.html',
@@ -38,6 +39,7 @@ export class AssignedComponent implements OnInit {
   constructor(
     private pedidoService: PedidoService,
     private http: HttpClient,
+    private spinner: NgxSpinnerService,
     private messageService: MessageService,
     private deliveryManService: DeliverymanService,
     private productService: ProductoService,
@@ -45,8 +47,10 @@ export class AssignedComponent implements OnInit {
     private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.pedidosAsignadosSubscribe = this.pedidoService.getPedidosByEstado(1).subscribe((item: any) => {
       this.pedidosDomicilioAsignados = item;
+      this.spinner.hide();
     });
 
     this.productosSubscribe = this.productService.getProductos().subscribe((item: any ) => {
