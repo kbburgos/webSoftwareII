@@ -1,4 +1,9 @@
-.navbar-brand{
-    font-weight: bold;
-    font-size: 1.5rem;
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.logout:hover {
+  background-color: #302d2d85;
+  color: white;
 }
