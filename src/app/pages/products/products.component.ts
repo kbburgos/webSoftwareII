@@ -1,9 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { ProductoService } from "../../core/services/product/producto.service";
-import { Products } from "../../core/interface/products";
+import { ProductoService } from "app/core/services/product/producto.service";
+import { Products } from "app/core/interface/products";
 import { ConfirmationService } from "primeng/api";
 
 import { NgxSpinnerService } from "ngx-spinner";
+
+import { MessageService } from "primeng/api";
 import {
   FormGroup,
   FormControl,
@@ -18,50 +20,39 @@ import { CategoriaService } from "../../core/services/categoria/categoria.servic
   selector: "app-products",
   templateUrl: "./products.component.html",
   styleUrls: ["./products.component.css"],
+  providers: [MessageService],
 })
 export class ProductsComponent implements OnInit {
   private form: FormGroup;
   display: boolean = false;
   bandera: boolean = false;
   slide: boolean = false;
-  mensaje: boolean = false;
-
   productos: Products[] = [];
   categorias: Categoria[] = [];
+  ProductEdit: Products;
+  categoria: string = "";
+  catName: string = "Categoría";
+  Urls: any = [];
+  allfiles: any = [];
+  previewUrl: any = null;
+  producSlide: any = [];
+  data: any = "";
 
   cols: any = [
     { field: "nombre", header: "NOMBRE" },
-    { field: "descripcion", header: "DESCRIPCION" },
-    { field: "categoria", header: "CATEGORIA" },
+    { field: "descripcion", header: "DESCRIPCIÓN" },
+    { field: "categoria", header: "CATEGORÍA" },
     { field: "precio", header: "PRECIO" },
     { field: "stock", header: "STOCK" },
   ];
-
-  ProductEdit: Products;
-
-  categoria: string = "";
-
-  catName: string = "Categoría";
-
-  Urls: any = [];
-
-  allfiles: any = [];
-
-  previewUrl: any = null;
-
-  producSlide: any = [];
-
-  message: any = {
-    mensaje: "",
-    accion: "",
-  };
 
   constructor(
     private productosService: ProductoService,
     private confirmationService: ConfirmationService,
     private formBuilder: FormBuilder,
     private caterogiasService: CategoriaService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -71,15 +62,6 @@ export class ProductsComponent implements OnInit {
     let cat = this.caterogiasService.getCategorias().subscribe((item: any) => {
       this.categorias = item;
     });
-
-    let pro = this.productosService.getProductos().subscribe((item: any) => {
-      console.log(item);
-
-      this.productos = item;
-      this.spinner.hide();
-      // sub.unsubscribe();
-    });
-
     /*
     item.map((pro) => {
         if (pro.idCategoria != "B9MwktyLd7z4onQIKKAw") {
@@ -95,6 +77,43 @@ export class ProductsComponent implements OnInit {
     */
 
     this.buildForm();
+    this.clearState();
+    this.cargar();
+  }
+
+  cargar() {
+    this.spinner.show();
+    let pro = this.productosService.getProductos().subscribe(
+      (item: any) => {
+        console.log(item);
+        this.filtrado(item);
+      },
+      (err: any) => {
+        console.log(err);
+        this.spinner.hide();
+        pro.unsubscribe();
+        this.showMessage("Error al cargar los productos", "error", "Error!");
+      }
+    );
+  }
+
+  filtrado(coleccion) {
+    let temporal: any[] = [];
+    coleccion.map((item) => {
+      this.categorias.map((cat) => {
+        if (
+          item.idCategoria == cat.idCategoria &&
+          item.idCategoria != "B9MwktyLd7z4onQIKKAw"
+        ) {
+          item.categoria = cat.nombre;
+          temporal.push(item);
+        }
+      });
+      this.data = coleccion;
+      console.log(temporal);
+      this.productos = temporal;
+      this.spinner.hide();
+    });
   }
 
   save() {
@@ -155,13 +174,6 @@ export class ProductsComponent implements OnInit {
   }
 
   update(producto: Products) {
-    this.mensaje = true;
-
-    this.message = {
-      mensaje: "Se ha modificado el producto de la lista",
-      accion: "Nuevos detalles!",
-    };
-
     this.guardarCategoria(producto.idCategoria);
     producto.idCategoria = this.categoria;
     this.productosService.updateProduct(producto);
@@ -191,12 +203,6 @@ export class ProductsComponent implements OnInit {
       .pushProductos(producto)
       .then((data: any) => {
         this.bandera = false;
-        this.mensaje = true;
-
-        this.message = {
-          mensaje: "Se ha agregado el producto a la lista",
-          accion: "Nueva Producto!",
-        };
         console.log("Guardado");
       })
       .catch((err: any) => {
@@ -207,14 +213,6 @@ export class ProductsComponent implements OnInit {
 
   eliminarProduct(producto: Products) {
     console.log(producto);
-
-    this.mensaje = true;
-
-    this.message = {
-      mensaje: "Se ha eliminado el producto de la lista",
-      accion: "Elimado!",
-    };
-
     this.productosService.deleteProduct(producto.idProducto);
     this.clearState();
   }
@@ -262,5 +260,14 @@ export class ProductsComponent implements OnInit {
   showSlide(producto: any[]) {
     this.producSlide = producto;
     this.slide = true;
+  }
+
+  showMessage(mensaje: string, tipo: string, titulo: string) {
+    this.messageService.add({
+      severity: tipo,
+      summary: titulo,
+      detail: mensaje,
+      life: 4000,
+    });
   }
 }

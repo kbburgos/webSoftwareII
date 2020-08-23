@@ -6,7 +6,7 @@
           <div class="card-header card-header-info">
             <div class="row">
               <div class="col-md-10">
-                <h4 class="card-title">Usuarios</h4>
+                <h4 class="card-title">Lista de Usuarios</h4>
               </div>
               <div class="col-md-2">
                 <button
@@ -22,29 +22,27 @@
           </div>
           <div *ngIf="data" class="card-body">
             <p-table
-              #dt
-              [value]="column"
+              [columns]="cols"
+              [value]="usuarios"
               [scrollable]="true"
               [paginator]="true"
               [rows]="5"
             >
-              <ng-template pTemplate="header">
+              <ng-template pTemplate="header" let-columns>
                 <tr>
-                  <th>CEDULA</th>
-                  <th>NOMBRE</th>
-                  <th>APELLIDO</th>
-                  <th>EMAIL</th>
-                  <th>DIRECCION</th>
-                  <th>TELEFONO</th>
-                  <th>ACCION</th>
+                  <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{ col.header }}
+                  </th>
+                  <th>
+                    ACCIONES
+                  </th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-user>
-                <!--tr *ngIf="user.rol != 3"-->
                 <tr>
                   <td>{{ user.cedula }}</td>
-                  <td>{{ user.nombre }}</td>
-                  <td>{{ user.apellido }}</td>
+                  <td>{{ user.nombre }}&nbsp;{{ user.apellido }}</td>
+                  <td>{{ user.rol }}</td>
                   <td>{{ user.email }}</td>
                   <td>{{ user.direccion }}</td>
                   <td>{{ user.telefono }}</td>
@@ -63,7 +61,7 @@
                         pButton
                         type="button"
                         icon="pi pi-trash"
-                        (click)="EliminarUser(user.cedula)"
+                        (click)="confirmarEliminar(user.cedula)"
                         class="ui-button-danger"
                       ></button>
                     </div>
@@ -71,6 +69,10 @@
                 </tr>
               </ng-template>
             </p-table>
+            <p-confirmDialog
+              header="Confirmaci&oacute;n"
+              icon="pi pi-exclamation-triangle"
+            ></p-confirmDialog>
           </div>
         </div>
       </div>
@@ -89,10 +91,11 @@
   </p-header>
 
   <div class="container-fluid" style="width: 400px;">
-    <div *ngIf="display" class="row">
-      <form [formGroup]="form">
-        <div class="form-group">
-          <label>Nombre:</label>
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label class="form-label">Nombre</label>
+          <span class="requared">&nbsp; *</span>
           <input
             type="text"
             class="form-control"
@@ -100,8 +103,9 @@
             placeholder="...Jhon Allan"
           />
         </div>
-        <div class="form-group">
-          <label>Apellido:</label>
+        <div class="col-md-6 form-group">
+          <label class="form-label">Apellido</label>
+          <span class="requared">&nbsp; *</span>
           <input
             class="form-control"
             formControlName="apellido"
@@ -109,9 +113,54 @@
             placeholder="...Doe Renner"
           />
         </div>
-
-        <div class="form-group">
-          <label>Cédula:</label>
+      </div>
+      <div class="row">
+        <div
+          class="container-error-message col-md-6"
+          *ngIf="getError('nombre') != ''"
+        >
+          <span class="material-icons danger-icon">
+            error_outline
+          </span>
+          {{ getError("nombre") }}
+        </div>
+        <div
+          class="container-error-message col-md-6"
+          *ngIf="getError('apellido') != ''"
+        >
+          <span class="material-icons danger-icon">
+            error_outline
+          </span>
+          {{ getError("apellido") }}
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label class="form-label">Dirección</label>
+          <span class="requared">&nbsp; *</span>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="direccion"
+            placeholder="...Av. 10 de Mayo"
+          />
+        </div>
+        <div
+          class="container-error-message col-md-12"
+          *ngIf="getError('direccion') != ''"
+        >
+          <span class="material-icons danger-icon">
+            error_outline
+          </span>
+          {{ getError("direccion") }}
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label class="form-label">Cédula</label>
+          <span class="requared">&nbsp; *</span>
           <input
             type="text"
             class="form-control"
@@ -119,47 +168,100 @@
             placeholder="...09999999999"
           />
         </div>
-        <div class="form-group">
-          <label>EMAIL:</label>
+        <div class="col-md-6 form-group">
+          <label class="form-label">Teléfono</label>
+          <span class="requared">&nbsp; *</span>
+          <input
+            class="form-control"
+            formControlName="telefono"
+            type="text"
+            placeholder="0000000000"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="container-error-message col-md-6"
+          *ngIf="getError('cedula') != ''"
+        >
+          <span class="material-icons danger-icon">
+            error_outline
+          </span>
+          {{ getError("cedula") }}
+        </div>
+        <div
+          class="container-error-message col-md-6"
+          *ngIf="getError('telefono') != ''"
+        >
+          <span class="material-icons danger-icon">
+            error_outline
+          </span>
+          {{ getError("telefono") }}
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label class="form-label">Email</label>
+          <span class="requared">&nbsp; *</span>
           <input
             type="text"
             class="form-control"
             formControlName="email"
-            placeholder="...09999999999"
+            placeholder="ejemplo@ejemplo.com"
           />
         </div>
-        <br />
-        <div class="form-group">
-          <label>Teléfono:</label>
-          <input class="form-control" formControlName="telefono" type="text" />
+        <div class="col-md-6 form-group">
+          <div class="dropdown">
+            <button
+              href="#"
+              class="btn dropdown-toggle bg-primary"
+              data-toggle="dropdown"
+              aria-expanded="true"
+            >
+              {{ rolName }}
+              <b class="caret"></b>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a (click)="guardarRol('1')">Administrador</a></li>
+              <li><a (click)="guardarRol('2')">Vendedor</a></li>
+            </ul>
+          </div>
         </div>
-        <br />
-        <div class="form-group">
-          <label>Dirección:</label>
-          <input type="text" class="form-control" formControlName="direccion" />
-        </div>
-      </form>
-
-      <div class="col-sm-12 button-save">
-        <br />
-        <button
-          mat-raised-button
-          class="btn btn-success"
-          [disabled]="
-            form.invalid ||
-            nombre == '' ||
-            email == '' ||
-            direccion == '' ||
-            cedula == '' ||
-            apellido == '' ||
-            telefono == ''
-          "
-          class="secundary"
-          (click)="save()"
-          pButton
-          label="GUARDAR"
-        ></button>
       </div>
+      <div class="row">
+        <div
+          class="container-error-message col-md-12"
+          *ngIf="getError('email') != ''"
+        >
+          <span class="material-icons danger-icon">
+            error_outline
+          </span>
+          {{ getError("email") }}
+        </div>
+      </div>
+    </form>
+
+    <div class="col-sm-12 button-save">
+      <br />
+      <button
+        mat-raised-button
+        class="btn btn-success"
+        [disabled]="
+          form.invalid ||
+          nombre == '' ||
+          email == '' ||
+          direccion == '' ||
+          cedula == '' ||
+          apellido == '' ||
+          telefono == '' ||
+          rol == 0
+        "
+        class="secundary"
+        (click)="save()"
+        pButton
+        label="GUARDAR"
+      ></button>
     </div>
   </div>
 </p-dialog>
@@ -259,3 +361,4 @@
     </div>
   </div>
 </p-dialog>
+<p-toast position="bottom-right"></p-toast>

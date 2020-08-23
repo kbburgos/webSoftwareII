@@ -1,27 +1,29 @@
 import { Routes } from "@angular/router";
 
-import { DashboardComponent } from "../../pages/dashboard/dashboard.component";
-import { OnHoldComponent } from "../../pages/on-hold/on-hold.component";
-import { DispatchedComponent } from "../../pages/dispatched/dispatched.component";
-import { ReportNewsComponent } from "../../pages/report-news/report-news.component";
-import { ReportSalesComponent } from "../../pages/report-sales/report-sales.component";
-import { ReportProductComponent } from "../../pages/report-product/report-product.component";
-import { ProductsComponent } from "../../pages/products/products.component";
-import { UsersComponent } from "../../pages/users/users.component";
-import { PromotionsComponent } from "../../pages/promotions/promotions.component";
-import { CustomersComponent } from "../../pages/customers/customers.component";
-import { ConflictingComponent } from "../../pages/conflicting/conflicting.component";
-import { DeliveryNotificationComponent } from "../../pages/delivery-notification/delivery-notification.component";
-import { UserNotificationComponent } from "../../pages/user-notification/user-notification.component";
-import { ProductNewComponent } from "../../pages/product-new/product-new.component";
+import { DashboardComponent } from "app/pages/dashboard/dashboard.component";
+import { OnHoldComponent } from "app/pages/on-hold/on-hold.component";
+import { DispatchedComponent } from "app/pages/dispatched/dispatched.component";
+import { ReportNewsComponent } from "app/pages/report-news/report-news.component";
+import { ReportSalesComponent } from "app/pages/report-sales/report-sales.component";
+import { ReportProductComponent } from "app/pages/report-product/report-product.component";
+import { ProductsComponent } from "app/pages/products/products.component";
+import { UsersComponent } from "app/pages/users/users.component";
+import { PromotionsComponent } from "app/pages/promotions/promotions.component";
+import { CustomersComponent } from "app/pages/customers/customers.component";
+import { ConflictingComponent } from "app/pages/conflicting/conflicting.component";
+import { DeliveryNotificationComponent } from "app/pages/delivery-notification/delivery-notification.component";
+import { UserNotificationComponent } from "app/pages/user-notification/user-notification.component";
+import { ProductNewComponent } from "app/pages/product-new/product-new.component";
 import { AssignedComponent } from "app/pages/assigned/assigned.component";
 import { DeliverymanComponent } from "app/pages/deliveryman/deliveryman.component";
 import { DeliveryOrderComponent } from "app/pages/delivery-order/delivery-order.component";
 import { AuthDeliverymanGuard } from "app/core/guard/auth-deliveryman.guard";
-import { PromotionNewComponent } from "../../pages/promotion-new/promotion-new.component";
-import { CurrentPromotionComponent } from "../../pages/current-promotion/current-promotion.component";
-import { OldPromotionComponent } from "../../pages/old-promotion/old-promotion.component";
-import { AuthGuard } from "../../core/guard/auth.guard";
+import { PromotionNewComponent } from "app/pages/promotion-new/promotion-new.component";
+import { CurrentPromotionComponent } from "app/pages/current-promotion/current-promotion.component";
+import { OldPromotionComponent } from "app/pages/old-promotion/old-promotion.component";
+import { AuthGuard } from "app/core/guard/auth.guard";
+import { SalesComponent } from "app/pages/sales/sales.component"
+
 
 export const AdminLayoutRoutes: Routes = [
   // {
@@ -131,6 +133,11 @@ export const AdminLayoutRoutes: Routes = [
   {
     path: "current-promotion",
     component: CurrentPromotionComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "sales",
+    component: SalesComponent,
     canActivate: [AuthGuard],
   },
   {

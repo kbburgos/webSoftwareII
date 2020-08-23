@@ -69,13 +69,15 @@
           [resizableColumns]="true"
         >
           <ng-template pTemplate="header" let-columns>
-            <tr>
+            <tr class="tituloCampo">
               <th>NOMBRE</th>
+              <th>CANTIDAD</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-productos>
             <tr>
               <td>{{ productos.producto }}</td>
+              <td>{{ productos.cantidad }}</td>
             </tr>
           </ng-template>
         </p-table>

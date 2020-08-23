@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
-import { UsersService } from "../../core/services/user/users.service";
-import { AuthService } from "../../core/services/auth/auth.service";
+import { UsersService } from "app/core/services/user/users.service";
+import { AuthService } from "app/core/services/auth/auth.service";
 import { environment } from "environments/environment";
 
 import { Usuarios } from "app/core/interface/Usuarios";
@@ -12,40 +12,45 @@ import { UserInfoService } from "app/core/services/userInfo/user-info.service";
 import { NgxSpinnerService } from "ngx-spinner";
 import { UsuarioInterface } from "app/core/interface/usuario-interface";
 
+import { MessageService } from "primeng/api";
+import { ConfirmationService } from "primeng/api";
+
 import {
   FormGroup,
   FormControl,
   Validators,
   FormBuilder,
 } from "@angular/forms";
-import { async } from "@angular/core/testing";
+
+import { UserRol } from "app/core/interface/user-rol";
 
 @Component({
   selector: "app-promotions",
   templateUrl: "./users.component.html",
   styleUrls: ["./users.component.css"],
+  providers: [MessageService],
 })
 export class UsersComponent implements OnInit {
   form: FormGroup;
   token: any = this.auth.getJwtToken();
-  usuarios: Usuarios[];
+  usuarios: UserRol[];
   temp: any[] = [];
-  column: any = "";
+  column: Usuarios[];
   display: boolean = false;
   rolName: String = "Rol";
   datosUsuario: UsuarioInterface;
   data: any = "";
-  rol: number = 1;
+  rol: number = 0;
   edit: boolean = false;
   UsuarioEdit: UsersService;
 
   cols = [
-    { field: "cedula", header: "Cedula" },
-    { field: "nombre", header: "Nombre" },
-    { field: "apellido", header: "Apellido" },
-    { field: "email", header: "Email" },
-    { field: "direccion", header: "Direccion" },
-    { field: "telefono", header: "Telefono" },
+    { field: "cedula", header: "CÉDULA" },
+    { field: "nombre", header: "NOMBRES" },
+    { field: "rol", header: "ROL" },
+    { field: "email", header: "EMAIL" },
+    { field: "direccion", header: "DIRECCIÓN" },
+    { field: "telefono", header: "TELÉFONO" },
   ];
 
   constructor(
@@ -55,7 +60,9 @@ export class UsersComponent implements OnInit {
     private authService: AuthService,
     private userInfo: UserInfoService,
     private formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit() {
@@ -65,24 +72,38 @@ export class UsersComponent implements OnInit {
   }
 
   cargar() {
-    this.column = "";
     this.spinner.show();
     let subs = this.user.usuarios(this.token).subscribe(
       (data: any) => {
         console.log(data);
-        this.usuarios = data;
-        this.tableColumns(this.usuarios);
-        this.data = data;
+        this.usuarios = this.filtrado(data);
+        this.spinner.hide();
       },
       (err: any) => {
         console.log(err);
         this.spinner.hide();
         subs.unsubscribe();
+        this.showMessage("Error al cargar los usuarios", "error", "Error!");
       }
     );
   }
 
-  async tableColumns(colection) {
+  filtrado(coleccion) {
+    let temporal: any[] = [];
+    coleccion.map((item) => {
+      if (item.rol == 1) {
+        item.rol = "Admin";
+        temporal.push(item);
+      } else if (item.rol == 2) {
+        item.rol = "Vend";
+        temporal.push(item);
+      }
+    });
+    this.data = coleccion;
+    return temporal;
+  }
+
+  /*tableColumns(colection) {
     colection.map((usuario) => {
       let User: Usuarios = {
         apellido: usuario.apellido,
@@ -98,7 +119,7 @@ export class UsersComponent implements OnInit {
       this.column = this.temp;
       this.spinner.hide();
     });
-  }
+  }*/
 
   buildForm() {
     this.form = this.formBuilder.group({
@@ -117,6 +138,7 @@ export class UsersComponent implements OnInit {
       email: new FormControl("", [
         Validators.required,
         Validators.minLength(1),
+        Validators.pattern(environment.emailPatter),
       ]),
       direccion: new FormControl("", [
         Validators.required,
@@ -155,9 +177,11 @@ export class UsersComponent implements OnInit {
         console.log("Parece que si");
         this.display = false;
         this.cargar();
+        this.showMessage("Usuario creado exitósamente", "success", "Agregado!");
       })
       .catch((err) => {
         console.log(err);
+        this.showMessage("Error al agregar el usuario", "error", "Error!");
       });
   }
 
@@ -168,10 +192,10 @@ export class UsersComponent implements OnInit {
 
   guardarRol(rol: Number) {
     if (rol == 1) {
-      this.rolName = "admin";
+      this.rolName = "Administrador";
       this.rol = 1;
     } else {
-      this.rolName = "vendedor";
+      this.rolName = "Vendedor";
       this.rol = 2;
     }
   }
@@ -205,6 +229,7 @@ export class UsersComponent implements OnInit {
       })
       .catch((err) => {
         console.log(err);
+        this.edit = false;
       });
   }
 
@@ -215,11 +240,70 @@ export class UsersComponent implements OnInit {
       .toPromise()
       .then((data) => {
         console.log("here we comes ");
-
         this.cargar();
+        this.showMessage(
+          "Usuario eliminado exitósamente",
+          "success",
+          "Eliminado!"
+        );
       })
       .catch((err) => {
         console.log(err);
+        this.showMessage("Error al eliminar el usuario", "error", "Error!");
       });
+  }
+
+  public getError(controlName: string): string {
+    let field: string;
+    // console.log(this.form.controls);
+    const control = this.form.get(controlName);
+    if ((control.touched || control.dirty) && control.errors != null) {
+      if (control.errors.required != null) {
+        field = controlName;
+        if (controlName === "nombre") {
+          field = "Nombre";
+        } else if (controlName === "telefono") {
+          field = "Teléfono";
+        } else if (controlName === "email") {
+          field = "Email";
+        } else if (controlName === "direccion") {
+          field = "Dirección";
+        } else if (controlName === "cedula") {
+          field = "Cédula";
+        } else if (controlName === "apellido") {
+          field = "Apellido";
+        }
+        return "El campo " + field + " es requerido.";
+      }
+      if (control.errors.pattern != null) {
+        if (controlName === "telefono") {
+          field = "Teléfono";
+        } else if (controlName === "email") {
+          field = "Email";
+        } else if (controlName === "cedula") {
+          field = "Cédula";
+        }
+        return "Ingrese un " + field + " válido";
+      }
+    }
+    return "";
+  }
+
+  showMessage(mensaje: string, tipo: string, titulo: string) {
+    this.messageService.add({
+      severity: tipo,
+      summary: titulo,
+      detail: mensaje,
+      life: 4000,
+    });
+  }
+
+  confirmarEliminar(cedula: string) {
+    this.confirmationService.confirm({
+      message: "¿Est&aacute; seguro que deseas eliminar el usuario?",
+      accept: () => {
+        this.EliminarUser(cedula);
+      },
+    });
   }
 }

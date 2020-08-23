@@ -51,3 +51,12 @@ td{
 a:hover{
   background-color: rgba(29, 185, 185, 0.356);
 }
+
+.form-label{
+  font-weight: bold;
+}
+
+.requared{
+  font-weight: bold;
+  color: red;
+}

@@ -91,7 +91,7 @@ export class DeliveryOrderComponent implements OnInit {
     this.loginApi = this.authDeliveryman.loginToApi(environment.emailRepartidor,environment.passwRReartidor).subscribe( (item: any) => {
       this.token = item.token;
     }, ( err ) => {
-      console.log(err);
+      this.errorMessage("No se pudo acceder al api, recargue la página");
     });
   }
 
@@ -133,6 +133,7 @@ export class DeliveryOrderComponent implements OnInit {
   }
 
   finalOrder(pedidoCulminado) {
+    this.spinner.show();
     this.pedidoidDelRepartidor = pedidoCulminado.idPedido;
     this.pedidoDelRepartidor = pedidoCulminado;
     this.display = true;
@@ -140,12 +141,10 @@ export class DeliveryOrderComponent implements OnInit {
       this.pedidoCambiaEstado = data[0];
     },
     (err) => {
-      alert('Hubo un problema al cargar los pedidos');
+      this.errorMessage("No se pudo cargar los pedidos, vuelva a refrescar la página");
     });
-    this.spinner.show();
     this.verCompraApi = this.purchase.getPurchase(this.token).subscribe( (item: any) =>{
       this.cantidadCompras = item.length;
-      //console.log("cantidad de compra generada en ngoninit: ", this.cantidadCompras);
       this.spinner.hide();
     });
   }
@@ -204,11 +203,9 @@ export class DeliveryOrderComponent implements OnInit {
         this.display = false;
       })
       .catch((err: any) => {
-        alert('Hubo un problema al finalizar el pedido ');
+        this.errorMessage("No se pudo realizar enviar la novedad, vuelva a intentarlo");
       });
     }
-    //pedido.estadoDelPedido = 3;
-    //this.cambiarEstadoPedido = this.orderService.updatePedidos(pedido);
     for (let i = 0 ; i < this.dato.length; i++) {
       if (this.dato[i].idPedido === pedido.idPedido) {
         this.dato.splice(i, 1);
@@ -216,9 +213,12 @@ export class DeliveryOrderComponent implements OnInit {
     }
     this.updateRpartidor = this.deliveryManService.updateDeliveryMan(this.repartidor);
     let productoApi: string = '';
+    let cantidadApi: string = '';
     for (let i = 0 ; i < pedido.productos.length; i++) {
       productoApi = productoApi + pedido.productos[i] + ',';
+      cantidadApi += pedido.cantidades[i] + ',';
     }
+    cantidadApi = cantidadApi.substring(0, cantidadApi.length - 1);
     productoApi = productoApi.substring(0, productoApi.length - 1);
     const idCompraApi = this.cantidadCompras + 1 ;
     const compraNueva = {
@@ -226,17 +226,17 @@ export class DeliveryOrderComponent implements OnInit {
       idusuario: pedido.idUsuario,
       entregaDomocilio: pedido.isDomicilio,
     }
-    this.crearCompraApi = this.purchase.createPurchase(this.token,compraNueva).subscribe((item: any) =>{
+    this.crearCompraApi = this.purchase.createPurchase(this.token, compraNueva).subscribe((item: any) =>{
       this.confirmationAction('compra');
     }, (err)=>{
-      this.errorAction('compra');
+      this.errorMessage("No se pudo realizar la compra, vuelva a intentarlo");
     });
     this.cantidadTotalProductosxPedido = pedido.cantidades.reduce( (a, b) => a + b , 0);
     const pedidoNuevo = {
       idpedido: null,
       idcompra: idCompraApi,
       idproducto: productoApi,
-      cantidad: this.cantidadTotalProductosxPedido,
+      cantidad: cantidadApi,
       subtotal: pedido.total,
       cubiertos: pedido.cubiertos,
       estado: '3',
@@ -245,7 +245,7 @@ export class DeliveryOrderComponent implements OnInit {
       this.confirmationAction('pedido');
     },
     error => {
-      this.errorAction('pedido');
+      this.errorMessage("No se pudo realizar el pedido, vuelva a intentarlo");
     });
     this.display = false;
     this.deleteOrder = this.orderService.deletePedido(pedido.idPedido);
@@ -267,16 +267,12 @@ export class DeliveryOrderComponent implements OnInit {
       {severity: 'success', summary: 'CONFIRMACIÓN',
       detail: mensaje, life: 1500 });
   }
-  errorAction(data : string) {
-    let mensaje = '';
-    if(data === 'compra') {
-      mensaje = 'La compra no se pudo realizar';
-    } else if (data === 'pedido') {
-      mensaje = 'El pedido no se pudo realizar';
-    }
+
+
+  errorMessage(mensaje: string) {
     this.messageService.add(
-      {severity: 'danger', summary: 'ERROR',
-      detail: mensaje, life: 1500 });
+      {severity: 'warning', summary: 'Mensaje de error',
+      detail: mensaje, life: 2000 });
   }
 
 }
