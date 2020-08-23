@@ -27,6 +27,7 @@ table {
     font-size: 1.25rem;
     font-weight: bold;
     margin-bottom: 10px;
+    background-color:#91CCDD;
     color: white;
     padding: 5px;
 }
@@ -51,7 +52,7 @@ td{
   font-weight: bold;
   margin-top: 10px;
   margin-bottom: 5px;
-  background-color:#ea4643;
+  background-color:#91CCDD;
   color: white;
   padding: 5px;
 }
@@ -70,4 +71,9 @@ td{
 
 .tableOrder{
   margin-top: 10px;
+}
+
+.changeStatus{
+  background-color:#91CCDD;
+  border: none;
 }

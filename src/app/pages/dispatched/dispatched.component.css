@@ -27,7 +27,7 @@ cursor: pointer;
   font-size: 1.25rem;
   font-weight: bold;
   margin-bottom: 10px;
-  background-color:#ea4643;
+  background-color:#91CCDD;
   color: white;
   padding: 5px;
 }
@@ -43,7 +43,7 @@ font-size: 1.25rem;
 font-weight: bold;
 margin-top: 10px;
 margin-bottom: 5px;
-background-color:#ea4643;
+background-color:#91CCDD;
 color: white;
 padding: 5px;
 }
@@ -69,4 +69,8 @@ td {
   margin-left: auto;
   align-content: center;
   align-self: center;
+}
+
+.tituloCampo{
+  text-align: center;
 }

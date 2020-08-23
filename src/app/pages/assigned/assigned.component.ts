@@ -1,15 +1,16 @@
-import { Component, OnInit } from "@angular/core";
-import { PedidoService } from "app/core/services/pedido/pedido.service";
-import { DeliverymanService } from "app/core/services/deliverman/deliveryman.service";
-import { Orders } from "app/core/interface/orders";
-import { AuthService } from "app/core/services/auth/auth.service";
-import { HttpClient } from "@angular/common/http";
-import { environment } from "environments/environment";
-import { MessageService } from "primeng/api";
-import { ConfirmationService } from "primeng/api";
-import { Deliveryman } from "app/core/interface/deliveryman";
-import { Producto } from "app/core/models/producto";
-import { ProductoService } from "app/core/services/product/producto.service";
+import { Component, OnInit } from '@angular/core';
+import { PedidoService } from 'app/core/services/pedido/pedido.service';
+import { DeliverymanService } from 'app/core/services/deliverman/deliveryman.service';
+import { Orders } from 'app/core/interface/orders';
+import { AuthService } from 'app/core/services/auth/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment';
+import { MessageService } from 'primeng/api';
+import {ConfirmationService} from 'primeng/api';
+import { Deliveryman } from 'app/core/interface/deliveryman';
+import { Producto } from 'app/core/models/producto';
+import { ProductoService } from 'app/core/services/product/producto.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: "app-assigned",
   templateUrl: "./assigned.component.html",
@@ -38,6 +39,7 @@ export class AssignedComponent implements OnInit {
   constructor(
     private pedidoService: PedidoService,
     private http: HttpClient,
+    private spinner: NgxSpinnerService,
     private messageService: MessageService,
     private deliveryManService: DeliverymanService,
     private productService: ProductoService,
@@ -46,11 +48,11 @@ export class AssignedComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.pedidosAsignadosSubscribe = this.pedidoService
-      .getPedidosByEstado(1)
-      .subscribe((item: any) => {
-        this.pedidosDomicilioAsignados = item;
-      });
+    this.spinner.show();
+    this.pedidosAsignadosSubscribe = this.pedidoService.getPedidosByEstado(1).subscribe((item: any) => {
+      this.pedidosDomicilioAsignados = item;
+      this.spinner.hide();
+    });
 
     this.productosSubscribe = this.productService
       .getProductos()
