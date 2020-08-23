@@ -46,14 +46,13 @@ var DeliveryOrderComponent = /** @class */ (function () {
             _this.dato = data[0]['pedidos'];
             _this.helloDialog(_this.repartidor);
             _this.spinner.hide();
+        }, function (error) {
+            _this.errorMessage('No se pudo cargar los pedidos');
         });
         this.productosSubscribe = this.productService.getProductos().subscribe(function (item) {
             _this.productos = item;
-        });
-        this.loginApi = this.authDeliveryman.loginToApi(environment_1.environment.emailRepartidor, environment_1.environment.passwRReartidor).subscribe(function (item) {
-            _this.token = item.token;
-        }, function (err) {
-            _this.errorMessage("No se pudo acceder al api, recargue la página");
+        }, function (error) {
+            _this.errorMessage('No se pudo cargar los productos de los pedidos');
         });
     };
     // tslint:disable-next-line: use-life-cycle-interface
@@ -101,11 +100,17 @@ var DeliveryOrderComponent = /** @class */ (function () {
         this.obtenerpedido = this.orderService.getPedidosByPedidoId(this.pedidoidDelRepartidor).subscribe(function (data) {
             _this.pedidoCambiaEstado = data[0];
         }, function (err) {
-            _this.errorMessage("No se pudo cargar los pedidos, vuelva a refrescar la página");
+            _this.errorMessage('No se pudo cargar los pedidos');
         });
         this.verCompraApi = this.purchase.getPurchase(this.token).subscribe(function (item) {
             _this.cantidadCompras = item.length;
             _this.spinner.hide();
+        });
+        this.loginApi = this.authDeliveryman.loginToApi(environment_1.environment.emailRepartidor, environment_1.environment.passwRReartidor).subscribe(function (item) {
+            _this.token = item.token;
+            console.log(_this.token);
+        }, function (err) {
+            _this.errorMessage('No se pudo acceder al api');
         });
     };
     DeliveryOrderComponent.prototype.detailsProducts = function (productos, cantidades) {
@@ -155,7 +160,7 @@ var DeliveryOrderComponent = /** @class */ (function () {
             this.enviarNovedad = this.noveltyDelivermanService.pushPedidoFinal(this.ordenFinalizada).then(function (data) {
                 _this.display = false;
             })["catch"](function (err) {
-                _this.errorMessage("No se pudo realizar enviar la novedad, vuelva a intentarlo");
+                _this.errorMessage('No se pudo realizar enviar la novedad');
             });
         }
         for (var i = 0; i < this.dato.length; i++) {
@@ -181,7 +186,7 @@ var DeliveryOrderComponent = /** @class */ (function () {
         this.crearCompraApi = this.purchase.createPurchase(this.token, compraNueva).subscribe(function (item) {
             _this.confirmationAction('compra');
         }, function (err) {
-            _this.errorMessage("No se pudo realizar la compra, vuelva a intentarlo");
+            _this.errorMessage('No se pudo realizar la compra');
         });
         this.cantidadTotalProductosxPedido = pedido.cantidades.reduce(function (a, b) { return a + b; }, 0);
         var pedidoNuevo = {
@@ -196,7 +201,7 @@ var DeliveryOrderComponent = /** @class */ (function () {
         this.crearPedidoApi = this.orderService.setPedidosToDispatched(this.token, pedidoNuevo).subscribe(function (item) {
             _this.confirmationAction('pedido');
         }, function (error) {
-            _this.errorMessage("No se pudo realizar el pedido, vuelva a intentarlo");
+            _this.errorMessage('No se pudo realizar el pedido');
         });
         this.display = false;
         this.deleteOrder = this.orderService.deletePedido(pedido.idPedido);
@@ -217,7 +222,7 @@ var DeliveryOrderComponent = /** @class */ (function () {
             detail: mensaje, life: 1500 });
     };
     DeliveryOrderComponent.prototype.errorMessage = function (mensaje) {
-        this.messageService.add({ severity: 'warning', summary: 'Mensaje de error',
+        this.messageService.add({ severity: 'error', summary: 'Error!',
             detail: mensaje, life: 2000 });
     };
     DeliveryOrderComponent = __decorate([

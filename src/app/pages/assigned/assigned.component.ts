@@ -11,10 +11,11 @@ import { Deliveryman } from 'app/core/interface/deliveryman';
 import { Producto } from 'app/core/models/producto';
 import { ProductoService } from 'app/core/services/product/producto.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { error } from 'protractor';
 @Component({
-  selector: "app-assigned",
-  templateUrl: "./assigned.component.html",
-  styleUrls: ["./assigned.component.css"],
+  selector: 'app-assigned',
+  templateUrl: './assigned.component.html',
+  styleUrls: ['./assigned.component.css'],
   providers: [MessageService],
 })
 export class AssignedComponent implements OnInit {
@@ -52,18 +53,23 @@ export class AssignedComponent implements OnInit {
     this.pedidosAsignadosSubscribe = this.pedidoService.getPedidosByEstado(1).subscribe((item: any) => {
       this.pedidosDomicilioAsignados = item;
       this.spinner.hide();
+    },error => {
+      this.showAlert('No se pudo cargar los pedidos');
     });
-
     this.productosSubscribe = this.productService
       .getProductos()
       .subscribe((item: any) => {
         this.productos = item;
-      });
+    },error => {
+      this.showAlert('No se pudo cargar los productos de los pedidos');
+    });
     this.repartidoresSubscribe = this.deliveryManService
       .getRepartidores()
       .subscribe((item: any) => {
         this.listaRepartidores = item;
-      });
+    },error => {
+      this.showAlert('No se pudo cargar el detalle de los repartidores');
+    });
   }
   viewMoreInformationDelivery(pedidosAsignados: Orders) {
     this.displayDeliveryman = true;
@@ -71,13 +77,13 @@ export class AssignedComponent implements OnInit {
       for (let j = 0; j < this.listaRepartidores[i].pedidos.length; j++) {
         if (
           pedidosAsignados.idPedido ===
-          this.listaRepartidores[i].pedidos[j]["idPedido"]
+          this.listaRepartidores[i].pedidos[j]['idPedido']
         ) {
           this.repartidorxPedido = this.listaRepartidores[i];
         }
       }
     }
-    //console.log(this.repartidorxPedido);
+    // console.log(this.repartidorxPedido);
     this.nombreRepartidor = this.repartidorxPedido.nombre;
     this.apellidoRepartidor = this.repartidorxPedido.apellido;
     this.cedulaRepartidor = this.repartidorxPedido.cedula;
@@ -105,21 +111,29 @@ export class AssignedComponent implements OnInit {
   sendOrder(pedidosAsignados) {
     console.log(pedidosAsignados);
     this.confirmationService.confirm({
-      header: "Confirmación de pedido en camino",
-      message: "¿Estás seguro de realizar esta acción?",
+      header: 'Confirmación de pedido en camino',
+      message: '¿Estás seguro de realizar esta acción?',
       accept: () => {
         this.pedido = pedidosAsignados;
         this.pedido.estadoDelPedido = 2;
         this.pedidoService.updatePedidos(this.pedido);
-        this.showSuccess();
+        this.showSuccess('El pedido se está enviando');
       },
     });
   }
-  showSuccess() {
+  showSuccess(mensaje: string) {
     this.messageService.add({
-      severity: "success",
-      summary: "Mensaje de confirmación",
-      detail: "El pedido está en camino",
+      severity: 'success',
+      summary: 'Enviando!',
+      detail: mensaje,
+      life: 2000,
+    });
+  }
+  showAlert(mensaje: string) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error!',
+      detail: mensaje,
       life: 2000,
     });
   }

@@ -22,7 +22,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   providers: [MessageService]
 })
 export class OnHoldComponent implements OnInit {
-  loading= true;
+  loading = true;
   display = false;
   productos: Producto[];
   listaClientes: Usuarios[];
@@ -44,7 +44,7 @@ export class OnHoldComponent implements OnInit {
   disabledButtonEraser = true;
   fechaActual = new Date();
   permiso;
-  cantidadCompras : number = 0;
+  cantidadCompras = 0;
   private pedidosDomicilioSuscribe;
   private pedidosLocalSuscribe;
   private repartidoresSuscribe;
@@ -65,11 +65,11 @@ export class OnHoldComponent implements OnInit {
     private purchase: PurchaseService,
     private seguridadService: SeguridadService,
     private spinner: NgxSpinnerService,
-    private confirmationService: ConfirmationService) { 
-      this.permiso = this.seguridadService.encriptar(this.token);
+    private confirmationService: ConfirmationService) {
     }
 
   ngOnInit() {
+    this.permiso = this.seguridadService.encriptar(this.token);
     this.spinner.show();
     this.pedidosDomicilio = [];
     this.pedidosLocal = [];
@@ -77,6 +77,8 @@ export class OnHoldComponent implements OnInit {
     this.listaPedidos = [];
     this.pedidosDomicilioSuscribe = this.pedidoService.getPedidosByEstadoByTipo(0 , true).subscribe((item: any) => {
       this.pedidosDomicilio = item;
+    }, error => {
+      this.errorMessage('No se pudo cargar los pedidos a domicilio');
     });
     this.pedidosLocalSuscribe = this.pedidoService.getPedidosByEstadoByTipo(0 , false).subscribe((item: any) => {
       this.pedidosLocal = item;
@@ -89,15 +91,23 @@ export class OnHoldComponent implements OnInit {
         }
       }
       this.spinner.hide();
+    }, error => {
+      this.errorMessage('No se pudo cargar los pedidos en local');
     });
     this.repartidoresSuscribe = this.deliveryManService.getRepartidores().subscribe((item: any) => {
       this.repartidores = item;
+    }, error => {
+      this.errorMessage('No se pudo cargar los repartidores');
     });
     this.productosSubscribe = this.productService.getProductos().subscribe((item: any ) => {
       this.productos = item;
+    }, error => {
+      this.errorMessage('No se pudo cargar los productos de los pedidos');
     });
     this.clientexIdSubscribe = this.userService.usuarios(this.token).subscribe((item: any) => {
       this.listaClientes = item;
+    }, error => {
+      this.errorMessage('No se pudo cargar los clientes');
     });
   }
 
@@ -151,8 +161,8 @@ export class OnHoldComponent implements OnInit {
   changeState(pedido: Orders) {
     this.pedido = pedido;
     console.log(this.pedido.cantidades);
-    let productoApi: string = '';
-    let cantidadApi: string = '';
+    let productoApi = '';
+    let cantidadApi = '';
     for (let i = 0 ; i < this.pedido.productos.length; i++) {
       productoApi +=  this.pedido.productos[i] + ',';
       cantidadApi += this.pedido.cantidades[i] + ',';
@@ -165,12 +175,10 @@ export class OnHoldComponent implements OnInit {
       entregaDomocilio: this.pedido.isDomicilio,
     }
     this.crearCompraApi = this.purchase.createPurchase(this.token, compraNueva).subscribe( item => {
-      console.log(item);
       this.spinner.hide();
     },
     error => {
-      this.errorMessage("No se pudo realizar la compra, vuelva a intentarlo");
-      console.log(error);
+      this.errorMessage('No se pudo realizar la compra');
     });
     this.cantidadTotalProductosxPedido = this.pedido.cantidades.reduce( (a, b) => a + b , 0);
     const idCompraApi = this.cantidadCompras + 1 ;
@@ -184,11 +192,10 @@ export class OnHoldComponent implements OnInit {
       estado: '3',
     }
     this.crearPedidoApi = this.pedidoService.setPedidosToDispatched(this.token, pedidoNuevo).subscribe( item => {
-      console.log(item);
+      this.showSuccess('local');
     },
     error => {
-      this.errorMessage("No se pudo realizar el pedido, vuelva a intentarlo");
-      console.log(error);
+      this.errorMessage('No se pudo realizar el pedido');
     });
     this.showSuccess('local');
 
@@ -230,16 +237,15 @@ export class OnHoldComponent implements OnInit {
     let direccion;
     let coordenadas;
     const telefono = repartidor.telefono;
-    const telefono2 = '593995248654';
     const url_prueba = 'http://localhost:4200/deliveryman';
     if (this.pedido.direccionEntrega === 'S') {
       json = JSON.parse(JSON.stringify(cliente.direccion));
       direccion = JSON.parse(json);
-      console.log('vieja: ',direccion);
+      console.log('vieja: ', direccion);
     } else {
       json = JSON.parse(JSON.stringify(this.pedido.direccionEntrega));
       direccion = JSON.parse(json);
-      console.log('nueva: ',direccion);
+      console.log('nueva: ', direccion);
     }
     coordenadas = direccion.coordenadas.split(',');
     const mapa = 'https://www.google.com/maps/search/?api=1%26query=' + coordenadas[1] + ',' + coordenadas[0];
@@ -247,7 +253,7 @@ export class OnHoldComponent implements OnInit {
       'Hola ' + repartidor.nombre + ', el código del pedido es *' + this.pedido.idPedido +
       '*, el cliente es *' + cliente.nombre + ' ' + cliente.apellido +
       '*, la dirección es ' + direccion.direccion + ', su referencia es ' + direccion.referencia  +
-      ', puedes  ubicarte con: ' +mapa +
+      ', puedes  ubicarte con: ' + mapa +
       ' . Usa este enlace para finalizar el pedido ' + url_prueba ;
     window.open('https://api.whatsapp.com/send?phone=' + telefono + '&text=' + cuerpo_mensaje);
 
@@ -269,7 +275,7 @@ export class OnHoldComponent implements OnInit {
 
   errorMessage(mensaje: string) {
     this.messageService.add(
-      {severity: 'warning', summary: 'Mensaje de error',
+      {severity: 'error', summary: 'Error!',
       detail: mensaje, life: 2000 });
   }
 
@@ -280,15 +286,15 @@ export class OnHoldComponent implements OnInit {
   }
 
   confirm(pedido: Orders) {
-    this.verCompraApi = this.purchase.getPurchase(this.token).subscribe( (item: any) =>{
+    this.spinner.show();
+    this.verCompraApi = this.purchase.getPurchase(this.token).subscribe( (item: any) => {
       this.cantidadCompras = item.length;
-      console.log("cantidad de compra generada en ngoninit: ", this.cantidadCompras);
+      this.spinner.hide();
     });
     this.confirmationService.confirm({
         header: 'Enviar el pedido a Pedidos Despachados',
-        message: '¿Estás seguro de realizar esta acción?',
+        message: '¿Deseas realizar esta acción?',
         accept: () => {
-          this.spinner.show();
           this.changeState(pedido);
           this.deleteOrder = this.pedidoService.deletePedido(this.pedido.idPedido);
         }
@@ -298,11 +304,9 @@ export class OnHoldComponent implements OnInit {
   eraserOrder(pedido: Orders) {
     this.confirmationService.confirm({
       header: 'Eliminar pedido',
-      message: '¿Está seguro que el pedido no fue retirado?',
+      message: '¿Estás seguro que el pedido no fue retirado?',
       accept: () => {
         this.pedido = pedido;
-        /*this.pedido.estadoDelPedido = 4;
-        this.pedidoService.updatePedidos(this.pedido);*/
         this.deleteOrder = this.pedidoService.deletePedido(pedido.idPedido);
         this.showSuccess('eliminar');
       }

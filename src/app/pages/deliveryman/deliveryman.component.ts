@@ -60,19 +60,9 @@ export class DeliverymanComponent implements OnInit {
             }
           },
           (err) => {
-            this.showDialog('Algo salió mal');
+            this.showDialog('No se pudo verificar el usuario');
           }
         );
-      /*this.login = this.auth.loginToApi(environment.emailRepartidor,environment.passwRReartidor).subscribe( (item: any) => {
-        this.auth.token = {
-          refreshToken: item.refreshToken,
-          token: item.token,
-        };
-        this.auth.doLoginUser(this.auth.token);
-        console.log(item);
-      },(err) => {
-        console.log(err);
-      });*/
     } else {
       this.showDialog('El formulario es inválido');
     }
@@ -93,8 +83,9 @@ export class DeliverymanComponent implements OnInit {
   }
 
   showDialog(value: string) {
+    this.messageService.clear();
     this.messageService.add(
-      {severity: 'error', summary: 'Mensaje de error',
+      {severity: 'error', summary: 'Error!',
       detail: value, life: 2000 });
   }
 }

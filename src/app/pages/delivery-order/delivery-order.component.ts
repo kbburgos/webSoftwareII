@@ -42,7 +42,7 @@ export class DeliveryOrderComponent implements OnInit {
   private actual = new Date();
   horaRetiro: any = new Date().setMinutes(this.actual.getMinutes());
   token: any;
-  cantidadCompras : number = 0;
+  cantidadCompras = 0;
   private deliveryman;
   private obtenerpedido;
   private productosSubscribe;
@@ -84,14 +84,13 @@ export class DeliveryOrderComponent implements OnInit {
       this.dato = data[0]['pedidos'];
       this.helloDialog(this.repartidor);
       this.spinner.hide();
+    }, error =>{
+      this.errorMessage('No se pudo cargar los pedidos');
     });
     this.productosSubscribe = this.productService.getProductos().subscribe((item: any ) => {
       this.productos = item;
-    });
-    this.loginApi = this.authDeliveryman.loginToApi(environment.emailRepartidor,environment.passwRReartidor).subscribe( (item: any) => {
-      this.token = item.token;
-    }, ( err ) => {
-      this.errorMessage("No se pudo acceder al api, recargue la página");
+    }, error =>{
+      this.errorMessage('No se pudo cargar los productos de los pedidos');
     });
   }
 
@@ -141,11 +140,17 @@ export class DeliveryOrderComponent implements OnInit {
       this.pedidoCambiaEstado = data[0];
     },
     (err) => {
-      this.errorMessage("No se pudo cargar los pedidos, vuelva a refrescar la página");
+      this.errorMessage('No se pudo cargar los pedidos');
     });
-    this.verCompraApi = this.purchase.getPurchase(this.token).subscribe( (item: any) =>{
+    this.verCompraApi = this.purchase.getPurchase(this.token).subscribe( (item: any) => {
       this.cantidadCompras = item.length;
       this.spinner.hide();
+    });
+    this.loginApi = this.authDeliveryman.loginToApi(environment.emailRepartidor, environment.passwRReartidor).subscribe( (item: any) => {
+      this.token = item.token;
+      console.log(this.token);
+    }, ( err ) => {
+      this.errorMessage('No se pudo acceder al api');
     });
   }
 
@@ -203,7 +208,7 @@ export class DeliveryOrderComponent implements OnInit {
         this.display = false;
       })
       .catch((err: any) => {
-        this.errorMessage("No se pudo realizar enviar la novedad, vuelva a intentarlo");
+        this.errorMessage('No se pudo realizar enviar la novedad');
       });
     }
     for (let i = 0 ; i < this.dato.length; i++) {
@@ -212,8 +217,8 @@ export class DeliveryOrderComponent implements OnInit {
       }
     }
     this.updateRpartidor = this.deliveryManService.updateDeliveryMan(this.repartidor);
-    let productoApi: string = '';
-    let cantidadApi: string = '';
+    let productoApi = '';
+    let cantidadApi = '';
     for (let i = 0 ; i < pedido.productos.length; i++) {
       productoApi = productoApi + pedido.productos[i] + ',';
       cantidadApi += pedido.cantidades[i] + ',';
@@ -226,10 +231,10 @@ export class DeliveryOrderComponent implements OnInit {
       idusuario: pedido.idUsuario,
       entregaDomocilio: pedido.isDomicilio,
     }
-    this.crearCompraApi = this.purchase.createPurchase(this.token, compraNueva).subscribe((item: any) =>{
+    this.crearCompraApi = this.purchase.createPurchase(this.token, compraNueva).subscribe((item: any) => {
       this.confirmationAction('compra');
-    }, (err)=>{
-      this.errorMessage("No se pudo realizar la compra, vuelva a intentarlo");
+    }, (err) => {
+      this.errorMessage('No se pudo realizar la compra');
     });
     this.cantidadTotalProductosxPedido = pedido.cantidades.reduce( (a, b) => a + b , 0);
     const pedidoNuevo = {
@@ -245,20 +250,20 @@ export class DeliveryOrderComponent implements OnInit {
       this.confirmationAction('pedido');
     },
     error => {
-      this.errorMessage("No se pudo realizar el pedido, vuelva a intentarlo");
+      this.errorMessage('No se pudo realizar el pedido');
     });
     this.display = false;
     this.deleteOrder = this.orderService.deletePedido(pedido.idPedido);
   }
 
-  logOut(){
+  logOut() {
     this.authDeliveryman.removeTokens();
     this.router.navigate(['deliveryman']);
 
   }
   confirmationAction( data: string) {
     let mensaje = '';
-    if(data === 'compra') {
+    if (data === 'compra') {
       mensaje = 'La compra finalizó con éxito';
     } else if (data === 'pedido') {
       mensaje = 'El pedido finalizó con éxito';
@@ -271,7 +276,7 @@ export class DeliveryOrderComponent implements OnInit {
 
   errorMessage(mensaje: string) {
     this.messageService.add(
-      {severity: 'warning', summary: 'Mensaje de error',
+      {severity: 'error', summary: 'Error!',
       detail: mensaje, life: 2000 });
   }
 

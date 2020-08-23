@@ -5,11 +5,13 @@ import { ProductoService } from 'app/core/services/product/producto.service';
 import { Producto } from 'app/core/models/producto';
 import { OrdersDispatched } from 'app/core/interface/ordersDispatched';
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import { MessageService } from 'primeng/api';
+import {ConfirmationService} from 'primeng/api';
 @Component({
   selector: 'app-dispatched',
   templateUrl: './dispatched.component.html',
   styleUrls: ['./dispatched.component.css'],
+  providers: [MessageService]
 })
 export class DispatchedComponent implements OnInit {
   token = this.auhtService.getJwtToken();
@@ -25,16 +27,21 @@ export class DispatchedComponent implements OnInit {
     private auhtService: AuthService,
     private productService: ProductoService,
     private spinner: NgxSpinnerService,
+    private messageService: MessageService
     ) {}
 
   ngOnInit() {
     this.spinner.show();
     this.pedidosDespachados = this.pedidosService.getPedidosDispatchedFromApi(this.token).subscribe( (item: any) => {
       this.pedidosDeApi = item;
+    }, error =>{
+      this.showMessage('No se pudo cargar los pedidos');
     });
     this.productosSubscribe = this.productService.getProductos().subscribe((item: any ) => {
       this.productos = item;
       this.spinner.hide();
+    }, error =>{
+      this.showMessage('No se pudo cargar los productos de los pedidos');
     });
   }
 
@@ -57,7 +64,6 @@ export class DispatchedComponent implements OnInit {
     }
     // tslint:disable-next-line: radix
     this.cantidadTotalProductosxPedido = cantidadxProducto.reduce( (a, b) => parseInt(a) + parseInt(b) , 0);
-    // this.cantidadTotalProductosxPedido = cantidades;
   }
 
   // tslint:disable-next-line: use-life-cycle-interface
@@ -69,6 +75,13 @@ export class DispatchedComponent implements OnInit {
       this.pedidosDespachados.unsubscribe();
     }
   }
+
+  showMessage(mensaje: string) {
+    this.messageService.add(
+      {severity: 'error', summary: 'Error!',
+      detail: mensaje, life: 2000 });
+  }
+
 
 }
 
