@@ -72,3 +72,8 @@ td{
 .tableOrder{
   margin-top: 10px;
 }
+
+.changeStatus{
+  background-color:#91CCDD;
+  border: none;
+}

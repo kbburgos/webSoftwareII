@@ -149,7 +149,6 @@ export class OnHoldComponent implements OnInit {
   }
 
   changeState(pedido: Orders) {
-    
     this.pedido = pedido;
     console.log(this.pedido.cantidades);
     let productoApi: string = '';
@@ -157,7 +156,6 @@ export class OnHoldComponent implements OnInit {
     for (let i = 0 ; i < this.pedido.productos.length; i++) {
       productoApi +=  this.pedido.productos[i] + ',';
       cantidadApi += this.pedido.cantidades[i] + ',';
-      console.log("cantidad del for: ",cantidadApi, this.pedido.cantidades[i] );
     }
     cantidadApi = cantidadApi.substring(0, cantidadApi.length - 1);
     productoApi = productoApi.substring(0, productoApi.length - 1);
