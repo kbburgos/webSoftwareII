@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { PedidoService } from 'app/core/services/pedido/pedido.service';
-import { DeliverymanService } from 'app/core/services/deliverman/deliveryman.service';
-import { Orders } from 'app/core/interface/orders';
-import { AuthService } from 'app/core/services/auth/auth.service';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'environments/environment';
-import { MessageService } from 'primeng/api';
-import {ConfirmationService} from 'primeng/api';
-import { Deliveryman } from 'app/core/interface/deliveryman';
-import { Producto } from 'app/core/models/producto';
-import { ProductoService } from 'app/core/services/product/producto.service';
+import { Component, OnInit } from "@angular/core";
+import { PedidoService } from "app/core/services/pedido/pedido.service";
+import { DeliverymanService } from "app/core/services/deliverman/deliveryman.service";
+import { Orders } from "app/core/interface/orders";
+import { AuthService } from "app/core/services/auth/auth.service";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "environments/environment";
+import { MessageService } from "primeng/api";
+import { ConfirmationService } from "primeng/api";
+import { Deliveryman } from "app/core/interface/deliveryman";
+import { Producto } from "app/core/models/producto";
+import { ProductoService } from "app/core/services/product/producto.service";
 @Component({
-  selector: 'app-assigned',
-  templateUrl: './assigned.component.html',
-  styleUrls: ['./assigned.component.css'],
-  providers: [MessageService]
+  selector: "app-assigned",
+  templateUrl: "./assigned.component.html",
+  styleUrls: ["./assigned.component.css"],
+  providers: [MessageService],
 })
 export class AssignedComponent implements OnInit {
   nombreRepartidor: string;
@@ -33,7 +33,7 @@ export class AssignedComponent implements OnInit {
   repartidorxPedido: Deliveryman;
   private pedidosAsignadosSubscribe;
   private repartidoresSubscribe;
-  private productosSubscribe
+  private productosSubscribe;
 
   constructor(
     private pedidoService: PedidoService,
@@ -42,25 +42,35 @@ export class AssignedComponent implements OnInit {
     private deliveryManService: DeliverymanService,
     private productService: ProductoService,
     private confirmationService: ConfirmationService,
-    private authService: AuthService) { }
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.pedidosAsignadosSubscribe = this.pedidoService.getPedidosByEstado(1).subscribe((item: any) => {
-      this.pedidosDomicilioAsignados = item;
-    });
+    this.pedidosAsignadosSubscribe = this.pedidoService
+      .getPedidosByEstado(1)
+      .subscribe((item: any) => {
+        this.pedidosDomicilioAsignados = item;
+      });
 
-    this.productosSubscribe = this.productService.getProductos().subscribe((item: any ) => {
-      this.productos = item;
-    });
-    this.repartidoresSubscribe = this.deliveryManService.getRepartidores().subscribe((item: any) => {
-      this.listaRepartidores = item;
-    });
+    this.productosSubscribe = this.productService
+      .getProductos()
+      .subscribe((item: any) => {
+        this.productos = item;
+      });
+    this.repartidoresSubscribe = this.deliveryManService
+      .getRepartidores()
+      .subscribe((item: any) => {
+        this.listaRepartidores = item;
+      });
   }
   viewMoreInformationDelivery(pedidosAsignados: Orders) {
     this.displayDeliveryman = true;
     for (let i = 0; i < this.listaRepartidores.length; i++) {
-      for (let j = 0; j < this.listaRepartidores[i].pedidos.length; j++ ) {
-        if (pedidosAsignados.idPedido === this.listaRepartidores[i].pedidos[j]['idPedido']) {
+      for (let j = 0; j < this.listaRepartidores[i].pedidos.length; j++) {
+        if (
+          pedidosAsignados.idPedido ===
+          this.listaRepartidores[i].pedidos[j]["idPedido"]
+        ) {
           this.repartidorxPedido = this.listaRepartidores[i];
         }
       }
@@ -75,41 +85,42 @@ export class AssignedComponent implements OnInit {
   detailsProducts(productos: [], cantidades: []) {
     this.displayDetail = true;
     this.listaProductos = [];
-    let  productofinal = {};
-    for (let i = 0 ; i < productos.length; i++) {
-      for (let j = 0 ; j < this.productos.length; j++) {
-        if ( productos[i] === this.productos[j].idProducto ) {
+    let productofinal = {};
+    for (let i = 0; i < productos.length; i++) {
+      for (let j = 0; j < this.productos.length; j++) {
+        if (productos[i] === this.productos[j].idProducto) {
           productofinal = {
-            'producto' : this.productos[j].nombre,
-            'cantidad' :  cantidades[i]
-          }
+            producto: this.productos[j].nombre,
+            cantidad: cantidades[i],
+          };
           this.listaProductos.push(productofinal);
         }
       }
     }
-    this.cantidadTotalProductosxPedido = cantidades.reduce( (a, b) => a + b , 0);
+    this.cantidadTotalProductosxPedido = cantidades.reduce((a, b) => a + b, 0);
   }
 
-  sendOrder(pedidosAsignados){
+  sendOrder(pedidosAsignados) {
     console.log(pedidosAsignados);
     this.confirmationService.confirm({
-      header: 'Confirmación de pedido en camino',
-      message: '¿Estás seguro de realizar esta acción?',
+      header: "Confirmación de pedido en camino",
+      message: "¿Estás seguro de realizar esta acción?",
       accept: () => {
         this.pedido = pedidosAsignados;
         this.pedido.estadoDelPedido = 2;
         this.pedidoService.updatePedidos(this.pedido);
         this.showSuccess();
-      }
+      },
     });
   }
   showSuccess() {
-    this.messageService.add(
-      {severity: 'success', summary: 'Mensaje de confirmación',
-      detail: 'El pedido está en camino', life: 2000 });
+    this.messageService.add({
+      severity: "success",
+      summary: "Mensaje de confirmación",
+      detail: "El pedido está en camino",
+      life: 2000,
+    });
   }
-
-
 
   // tslint:disable-next-line: use-life-cycle-interface
   ngOnDestroy() {
@@ -123,5 +134,4 @@ export class AssignedComponent implements OnInit {
       this.productosSubscribe.unsubscribe();
     }
   }
-
 }

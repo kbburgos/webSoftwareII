@@ -27,7 +27,7 @@
               [responsive]="true"
               sortMode="multiple"
               [paginator]="true"
-              [rows]="10"
+              [rows]="5"
               #dt
             >
               <ng-template pTemplate="header" let-columns>
@@ -67,10 +67,10 @@
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-products>
-                <tr *ngIf="products.idCategoria != 'B9MwktyLd7z4onQIKKAw'">
+                <tr>
                   <td>{{ products.nombre }}</td>
                   <td>{{ products.descripcion }}</td>
-                  <td>{{ products.idCategoria }}</td>
+                  <td>{{ products.categoria }}</td>
                   <td>{{ products.precio }}</td>
                   <td>{{ products.stock }}</td>
                   <td>
@@ -121,11 +121,12 @@
     Nuevo Producto
   </p-header>
 
-  <div class="container-fluid" style="width: 500px;">
-    <div *ngIf="bandera" class="row">
-      <form [formGroup]="form">
-        <div class="form-group col-sm-12">
-          <label>Nombre:</label>
+  <div class="container-fluid" style="width: 400px;">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label class="form-label">Nombre</label>
+          <span class="requared">&nbsp; *</span>
           <input
             type="text"
             class="form-control"
@@ -133,21 +134,11 @@
             placeholder="...Cheessecake de fresa"
           />
         </div>
-        <div class="form-group col-sm-8" style="float: left;">
-          <label>Descripción:</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="descripcion"
-            placeholder="...En dulzado con splenda y fresa"
-          />
-        </div>
-        <br />
-        <div class="form-group col-sm-2" style="float: left;">
+        <div class="col-md-6 form-group">
           <div class="dropdown">
             <button
               href="#"
-              class="btn dropdown-toggle bg-info"
+              class="btn dropdown-toggle bg-primary"
               data-toggle="dropdown"
               aria-expanded="true"
             >
@@ -162,9 +153,25 @@
             </ul>
           </div>
         </div>
+      </div>
 
-        <div class="form-group col-sm-6" style="float: left;">
-          <label>Precio:</label>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label class="form-label">Descripción</label>
+          <span class="requared">&nbsp; *</span>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="descripcion"
+            placeholder="...En dulzado con splenda y fresa"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label class="form-label">Precio</label>
+          <span class="requared">&nbsp; *</span>
           <input
             class="form-control"
             formControlName="precio"
@@ -172,21 +179,16 @@
             step="any"
           />
         </div>
-        <div class="form-group col-sm-6" style="float: left;">
-          <label>Stock:</label>
-          <input
-            type="number"
-            step="any"
-            class="form-control"
-            formControlName="stock"
-          />
+        <div class="col-md-6 form-group">
+          <label class="form-label">Stock</label>
+          <span class="requared">&nbsp; *</span>
+          <input type="number" class="form-control" formControlName="stock" />
         </div>
-      </form>
-      <div class="col-sm-12">
-        <label>Imagen:</label>
-        <br />
-        <br />
-
+      </div>
+    </form>
+    <div class="row">
+      <div class="col-md-12">
+        <label class="form-label">Imagen:</label>
         <p-fileUpload
           *ngIf="!previewUrl"
           multiple="true"
@@ -195,21 +197,23 @@
           accept="image/*"
         >
         </p-fileUpload>
-        <div class="mb-3 text-center" *ngIf="previewUrl">
-          <p-carousel [value]="Urls" [numVisible]="2" [numScroll]="1">
-            <ng-template let-item pTemplate="item">
-              <img [src]="item" class="rounded image-preview" />
-            </ng-template>
-          </p-carousel>
-        </div>
       </div>
-      <br />
-      <br />
+    </div>
+    <div class="row">
+      <div class="mb-3 text-center" *ngIf="previewUrl">
+        <p-carousel [value]="Urls" [numVisible]="2" [numScroll]="1">
+          <ng-template let-item pTemplate="item">
+            <img [src]="item" class="rounded image-preview" />
+          </ng-template>
+        </p-carousel>
+      </div>
+    </div>
 
-      <div class="col-sm-12 button-save">
-        <br />
-        <br />
-        <br />
+    <br />
+    <br />
+
+    <div class="row">
+      <div class="col-md-12 button-save">
         <button
           mat-raised-button
           class="btn btn-success"
@@ -222,7 +226,7 @@
             stock == '' ||
             previewUrl == null
           "
-          class="save"
+          class="secundary"
           (click)="save()"
           pButton
           label="GUARDAR"
@@ -338,11 +342,4 @@
   </div>
 </p-dialog>
 
-<p-dialog
-  header="{{ message.accion }}"
-  [(visible)]="mensaje"
-  position="right"
-  [style]="{ width: '40vw' }"
->
-  <h4>{{ message.mensaje }}</h4>
-</p-dialog>
+<p-toast position="bottom-right"></p-toast>

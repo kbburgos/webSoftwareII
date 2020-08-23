@@ -108,7 +108,6 @@ import { SalesComponent } from './pages/sales/sales.component';
     DeliverymanComponent,
     PromotionNewComponent,
     DeliveryOrderComponent,
-    SalesComponent,
     // CurrentPromotionComponent,
     // OldPromotionComponent,
   ],

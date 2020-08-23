@@ -68,7 +68,8 @@ export class UsersService {
     };
     const hash = this.seguridad.hashJSON(datos);
     datos.hash = hash;
-    console.log(datos);
+    console.log("here I'm", datos);
+    console.log("hello men ", headers)
     const url = environment.rutas.updateUser + datos.cedula;
     return this.http.put(url, datos, { headers });
   }

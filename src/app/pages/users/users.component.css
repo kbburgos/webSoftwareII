@@ -30,3 +30,32 @@ td {
   align-content: center;
   align-self: center;
 }
+
+
+.form-label{
+  font-weight: bold;
+}
+
+.requared{
+  font-weight: bold;
+  color: red;
+}
+
+
+a:hover{
+  background-color: rgba(29, 185, 185, 0.356);
+}
+
+
+.container-error-message {
+  background-color: rgba(241, 6, 6, 0.603);
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.danger-icon {
+  font-size: 1rem;
+  color: white;
+}
+
+

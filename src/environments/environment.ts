@@ -9,6 +9,8 @@ export const environment = {
     email: "",
     rol: 0,
   },
+  phonePatter: "^(09){1}[0-9]{8}$",
+  emailPatter: "^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$",
   production: false,
   firebase: {
     apiKey: 'AIzaSyAiPTePHyltKbiZeyXkuzMHQCfOVSz_Ezo',

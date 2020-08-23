@@ -6,28 +6,28 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 //Components
 import { AdminLayoutRoutes } from './admin-layout.routing';
-import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
-import { OnHoldComponent } from '../../pages/on-hold/on-hold.component';
-import { CurrentPromotionComponent } from '../../pages/current-promotion/current-promotion.component';
-import { OldPromotionComponent } from '../../pages/old-promotion/old-promotion.component'
-import { DispatchedComponent } from '../../pages/dispatched/dispatched.component';
-import { ReportNewsComponent } from '../../pages/report-news/report-news.component';
-import { ReportSalesComponent } from '../../pages/report-sales/report-sales.component';
-import { ReportProductComponent } from '../../pages/report-product/report-product.component';
-import { ProductsComponent } from '../../pages/products/products.component';
-import { PromotionsComponent } from '../../pages/promotions/promotions.component';
-import { UsersComponent } from '../../pages/users/users.component';
-import { CustomersComponent } from '../../pages/customers/customers.component';
-import { ConflictingComponent } from '../../pages/conflicting/conflicting.component';
-import { DeliveryNotificationComponent } from '../../pages/delivery-notification/delivery-notification.component';
-import { UserNotificationComponent } from '../../pages/user-notification/user-notification.component';
-import { ProductNewComponent } from '../../pages/product-new/product-new.component';
+import { DashboardComponent } from 'app/pages/dashboard/dashboard.component';
+import { OnHoldComponent } from 'app/pages/on-hold/on-hold.component';
+import { CurrentPromotionComponent } from 'app/pages/current-promotion/current-promotion.component';
+import { OldPromotionComponent } from 'app/pages/old-promotion/old-promotion.component'
+import { DispatchedComponent } from 'app/pages/dispatched/dispatched.component';
+import { ReportNewsComponent } from 'app/pages/report-news/report-news.component';
+import { ReportSalesComponent } from 'app/pages/report-sales/report-sales.component';
+import { ReportProductComponent } from 'app/pages/report-product/report-product.component';
+import { ProductsComponent } from 'app/pages/products/products.component';
+import { PromotionsComponent } from 'app/pages/promotions/promotions.component';
+import { UsersComponent } from 'app/pages/users/users.component';
+import { CustomersComponent } from 'app/pages/customers/customers.component';
+import { ConflictingComponent } from 'app/pages/conflicting/conflicting.component';
+import { DeliveryNotificationComponent } from 'app/pages/delivery-notification/delivery-notification.component';
+import { UserNotificationComponent } from 'app/pages/user-notification/user-notification.component';
+import { ProductNewComponent } from 'app/pages/product-new/product-new.component';
 
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 //Services
-import{ ProductoService } from '../../core/services/product/producto.service';
-import { PromocionesService } from '../../core/services/product/promociones.service'
+import{ ProductoService } from 'app/core/services/product/producto.service';
+import { PromocionesService } from 'app/core/services/product/promociones.service'
 import { UserInfoService } from 'app/core/services/userInfo/user-info.service';
 
 import {MatButtonModule} from '@angular/material/button';
@@ -68,6 +68,10 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { TokenInterceptorService } from "app/core/services/interceptor/token-interceptor.service"
 import {VirtualScrollerModule} from 'primeng/virtualscroller';
 import {DropdownModule} from 'primeng/dropdown';
+import { SalesComponent } from "app/pages/sales/sales.component"
+
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -125,6 +129,7 @@ import {DropdownModule} from 'primeng/dropdown';
     DeliveryNotificationComponent,
     UserNotificationComponent,
     AssignedComponent,
+    SalesComponent
   ],
   providers: [
     ProductoService,
