@@ -86,7 +86,7 @@ var AssignedComponent = /** @class */ (function () {
         console.log(pedidosAsignados);
         this.confirmationService.confirm({
             header: 'Confirmación de pedido en camino',
-            message: '¿Estás seguro de realizar esta acción?',
+            message: '¿Deseas cambiar el estado del pedido?',
             accept: function () {
                 _this.pedido = pedidosAsignados;
                 _this.pedido.estadoDelPedido = 2;

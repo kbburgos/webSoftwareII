@@ -53,21 +53,21 @@ export class AssignedComponent implements OnInit {
     this.pedidosAsignadosSubscribe = this.pedidoService.getPedidosByEstado(1).subscribe((item: any) => {
       this.pedidosDomicilioAsignados = item;
       this.spinner.hide();
-    },error => {
+    }, error => {
       this.showAlert('No se pudo cargar los pedidos');
     });
     this.productosSubscribe = this.productService
       .getProductos()
       .subscribe((item: any) => {
         this.productos = item;
-    },error => {
+    }, error => {
       this.showAlert('No se pudo cargar los productos de los pedidos');
     });
     this.repartidoresSubscribe = this.deliveryManService
       .getRepartidores()
       .subscribe((item: any) => {
         this.listaRepartidores = item;
-    },error => {
+    }, error => {
       this.showAlert('No se pudo cargar el detalle de los repartidores');
     });
   }
@@ -112,7 +112,7 @@ export class AssignedComponent implements OnInit {
     console.log(pedidosAsignados);
     this.confirmationService.confirm({
       header: 'Confirmación de pedido en camino',
-      message: '¿Estás seguro de realizar esta acción?',
+      message: '¿Deseas cambiar el estado del pedido?',
       accept: () => {
         this.pedido = pedidosAsignados;
         this.pedido.estadoDelPedido = 2;

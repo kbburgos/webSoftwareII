@@ -84,12 +84,12 @@ export class DeliveryOrderComponent implements OnInit {
       this.dato = data[0]['pedidos'];
       this.helloDialog(this.repartidor);
       this.spinner.hide();
-    }, error =>{
+    }, error => {
       this.errorMessage('No se pudo cargar los pedidos');
     });
     this.productosSubscribe = this.productService.getProductos().subscribe((item: any ) => {
       this.productos = item;
-    }, error =>{
+    }, error => {
       this.errorMessage('No se pudo cargar los productos de los pedidos');
     });
   }
@@ -175,7 +175,7 @@ export class DeliveryOrderComponent implements OnInit {
 
   confirm() {
     this.confirmationService.confirm({
-        message: '¿Está seguro?',
+        message: '¿Deseas finalizar el pedido?',
         header: 'Confirmación',
         icon: 'pi pi-exclamation-circle',
         accept: () => {

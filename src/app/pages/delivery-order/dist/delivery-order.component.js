@@ -133,7 +133,7 @@ var DeliveryOrderComponent = /** @class */ (function () {
     DeliveryOrderComponent.prototype.confirm = function () {
         var _this = this;
         this.confirmationService.confirm({
-            message: '¿Está seguro?',
+            message: '¿Deseas finalizar el pedido?',
             header: 'Confirmación',
             icon: 'pi pi-exclamation-circle',
             accept: function () {

@@ -11,29 +11,39 @@ import { ProductoService } from 'app/core/services/product/producto.service';
 import { Producto } from 'app/core/models/producto';
 import { Orders } from 'app/core/interface/orders';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MessageService } from 'primeng/api';
+import { OrdersDispatched } from 'app/core/interface/ordersDispatched';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  providers: [MessageService]
 })
 export class DashboardComponent implements OnInit {
   pedidosEntrantes: OrdersScroller[];
+  pedidosEntrantesApi: OrdersDispatched[];
   token: any = this.auth.getJwtToken();
+  numeroVentas: number[] = [];
+  numeroPedidosLocal = 0;
+  numeroPedidosDomicilio = 0;
+  ventasTotales: number;
   private pedidosSubscribe;
   private productosSubscribe;
+  private pedidosApi;
   sortOptions: SelectItem[];
-  productos: Producto[];
+  productos: Producto[] = [];
   sortKey: string;
   cantidadTotalProductosxPedido: number;
   cantidadPedidos: number;
   display = false;
   cols = [];
   listaProductos: Array<any> = [];
-  constructor(private userService: UsersService, 
-    private productService: ProductoService, 
+  constructor(private userService: UsersService,
+    private productService: ProductoService,
     private spinner: NgxSpinnerService,
-    private auth: AuthService, 
+    private auth: AuthService,
     private seguridad: SeguridadService,
+    private messageService: MessageService,
     private pedidoService: PedidoService ) { }
   startAnimationForLineChart(chart) {
       let seq: any, delays: any, durations: any;
@@ -101,12 +111,30 @@ export class DashboardComponent implements OnInit {
       this.pedidosEntrantes = item;
       this.cantidadPedidos = this.pedidosEntrantes.length;
       this.spinner.hide();
+    }, error => {
+      this.errorMessage('No se pudo cargar los pedidos');
     });
 
     this.productosSubscribe = this.productService.getProductos().subscribe((item: any ) => {
       this.productos = item;
+    }, error => {
+      this.errorMessage('No se pudo cargar los productos de los pedidos');
     });
 
+    this.pedidosApi = this.pedidoService.getPedidosDispatchedFromApi(this.token).subscribe( (item:any) =>{
+      this.pedidosEntrantesApi = item;
+      for ( let i = 0 ; i < this.pedidosEntrantesApi.length; i++) {
+        this.numeroVentas.push(this.pedidosEntrantesApi[i].subtotal);
+        if (this.pedidosEntrantesApi[i].compra['entregaDomocilio']) {
+          this.numeroPedidosDomicilio += 1;
+        } else {
+          this.numeroPedidosLocal += 1;
+        }
+      }
+      this.ventasTotales = this.numeroVentas.reduce((a, b) => a + b , 0);
+    }, error => {
+      this.errorMessage('No se pudo cargar las ventas');
+    });
 
 
 
@@ -240,11 +268,16 @@ export class DashboardComponent implements OnInit {
 
   // tslint:disable-next-line: use-life-cycle-interface
   ngOnDestroy(){
-    if(this.productosSubscribe){
+    if (this.productosSubscribe) {
       this.productosSubscribe.unsubscribe();
     }
-    if(this.pedidosSubscribe){
+    if (this.pedidosSubscribe) {
       this.pedidosSubscribe.unsubscribe();
     }
+  }
+  errorMessage(mensaje: string) {
+    this.messageService.add(
+      {severity: 'error', summary: 'Error!',
+      detail: mensaje, life: 5000 });
   }
 }

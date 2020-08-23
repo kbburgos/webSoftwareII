@@ -1,17 +1,17 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
-} from "@angular/fire/firestore";
+} from '@angular/fire/firestore';
 
-import { Deliveryman } from "app/core/interface/deliveryman";
-import { environment } from "../../../../environments/environment";
-import { map } from "rxjs/operators";
-import * as CryptoJS from "crypto-js";
-import { SeguridadService } from "../seguridad.service";
+import { Deliveryman } from 'app/core/interface/deliveryman';
+import { environment } from '../../../../environments/environment';
+import { map } from 'rxjs/operators';
+import * as CryptoJS from 'crypto-js';
+import { SeguridadService } from '../seguridad.service';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class DeliverymanService {
   DeliverDoc: AngularFirestoreDocument<Deliveryman>;
@@ -43,7 +43,7 @@ export class DeliverymanService {
   getDeliveryManByCedula(cedula: string): any {
     return this.firebase
       .collection(environment.nombresColecciones.repartidor, (ref) =>
-        ref.where("cedula", "==", cedula)
+        ref.where('cedula', '==', cedula)
       )
       .snapshotChanges()
       .pipe(
@@ -58,7 +58,7 @@ export class DeliverymanService {
   getRepartidorLogin(cedula: any, contrasena: any) {
     return this.firebase
       .collection(environment.nombresColecciones.repartidor, (ref) =>
-        ref.where("cedula", "==", cedula).where("contrasenia", "==", contrasena)
+        ref.where('cedula', '==', cedula).where('contrasenia', '==', contrasena)
       )
       .snapshotChanges()
       .pipe(
@@ -72,7 +72,7 @@ export class DeliverymanService {
 
 
   getClientIdStorage() {
-    const encryptext = localStorage.getItem("cliente");
+    const encryptext = localStorage.getItem('cliente');
     const decrypt = CryptoJS.AES.decrypt(
       encryptext.trim(),
       environment.keyCrypto.trim()
