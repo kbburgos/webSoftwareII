@@ -28,10 +28,10 @@ var OnHoldComponent = /** @class */ (function () {
         this.disabledButtonEraser = true;
         this.fechaActual = new Date();
         this.cantidadCompras = 0;
-        this.permiso = this.seguridadService.encriptar(this.token);
     }
     OnHoldComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.permiso = this.seguridadService.encriptar(this.token);
         this.spinner.show();
         this.pedidosDomicilio = [];
         this.pedidosLocal = [];
@@ -39,6 +39,8 @@ var OnHoldComponent = /** @class */ (function () {
         this.listaPedidos = [];
         this.pedidosDomicilioSuscribe = this.pedidoService.getPedidosByEstadoByTipo(0, true).subscribe(function (item) {
             _this.pedidosDomicilio = item;
+        }, function (error) {
+            _this.errorMessage('No se pudo cargar los pedidos a domicilio');
         });
         this.pedidosLocalSuscribe = this.pedidoService.getPedidosByEstadoByTipo(0, false).subscribe(function (item) {
             _this.pedidosLocal = item;
@@ -52,15 +54,23 @@ var OnHoldComponent = /** @class */ (function () {
                 }
             }
             _this.spinner.hide();
+        }, function (error) {
+            _this.errorMessage('No se pudo cargar los pedidos en local');
         });
         this.repartidoresSuscribe = this.deliveryManService.getRepartidores().subscribe(function (item) {
             _this.repartidores = item;
+        }, function (error) {
+            _this.errorMessage('No se pudo cargar los repartidores');
         });
         this.productosSubscribe = this.productService.getProductos().subscribe(function (item) {
             _this.productos = item;
+        }, function (error) {
+            _this.errorMessage('No se pudo cargar los productos de los pedidos');
         });
         this.clientexIdSubscribe = this.userService.usuarios(this.token).subscribe(function (item) {
             _this.listaClientes = item;
+        }, function (error) {
+            _this.errorMessage('No se pudo cargar los clientes');
         });
     };
     OnHoldComponent.prototype.detailsProducts = function (productos, cantidades) {
@@ -124,11 +134,9 @@ var OnHoldComponent = /** @class */ (function () {
             entregaDomocilio: this.pedido.isDomicilio
         };
         this.crearCompraApi = this.purchase.createPurchase(this.token, compraNueva).subscribe(function (item) {
-            console.log(item);
             _this.spinner.hide();
         }, function (error) {
-            _this.errorMessage("No se pudo realizar la compra, vuelva a intentarlo");
-            console.log(error);
+            _this.errorMessage('No se pudo realizar la compra');
         });
         this.cantidadTotalProductosxPedido = this.pedido.cantidades.reduce(function (a, b) { return a + b; }, 0);
         var idCompraApi = this.cantidadCompras + 1;
@@ -142,10 +150,9 @@ var OnHoldComponent = /** @class */ (function () {
             estado: '3'
         };
         this.crearPedidoApi = this.pedidoService.setPedidosToDispatched(this.token, pedidoNuevo).subscribe(function (item) {
-            console.log(item);
+            _this.showSuccess('local');
         }, function (error) {
-            _this.errorMessage("No se pudo realizar el pedido, vuelva a intentarlo");
-            console.log(error);
+            _this.errorMessage('No se pudo realizar el pedido');
         });
         this.showSuccess('local');
     };
@@ -184,7 +191,6 @@ var OnHoldComponent = /** @class */ (function () {
         var direccion;
         var coordenadas;
         var telefono = repartidor.telefono;
-        var telefono2 = '593995248654';
         var url_prueba = 'http://localhost:4200/deliveryman';
         if (this.pedido.direccionEntrega === 'S') {
             json = JSON.parse(JSON.stringify(cliente.direccion));
@@ -220,7 +226,7 @@ var OnHoldComponent = /** @class */ (function () {
             detail: detail, life: 2000 });
     };
     OnHoldComponent.prototype.errorMessage = function (mensaje) {
-        this.messageService.add({ severity: 'warning', summary: 'Mensaje de error',
+        this.messageService.add({ severity: 'error', summary: 'Error!',
             detail: mensaje, life: 2000 });
     };
     OnHoldComponent.prototype.createConfirmMessage = function (mensaje) {
@@ -229,15 +235,15 @@ var OnHoldComponent = /** @class */ (function () {
     };
     OnHoldComponent.prototype.confirm = function (pedido) {
         var _this = this;
+        this.spinner.show();
         this.verCompraApi = this.purchase.getPurchase(this.token).subscribe(function (item) {
             _this.cantidadCompras = item.length;
-            console.log("cantidad de compra generada en ngoninit: ", _this.cantidadCompras);
+            _this.spinner.hide();
         });
         this.confirmationService.confirm({
             header: 'Enviar el pedido a Pedidos Despachados',
-            message: '¿Estás seguro de realizar esta acción?',
+            message: '¿Deseas realizar esta acción?',
             accept: function () {
-                _this.spinner.show();
                 _this.changeState(pedido);
                 _this.deleteOrder = _this.pedidoService.deletePedido(_this.pedido.idPedido);
             }
@@ -247,11 +253,9 @@ var OnHoldComponent = /** @class */ (function () {
         var _this = this;
         this.confirmationService.confirm({
             header: 'Eliminar pedido',
-            message: '¿Está seguro que el pedido no fue retirado?',
+            message: '¿Estás seguro que el pedido no fue retirado?',
             accept: function () {
                 _this.pedido = pedido;
-                /*this.pedido.estadoDelPedido = 4;
-                this.pedidoService.updatePedidos(this.pedido);*/
                 _this.deleteOrder = _this.pedidoService.deletePedido(pedido.idPedido);
                 _this.showSuccess('eliminar');
             }

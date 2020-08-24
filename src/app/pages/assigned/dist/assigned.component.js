@@ -30,24 +30,35 @@ var AssignedComponent = /** @class */ (function () {
         this.pedidosAsignadosSubscribe = this.pedidoService.getPedidosByEstado(1).subscribe(function (item) {
             _this.pedidosDomicilioAsignados = item;
             _this.spinner.hide();
+        }, function (error) {
+            _this.showAlert('No se pudo cargar los pedidos');
         });
-        this.productosSubscribe = this.productService.getProductos().subscribe(function (item) {
+        this.productosSubscribe = this.productService
+            .getProductos()
+            .subscribe(function (item) {
             _this.productos = item;
+        }, function (error) {
+            _this.showAlert('No se pudo cargar los productos de los pedidos');
         });
-        this.repartidoresSubscribe = this.deliveryManService.getRepartidores().subscribe(function (item) {
+        this.repartidoresSubscribe = this.deliveryManService
+            .getRepartidores()
+            .subscribe(function (item) {
             _this.listaRepartidores = item;
+        }, function (error) {
+            _this.showAlert('No se pudo cargar el detalle de los repartidores');
         });
     };
     AssignedComponent.prototype.viewMoreInformationDelivery = function (pedidosAsignados) {
         this.displayDeliveryman = true;
         for (var i = 0; i < this.listaRepartidores.length; i++) {
             for (var j = 0; j < this.listaRepartidores[i].pedidos.length; j++) {
-                if (pedidosAsignados.idPedido === this.listaRepartidores[i].pedidos[j]['idPedido']) {
+                if (pedidosAsignados.idPedido ===
+                    this.listaRepartidores[i].pedidos[j]['idPedido']) {
                     this.repartidorxPedido = this.listaRepartidores[i];
                 }
             }
         }
-        //console.log(this.repartidorxPedido);
+        // console.log(this.repartidorxPedido);
         this.nombreRepartidor = this.repartidorxPedido.nombre;
         this.apellidoRepartidor = this.repartidorxPedido.apellido;
         this.cedulaRepartidor = this.repartidorxPedido.cedula;
@@ -61,8 +72,8 @@ var AssignedComponent = /** @class */ (function () {
             for (var j = 0; j < this.productos.length; j++) {
                 if (productos[i] === this.productos[j].idProducto) {
                     productofinal = {
-                        'producto': this.productos[j].nombre,
-                        'cantidad': cantidades[i]
+                        producto: this.productos[j].nombre,
+                        cantidad: cantidades[i]
                     };
                     this.listaProductos.push(productofinal);
                 }
@@ -75,18 +86,30 @@ var AssignedComponent = /** @class */ (function () {
         console.log(pedidosAsignados);
         this.confirmationService.confirm({
             header: 'Confirmación de pedido en camino',
-            message: '¿Estás seguro de realizar esta acción?',
+            message: '¿Deseas cambiar el estado del pedido?',
             accept: function () {
                 _this.pedido = pedidosAsignados;
                 _this.pedido.estadoDelPedido = 2;
                 _this.pedidoService.updatePedidos(_this.pedido);
-                _this.showSuccess();
+                _this.showSuccess('El pedido se está enviando');
             }
         });
     };
-    AssignedComponent.prototype.showSuccess = function () {
-        this.messageService.add({ severity: 'success', summary: 'Mensaje de confirmación',
-            detail: 'El pedido está en camino', life: 2000 });
+    AssignedComponent.prototype.showSuccess = function (mensaje) {
+        this.messageService.add({
+            severity: 'success',
+            summary: 'Enviando!',
+            detail: mensaje,
+            life: 2000
+        });
+    };
+    AssignedComponent.prototype.showAlert = function (mensaje) {
+        this.messageService.add({
+            severity: 'error',
+            summary: 'Error!',
+            detail: mensaje,
+            life: 2000
+        });
     };
     // tslint:disable-next-line: use-life-cycle-interface
     AssignedComponent.prototype.ngOnDestroy = function () {

@@ -91,7 +91,7 @@
                                 <td> <i *ngIf="pedidoLocal.isEfectivo" class="pi pi-money-bill"></i><i *ngIf="!pedidoLocal.isEfectivo" class="pi pi-id-card"></i>&nbsp; &nbsp;{{pedidoLocal.total}} </td>
                                 <td>
                                     <div class="ui-dialog-buttonpane">
-                                        <button pButton type="button" (click)="confirm(pedidoLocal)" icon="pi pi-arrow-circle-right" class="ui-button userOrder" ></button>
+                                        <button pButton type="button" (click)="confirm(pedidoLocal)" icon="pi pi-arrow-circle-right" class="ui-button-primary" ></button>
                                         &nbsp;
                                         <button pButton  type="button" (click)="eraserOrder(pedidoLocal)" icon="pi pi-trash" class="ui-button-danger" ></button>
                                     </div>

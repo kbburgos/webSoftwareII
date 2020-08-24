@@ -8,12 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.DispatchedComponent = void 0;
 var core_1 = require("@angular/core");
+var api_1 = require("primeng/api");
 var DispatchedComponent = /** @class */ (function () {
-    function DispatchedComponent(pedidosService, auhtService, productService, spinner) {
+    function DispatchedComponent(pedidosService, auhtService, productService, spinner, messageService) {
         this.pedidosService = pedidosService;
         this.auhtService = auhtService;
         this.productService = productService;
         this.spinner = spinner;
+        this.messageService = messageService;
         this.token = this.auhtService.getJwtToken();
         this.pedidosDeApi = [];
         this.listaProductos = [];
@@ -24,10 +26,14 @@ var DispatchedComponent = /** @class */ (function () {
         this.spinner.show();
         this.pedidosDespachados = this.pedidosService.getPedidosDispatchedFromApi(this.token).subscribe(function (item) {
             _this.pedidosDeApi = item;
+        }, function (error) {
+            _this.showMessage('No se pudo cargar los pedidos');
         });
         this.productosSubscribe = this.productService.getProductos().subscribe(function (item) {
             _this.productos = item;
             _this.spinner.hide();
+        }, function (error) {
+            _this.showMessage('No se pudo cargar los productos de los pedidos');
         });
     };
     DispatchedComponent.prototype.detailsProducts = function (productos, cantidades) {
@@ -49,7 +55,6 @@ var DispatchedComponent = /** @class */ (function () {
         }
         // tslint:disable-next-line: radix
         this.cantidadTotalProductosxPedido = cantidadxProducto.reduce(function (a, b) { return parseInt(a) + parseInt(b); }, 0);
-        // this.cantidadTotalProductosxPedido = cantidades;
     };
     // tslint:disable-next-line: use-life-cycle-interface
     DispatchedComponent.prototype.ngOnDestroy = function () {
@@ -60,11 +65,16 @@ var DispatchedComponent = /** @class */ (function () {
             this.pedidosDespachados.unsubscribe();
         }
     };
+    DispatchedComponent.prototype.showMessage = function (mensaje) {
+        this.messageService.add({ severity: 'error', summary: 'Error!',
+            detail: mensaje, life: 2000 });
+    };
     DispatchedComponent = __decorate([
         core_1.Component({
             selector: 'app-dispatched',
             templateUrl: './dispatched.component.html',
-            styleUrls: ['./dispatched.component.css']
+            styleUrls: ['./dispatched.component.css'],
+            providers: [api_1.MessageService]
         })
     ], DispatchedComponent);
     return DispatchedComponent;

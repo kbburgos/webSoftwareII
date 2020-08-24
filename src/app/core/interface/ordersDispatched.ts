@@ -1,10 +1,10 @@
 export interface OrdersDispatched{
-    idpedido?:number;
-    idcompra?:number;
+    idpedido?: number;
+    idcompra?: number;
     idproducto: string;
-    cantidad:number;
-    subtotal:number;
-    cubiertos:boolean;
+    cantidad: number;
+    subtotal: number;
+    cubiertos: boolean;
     estado: number;
-    compra?:{};
+    compra?: {};
   }
