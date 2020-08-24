@@ -73,7 +73,7 @@ export class UsersComponent implements OnInit {
 
   cargar() {
     this.spinner.show();
-    let subs = this.user.usuarios(this.token).subscribe(
+    let subs = this.user.usuarios().subscribe(
       (data: any) => {
         console.log(data);
         this.usuarios = this.filtrado(data);
@@ -222,7 +222,7 @@ export class UsersComponent implements OnInit {
     };
 
     this.user
-      .setUserInfo(this.token, this.datosUsuario)
+      .setUserInfo(this.datosUsuario)
       .toPromise()
       .then((data) => {
         console.log("ingresado correctamente");
@@ -236,7 +236,7 @@ export class UsersComponent implements OnInit {
   EliminarUser(cedula: string) {
     this.data = "";
     this.user
-      .deleteUser(this.token, cedula)
+      .deleteUser(cedula)
       .toPromise()
       .then((data) => {
         console.log("here we comes ");

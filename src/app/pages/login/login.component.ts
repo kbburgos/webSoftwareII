@@ -57,37 +57,37 @@ export class LoginComponent implements OnInit {
         .loginToApi(this.form.value.email, this.form.value.pass)
         .toPromise()
         .then((dt: any) => {
-          // if (dt.data.rol != 3) {
-          this.spinner.hide();
-          this.auth.dataUser = dt.data;
-          this.auth.token = {
-            refreshToken: dt.refreshToken,
-            token: dt.token,
-          };
+          if (dt.data.rol != 3) {
+            this.spinner.hide();
+            this.auth.dataUser = dt.data;
+            this.auth.token = {
+              refreshToken: dt.refreshToken,
+              token: dt.token,
+            };
 
-      //    console.log("estas en login ", dt);
-      //    console.log("aqui aqui ", dt.token);
-          this.auth.doLoginUser(this.auth.token);
+            //    console.log("estas en login ", dt);
+            //    console.log("aqui aqui ", dt.token);
+            this.auth.doLoginUser(this.auth.token);
 
-          this.auth.isAuth = true;
-          this.userInfo.email = dt.data.email;
-          this.userInfo.cedula = dt.data.cedula;
-          this.userInfo.usuario = dt.data.nombre + " " + dt.data.apellido;
-          this.userInfo.telefono = dt.data.telefono;
-          this.userInfo.direccion = dt.data.direccion;
-          this.userInfo.rol = dt.data.rol;
+            this.auth.isAuth = true;
+            this.userInfo.email = dt.data.email;
+            this.userInfo.cedula = dt.data.cedula;
+            this.userInfo.usuario = dt.data.nombre + " " + dt.data.apellido;
+            this.userInfo.telefono = dt.data.telefono;
+            this.userInfo.direccion = dt.data.direccion;
+            this.userInfo.rol = dt.data.rol;
 
-          environment.usuario.cedula= dt.data.cedula;
-          environment.usuario.email=dt.data.email;
-          environment.usuario.rol=dt.data.rol;
+            environment.usuario.cedula = dt.data.cedula;
+            environment.usuario.email = dt.data.email;
+            environment.usuario.rol = dt.data.rol;
 
-          this.router.navigateByUrl("dashboard");
-          /*   } else {
+            this.router.navigateByUrl("dashboard");
+          } else {
             this.spinner.hide();
             console.log("NO ESTAS AUTORIZADO");
             this.display = true;
             this.onResetForm();
-          }*/
+          }
         })
         .catch((err) => {
           this.notFound = true;

@@ -27,12 +27,9 @@ export class UsersService {
     private seguridad: SeguridadService
   ) {}
 
-  usuarios(token: string) {
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    };
-    return this.http.get(environment.rutas.usersS, { headers });
+  usuarios() {
+    console.log("mami");
+    return this.http.get(environment.rutas.usersS);
   }
 
   userById(token: string, id: string) {
@@ -43,12 +40,8 @@ export class UsersService {
     return this.http.get(environment.rutas.usersS + id, { headers });
   }
 
-  deleteUser(token: string, cedula: string) {
-    let headers = {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    };
-    return this.http.delete(environment.rutas.deleteUser + cedula, { headers });
+  deleteUser(cedula: string) {
+    return this.http.delete(environment.rutas.deleteUser + cedula);
   }
 
   guardarUser(datos: UsuarioInterface) {
@@ -60,17 +53,11 @@ export class UsersService {
     return this.http.post(url, datos);
   }
 
-  setUserInfo(token: string, datos: UsuarioInterface) {
-    console.log("this is the token ", token)
-    let headers = {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    };
+  setUserInfo(datos: UsuarioInterface) {
     const hash = this.seguridad.hashJSON(datos);
     datos.hash = hash;
     console.log("here I'm", datos);
-    console.log("hello men ", headers)
     const url = environment.rutas.updateUser + datos.cedula;
-    return this.http.put(url, datos, { headers });
+    return this.http.put(url, datos);
   }
 }
