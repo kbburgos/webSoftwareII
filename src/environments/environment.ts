@@ -63,6 +63,7 @@ export const environment = {
     getCompras: "https://omipalisf2.herokuapp.com/api/purchase/getCompras",
     deleteUser: "https://omipalisf2.herokuapp.com/api/usersS/",
     updateUser: 'https://omipalisf2.herokuapp.com/api/usersS/update/',
+    rejectToken: 'https://omipalisf2.herokuapp.com/api/login/reject'
   },
 
   secretEncryp:

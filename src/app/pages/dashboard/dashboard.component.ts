@@ -126,8 +126,7 @@ export class DashboardComponent implements OnInit {
     }, error => {
       this.errorMessage('No se pudo cargar los productos de los pedidos');
     });
-
-    this.pedidosApi = this.pedidoService.getPedidosDispatchedFromApi(this.token).subscribe( (item: any) => {
+    this.pedidosApi = this.pedidoService.getPedidosDispatchedFromApi().subscribe( (item: any) => {
       this.pedidosEntrantesApi = item;
       for ( let i = 0 ; i < this.pedidosEntrantesApi.length; i++) {
         this.numeroVentas.push(this.pedidosEntrantesApi[i].subtotal);
