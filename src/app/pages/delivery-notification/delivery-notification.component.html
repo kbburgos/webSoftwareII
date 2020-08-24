@@ -3,26 +3,27 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header card-header-info">
+          <div class="card-header card-header-danger">
             <div class="row">
               <div class="col-md-10">
-                <h4 class="card-title">Lista de Novedades de Repartidores</h4>
+                <h4 class="card-title">Lista novedades: Repartidores</h4>
               </div>
               <div class="col-md-2">
-                <!--<button
+                <button
                   type="text"
                   (click)="showAddDialog()"
                   pButton
-                  icon="pi pi-plus"
-                  label="  Nuevo"
-                ></button>-->
+                  icon="pi pi-download"
+                  label="  Exportar"
+                ></button>
+                &nbsp;
               </div>
             </div>
           </div>
           <div class="card-body">
             <p-table
               [columns]="cols"
-              [value]="deliverymannew"
+              [value]="deliverymannewView"
               [responsive]="true"
               sortMode="multiple"
               [paginator]="true"
@@ -31,32 +32,25 @@
             >
               <ng-template pTemplate="header" let-columns>
                 <tr>
+                  <th>ID REPARTIDOR</th>
                   <th>REPARTIDOR</th>
                   <th>PEDIDO</th>
+                  <th>ID CLIENTE</th>
                   <th>CLIENTE</th>
                   <th>NOVEDAD</th>
                   <th>FECHA</th>
-                  <th>ACCI&Oacute;N</th>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="body" let-novelydeliverman>
+              <ng-template pTemplate="body" let-novelydelivermanview>
                 <tr>
-                  <td>{{ novelydeliverman.idRepartidor }}</td>
-                  <td>{{ novelydeliverman.idPedido }}</td>
-                  <td>{{ novelydeliverman.idCliente }}</td>
-                  <td>{{ novelydeliverman.novedad }}</td>
-                  <td>{{ novelydeliverman.fecha }}</td>
-                  <td>
-                    <div>
-                      <button
-                        pButton
-                        type="button"
-                        icon="pi pi-trash"
-                        (click)="eliminarRepartidorNovedad(novelydeliverman)"
-                        class="ui-button-danger"
-                      ></button>
-                    </div>
-                  </td>
+                  <td>{{ novelydelivermanview.idRepartidor }}</td>
+                  <td>{{ novelydelivermanview.repartidor }}</td>
+                  <td>{{ novelydelivermanview.idPedido }}</td>
+                  <td>{{ novelydelivermanview.idCliente }}</td>
+                  <td>{{ novelydelivermanview.cliente }}</td>
+                  <td>{{ novelydelivermanview.novedad }}</td>
+                  <td>{{ novelydelivermanview.fecha}}</td>
+                  
                 </tr>
               </ng-template>
             </p-table>
@@ -65,6 +59,72 @@
       </div>
     </div>
   </div>
+
+
+  <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="card-title">Lista de novedades creadas por el administrador</h4>
+                    </div>
+                    <div class="col-md-4">
+                        <button
+                          type="text"
+                          (click)="showAddDialog()"
+                          pButton
+                          icon="pi pi-plus"
+                          label="  Nuevo"
+                        ></button>
+                        &nbsp;
+                        <button
+                          type="text"
+                          (click)="showAddDialog()"
+                          pButton
+                          icon="pi pi-download"
+                          label="  Exportar"
+                        ></button>
+                        
+                      </div>
+                </div>
+                </div>
+                <div class="card-body">
+                  <p-table 
+                    [columns]="cols" 
+                    [value]="novedadAdmin" 
+                    [responsive]="true" 
+                    sortMode="multiple" 
+                    [paginator]="true" 
+                    [rows]="10" 
+                    #dt  >
+                    <ng-template pTemplate="header" >
+                        <tr>
+                            <th>CEDULA</th>
+                            <th>CLIENTE</th>
+                            <th>NOVEDAD</th>
+                        </tr>
+                        <tr>
+                            <th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid">
+                                <input pInputText type="text" [style]="{'width':'100%'}" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                            </th>
+                            
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-novedades>
+                      <tr *ngIf="novedades.esCliente">
+                            <td>{{ novedades.idUsuarioreportado }}</td>
+                            <td>{{ novedades.usuarioReportado }}</td>
+                            <td>{{ novedades.descripcion }}</td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 
 <p-dialog
@@ -72,7 +132,7 @@
   [responsive]="true"
   showEffect="fade"
   (onHide)="clearState()"
->
+  >
   <p-header>
     Crear novedad a cliente
   </p-header>
@@ -81,11 +141,19 @@
       <form [formGroup]="form">
         <div class="form-group col-sm-12" style="float: left;">
           <label>C&eacute;dula cliente</label>
-          <input type="text" class="form-control" formControlName="idCliente" />
+            <input
+              type="text"
+              class="form-control"
+              formControlName="cedula"
+            />
         </div>
         <div class="form-group col-sm-12" style="float: left;">
           <label>Novedad:</label>
-          <input type="text" class="form-control" formControlName="novedad" />
+          <input
+            type="text"
+            class="form-control"
+            formControlName="novedad"
+          />
         </div>
       </form>
     </div>
@@ -100,3 +168,4 @@
     ></button>
   </p-footer>
 </p-dialog>
+

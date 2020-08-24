@@ -43,13 +43,38 @@
                         <p-table [columns]="cols" [value]="pedidosDomicilio" [responsive]="true" sortMode="multiple" [paginator]="true" [rows]="10" #dt  >  
                           <ng-template pTemplate="header" let-columns>
                             <tr>
-                                <th>PEDIDO</th>
-                                <th>CLIENTE</th>
-                                <th>PRODUCTOS</th>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                  {{col.header}}
+                                </th>
                                 <th>CUBIERTOS</th>
                                 <th>TOTAL A PAGAR</th>
                                 <th>ACCIONES</th>
                             </tr>
+
+                            <tr>
+                              <th
+                                *ngFor="let col of columns"
+                                [ngSwitch]="col.field"
+                                class="ui-fluid"
+                              >
+                                <input
+                                  pInputText
+                                  type="text"
+                                  [style]="{ width: '100%' }"
+                                  (input)="
+                                    dt.filter(
+                                      $event.target.value,
+                                      col.field,
+                                      col.filterMatchMode
+                                    )
+                                  "
+                                />
+                              </th>
+                              <th></th>
+                              <th></th>
+                              <th></th>
+                            </tr>
+
                           </ng-template>
                           <ng-template pTemplate="body" let-pedidos>
                             <tr>

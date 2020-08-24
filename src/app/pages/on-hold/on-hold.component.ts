@@ -36,7 +36,6 @@ export class OnHoldComponent implements OnInit {
   pedido: Orders;
   selectedOnHold: OnHold;
   listonhold: OnHold[];
-  cols: any[];
   selectedValue: string;
   idPedido;
   listaPedidos;
@@ -45,6 +44,12 @@ export class OnHoldComponent implements OnInit {
   fechaActual = new Date();
   permiso;
   cantidadCompras = 0;
+  cols: any=[
+    { field: "pedido", header: "PEDIDO" },
+    { field: "cliente", header: "CLIENTE" },
+    { field: "productos", header: "PRODUCTOS" },
+  ];
+
   private pedidosDomicilioSuscribe;
   private pedidosLocalSuscribe;
   private repartidoresSuscribe;

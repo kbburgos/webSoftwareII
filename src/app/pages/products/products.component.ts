@@ -147,7 +147,7 @@ export class ProductsComponent implements OnInit {
 
   showDialogProduct(productos) {
     this.display = true;
-    this.ProductEdit = productos;
+    this.ProductEdit = Object.assign({},productos);
   }
 
   confirmar() {

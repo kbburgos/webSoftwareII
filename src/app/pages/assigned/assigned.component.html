@@ -39,12 +39,37 @@
             >
               <ng-template pTemplate="header" let-columns>
                 <tr>
-                  <th>PEDIDO</th>
-                  <th>ClIENTE</th>
-                  <th>PRODUCTOS</th>
+                  <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                  </th>
                   <th>CUBIERTOS</th>
                   <th>TOTAL A PAGAR</th>
                   <th>DETALLES</th>
+                </tr>
+
+                <tr>
+                  <th
+                    *ngFor="let col of columns"
+                    [ngSwitch]="col.field"
+                    class="ui-fluid"
+                  >
+                    <input
+                      pInputText
+                      type="text"
+                      [style]="{ width: '100%' }"
+                      (input)="
+                        dt.filter(
+                          $event.target.value,
+                          col.field,
+                          col.filterMatchMode
+                        )
+                      "
+                    />
+                  </th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-pedidosAsignados>
