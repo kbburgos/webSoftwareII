@@ -24,12 +24,13 @@ export class DashboardComponent implements OnInit {
   pedidosEntrantesApi: OrdersDispatched[];
   token: any = this.auth.getJwtToken();
   numeroVentas: number[] = [];
+  mapa: Map<string, number>;
   numeroPedidosLocal = 0;
   numeroPedidosDomicilio = 0;
   ventasTotales: number;
-  private pedidosSubscribe;
-  private productosSubscribe;
-  private pedidosApi;
+  mapaProductos: {} = {};
+  listaProductosDeApi = [];
+  listaCantidadesDeApi = [];
   sortOptions: SelectItem[];
   productos: Producto[] = [];
   sortKey: string;
@@ -38,6 +39,10 @@ export class DashboardComponent implements OnInit {
   display = false;
   cols = [];
   listaProductos: Array<any> = [];
+  productoTmp = 0;
+  private pedidosSubscribe;
+  private productosSubscribe;
+  private pedidosApi;
   constructor(private userService: UsersService,
     private productService: ProductoService,
     private spinner: NgxSpinnerService,
@@ -102,6 +107,7 @@ export class DashboardComponent implements OnInit {
       seq2 = 0;
   };
   ngOnInit() {
+    this.mapa = new Map();
     this.spinner.show();
     this.sortOptions = [
       {label: 'Mayor valor', value: '!total'},
@@ -121,7 +127,7 @@ export class DashboardComponent implements OnInit {
       this.errorMessage('No se pudo cargar los productos de los pedidos');
     });
 
-    this.pedidosApi = this.pedidoService.getPedidosDispatchedFromApi(this.token).subscribe( (item:any) =>{
+    this.pedidosApi = this.pedidoService.getPedidosDispatchedFromApi(this.token).subscribe( (item: any) => {
       this.pedidosEntrantesApi = item;
       for ( let i = 0 ; i < this.pedidosEntrantesApi.length; i++) {
         this.numeroVentas.push(this.pedidosEntrantesApi[i].subtotal);
@@ -130,7 +136,20 @@ export class DashboardComponent implements OnInit {
         } else {
           this.numeroPedidosLocal += 1;
         }
+        this.listaProductosDeApi = this.pedidosEntrantesApi[i].idproducto.split(',');
+        this.listaCantidadesDeApi = this.pedidosEntrantesApi[i].cantidad.toString().split(',');
+        for ( let j = 0; j < this.listaProductosDeApi.length; j++) {
+          if (this.mapa.get(this.listaProductosDeApi[j]) == null) {
+            // tslint:disable-next-line: radix
+            this.mapa.set(this.listaProductosDeApi[j], parseInt(this.listaCantidadesDeApi[j]));
+          } else {
+            // tslint:disable-next-line: radix
+            this.productoTmp = this.mapa.get(this.listaProductosDeApi[j]) + parseInt(this.listaCantidadesDeApi[j]);
+            this.mapa.set(this.listaProductosDeApi[j], this.productoTmp);
+          }
+        }
       }
+      console.log(this.mapa);
       this.ventasTotales = this.numeroVentas.reduce((a, b) => a + b , 0);
     }, error => {
       this.errorMessage('No se pudo cargar las ventas');
@@ -232,7 +251,7 @@ export class DashboardComponent implements OnInit {
       this.sort(-1);
     } else if (this.sortKey.indexOf('!') === -1) {
       this.sort(1);
-    } 
+    }
   }
 
   sort(order: number): void {
@@ -267,7 +286,7 @@ export class DashboardComponent implements OnInit {
   }
 
   // tslint:disable-next-line: use-life-cycle-interface
-  ngOnDestroy(){
+  ngOnDestroy() {
     if (this.productosSubscribe) {
       this.productosSubscribe.unsubscribe();
     }
