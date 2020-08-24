@@ -56,6 +56,7 @@ export const environment = {
     usuarioXid: "https://omipalisf2.herokuapp.com/api/usersS/",
     usersS: "https://omipalisf2.herokuapp.com/api/usersS/",
     novedades: "https://omipalisf2.herokuapp.com/api/noveltys/",
+    reportaNovelty: "https://omipalisf2.herokuapp.com/api/noveltys/reporta/",
     pedidos: "https://omipalisf2.herokuapp.com/api/orders/getAll",
     createPedidos: "https://omipalisf2.herokuapp.com/api/orders/post",
     getPedidos: "https://omipalisf2.herokuapp.com/api/orders/getAll",
@@ -85,6 +86,8 @@ export const environment = {
     usuarioL: {},
     clientes: [],
     repartidores: [],
+    nombreClientes: [],
+    nombreRepartidores: [],
     repartidorLogin: ''
   },
 };

@@ -18,11 +18,16 @@ export class DispatchedComponent implements OnInit {
   pedidosDeApi: OrdersDispatched[] = [];
   listaProductos: Array<any> = [];
   productos: Producto[];
-  cols: any[];
   displayDetail = false;
   cantidadTotalProductosxPedido: number;
   private pedidosDespachados;
   private productosSubscribe;
+
+  cols: any = [
+    { field: "pedido", header: "PEDIDO" },
+    { field: "productos", header: "PRODUCTOS" },
+  ];
+
   constructor(private pedidosService: PedidoService,
     private auhtService: AuthService,
     private productService: ProductoService,

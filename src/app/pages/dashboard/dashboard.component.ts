@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
-import { UsersService } from 'app/core/services/user/users.service';
-import { HttpClient } from '@angular/common/http';
+import { DeliverymanService  } from 'app/core/services/deliverman/deliveryman.service';
+import { UsersService  } from 'app/core/services/user/users.service';
 import { AuthService } from 'app/core/services/auth/auth.service';
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { SeguridadService } from 'app/core/services/seguridad.service';
 import {OrdersScroller} from 'app/core/interface/ordersScroller';
 import { PedidoService } from 'app/core/services/pedido/pedido.service';
@@ -40,10 +42,14 @@ export class DashboardComponent implements OnInit {
   cols = [];
   listaProductos: Array<any> = [];
   productoTmp = 0;
+  private nombreRepartidoresSubscribe;
+  private nombreClientesSubscribe;
   private pedidosSubscribe;
   private productosSubscribe;
   private pedidosApi;
   constructor(private userService: UsersService,
+    private novedadesRepartidor: DeliverymanService, 
+    private clientes: UsersService,
     private productService: ProductoService,
     private spinner: NgxSpinnerService,
     private auth: AuthService,
@@ -107,6 +113,16 @@ export class DashboardComponent implements OnInit {
       seq2 = 0;
   };
   ngOnInit() {
+    this.nombreRepartidoresSubscribe= this.novedadesRepartidor.getRepartidores()
+    .subscribe((item:any)=>{
+      environment.variables.nombreRepartidores=item;
+    });
+
+    this.nombreClientesSubscribe= this.clientes.usuarios()
+    .subscribe((item: any)=>{
+      environment.variables.nombreClientes=item;
+    });
+
     this.mapa = new Map();
     this.spinner.show();
     this.sortOptions = [

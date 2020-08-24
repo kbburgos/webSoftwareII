@@ -29,7 +29,6 @@ export class DeliveryOrderComponent implements OnInit {
   selectednovelty: deliverymanNoveltys;
   repartidor: Deliveryman;
   cedulaRepartidor: string;
-  cols: any[];
   display = false;
   listaPedidosRepartidor: Array<string> = [];
   pedidoidDelRepartidor: string;
@@ -44,6 +43,13 @@ export class DeliveryOrderComponent implements OnInit {
   token: any;
   refreshToken:any;
   cantidadCompras = 0;
+  cols: any=[
+    { field: "cedula_cliente", header: "CEDULA_CLIENTE" },
+    { field: "cliente", header: "CLIENTE" },
+    { field: "pedido", header: "PEDIDO" },
+    { field: "productos", header: "PRODUCTOS" },
+  ];
+
   private deliveryman;
   private obtenerpedido;
   private productosSubscribe;

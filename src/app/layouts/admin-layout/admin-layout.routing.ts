@@ -22,7 +22,8 @@ import { PromotionNewComponent } from "app/pages/promotion-new/promotion-new.com
 import { CurrentPromotionComponent } from "app/pages/current-promotion/current-promotion.component";
 import { OldPromotionComponent } from "app/pages/old-promotion/old-promotion.component";
 import { AuthGuard } from "app/core/guard/auth.guard";
-import { SalesComponent } from "app/pages/sales/sales.component"
+import { SalesComponent } from "app/pages/sales/sales.component";
+import { ConfigurationComponent } from "app/pages/configuration/configuration.component";
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -149,5 +150,10 @@ export const AdminLayoutRoutes: Routes = [
     path: "delivery-order",
     component: DeliveryOrderComponent,
     canActivate: [AuthDeliverymanGuard],
+  },
+  {
+    path: "configuration",
+    component: ConfigurationComponent,
+    canActivate: [AuthGuard],
   },
 ];

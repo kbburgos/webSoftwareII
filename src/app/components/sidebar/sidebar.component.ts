@@ -28,6 +28,8 @@ export const ROUTES: RouteInfo[] = [
     { path: '/conflicting', title: 'Clientes conflictivos',  class: '', component: 'ConflictingComponent'},
     { path: '/notifications', title: 'Notifications',  class: '', component:  'NotificationsComponent'},
     { path: '/upgrade', title: 'Upgrade to PRO',  class: 'active-pro', component: 'UpgradeComponent'},
+
+    { path: '/configuration', title: 'Editar perfil de Usuario',  class: 'active-pro', component: 'ConfigurationComponent'},
 ];
 
 @Component({
