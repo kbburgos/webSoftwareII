@@ -104,7 +104,7 @@ export class OnHoldComponent implements OnInit {
     }, error => {
       this.errorMessage('No se pudo cargar los productos de los pedidos');
     });
-    this.clientexIdSubscribe = this.userService.usuarios(this.token).subscribe((item: any) => {
+    this.clientexIdSubscribe = this.userService.usuarios().subscribe((item: any) => {
       this.listaClientes = item;
     }, error => {
       this.errorMessage('No se pudo cargar los clientes');

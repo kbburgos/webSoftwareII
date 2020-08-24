@@ -37,7 +37,7 @@ export class ConflictingComponent implements OnInit {
     this.buildForm();
     this.clearState();
 
-    let subs = this.user.usuarios(this.token).subscribe(
+    let subs = this.user.usuarios().subscribe(
       (data: any) => {
         this.clientes = data;
         console.log(this.clientes);
@@ -53,7 +53,7 @@ export class ConflictingComponent implements OnInit {
     this.confirmationService.confirm({
       message: "¿Est&aacute; seguro que desea eliminar al cliente?",
       accept: () =>{
-        this.user.deleteUser(this.token , cedula).toPromise().then(result => {
+        this.user.deleteUser(cedula).toPromise().then(result => {
           console.log('From delete: ', result);
         });
         console.log(cedula, "usuario eliminado");
