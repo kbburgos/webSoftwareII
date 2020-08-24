@@ -26,10 +26,14 @@ export class TokenInterceptorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+
     console.log(req.url);
+    console.log("hello men")
     const urls: string = "https://omipalisf2.herokuapp.com/api/login/token";
     if (req.url.search(urls) === -1) {
+      console.log("entra aqui")
       if (this.authService.token) {
+        console.log("here")
         req = this.addToken(req, this.authService.token.token);
       }
       return next.handle(req).pipe(

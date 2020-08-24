@@ -49,7 +49,7 @@ export class AuthService {
 
   refreshToken() {
     console.log({
-      id: this.dataUser.cedula,
+      id: this.dataUser.email,
       refreshToken: this.token.refreshToken,
     });
     return this.httpClient
