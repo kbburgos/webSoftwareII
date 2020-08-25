@@ -52,6 +52,7 @@ export class DashboardComponent implements OnInit {
   costoProducto = 0;
   categoriaProducto = '';
   imagenProducto = '';
+  nombreProducto = '';
   listaCategorias: Categoria[];
   private nombreRepartidoresSubscribe;
   private nombreClientesSubscribe;
@@ -218,6 +219,7 @@ export class DashboardComponent implements OnInit {
         this.categoriaProducto = this.listaCategorias[i].nombre;
       }
     }
+    this.nombreProducto = this.infoProducto.nombre;
     this.imagenProducto = this.infoProducto.foto;
     this.descripcionProducto = this.infoProducto.descripcion;
     this.costoProducto = this.infoProducto.precio;

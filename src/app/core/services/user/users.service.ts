@@ -47,7 +47,6 @@ export class UsersService {
   guardarUser(datos: UsuarioInterface) {
     const hash = this.seguridad.hashJSON(datos);
     datos.hash = hash;
-
     console.log(datos);
     const url = environment.rutas.urlGetUser;
     return this.http.post(url, datos);
