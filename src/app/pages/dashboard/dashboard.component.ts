@@ -15,6 +15,8 @@ import { Orders } from 'app/core/interface/orders';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MessageService } from 'primeng/api';
 import { OrdersDispatched } from 'app/core/interface/ordersDispatched';
+import { CategoriaService } from 'app/core/services/categoria/categoria.service';
+import { Categoria } from 'app/core/interface/categoria';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -34,93 +36,53 @@ export class DashboardComponent implements OnInit {
   listaProductosDeApi = [];
   listaCantidadesDeApi = [];
   sortOptions: SelectItem[];
+  sortOptionsProducts: SelectItem[];
   productos: Producto[] = [];
   sortKey: string;
+  sortkeyProduct: string;
   cantidadTotalProductosxPedido: number;
   cantidadPedidos: number;
   display = false;
+  displayProducto = false;
   cols = [];
   listaProductos: Array<any> = [];
   productoTmp = 0;
+  infoProducto: Producto;
+  descripcionProducto = '';
+  costoProducto = 0;
+  categoriaProducto = '';
+  imagenProducto = '';
+  nombreProducto = '';
+  listaCategorias: Categoria[];
   private nombreRepartidoresSubscribe;
   private nombreClientesSubscribe;
   private pedidosSubscribe;
   private productosSubscribe;
   private pedidosApi;
+  private categoriasSubscribe;
   constructor(private userService: UsersService,
-    private novedadesRepartidor: DeliverymanService, 
+    private novedadesRepartidor: DeliverymanService,
     private clientes: UsersService,
     private productService: ProductoService,
     private spinner: NgxSpinnerService,
+    private caterogiasService: CategoriaService,
     private auth: AuthService,
     private seguridad: SeguridadService,
     private messageService: MessageService,
     private pedidoService: PedidoService ) { }
-  startAnimationForLineChart(chart) {
-      let seq: any, delays: any, durations: any;
-      seq = 0;
-      delays = 80;
-      durations = 500;
 
-      chart.on('draw', function(data) {
-        if (data.type === 'line' || data.type === 'area') {
-          data.element.animate({
-            d: {
-              begin: 600,
-              dur: 700,
-              from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
-              to: data.path.clone().stringify(),
-              easing: Chartist.Svg.Easing.easeOutQuint
-            }
-          });
-        } else if (data.type === 'point') {
-              seq++;
-              data.element.animate({
-                opacity: {
-                  begin: seq * delays,
-                  dur: durations,
-                  from: 0,
-                  to: 1,
-                  easing: 'ease'
-                }
-              });
-          }
-      });
-
-      seq = 0;
-  };
-  startAnimationForBarChart(chart) {
-      let seq2: any, delays2: any, durations2: any;
-
-      seq2 = 0;
-      delays2 = 80;
-      durations2 = 500;
-      chart.on('draw', function(data) {
-        if (data.type === 'bar') {
-            seq2++;
-            data.element.animate({
-              opacity: {
-                begin: seq2 * delays2,
-                dur: durations2,
-                from: 0,
-                to: 1,
-                easing: 'ease'
-              }
-            });
-        }
-      });
-
-      seq2 = 0;
-  };
   ngOnInit() {
-    this.nombreRepartidoresSubscribe= this.novedadesRepartidor.getRepartidores()
-    .subscribe((item:any)=>{
-      environment.variables.nombreRepartidores=item;
+    this.nombreRepartidoresSubscribe = this.novedadesRepartidor.getRepartidores()
+    .subscribe((item: any) => {
+      environment.variables.nombreRepartidores = item;
     });
 
-    this.nombreClientesSubscribe= this.clientes.usuarios()
-    .subscribe((item: any)=>{
-      environment.variables.nombreClientes=item;
+    this.nombreClientesSubscribe = this.clientes.usuarios()
+    .subscribe((item: any) => {
+      environment.variables.nombreClientes = item;
+    });
+    this.categoriasSubscribe = this.caterogiasService.getCategorias().subscribe( (item: any) =>{
+      this.listaCategorias = item;
     });
 
     this.mapa = new Map();
@@ -129,21 +91,27 @@ export class DashboardComponent implements OnInit {
       {label: 'Mayor valor', value: '!total'},
       {label: 'Menor Valor', value: 'total'},
     ];
+    this.sortOptionsProducts = [
+      {label: 'Mayor stock', value: '!total'},
+      {label: 'Menor stock', value: 'total'},
+    ];
     this.pedidosSubscribe = this.pedidoService.getPedidosByEstado(0).subscribe( (item: any) => {
       this.pedidosEntrantes = item;
       this.cantidadPedidos = this.pedidosEntrantes.length;
-      this.spinner.hide();
     }, error => {
+      this.spinner.hide();
       this.errorMessage('No se pudo cargar los pedidos');
     });
 
     this.productosSubscribe = this.productService.getProductos().subscribe((item: any ) => {
       this.productos = item;
+      this.infoProducto = this.productos[0];
+      this.spinner.hide();
     }, error => {
+      this.spinner.hide();
       this.errorMessage('No se pudo cargar los productos de los pedidos');
     });
-
-    this.pedidosApi = this.pedidoService.getPedidosDispatchedFromApi(this.token).subscribe( (item: any) => {
+    this.pedidosApi = this.pedidoService.getPedidosDispatchedFromApi().subscribe( (item: any) => {
       this.pedidosEntrantesApi = item;
       for ( let i = 0 ; i < this.pedidosEntrantesApi.length; i++) {
         this.numeroVentas.push(this.pedidosEntrantesApi[i].subtotal);
@@ -170,97 +138,39 @@ export class DashboardComponent implements OnInit {
     }, error => {
       this.errorMessage('No se pudo cargar las ventas');
     });
+    /*
+    const source = this.pedidoService.getPedidosApl().addEventListener('message', message => {
+      console.log('dentro de source');
+      console.log(message.data);
+    });*/
 
 
 
 
 
-
-
-
-
-
-
-      /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
-
-      const dataDailySalesChart: any = {
-          labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-          series: [
-              [12, 17, 7, 17, 23, 18, 38]
-          ]
-      };
-
-     const optionsDailySalesChart: any = {
-          lineSmooth: Chartist.Interpolation.cardinal({
-              tension: 0
-          }),
-          low: 0,
-          high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: { top: 0, right: 0, bottom: 0, left: 0},
-      }
-
-      const dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
-
-      this.startAnimationForLineChart(dailySalesChart);
-
-
-      /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
-
-      const dataCompletedTasksChart: any = {
-          labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
-          series: [
-              [230, 750, 450, 300, 280, 240, 200, 190]
-          ]
-      };
-
-     const optionsCompletedTasksChart: any = {
-          lineSmooth: Chartist.Interpolation.cardinal({
-              tension: 0
-          }),
-          low: 0,
-          high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: { top: 0, right: 0, bottom: 0, left: 0}
-      }
-
-      const completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
-
-      // start animation for the Completed Tasks Chart - Line Chart
-      this.startAnimationForLineChart(completedTasksChart);
-
-
-
-      /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
-
-      const datawebsiteViewsChart = {
-        labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
-        series: [
-          [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
-
-        ]
-      };
-      const optionswebsiteViewsChart = {
-          axisX: {
-              showGrid: false
-          },
-          low: 0,
-          high: 1000,
-          chartPadding: { top: 0, right: 5, bottom: 0, left: 0}
-      };
-      const responsiveOptions: any[] = [
-        ['screen and (max-width: 640px)', {
-          seriesBarDistance: 5,
-          axisX: {
-            labelInterpolationFnc: function (value) {
-              return value[0];
-            }
-          }
-        }]
-      ];
-      const websiteViewsChart = new Chartist.Bar('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
-
-      // start animation for the Emails Subscription Chart
-      this.startAnimationForBarChart(websiteViewsChart);
   }
+  onSortChangeProducts() {
+    console.log(this.sortkeyProduct);
+    if (this.sortkeyProduct.indexOf('!') === 0) {
+      this.sortProducts(-1);
+    } else if (this.sortkeyProduct.indexOf('!') === -1) {
+      this.sortProducts(1);
+    }
+  }
+
+  sortProducts(product: number): void {
+    const productos = [...this.productos];
+    productos.sort((data1, data2) => {
+      const value1 = data1.stock;
+      const value2 = data2.stock;
+      const result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+
+      return (product * result);
+    });
+
+    this.productos = productos;
+  }
+
   onSortChange() {
     console.log(this.sortKey);
     if (this.sortKey.indexOf('!') === 0) {
@@ -301,13 +211,37 @@ export class DashboardComponent implements OnInit {
     this.cantidadTotalProductosxPedido = pedido.cantidades.reduce( (a, b) => a + b , 0);
   }
 
+  selectProducto(producto: Producto) {
+    this.infoProducto = producto;
+    this.displayProducto = true;
+    for (let i = 0 ; i< this.listaCategorias.length; i++) {
+      if (this.infoProducto.idCategoria === this.listaCategorias[i].idCategoria) {
+        this.categoriaProducto = this.listaCategorias[i].nombre;
+      }
+    }
+    this.nombreProducto = this.infoProducto.nombre;
+    this.imagenProducto = this.infoProducto.foto;
+    this.descripcionProducto = this.infoProducto.descripcion;
+    this.costoProducto = this.infoProducto.precio;
+
+
+  }
   // tslint:disable-next-line: use-life-cycle-interface
   ngOnDestroy() {
     if (this.productosSubscribe) {
       this.productosSubscribe.unsubscribe();
     }
+    if (this.nombreRepartidoresSubscribe) {
+      this.nombreRepartidoresSubscribe.unsubscribe();
+    }
     if (this.pedidosSubscribe) {
       this.pedidosSubscribe.unsubscribe();
+    }
+    if (this.nombreClientesSubscribe) {
+      this.nombreClientesSubscribe.unsubscribe();
+    }
+    if (this.pedidosApi) {
+      this.pedidosApi.unsubscribe();
     }
   }
   errorMessage(mensaje: string) {

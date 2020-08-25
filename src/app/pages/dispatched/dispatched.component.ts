@@ -37,7 +37,7 @@ export class DispatchedComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    this.pedidosDespachados = this.pedidosService.getPedidosDispatchedFromApi(this.token).subscribe( (item: any) => {
+    this.pedidosDespachados = this.pedidosService.getPedidosDispatchedFromApi().subscribe( (item: any) => {
       this.pedidosDeApi = item;
     }, error =>{
       this.showMessage('No se pudo cargar los pedidos');
