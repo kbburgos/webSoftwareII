@@ -31,3 +31,13 @@ td {
   align-content: center;
   align-self: center;
 }
+
+
+.form-label{
+  font-weight: bold;
+}
+
+.requared{
+  font-weight: bold;
+  color: red;
+}

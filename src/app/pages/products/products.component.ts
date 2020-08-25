@@ -62,19 +62,6 @@ export class ProductsComponent implements OnInit {
     let cat = this.caterogiasService.getCategorias().subscribe((item: any) => {
       this.categorias = item;
     });
-    /*
-    item.map((pro) => {
-        if (pro.idCategoria != "B9MwktyLd7z4onQIKKAw") {
-          this.productos.push(pro);
-          for (let i = 0; i < this.categorias.length; i++) {
-            if (this.categorias[i].idCategoria == pro.idCategoria) {
-              (pro.idCategoria = this.categorias[i].nombre),
-                this.cols.push(pro);
-            }
-          }
-        }
-      });
-    */
 
     this.buildForm();
     this.clearState();
@@ -110,7 +97,6 @@ export class ProductsComponent implements OnInit {
         }
       });
       this.data = coleccion;
-      console.log(temporal);
       this.productos = temporal;
       this.spinner.hide();
     });
@@ -147,18 +133,37 @@ export class ProductsComponent implements OnInit {
 
   showDialogProduct(productos) {
     this.display = true;
-    this.ProductEdit = productos;
+    this.ProductEdit = Object.assign({}, productos);
+    this.categoria = this.ProductEdit.idCategoria;
   }
 
-  confirmar() {
+  confirmar(item: Products) {
+    console.log(item);
+    let producto: Products = {
+      idProducto: item.idProducto,
+      descripcion: item.descripcion,
+      foto: item.foto,
+      idCategoria: item.idCategoria,
+      nombre: item.nombre,
+      isActivo: true,
+      precio: item.precio,
+      stock: item.stock,
+      slide: item.slide,
+    };
+    console.log(producto);
     this.confirmationService.confirm({
       message: "¿Est&aacute; seguro que desea editar el producto?",
       accept: () => {
+        console;
         if (this.categoria == "") {
-          this.update(this.ProductEdit);
+          this.update(producto);
+          this.display = false;
+          this.clearState();
         } else {
-          this.ProductEdit.idCategoria = this.categoria;
-          this.update(this.ProductEdit);
+          producto.idCategoria = this.categoria;
+          this.update(producto);
+          this.display = false;
+          this.clearState();
         }
       },
     });
@@ -177,8 +182,8 @@ export class ProductsComponent implements OnInit {
     this.guardarCategoria(producto.idCategoria);
     producto.idCategoria = this.categoria;
     this.productosService.updateProduct(producto);
-    //console.log(producto);
     this.clearState();
+    this.showMessage("Producto editado exitósamente", "success", "Editado!");
   }
 
   showAddDialog() {
@@ -204,9 +209,15 @@ export class ProductsComponent implements OnInit {
       .then((data: any) => {
         this.bandera = false;
         console.log("Guardado");
+        this.showMessage(
+          "Prducto creado exitósamente",
+          "success",
+          "Agregado!"
+        );
       })
       .catch((err: any) => {
         console.log(err);
+        this.showMessage("Error al crear el producto", "error", "Error!");
       });
     this.clearState();
   }
@@ -214,6 +225,7 @@ export class ProductsComponent implements OnInit {
   eliminarProduct(producto: Products) {
     console.log(producto);
     this.productosService.deleteProduct(producto.idProducto);
+    this.showMessage("Producto eliminado exitósamente", "success", "Eliminado!");
     this.clearState();
   }
 

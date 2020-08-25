@@ -19,6 +19,7 @@ import { ConfirmationService } from "primeng/api";
   selector: "app-current-promotion",
   templateUrl: "./current-promotion.component.html",
   styleUrls: ["./current-promotion.component.css"],
+  providers: [MessageService],
 })
 export class CurrentPromotionComponent implements OnInit {
   private form: FormGroup;
@@ -44,20 +45,14 @@ export class CurrentPromotionComponent implements OnInit {
   previewUrl: any = null;
 
   producSlide: any = [];
+  data: any = "";
 
   cols = [
     { field: "nombre", header: "Nombre" },
     { field: "descripcion", header: "Descripcion" },
-    { field: "categoria", header: "Categoria" },
     { field: "precio", header: "Precio" },
     { field: "stock", header: "Stock" },
-    { field: "imagen", header: "Imagen" },
   ];
-
-  message: any = {
-    mensaje: "",
-    accion: "",
-  };
 
   constructor(
     private productosService: ProductoService,
@@ -72,23 +67,38 @@ export class CurrentPromotionComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm();
     this.clearState();
-    this.spinner.show();
     this.colsdata = [];
     this.productos = [];
 
-    let subs = this.productosService.getProductos().subscribe(
-      (data: any) => {
-        this.productos = data;
-        console.log(this.productos);
-        this.spinner.hide();
-        //subs.unsubscribe();
+    this.cargar();
+  }
+
+  cargar() {
+    this.spinner.show();
+    let pro = this.productosService.getProductos().subscribe(
+      (item: any) => {
+        console.log(item);
+        this.filtrado(item);
       },
       (err: any) => {
         console.log(err);
         this.spinner.hide();
-        subs.unsubscribe();
+        pro.unsubscribe();
+        this.showMessage("Error al cargar las promociones", "error", "Error!");
       }
     );
+  }
+
+  filtrado(coleccion) {
+    let temporal: any[] = [];
+    coleccion.map((item) => {
+      if (item.idCategoria == "B9MwktyLd7z4onQIKKAw" && item.isActivo) {
+        temporal.push(item);
+      }
+    });
+    this.data = coleccion;
+    this.productos = temporal;
+    this.spinner.hide();
   }
 
   private buildForm() {
@@ -114,14 +124,28 @@ export class CurrentPromotionComponent implements OnInit {
 
   showDialogProduct(productos) {
     this.display = true;
-    this.ProductEdit = productos;
+    this.ProductEdit = Object.assign({}, productos);
   }
 
-  confirmar() {
+  confirmar(item: Products) {
+    let producto: Products = {
+      idProducto: this.ProductEdit.idProducto,
+      descripcion: this.form.get("descripcion").value,
+      foto: this.ProductEdit.foto,
+      idCategoria: this.categoria,
+      nombre: this.form.get("nombre").value,
+      isActivo: true,
+      precio: this.form.get("precio").value,
+      stock: this.form.get("stock").value,
+      slide: this.ProductEdit.slide,
+    };
+
     this.confirmationService.confirm({
       message: "¿Est&aacute; seguro que desea editar la promoción?",
       accept: () => {
-        this.update(this.ProductEdit);
+        this.update(producto);
+        this.clearState();
+        this.display = false;
       },
     });
   }
@@ -138,15 +162,8 @@ export class CurrentPromotionComponent implements OnInit {
   update(producto: Products) {
     producto.idCategoria = this.categoria;
     this.productosService.updateProduct(producto);
-
-    this.mensaje = true;
-
-    this.message = {
-      mensaje: "Se ha modificado la promoción de la lista",
-      accion: "Nuevos detalles!",
-    };
-
     this.clearState();
+    this.showMessage("Promoción activa", "success", "Activa!");
   }
 
   newPromotion() {
@@ -184,15 +201,9 @@ export class CurrentPromotionComponent implements OnInit {
 
   eliminarProduct(producto: Products) {
     console.log(producto);
-    this.mensaje = true;
-
-    this.message = {
-      mensaje: "Se ha eliminado la promoción de la lista",
-      accion: "Terminó la promoción!",
-    };
-
     producto.isActivo = false;
     this.productosService.updateProduct(producto);
+    this.showMessage("Promoción inactiva", "success", "Inactiva!");
     this.clearState();
   }
 
@@ -222,15 +233,15 @@ export class CurrentPromotionComponent implements OnInit {
       .then((data: any) => {
         console.log("Guardado");
         this.clearState();
+        this.showMessage(
+          "Promoción creado exitósamente",
+          "success",
+          "Agregado!"
+        );
       })
       .catch((err: any) => {
         this.bandera = false;
-        this.mensaje = true;
-        this.message = {
-          mensaje: "Se ha agregado la promoción a la lista",
-          accion: "Nueva Promoción!",
-        };
-
+        this.showMessage("Error al crear la promoción", "error", "Error!");
         console.log(err);
       });
   }
@@ -238,5 +249,14 @@ export class CurrentPromotionComponent implements OnInit {
   showSlide(producto: any[]) {
     this.producSlide = producto;
     this.slide = true;
+  }
+
+  showMessage(mensaje: string, tipo: string, titulo: string) {
+    this.messageService.add({
+      severity: tipo,
+      summary: titulo,
+      detail: mensaje,
+      life: 4000,
+    });
   }
 }

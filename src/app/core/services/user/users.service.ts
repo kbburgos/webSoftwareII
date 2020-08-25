@@ -28,7 +28,6 @@ export class UsersService {
   ) {}
 
   usuarios() {
-    console.log("mami");
     return this.http.get(environment.rutas.usersS);
   }
 

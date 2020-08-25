@@ -40,7 +40,7 @@ export class UsersComponent implements OnInit {
   rolName: String = "Rol";
   datosUsuario: UsuarioInterface;
   data: any = "";
-  rol: number = 0;
+  rol: number = 1;
   edit: boolean = false;
   UsuarioEdit: UsersService;
 
@@ -103,24 +103,6 @@ export class UsersComponent implements OnInit {
     return temporal;
   }
 
-  /*tableColumns(colection) {
-    colection.map((usuario) => {
-      let User: Usuarios = {
-        apellido: usuario.apellido,
-        cedula: usuario.cedula,
-        contrasenia: usuario.contrasenia,
-        direccion: usuario.direccion,
-        email: usuario.email,
-        nombre: usuario.nombre,
-        rol: usuario.rol,
-        telefono: usuario.telefono,
-      };
-      this.temp.push(User);
-      this.column = this.temp;
-      this.spinner.hide();
-    });
-  }*/
-
   buildForm() {
     this.form = this.formBuilder.group({
       cedula: new FormControl("", [
@@ -181,7 +163,7 @@ export class UsersComponent implements OnInit {
       })
       .catch((err) => {
         console.log(err);
-        this.showMessage("Error al agregar el usuario", "error", "Error!");
+        this.showMessage("Error al crear el usuario", "error", "Error!");
       });
   }
 
@@ -217,7 +199,7 @@ export class UsersComponent implements OnInit {
       telefono: this.form.get("telefono").value,
       email: this.form.get("email").value,
       contrasenia: "contrasenia",
-      rol: this.rol,
+      rol: 1,
       direccion: this.form.get("direccion").value,
     };
 
