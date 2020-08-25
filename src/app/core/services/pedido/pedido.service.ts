@@ -120,4 +120,8 @@ export class PedidoService {
     return this.http.post(environment.rutas.createPedidos, body, { headers });
   }
 
+  getPedidosApl () {
+    return new EventSource(environment.rutas.getPedidos);
+  }
+
 }

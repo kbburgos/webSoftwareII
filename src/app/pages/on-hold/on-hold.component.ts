@@ -261,17 +261,19 @@ export class OnHoldComponent implements OnInit {
     let direccion;
     let coordenadas;
     const telefono = repartidor.telefono;
+    const telefono2= '0997850750';
     const url_prueba = 'http://localhost:4200/deliveryman';
     if (this.pedido.direccionEntrega === 'S') {
       json = JSON.parse(JSON.stringify(cliente.direccion));
       direccion = JSON.parse(json);
       console.log('vieja: ', direccion);
+      coordenadas = direccion.coordenadas.split(',');
     } else {
       json = JSON.parse(JSON.stringify(this.pedido.direccionEntrega));
       direccion = JSON.parse(json);
       console.log('nueva: ', direccion);
+      coordenadas = direccion.ubicacion.split(',');
     }
-    coordenadas = direccion.coordenadas.split(',');
     const mapa = 'https://www.google.com/maps/search/?api=1%26query=' + coordenadas[1] + ',' + coordenadas[0];
     const cuerpo_mensaje =
       'Hola ' + repartidor.nombre + ', el código del pedido es *' + this.pedido.idPedido +
@@ -279,7 +281,8 @@ export class OnHoldComponent implements OnInit {
       '*, la dirección es ' + direccion.direccion + ', su referencia es ' + direccion.referencia  +
       ', puedes  ubicarte con: ' + mapa +
       ' . Usa este enlace para finalizar el pedido ' + url_prueba ;
-    window.open('https://api.whatsapp.com/send?phone=' + telefono + '&text=' + cuerpo_mensaje);
+    console.log(cuerpo_mensaje);
+    window.open('https://api.whatsapp.com/send?phone=593' + telefono2 + '&text=' + cuerpo_mensaje);
 
   }
 
