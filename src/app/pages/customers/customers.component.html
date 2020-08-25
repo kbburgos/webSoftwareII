@@ -28,7 +28,6 @@
                   <th>EMAIL</th>
                   <th>DIRECCION</th>
                   <th>TELEFONO</th>
-                  <th>ACCIONES</th>
                 </tr>
                 <tr>
                   <th
@@ -59,22 +58,6 @@
                   <td>{{ user.email }}</td>
                   <td>{{ user.direccion }}</td>
                   <td>{{ user.telefono }}</td>
-                  <td>
-                    <div class="ui-dialog-buttonpane">
-                      <p-confirmDialog
-                        header="Confirmaci&oacute;n"
-                        icon="pi pi-exclamation-triangle"
-                      ></p-confirmDialog>
-                      <button
-                        pButton
-                        type="button"
-                        (click)="eliminarCustomers(user.cedula)"
-                        icon="pi pi-trash"
-                        label="eliminar"
-                        class="ui-button-danger"
-                      ></button>
-                    </div>
-                  </td>
                 </tr>
               </ng-template>
             </p-table>

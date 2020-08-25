@@ -5,7 +5,7 @@ import { CustomerNewsView } from "../../core/interface/customerNewsView";
 import { ConfirmationService } from "primeng/api";
 import { MessageService } from "primeng/api";
 import { HttpClientModule } from "@angular/common/http";
-
+import { NgxSpinnerService } from 'ngx-spinner';
 import { NoveltyService } from "../../core/services/novelty/novelty.service";
 import { NovelyDelivermanView } from "../../core/interface/noveltyDelivermanView";
 import { UserNotificationService } from "../../core/services/user/user-notification.service";
@@ -39,63 +39,40 @@ export class UserNotificationComponent implements OnInit {
     private userNotification: UserNotificationService,
     private novelty: NoveltyService,
     private authService: AuthService,
+    private spinner: NgxSpinnerService,
     private messageService: MessageService,
     private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
-
+    //this.spinner.show();
+    this.buildForm();
     this.userNotification.clienteNotification(this.token).subscribe((data: any) => {
       this.customernewsView = this.listaFiltroClientes(this.listaFiltroRepartidores(data));
+      //this.spinner.hide();
       console.log(this.customernewsView);
 
-      /*
-      for (let i=0; environment.variables.nombreRepartidores.length; i++){
-        for (let j=0; this.customernewsView.length; j++){
-          if(environment.variables.nombreRepartidores[i]['cedula'] === this.customernewsView[j].idUsuarioreportado){
-            this.customernewsView[j].usuarioReportado =environment.variables.nombreRepartidores[i]['nombre']+' '+
-            environment.variables.nombreRepartidores[i]['apellido']
-          }
-        }
-      }
-
-      for (let i=0; environment.variables.nombreClientes.length; i++){
-        for (let j=0; this.customernewsView.length; j++){
-          if(environment.variables.nombreClientes[i]['cedula'] === this.customernewsView[j].idUsuarioreporta){
-            this.customernewsView[j].usuarioReporta =environment.variables.nombreClientes[i]['nombre']+' '+
-            environment.variables.nombreClientes[i]['apellido']
-          }
-          if(environment.variables.nombreClientes[i]['rol'] === 3){
-            this.customernewsView[j].esCliente=true;
-          }else{
-            this.customernewsView[j].esCliente=false;
-          }
-        }
-      }
-      */
     });
     
     let adminNoveltySubscribe = this.novelty.getnovedadesReporta(this.token, this.authService.dataUser.cedula)
-    .subscribe((data:any)=>{
+      .subscribe((data:any)=>{
       this.novedadAdmin = this.listaAdmin(data);
-      /*for (let i=0; environment.variables.nombreRepartidores.length; i++){
-        for (let j=0; this.novedadAdmin.length; j++){
-          if(environment.variables.nombreRepartidores[i]['cedula'] === this.novedadAdmin[j].idUsuarioreportado){
-            this.novedadAdmin[j].usuarioReportado =environment.variables.nombreRepartidores[i]['nombre']+' '+
-            environment.variables.nombreRepartidores[i]['apellido'];
-            this.novedadAdmin[j].esCliente=false;
-            console.log(this.novedadAdmin[j].esCliente);
-          }
-        }
-      }*/
-    })
-
-    this.buildForm();
+      if(Object.keys(this.novedadAdmin).length === 0){
+        console.log("No existe novedad!");
+      }
+      },
+      (err: any)=> {
+        console.log(err);
+        adminNoveltySubscribe.unsubscribe();
+        this.showMessage("Error al cargar las novedades realizadas por el Administrador",
+        "error",
+        "Error!");
+      });
   }
 
   listaFiltroRepartidores(listaR: any){
-    for (let i=0; environment.variables.nombreRepartidores.length; i++){
-      for (let j=0; listaR.length; j++){
+    for (let i=0; i<environment.variables.nombreRepartidores.length; i++){
+      for (let j=0; j<listaR.length; j++){
         if(environment.variables.nombreRepartidores[i]['cedula'] === listaR[j].idUsuarioreportado){
           listaR[j].usuarioReportado =environment.variables.nombreRepartidores[i]['nombre']+' '+
           environment.variables.nombreRepartidores[i]['apellido']
@@ -106,16 +83,12 @@ export class UserNotificationComponent implements OnInit {
   }
 
   listaFiltroClientes(listaC: any){
-    for (let i=0; environment.variables.nombreClientes.length; i++){
-      for (let j=0; listaC.length; j++){
+    for (let i=0; i<environment.variables.nombreClientes.length; i++){
+      for (let j=0; j<listaC.length; j++){
         if(environment.variables.nombreClientes[i]['cedula'] === listaC[j].idUsuarioreporta){
           listaC[j].usuarioReporta =environment.variables.nombreClientes[i]['nombre']+' '+
-          environment.variables.nombreClientes[i]['apellido']
-        }
-        if(environment.variables.nombreClientes[i]['rol'] === 3){
+          environment.variables.nombreClientes[i]['apellido'];
           listaC[j].esCliente=true;
-        }else{
-          listaC[j].esCliente=false;
         }
       }
     }
@@ -123,8 +96,8 @@ export class UserNotificationComponent implements OnInit {
   }
 
   listaAdmin(listaAdmin: any){
-    for (let i=0; environment.variables.nombreRepartidores.length; i++){
-      for (let j=0; listaAdmin.length; j++){
+    for (let i=0; i<environment.variables.nombreRepartidores.length; i++){
+      for (let j=0; j<listaAdmin.length; j++){
         if(environment.variables.nombreRepartidores[i]['cedula'] === listaAdmin[j].idUsuarioreportado){
           listaAdmin[j].usuarioReportado =environment.variables.nombreRepartidores[i]['nombre']+' '+
           environment.variables.nombreRepartidores[i]['apellido'];
