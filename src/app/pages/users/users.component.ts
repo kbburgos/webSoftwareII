@@ -204,7 +204,7 @@ export class UsersComponent implements OnInit {
     console.log('LLEGAS');
     this.edit = true;
     this.UsuarioEdit = user;
-
+    this.rol = 1;
     console.log(this.UsuarioEdit);
   }
 
@@ -216,12 +216,12 @@ export class UsersComponent implements OnInit {
       apellido: this.form.get('apellido').value,
       telefono: this.form.get('telefono').value,
       email: this.form.get('email').value,
+      direccion: this.form.get('direccion').value,
       contrasenia: 'contrasenia',
       rol: this.rol,
-      direccion: this.form.get('direccion').value,
     };
-    console.log(this.rol);
-    /*this.user
+    //console.log(this.datosUsuario);
+    this.user
       .setUserInfo(this.datosUsuario)
       .toPromise()
       .then((data) => {
@@ -230,7 +230,7 @@ export class UsersComponent implements OnInit {
       .catch((err) => {
         console.log(err);
         this.edit = false;
-      });*/
+      });
   }
 
   EliminarUser(cedula: string) {
