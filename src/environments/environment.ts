@@ -78,7 +78,7 @@ export const environment = {
   // usuarioXid : "https://omipalisf2.herokuapp.com/api/usersS/",
   usersS: 'https://omipalisf2.herokuapp.com/api/usersS/',
   emailRepartidor: 'repartidorOmiPali@gmail.com',
-  passwRReartidor: 'repartidorOmiPali',
+  passwRReartidor: 'contrasenia',
   variables: {
     usuariosSistema: [],
     clientesNovedades: [],
