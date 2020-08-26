@@ -6,6 +6,7 @@ import { NovelyDeliverman } from "../../core/interface/noveltyDeliverman";
 import { NovelyDelivermanView } from "../../core/interface/noveltyDelivermanView";
 import { NoveltyService } from "../../core/services/novelty/novelty.service";
 import { ConfirmationService } from "primeng/api";
+import { NgxSpinnerService } from 'ngx-spinner';
 import { environment } from 'environments/environment';
 import { HttpClient } from '@angular/common/http';
 import {
@@ -31,7 +32,9 @@ export class DeliveryNotificationComponent implements OnInit {
   listanovedades: Array<any> = [];
   dato: string;
   envU = environment;
-
+  private subsubscribe;
+  private adminNoveltySubscribe;
+  private 
   cols: any[];
 
   constructor(
@@ -41,14 +44,17 @@ export class DeliveryNotificationComponent implements OnInit {
     private novelty: NoveltyService,
     private authService: AuthService,
     private http: HttpClient,
+    private spinner: NgxSpinnerService,
     private formBuilder: FormBuilder
 
   ) { }
 
   ngOnInit() {
-
-    let sub = this.deliverymanreportService.getNovedadesRepartidores().subscribe((item: any) => {
+    this.spinner.show();
+    let subsubscribe = this.deliverymanreportService.getNovedadesRepartidores()
+    .subscribe((item: any) => {
       this.deliverymannewView = item;
+      this.spinner.hide();
 
       for(let i=0; i<environment.variables.nombreRepartidores.length; i++){
         for(let j=0; j<this.deliverymannewView.length; j++){
@@ -130,4 +136,14 @@ export class DeliveryNotificationComponent implements OnInit {
     this.display = false;
     this.form.reset();
   }
+
+  ngOnDestroy() {
+    if (this.adminNoveltySubscribe) {
+      this.adminNoveltySubscribe.unsubscribe();
+    }
+    if (this.subsubscribe) {
+      this.subsubscribe.unsubscribe();
+    }
+  }
+
 }

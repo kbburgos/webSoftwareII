@@ -6,35 +6,32 @@
           <div class="card-header card-header-info">
             <div class="row">
               <div class="col-md-10">
-                <h4 class="card-title">Promociones</h4>
+                <h4 class="card-title">Lista de Promociones Inactivas</h4>
               </div>
             </div>
           </div>
           <div class="card-body">
             <p-table
-              #dt
-              [value]="productos"
-              [scrollable]="true"
-              [paginator]="true"
-              [rows]="10"
+            [columns]="cols"
+            [value]="productos"
+            [responsive]="true"
+            [paginator]="true"
+            sortMode="multiple"
+            [rows]="5"
+            #dt
             >
-              <ng-template pTemplate="header">
+              <ng-template pTemplate="header" let-columns>
                 <tr>
-                  <th>NOMBRE</th>
-                  <th>DESCRIPCION</th>
-                  <th>PRECIO</th>
-                  <th>STOCK</th>
+                  <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{ col.header }}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                  </th>
                   <th>FOTO</th>
                   <th>ACCION</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-product>
-                <tr
-                  *ngIf="
-                    product.idCategoria == 'B9MwktyLd7z4onQIKKAw' &&
-                    !product.isActivo
-                  "
-                >
+                <tr>
                   <td>{{ product.nombre }}</td>
                   <td>{{ product.descripcion }}</td>
                   <td>{{ product.precio }}</td>
@@ -82,12 +79,4 @@
   </div>
 </p-dialog>
 
-<p-dialog
-  class="notification"
-  header="{{ message.accion }}"
-  [(visible)]="mensaje"
-  position="right"
-  [style]="{ width: '40vw' }"
->
-  <h4>{{ message.mensaje }}</h4>
-</p-dialog>
+<p-toast position="bottom-right"></p-toast>

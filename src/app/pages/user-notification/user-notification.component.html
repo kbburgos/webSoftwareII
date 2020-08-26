@@ -3,20 +3,10 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header card-header-danger">
+          <div class="card-header card-header-info">
             <div class="row">
-              <div class="col-md-8">
+              <div class="col-md-12">
                 <h4 class="card-title">Lista de novedades: Usuarios</h4>
-              </div>
-              <div class="col-md-4">
-                <button
-                  type="text"
-                  (click)="showAddDialog()"
-                  pButton
-                  icon="pi pi-download"
-                  label="  Exportar"
-                ></button>
-                &nbsp;
               </div>
             </div>
           </div>
@@ -41,7 +31,7 @@
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-customernewsview>
-                <tr *ngIf="customernewsview.esCliente===true">
+                <tr *ngIf="customernewsview.esCliente">
                   <td>{{ customernewsview.idUsuarioreporta }}</td>
                   <td>{{ customernewsview.usuarioReporta }}</td>
                   <td>{{ customernewsview.idUsuarioreportado }}</td>
@@ -61,26 +51,19 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header card-header-danger">
+                <div class="card-header card-header-info">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-10">
                         <h4 class="card-title">Lista de novedades creadas por el administrador</h4>
                     </div>
-                    <div class="col-md-4 ui-dialog-buttonpane">
+                    <div class="col-md-2 ui-dialog-buttonpane">
                         <button
+                          class="secundary"
                           type="text"
                           (click)="showAddDialog()"
                           pButton
                           icon="pi pi-plus"
                           label="  Nuevo"
-                        ></button>
-                        &nbsp;
-                        <button
-                          type="text"
-                          (click)="savePDF()"
-                          pButton
-                          icon="pi pi-download"
-                          label="  Exportar"
                         ></button>
                     </div>
                 </div>
@@ -160,7 +143,7 @@
       pButton
       icon="pi pi-save"
       (click)="addNovedad()"
-      label="Crear novedad"
+      label="Guardar"
     ></button>
   </p-footer>
 </p-dialog>

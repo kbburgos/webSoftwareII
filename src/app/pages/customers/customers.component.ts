@@ -28,6 +28,9 @@ export class CustomersComponent implements OnInit {
   customerEdit: Usuarios;
 
   clientes: Usuarios[];
+  direccion: string;
+  referencia: string;
+  coordenadas: string;
 
   cols: any[];
   constructor(
@@ -44,7 +47,7 @@ export class CustomersComponent implements OnInit {
 
     let subs = this.user.usuarios().subscribe(
       (data: any) => {
-        this.clientes = data;
+        this.clientes = this.filtrarCliente(data);
         console.log(this.clientes);
       },
       (err: any) => {
@@ -52,6 +55,25 @@ export class CustomersComponent implements OnInit {
         subs.unsubscribe();
       }
     );
+  }
+
+  filtrarCliente(lista: any){
+    for(let i=0; i<environment.variables.nombreClientes.length; i++){
+      for(let j=0; j<lista.length;j++){
+        if(environment.variables.nombreClientes[i]['cedula'] === lista[j].idUsuarioreporta){
+          this.getAddress(environment.variables.nombreClientes[i]['direccion']);
+          lista[j].direccion=this.direccion;
+        }
+      }
+    }
+    return lista;
+  }
+
+  getAddress(address:any){
+    const obj=JSON.parse(address);
+    this.direccion=obj.direccion;
+    this.referencia=obj.referencia;
+    this.coordenadas=obj.coordenadas;
   }
 
   eliminarCustomers(cedula){

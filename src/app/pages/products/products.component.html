@@ -120,7 +120,6 @@
   <p-header>
     Nuevo Producto
   </p-header>
-
   <div class="container-fluid" style="width: 400px;">
     <form [formGroup]="form">
       <div class="row">
@@ -132,6 +131,130 @@
             class="form-control"
             formControlName="nombre"
             placeholder="...Cheessecake de fresa"
+          />
+        </div>
+
+        <div class="col-md-6 form-group">
+          <div class="dropdown">
+            <button
+              href="#"
+              class="btn dropdown-toggle bg-primary"
+              data-toggle="dropdown"
+              aria-expanded="true"
+            >
+              {{ catName }}
+              <b class="caret"></b>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a (click)="guardarCategoria('bebidas')">Bebidas</a></li>
+              <li><a (click)="guardarCategoria('dulces')">Dulces</a></li>
+              <li><a (click)="guardarCategoria('tortas')">Tortas</a></li>
+              <li><a (click)="guardarCategoria('postres')">Postres</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 form-group">
+            <label class="form-label">Descripción</label>
+            <span class="requared">&nbsp; *</span>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="descripcion"
+              placeholder="...Endulzado con splenda"
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label class="form-label">Precio</label>
+            <span class="requared">&nbsp; *</span>
+            <input
+              class="form-control"
+              formControlName="precio"
+              type="number"
+              step="any"
+            />
+          </div>
+          <div class="col-md-6 form-group">
+            <label class="form-label">Stock</label>
+            <span class="requared">&nbsp; *</span>
+            <input type="number" class="form-control" formControlName="stock" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <label class="form-label">Imagen:</label>
+          <p-fileUpload
+            *ngIf="!previewUrl"
+            multiple="true"
+            customUpload="false"
+            (uploadHandler)="onFileUpload($event)"
+            accept="image/*"
+          >
+          </p-fileUpload>
+        </div>
+      </div>
+      <div class="row">
+        <div class="mb-3 text-center" *ngIf="previewUrl">
+          <p-carousel [value]="Urls" [numVisible]="1" [numScroll]="1">
+            <ng-template let-item pTemplate="item">
+              <img [src]="item" class="rounded image-preview" />
+            </ng-template>
+          </p-carousel>
+        </div>
+      </div>
+
+      <br />
+      <div class="row">
+        <div class="col-md-12 button-save">
+          <button
+            mat-raised-button
+            class="btn btn-success"
+            [disabled]="
+              form.invalid ||
+              categoria == '' ||
+              nombre == '' ||
+              descripcion == '' ||
+              precio == '' ||
+              stock == '' ||
+              previewUrl == null
+            "
+            class="secundary"
+            (click)="save()"
+            pButton
+            label="GUARDAR"
+          ></button>
+        </div>
+      </div>
+      <br />
+    </form>
+  </div>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="display"
+  [responsive]="true"
+  showEffect="fade"
+  (onHide)="clearState()"
+>
+  <p-header>
+    Editar Producto
+  </p-header>
+  <div *ngIf="display" class="container-fluid" style="width: 400px;">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label class="form-label">Nombre</label>
+          <span class="requared">&nbsp; *</span>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="nombre"
+            [(ngModel)]="ProductEdit.nombre"
           />
         </div>
         <div class="col-md-6 form-group">
@@ -163,7 +286,7 @@
             type="text"
             class="form-control"
             formControlName="descripcion"
-            placeholder="...En dulzado con splenda y fresa"
+            [(ngModel)]="ProductEdit.descripcion"
           />
         </div>
       </div>
@@ -177,159 +300,38 @@
             formControlName="precio"
             type="number"
             step="any"
+            [(ngModel)]="ProductEdit.precio"
           />
         </div>
         <div class="col-md-6 form-group">
           <label class="form-label">Stock</label>
           <span class="requared">&nbsp; *</span>
-          <input type="number" class="form-control" formControlName="stock" />
+          <input
+            type="number"
+            class="form-control"
+            [(ngModel)]="ProductEdit.stock"
+            formControlName="stock"
+          />
         </div>
       </div>
     </form>
-    <div class="row">
-      <div class="col-md-12">
-        <label class="form-label">Imagen:</label>
-        <p-fileUpload
-          *ngIf="!previewUrl"
-          multiple="true"
-          customUpload="false"
-          (uploadHandler)="onFileUpload($event)"
-          accept="image/*"
-        >
-        </p-fileUpload>
-      </div>
-    </div>
-    <div class="row">
-      <div class="mb-3 text-center" *ngIf="previewUrl">
-        <p-carousel [value]="Urls" [numVisible]="2" [numScroll]="1">
-          <ng-template let-item pTemplate="item">
-            <img [src]="item" class="rounded image-preview" />
-          </ng-template>
-        </p-carousel>
-      </div>
-    </div>
+  </div>
 
-    <br />
-    <br />
-
-    <div class="row">
-      <div class="col-md-12 button-save">
-        <button
-          mat-raised-button
-          class="btn btn-success"
-          [disabled]="
-            form.invalid ||
-            categoria == '' ||
-            nombre == '' ||
-            descripcion == '' ||
-            precio == '' ||
-            stock == '' ||
-            previewUrl == null
-          "
-          class="secundary"
-          (click)="save()"
-          pButton
-          label="GUARDAR"
-        ></button>
-      </div>
+  <p-confirmDialog
+    header="Confirmaci&oacute;n"
+    icon="pi pi-exclamation-triangle"
+  ></p-confirmDialog>
+  <div class="row">
+    <div class="col-md-12 button-save">
+      <button
+        type="button"
+        class="secundary"
+        pButton
+        (click)="confirmar()"
+        label="GUARDAR"
+      ></button>
     </div>
   </div>
-</p-dialog>
-
-<p-dialog
-  [(visible)]="display"
-  [responsive]="true"
-  showEffect="fade"
-  (onHide)="clearState()"
->
-  <p-header>
-    Editar Producto
-  </p-header>
-  <div class="container-fluid" style="width: 500px;">
-    <div *ngIf="display" class="row">
-      <form [formGroup]="form">
-        <div class="form-group col-sm-12">
-          <label>Nombre:</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="nombre"
-            [(ngModel)]="ProductEdit.nombre"
-          />
-        </div>
-
-        <div class="form-group col-sm-8" style="float: left;">
-          <label>Descripci&oacute;n:</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="descripcion"
-            [(ngModel)]="ProductEdit.descripcion"
-          />
-        </div>
-
-        <div class="form-group col-sm-2" style="float: left;">
-          <div class="dropdown">
-            <button
-              href="#"
-              class="btn dropdown-toggle btn-primary"
-              data-toggle="dropdown"
-              aria-expanded="true"
-            >
-              {{ catName }}
-              <b class="caret"></b>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a (click)="guardarCategoria('bebidas')">Bebidas</a></li>
-              <li><a (click)="guardarCategoria('dulces')">Dulces</a></li>
-              <li><a (click)="guardarCategoria('tortas')">Tortas</a></li>
-              <li><a (click)="guardarCategoria('postres')">Postres</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="form-group col-sm-6" style="float: left;">
-          <label>Precio:</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="precio"
-            [(ngModel)]="ProductEdit.precio"
-          />
-        </div>
-        <div class="form-group col-sm-6" style="float: left;">
-          <label>Stock:</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="stock"
-            [(ngModel)]="ProductEdit.stock"
-          />
-        </div>
-        <!--<div class="form-group col-sm-12">
-          <label>Foto:</label>
-          <img
-            src="{{ productEdit.foto }}"
-            width="50"
-            height="50"
-          />
-        </div>-->
-      </form>
-    </div>
-  </div>
-  <p-footer>
-    <p-confirmDialog
-      header="Confirmaci&oacute;n"
-      icon="pi pi-exclamation-triangle"
-    ></p-confirmDialog>
-    <button
-      type="button"
-      pButton
-      icon="pi pi-save"
-      (click)="confirmar()"
-      label="Editar"
-    ></button>
-  </p-footer>
 </p-dialog>
 
 <p-dialog [(visible)]="slide" position="right" [style]="{ width: '40vw' }">
