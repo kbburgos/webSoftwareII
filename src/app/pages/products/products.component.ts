@@ -142,6 +142,7 @@ export class ProductsComponent implements OnInit {
     this.display = true;
     this.ProductEdit = Object.assign({}, productos);
     this.categoria = this.ProductEdit.idCategoria;
+    this.catName = productos.categoria
   }
 
   confirmar() {
