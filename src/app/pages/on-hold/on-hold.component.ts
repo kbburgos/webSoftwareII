@@ -21,6 +21,15 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./on-hold.component.css'],
   providers: [MessageService]
 })
+
+/**
+ * @classdesc Container class of OnHoldComponent.
+ * @desc Creation Date: 08/07/2020
+ * @class
+ * @public
+ * @version 2.0.0
+ * @author Danny Rios <dprios@espol.edu.ec>
+ */
 export class OnHoldComponent implements OnInit {
   loading = true;
   display = false;
@@ -44,10 +53,10 @@ export class OnHoldComponent implements OnInit {
   fechaActual = new Date();
   permiso;
   cantidadCompras = 0;
-  cols: any=[
-    { field: "pedido", header: "PEDIDO" },
-    { field: "cliente", header: "CLIENTE" },
-    { field: "productos", header: "PRODUCTOS" },
+  cols: any = [
+    { field: 'pedido', header: 'PEDIDO' },
+    { field: 'cliente', header: 'CLIENTE' },
+    { field: 'productos', header: 'PRODUCTOS' },
   ];
 
   private pedidosDomicilioSuscribe;
@@ -73,6 +82,15 @@ export class OnHoldComponent implements OnInit {
     private confirmationService: ConfirmationService) {
     }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for loading the functions in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   ngOnInit() {
     this.permiso = this.seguridadService.encriptar(this.token);
     this.spinner.show();
@@ -122,17 +140,36 @@ export class OnHoldComponent implements OnInit {
     this.cargarCompras();
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for loading the purchases in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   cargarCompras() {
     this.spinner.show();
     this.verCompraApi = this.purchase.getPurchase().subscribe( (item: any) => {
       this.cantidadCompras = item.length;
       this.spinner.hide();
-      console.log('comrpas dentro del metodo: ',this.cantidadCompras);
+      console.log('comrpas dentro del metodo: ', this.cantidadCompras);
     }, error => {
       this.spinner.hide();
       this.errorMessage('No se pudo cargar las compras');
     });
   }
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for showing information about products of an order in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   detailsProducts(productos: [], cantidades: []) {
     this.display = true;
     this.listaProductos = [];
@@ -151,6 +188,15 @@ export class OnHoldComponent implements OnInit {
     this.cantidadTotalProductosxPedido = cantidades.reduce( (a, b) => a + b , 0);
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for assigning an order to deliveryman. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   assinggnOrder(pedido: Orders) {
     let cliente: Usuarios;
     for (let i = 0; i < this.listaClientes.length; i++) {
@@ -180,6 +226,15 @@ export class OnHoldComponent implements OnInit {
     this.showSuccess('repartidor');
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for changing the status order. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   changeState(pedido: Orders) {
     this.pedido = pedido;
     this.spinner.show();
@@ -222,9 +277,18 @@ export class OnHoldComponent implements OnInit {
       this.errorMessage('No se pudo realizar el pedido');
     });
     this.showSuccess('local');
-
-
   }
+
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for unsubscribing the methos in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   // tslint:disable-next-line: use-life-cycle-interface
   ngOnDestroy(): void {
     if (this.pedidosDomicilioSuscribe) {
@@ -256,22 +320,28 @@ export class OnHoldComponent implements OnInit {
     }
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for notifying the deliveryman that you have an order. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   notifyOrder(repartidor: Deliveryman, cliente: Usuarios) {
     let json;
     let direccion;
     let coordenadas;
     const telefono = repartidor.telefono;
-    const telefono2= '0997850750';
     const url_prueba = 'http://localhost:4200/deliveryman';
     if (this.pedido.direccionEntrega === 'S') {
       json = JSON.parse(JSON.stringify(cliente.direccion));
       direccion = JSON.parse(json);
-      console.log('vieja: ', direccion);
       coordenadas = direccion.coordenadas.split(',');
     } else {
       json = JSON.parse(JSON.stringify(this.pedido.direccionEntrega));
       direccion = JSON.parse(json);
-      console.log('nueva: ', direccion);
       coordenadas = direccion.ubicacion.split(',');
     }
     const mapa = 'https://www.google.com/maps/search/?api=1%26query=' + coordenadas[1] + ',' + coordenadas[0];
@@ -281,11 +351,19 @@ export class OnHoldComponent implements OnInit {
       '*, la dirección es ' + direccion.direccion + ', su referencia es ' + direccion.referencia  +
       ', puedes  ubicarte con: ' + mapa +
       ' . Usa este enlace para finalizar el pedido ' + url_prueba ;
-    console.log(cuerpo_mensaje);
-    window.open('https://api.whatsapp.com/send?phone=593' + telefono2 + '&text=' + cuerpo_mensaje);
+    window.open('https://api.whatsapp.com/send?phone=593' + telefono + '&text=' + cuerpo_mensaje);
 
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for showing a confirm message dialog in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   showSuccess(esRepartidor: string) {
     let detail: string;
     if (esRepartidor === 'repartidor') {
@@ -300,18 +378,45 @@ export class OnHoldComponent implements OnInit {
       detail: detail, life: 2000 });
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for showing an error message dialog in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   errorMessage(mensaje: string) {
     this.messageService.add(
       {severity: 'error', summary: 'Error!',
       detail: mensaje, life: 2000 });
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for showing a confirm create message dialog in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   createConfirmMessage(mensaje: string) {
       this.messageService.add(
         {severity: 'success', summary: 'Mensaje de confirmación',
         detail: mensaje, life: 2000 });
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for showing a confirm  message dialog in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   confirm(pedido: Orders) {
     this.confirmationService.confirm({
         header: 'Enviar el pedido a Pedidos Despachados',
@@ -323,6 +428,15 @@ export class OnHoldComponent implements OnInit {
     });
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for deleting an order in firebase. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   eraserOrder(pedido: Orders) {
     this.confirmationService.confirm({
       header: 'Eliminar pedido',

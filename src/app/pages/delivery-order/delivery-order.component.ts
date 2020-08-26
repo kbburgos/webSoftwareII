@@ -22,6 +22,15 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./delivery-order.component.css'],
   providers: [MessageService]
 })
+
+/**
+ * @classdesc Container class of DeliveryOrderComponent.
+ * @desc Creation Date: 08/07/2020
+ * @class
+ * @public
+ * @version 2.0.0
+ * @author Danny Rios <dprios@espol.edu.ec>
+ */
 export class DeliveryOrderComponent implements OnInit {
   displayProducts = false;
   pedidoCambiaEstado: Orders;
@@ -41,13 +50,13 @@ export class DeliveryOrderComponent implements OnInit {
   private actual = new Date();
   horaRetiro: any = new Date().setMinutes(this.actual.getMinutes());
   token: any;
-  refreshToken:any;
+  refreshToken: any;
   cantidadCompras = 0;
-  cols: any=[
-    { field: "cedula_cliente", header: "CEDULA_CLIENTE" },
-    { field: "cliente", header: "CLIENTE" },
-    { field: "pedido", header: "PEDIDO" },
-    { field: "productos", header: "PRODUCTOS" },
+  cols: any = [
+    { field: 'cedula_cliente', header: 'CEDULA_CLIENTE' },
+    { field: 'cliente', header: 'CLIENTE' },
+    { field: 'pedido', header: 'PEDIDO' },
+    { field: 'productos', header: 'PRODUCTOS' },
   ];
 
   private deliveryman;
@@ -77,9 +86,17 @@ export class DeliveryOrderComponent implements OnInit {
   ) {
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for loading the functions in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   ngOnInit() {
     this.spinner.show();
-    this.horaRetiro = new Date(this.horaRetiro);
     this.noveltys = [
       {name: 'Cliente molestoso', value : 'cliente molestoso'},
       {name: 'Cliente falta respeto', value : 'Cliente falta respeto'},
@@ -102,6 +119,15 @@ export class DeliveryOrderComponent implements OnInit {
     this.generarToken();
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for unsubscribe methods in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   // tslint:disable-next-line: use-life-cycle-interface
   ngOnDestroy () {
     if (this.deliveryman) {
@@ -138,6 +164,16 @@ export class DeliveryOrderComponent implements OnInit {
       this.deleteOrder.unsubscribe();
     }
   }
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for creating a token for deliveryman in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   generarToken() {
     this.loginApi = this.authDeliveryman.loginToApi(environment.emailRepartidor, environment.passwRReartidor).subscribe( (item: any) => {
       this.token = item.token;
@@ -148,6 +184,16 @@ export class DeliveryOrderComponent implements OnInit {
       this.errorMessage('No se pudo acceder al api');
     });
   }
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for loading purchase in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   cargarCompras() {
     this.verCompraApi = this.purchase.getPurchaseRepartidor(this.token).subscribe( (item: any) => {
       this.cantidadCompras = item.length;
@@ -158,6 +204,16 @@ export class DeliveryOrderComponent implements OnInit {
       this.errorMessage('No se pudo acceder a las compras');
     });
   }
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for finalizing the purchase process in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   finalOrder(pedidoCulminado) {
     this.spinner.show();
     this.pedidoidDelRepartidor = pedidoCulminado.idPedido;
@@ -173,6 +229,15 @@ export class DeliveryOrderComponent implements OnInit {
     this.cargarCompras();
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for loading the products information in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   detailsProducts (productos: [], cantidades: []) {
     this.displayProducts = true;
     this.listaProductos = [];
@@ -192,6 +257,15 @@ export class DeliveryOrderComponent implements OnInit {
   }
 
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for presenting a confirmation message in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   confirm() {
     this.confirmationService.confirm({
         message: '¿Deseas finalizar el pedido?',
@@ -205,6 +279,15 @@ export class DeliveryOrderComponent implements OnInit {
 
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for presenting a welcome message to the user in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   helloDialog( repartidor: Deliveryman) {
     this.messageService.add(
       {severity: 'info', summary: 'BIENVENIDO',
@@ -212,6 +295,16 @@ export class DeliveryOrderComponent implements OnInit {
 
 
   }
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for creating a purchase in the database. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   crearCompra() {
     const compraNueva = {
       idcompra: null,
@@ -226,7 +319,18 @@ export class DeliveryOrderComponent implements OnInit {
       this.errorMessage('No se pudo realizar la compra');
     });
   }
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for creating an order in the database and novelty in firebase. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   sendFinallyOrder(pedido) {
+    this.horaRetiro = new Date(this.horaRetiro);
     let novedadRepartidor = '';
     if (this.selectednovelty != null) {
       novedadRepartidor = this.selectednovelty.value
@@ -260,7 +364,7 @@ export class DeliveryOrderComponent implements OnInit {
     productoApi = productoApi.substring(0, productoApi.length - 1);
     const idCompraApi = this.cantidadCompras + 1 ;
 
-    //this.cantidadTotalProductosxPedido = pedido.cantidades.reduce( (a, b) => a + b , 0);
+    // this.cantidadTotalProductosxPedido = pedido.cantidades.reduce( (a, b) => a + b , 0);
     const pedidoNuevo = {
       idpedido: null,
       idcompra: idCompraApi,
@@ -283,10 +387,29 @@ export class DeliveryOrderComponent implements OnInit {
     this.generarToken();
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for deleting deliveryman id in the storage system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   logOut() {
     this.authDeliveryman.removeTokens();
     this.router.navigate(['deliveryman']);
   }
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for presenting a confirmation action to purchase and confirmation order message in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   confirmationAction( data: string) {
     let mensaje = '';
     if (data === 'compra') {
@@ -296,7 +419,7 @@ export class DeliveryOrderComponent implements OnInit {
       const rejectToken = {
         refreshToken: this.refreshToken
       };
-      this.logOutSession = this.authDeliveryman.rejectTokenFromApi(rejectToken).subscribe( (item: any) =>{
+      this.logOutSession = this.authDeliveryman.rejectTokenFromApi(rejectToken).subscribe( (item: any) => {
         this.confirmationLogOut('Acción completada');
       }, error => {
         this.errorMessage('No se pudo finalizar la acción');
@@ -308,12 +431,30 @@ export class DeliveryOrderComponent implements OnInit {
   }
 
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for presenting a error message in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   errorMessage(mensaje: string) {
     this.messageService.add(
       {severity: 'error', summary: 'Error!',
       detail: mensaje, life: 2000 });
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for presenting a confirmation logout message in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   confirmationLogOut( data: string) {
     this.messageService.add(
       {severity: 'success', summary: 'CONFIRMACIÓN',

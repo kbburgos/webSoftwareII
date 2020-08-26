@@ -13,6 +13,15 @@ import {ConfirmationService} from 'primeng/api';
   styleUrls: ['./dispatched.component.css'],
   providers: [MessageService]
 })
+
+/**
+ * @classdesc Container class of DispatchedComponent.
+ * @desc Creation Date: 08/07/2020
+ * @class
+ * @public
+ * @version 2.0.0
+ * @author Danny Rios <dprios@espol.edu.ec>
+ */
 export class DispatchedComponent implements OnInit {
   token = this.auhtService.getJwtToken();
   pedidosDeApi: OrdersDispatched[] = [];
@@ -35,6 +44,15 @@ export class DispatchedComponent implements OnInit {
     private messageService: MessageService
     ) {}
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for loading the functions in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   ngOnInit() {
     this.spinner.show();
     this.pedidosDespachados = this.pedidosService.getPedidosDispatchedFromApi().subscribe( (item: any) => {
@@ -50,6 +68,15 @@ export class DispatchedComponent implements OnInit {
     });
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for showing information about products of an order in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   detailsProducts(productos: string, cantidades) {
     const productosSeleccionados = productos.split(',');
     this.displayDetail = true;
@@ -71,6 +98,15 @@ export class DispatchedComponent implements OnInit {
     this.cantidadTotalProductosxPedido = cantidadxProducto.reduce( (a, b) => parseInt(a) + parseInt(b) , 0);
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for unsubscribing the methos in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   // tslint:disable-next-line: use-life-cycle-interface
   ngOnDestroy() {
     if (this.productosSubscribe) {
@@ -81,6 +117,15 @@ export class DispatchedComponent implements OnInit {
     }
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for presenting an action message in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   showMessage(mensaje: string) {
     this.messageService.add(
       {severity: 'error', summary: 'Error!',

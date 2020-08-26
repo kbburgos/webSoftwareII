@@ -23,6 +23,15 @@ import { Categoria } from 'app/core/interface/categoria';
   styleUrls: ['./dashboard.component.css'],
   providers: [MessageService]
 })
+
+/**
+ * @classdesc Container class of DashboardComponent.
+ * @desc Creation Date: 08/07/2020
+ * @class
+ * @public
+ * @version 2.0.0
+ * @author Danny Rios <dprios@espol.edu.ec>
+ */
 export class DashboardComponent implements OnInit {
   pedidosEntrantes: OrdersScroller[];
   pedidosEntrantesApi: OrdersDispatched[];
@@ -71,6 +80,15 @@ export class DashboardComponent implements OnInit {
     private messageService: MessageService,
     private pedidoService: PedidoService ) { }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for loading the functions and reports in the dashboard system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   ngOnInit() {
     this.nombreRepartidoresSubscribe = this.novedadesRepartidor.getRepartidores()
     .subscribe((item: any) => {
@@ -133,22 +151,23 @@ export class DashboardComponent implements OnInit {
           }
         }
       }
-      console.log(this.mapa);
       this.ventasTotales = this.numeroVentas.reduce((a, b) => a + b , 0);
     }, error => {
       this.errorMessage('No se pudo cargar las ventas');
     });
-    /*
-    const source = this.pedidoService.getPedidosApl().addEventListener('message', message => {
-      console.log('dentro de source');
-      console.log(message.data);
-    });*/
-
-
-
-
-
   }
+
+
+
+   /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for selecting the options to products in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   onSortChangeProducts() {
     console.log(this.sortkeyProduct);
     if (this.sortkeyProduct.indexOf('!') === 0) {
@@ -158,6 +177,15 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is  responsible for ordering the products by stock in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   sortProducts(product: number): void {
     const productos = [...this.productos];
     productos.sort((data1, data2) => {
@@ -171,6 +199,15 @@ export class DashboardComponent implements OnInit {
     this.productos = productos;
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for selecting the options to orders in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   onSortChange() {
     console.log(this.sortKey);
     if (this.sortKey.indexOf('!') === 0) {
@@ -180,6 +217,15 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+   /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is nresponsible for ordering the orders by price in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   sort(order: number): void {
     const pedidos = [...this.pedidosEntrantes];
     pedidos.sort((data1, data2) => {
@@ -193,6 +239,15 @@ export class DashboardComponent implements OnInit {
     this.pedidosEntrantes = pedidos;
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for showing the products in an order in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   selectPedido(pedido: Orders) {
     this.display = true;
     this.listaProductos = [];
@@ -211,6 +266,15 @@ export class DashboardComponent implements OnInit {
     this.cantidadTotalProductosxPedido = pedido.cantidades.reduce( (a, b) => a + b , 0);
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for showing the products information when select a product in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   selectProducto(producto: Producto) {
     this.infoProducto = producto;
     this.displayProducto = true;
@@ -226,6 +290,16 @@ export class DashboardComponent implements OnInit {
 
 
   }
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for unsubscribing the methos in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   // tslint:disable-next-line: use-life-cycle-interface
   ngOnDestroy() {
     if (this.productosSubscribe) {
@@ -244,6 +318,16 @@ export class DashboardComponent implements OnInit {
       this.pedidosApi.unsubscribe();
     }
   }
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for presenting a error message in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   errorMessage(mensaje: string) {
     this.messageService.add(
       {severity: 'error', summary: 'Error!',

@@ -18,6 +18,15 @@ import { error } from 'protractor';
   styleUrls: ['./assigned.component.css'],
   providers: [MessageService],
 })
+
+/**
+ * @classdesc Container class of AssignedComponent.
+ * @desc Creation Date: 08/07/2020
+ * @class
+ * @public
+ * @version 2.0.0
+ * @author Danny Rios <dprios@espol.edu.ec>
+ */
 export class AssignedComponent implements OnInit {
   nombreRepartidor: string;
   apellidoRepartidor: string;
@@ -37,9 +46,9 @@ export class AssignedComponent implements OnInit {
   private productosSubscribe;
 
   cols: any = [
-    { field: "pedido", header: "PEDIDO" },
-    { field: "cliente", header: "CLIENTE" },
-    { field: "productos", header: "PRODUCTOS" },
+    { field: 'pedido', header: 'PEDIDO' },
+    { field: 'cliente', header: 'CLIENTE' },
+    { field: 'productos', header: 'PRODUCTOS' },
   ];
 
   constructor(
@@ -53,6 +62,16 @@ export class AssignedComponent implements OnInit {
     private authService: AuthService
   ) {}
 
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for loading the functions in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   ngOnInit(): void {
     this.spinner.show();
     this.pedidosAsignadosSubscribe = this.pedidoService.getPedidosByEstado(1).subscribe((item: any) => {
@@ -76,6 +95,16 @@ export class AssignedComponent implements OnInit {
       this.showAlert('No se pudo cargar el detalle de los repartidores');
     });
   }
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for showing information about deliveryman of an order in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   viewMoreInformationDelivery(pedidosAsignados: Orders) {
     this.displayDeliveryman = true;
     for (let i = 0; i < this.listaRepartidores.length; i++) {
@@ -95,6 +124,15 @@ export class AssignedComponent implements OnInit {
     this.telefonoRepartidor = this.repartidorxPedido.telefono;
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for showing information about products of an order in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   detailsProducts(productos: [], cantidades: []) {
     this.displayDetail = true;
     this.listaProductos = [];
@@ -113,6 +151,15 @@ export class AssignedComponent implements OnInit {
     this.cantidadTotalProductosxPedido = cantidades.reduce((a, b) => a + b, 0);
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for changing the status order in firebase. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   sendOrder(pedidosAsignados) {
     console.log(pedidosAsignados);
     this.confirmationService.confirm({
@@ -126,6 +173,16 @@ export class AssignedComponent implements OnInit {
       },
     });
   }
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for showing a confirm message dialog in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   showSuccess(mensaje: string) {
     this.messageService.add({
       severity: 'success',
@@ -134,6 +191,16 @@ export class AssignedComponent implements OnInit {
       life: 2000,
     });
   }
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for showing an error message dialog in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   showAlert(mensaje: string) {
     this.messageService.add({
       severity: 'error',
@@ -143,6 +210,15 @@ export class AssignedComponent implements OnInit {
     });
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for unsubscribing the methos in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+  */
   // tslint:disable-next-line: use-life-cycle-interface
   ngOnDestroy() {
     if (this.pedidosAsignadosSubscribe) {

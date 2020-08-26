@@ -1,4 +1,10 @@
-import { Timestamp } from "rxjs/internal/operators/timestamp";
+/**
+ * @interface OrdersInterface
+ * @public
+ * @version 1.0.0
+ * @desc OrdersInterface interface.
+ * @author Danny Rios <dprios@espol.edu.ec>
+ */
 
 export interface Orders{
     idPedido: string;
