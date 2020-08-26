@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 import { BrowserModule } from "@angular/platform-browser";
 import { Routes, RouterModule } from "@angular/router";
 import { LoginComponent } from "../app/pages//login/login.component";
+import { ConfigurationComponent } from "./pages/configuration/configuration.component";
 
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { DeliverymanComponent } from "./pages/deliveryman/deliveryman.component";

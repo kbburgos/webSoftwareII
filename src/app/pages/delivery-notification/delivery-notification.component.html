@@ -1,66 +1,4 @@
 <div class="main-content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header card-header-info">
-            <div class="row">
-              <div class="col-md-10">
-                <h4 class="card-title">Lista novedades: Repartidores</h4>
-              </div>
-              <div class="col-md-2">
-                <button
-                  class="secundary"
-                  type="text"
-                  (click)="showAddDialog()"
-                  pButton
-                  icon="pi pi-download"
-                  label="  Exportar"
-                ></button>
-                &nbsp;
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <p-table
-              [columns]="cols"
-              [value]="deliverymannewView"
-              [responsive]="true"
-              sortMode="multiple"
-              [paginator]="true"
-              [rows]="5"
-              #dt
-            >
-              <ng-template pTemplate="header" let-columns>
-                <tr>
-                  <th>ID REPARTIDOR</th>
-                  <th>REPARTIDOR</th>
-                  <th>PEDIDO</th>
-                  <th>ID CLIENTE</th>
-                  <th>CLIENTE</th>
-                  <th>NOVEDAD</th>
-                  <th>FECHA</th>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-novelydelivermanview>
-                <tr>
-                  <td>{{ novelydelivermanview.idRepartidor }}</td>
-                  <td>{{ novelydelivermanview.repartidor }}</td>
-                  <td>{{ novelydelivermanview.idPedido }}</td>
-                  <td>{{ novelydelivermanview.idCliente }}</td>
-                  <td>{{ novelydelivermanview.cliente }}</td>
-                  <td>{{ novelydelivermanview.novedad }}</td>
-                  <td>{{ novelydelivermanview.fecha}}</td>
-                  
-                </tr>
-              </ng-template>
-            </p-table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
 
   <div class="container-fluid">
     <div class="row">
@@ -69,7 +7,7 @@
                 <div class="card-header card-header-info">
                 <div class="row">
                     <div class="col-md-10">
-                        <h4 class="card-title">Lista de novedades creadas por el administrador</h4>
+                        <h4 class="card-title">Novedades por administrador</h4>
                     </div>
                     <div class="col-md-2">
                         <button
@@ -90,7 +28,7 @@
                     [responsive]="true" 
                     sortMode="multiple" 
                     [paginator]="true" 
-                    [rows]="10" 
+                    [rows]="3" 
                     #dt  >
                     <ng-template pTemplate="header" >
                         <tr>
@@ -118,6 +56,57 @@
         </div>
     </div>
 </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-info">
+            <div class="row">
+              <div class="col-md-12">
+                <h4 class="card-title">Novedades por repartidores</h4>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p-table
+              [columns]="cols"
+              [value]="deliverymannewView"
+              [responsive]="true"
+              sortMode="multiple"
+              [paginator]="true"
+              [rows]="5"
+              #dt
+            >
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th>C&Eacute;DULA</th>
+                  <th>REPARTIDOR</th>
+                  <th>PEDIDO</th>
+                  <th>C&Eacute;DULA</th>
+                  <th>CLIENTE</th>
+                  <th>NOVEDAD</th>
+                  <th>FECHA</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-novelydelivermanview>
+                <tr>
+                  <td>{{ novelydelivermanview.idRepartidor }}</td>
+                  <td>{{ novelydelivermanview.repartidor }}</td>
+                  <td>{{ novelydelivermanview.idPedido }}</td>
+                  <td>{{ novelydelivermanview.idCliente }}</td>
+                  <td>{{ novelydelivermanview.cliente }}</td>
+                  <td>{{ novelydelivermanview.novedad }}</td>
+                  <td>{{ novelydelivermanview.fecha}}</td> 
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <p-dialog
@@ -134,6 +123,7 @@
       <form [formGroup]="form">
         <div class="form-group col-sm-12" style="float: left;">
           <label>C&eacute;dula cliente</label>
+          <span class="requared">&nbsp; *</span>
             <input
               type="text"
               class="form-control"
@@ -142,6 +132,7 @@
         </div>
         <div class="form-group col-sm-12" style="float: left;">
           <label>Novedad:</label>
+          <span class="requared">&nbsp; *</span>
           <input
             type="text"
             class="form-control"
@@ -152,13 +143,22 @@
     </div>
   </div>
   <p-footer>
-    <button
-      type="button"
-      pButton
-      icon="pi pi-save"
-      (click)="addNovedad()"
-      label="Guardar"
-    ></button>
+    <div class="col-sm-12 button-add">
+      <button
+      mat-raised-button
+      class="btn btn-success"
+      [disabled]="
+        form.invalid ||
+        cedula == '' ||
+        novedad == ''
+      "
+        class="secundary"
+        type="button"
+        pButton
+        (click)="addNovedad()"
+        label="GUARDAR"
+      ></button>
+  </div>
   </p-footer>
 </p-dialog>
 

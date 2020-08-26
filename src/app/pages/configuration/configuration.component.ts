@@ -35,7 +35,7 @@ export class ConfigurationComponent implements OnInit {
   referencia: string;
   coordenadas: string;
   private datosUsuario: Usuarios;
-  private UsuarioComp: Usuarios;
+  UsuarioComp = {};
   private datosRespaldo: any;
 
   constructor(
@@ -63,6 +63,7 @@ export class ConfigurationComponent implements OnInit {
       contrasenia: this.auth.dataUser['contrasenia'],
       rol: this.auth.dataUser['rol']
     }
+    console.log(this.UsuarioComp);
   }
 
   public submit() {

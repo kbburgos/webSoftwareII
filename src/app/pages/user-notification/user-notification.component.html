@@ -1,51 +1,4 @@
 <div class="main-content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header card-header-info">
-            <div class="row">
-              <div class="col-md-12">
-                <h4 class="card-title">Lista de novedades: Usuarios</h4>
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <p-table
-              [columns]="cols"
-              [value]="customernewsView"
-              [responsive]="true"
-              sortMode="multiple"
-              [paginator]="true"
-              [rows]="5"
-              #dt
-            >
-              <ng-template pTemplate="header" let-columns>
-                <tr>
-                  <th>ID REPORTA</th>
-                  <th>CLIENTE</th>
-                  <th>ID REPORTADO</th>
-                  <th>REPARTIDOR</th>
-                  <th>ID NOVEDAD</th>
-                  <th>DESCRIPCION</th>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-customernewsview>
-                <tr *ngIf="customernewsview.esCliente">
-                  <td>{{ customernewsview.idUsuarioreporta }}</td>
-                  <td>{{ customernewsview.usuarioReporta }}</td>
-                  <td>{{ customernewsview.idUsuarioreportado }}</td>
-                  <td>{{ customernewsview.usuarioReportado }}</td>
-                  <td>{{ customernewsview.idnovedad }}</td>
-                  <td>{{ customernewsview.descripcion }}</td>
-                </tr>
-              </ng-template>
-            </p-table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <div class="container-fluid">
     <div class="row">
@@ -54,7 +7,7 @@
                 <div class="card-header card-header-info">
                 <div class="row">
                     <div class="col-md-10">
-                        <h4 class="card-title">Lista de novedades creadas por el administrador</h4>
+                        <h4 class="card-title">Novedades por administrador</h4>
                     </div>
                     <div class="col-md-2 ui-dialog-buttonpane">
                         <button
@@ -75,11 +28,11 @@
                     [responsive]="true" 
                     sortMode="multiple" 
                     [paginator]="true" 
-                    [rows]="10" 
+                    [rows]="3" 
                     #dt  >
                     <ng-template pTemplate="header" >
                         <tr>
-                            <th>CEDULA</th>
+                            <th>C&Eacute;DULA</th>
                             <th>REPARTIDOR</th>
                             <th>NOVEDAD</th>
                         </tr>
@@ -104,6 +57,54 @@
     </div>
 </div>
 
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-info">
+            <div class="row">
+              <div class="col-md-12">
+                <h4 class="card-title">Novedades por usuarios</h4>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p-table
+              [columns]="cols"
+              [value]="customernewsView"
+              [responsive]="true"
+              sortMode="multiple"
+              [paginator]="true"
+              [rows]="5"
+              #dt
+            >
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th>C&Eacute;DULA</th>
+                  <th>CLIENTE</th>
+                  <th>C&Eacute;DULA</th>
+                  <th>REPARTIDOR</th>
+                  <th>DESCRIPCI&Oacute;N</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-customernewsview>
+                <tr *ngIf="customernewsview.esCliente">
+                  <td>{{ customernewsview.idUsuarioreporta }}</td>
+                  <td>{{ customernewsview.usuarioReporta }}</td>
+                  <td>{{ customernewsview.idUsuarioreportado }}</td>
+                  <td>{{ customernewsview.usuarioReportado }}</td>
+                  <td>{{ customernewsview.descripcion }}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
 </div>
 
 <p-dialog
@@ -115,11 +116,12 @@
   <p-header>
     Crear novedad a repartidor
   </p-header>
-  <div class="container-fluid" style="width: 400px;">
+  <div class="container-fluid" style="width: 500px;">
     <div *ngIf="display" class="row">
       <form [formGroup]="form">
         <div class="form-group col-sm-12" style="float: left;">
           <label>C&eacute;dula repartidor</label>
+          <span class="requared">&nbsp; *</span>
             <input
               type="text"
               class="form-control"
@@ -128,6 +130,7 @@
         </div>
         <div class="form-group col-sm-12" style="float: left;">
           <label>Novedad:</label>
+          <span class="requared">&nbsp; *</span>
           <input
             type="text"
             class="form-control"
@@ -138,12 +141,22 @@
     </div>
   </div>
   <p-footer>
-    <button
-      type="button"
-      pButton
-      icon="pi pi-save"
-      (click)="addNovedad()"
-      label="Guardar"
-    ></button>
+    <div class="col-sm-12 button-add">
+      <button
+      mat-raised-button
+      class="btn btn-success"
+      [disabled]="
+        form.invalid ||
+        cedula == '' ||
+        novedad == ''
+      "
+        class="secundary"
+        type="button"
+        pButton
+        (click)="addNovedad()"
+        label="GUARDAR"
+      ></button>
+    </div>
   </p-footer>
 </p-dialog>
+<p-toast position="bottom-right"></p-toast>

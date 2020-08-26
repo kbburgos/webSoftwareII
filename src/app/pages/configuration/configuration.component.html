@@ -1,3 +1,6 @@
+
+{{UsuarioComp['cedula']}}
+
 <div class="container-fluid" style="width: 1000px;">
     <div *ngIf="display" class="row">
       <form [formGroup]="form">
@@ -7,7 +10,7 @@
             type="text"
             class="form-control"
             formControlName="nombre"
-            [(ngModel)]="UsuarioComp.nombre"
+            [(ngModel)]="UsuarioComp['nombre']"
           />
         </div>
 
@@ -17,7 +20,7 @@
             type="text"
             class="form-control"
             formControlName="apellido"
-            [(ngModel)]="UsuarioComp.apellido"
+            [(ngModel)]="UsuarioComp['apellido']"
           />
         </div>
 
@@ -27,7 +30,7 @@
             type="text"
             class="form-control"
             formControlName="telefono"
-            [(ngModel)]="UsuarioComp.telefono"
+            [(ngModel)]="UsuarioComp['telefono']"
           />
         </div>
         <div class="form-group col-sm-6" style="float: left;">
@@ -36,7 +39,7 @@
             type="text"
             class="form-control"
             formControlName="email"
-            [(ngModel)]="UsuarioComp.email"
+            [(ngModel)]="UsuarioComp['email']"
           />
         </div>
     </form>
