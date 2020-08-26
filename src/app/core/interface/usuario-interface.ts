@@ -1,3 +1,11 @@
+/**
+ * @interface UsuarioInterface
+ * @public
+ * @version 1.0.0
+ * @desc UsuarioInterface interface.
+ * @author Karla Burgos Gayrey <kbburgos@espol.edu.ec>
+ */
+
 export interface UsuarioInterface {
     cedula?: string;
     nombre: string;

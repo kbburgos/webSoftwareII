@@ -1,3 +1,11 @@
+/**
+ * @interface Products
+ * @public
+ * @version 1.0.0
+ * @desc Products interface.
+ * @author Karla Burgos Gayrey <kbburgos@espol.edu.ec>
+ */
+
 export interface  Products {
     descripcion: string;
     foto: string;

@@ -6,7 +6,7 @@
           <div class="card-header card-header-info">
             <div class="row">
               <div class="col-md-10">
-                <h4 class="card-title">Lista de Promociones</h4>
+                <h4 class="card-title">Lista de Promociones Activas</h4>
               </div>
               <div class="col-md-2">
                 <button
@@ -22,29 +22,30 @@
           </div>
           <div class="card-body">
             <p-table
-              #dt
+              [columns]="cols"
               [value]="productos"
-              [scrollable]="true"
+              [responsive]="true"
               [paginator]="true"
+              sortMode="multiple"
               [rows]="5"
+              #dt
             >
-              <ng-template pTemplate="header">
+              <ng-template pTemplate="header" let-columns>
                 <tr>
-                  <th>NOMBRE</th>
-                  <th>DESCRIPCION</th>
-                  <th>PRECIO</th>
-                  <th>STOCK</th>
-                  <th>FOTO</th>
-                  <th>ACCION</th>
+                  <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{ col.header }}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                  </th>
+                  <th>
+                    FOTO
+                  </th>
+                  <th>
+                    ACCIONES
+                  </th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-product>
-                <tr
-                  *ngIf="
-                    product.idCategoria == 'B9MwktyLd7z4onQIKKAw' &&
-                    product.isActivo
-                  "
-                >
+                <tr>
                   <td>{{ product.nombre }}</td>
                   <td>{{ product.descripcion }}</td>
                   <td>{{ product.precio }}</td>
@@ -90,32 +91,6 @@
 </div>
 
 <p-dialog
-  class="notification"
-  header="{{ message.accion }}"
-  [(visible)]="slide"
-  position="right"
-  [style]="{ width: '40vw' }"
->
-  <div class="mb-3 text-center">
-    <p-carousel [value]="producSlide" [numVisible]="1" [numScroll]="1">
-      <ng-template let-item pTemplate="item">
-        <img [src]="item" class="rounded image-preview" />
-      </ng-template>
-    </p-carousel>
-  </div>
-</p-dialog>
-
-<p-dialog
-  class="notification"
-  header="{{ message.accion }}"
-  [(visible)]="mensaje"
-  position="right"
-  [style]="{ width: '40vw' }"
->
-  <h4>{{ message.mensaje }}</h4>
-</p-dialog>
-
-<p-dialog
   [(visible)]="bandera"
   [responsive]="true"
   showEffect="fade"
@@ -125,11 +100,12 @@
     Nueva Promoción
   </p-header>
 
-  <div class="container-fluid" style="width: 500px;">
-    <div *ngIf="bandera" class="row">
-      <form [formGroup]="form">
-        <div class="form-group col-sm-12">
-          <label>Nombre:</label>
+  <div class="container-fluid" style="width: 400px;">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label class="form-label">Nombre</label>
+          <span class="requared">&nbsp; *</span>
           <input
             type="text"
             class="form-control"
@@ -137,8 +113,12 @@
             placeholder="...Cheessecake de fresa"
           />
         </div>
-        <div class="form-group col-sm-12" style="float: left;">
-          <label>Descripción:</label>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label class="form-label">Descripción</label>
+          <span class="requared">&nbsp; *</span>
           <input
             type="text"
             class="form-control"
@@ -146,9 +126,12 @@
             placeholder="...En dulzado con splenda y fresa"
           />
         </div>
-        <br />
-        <div class="form-group col-sm-6" style="float: left;">
-          <label>Precio:</label>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label class="form-label">Precio</label>
+          <span class="requared">&nbsp; *</span>
           <input
             class="form-control"
             formControlName="precio"
@@ -156,31 +139,29 @@
             step="any"
           />
         </div>
-        <div class="form-group col-sm-6" style="float: left;">
-          <label>Stock:</label>
-          <input
-            type="number"
-            step="any"
-            class="form-control"
-            formControlName="stock"
-          />
+        <div class="col-md-6 form-group">
+          <label class="form-label">Stock</label>
+          <span class="requared">&nbsp; *</span>
+          <input type="number" class="form-control" formControlName="stock" />
         </div>
-      </form>
-      <div class="col-sm-12">
-        <label>Imagen:</label>
-        <br />
-        <br />
-
-        <p-fileUpload
-          *ngIf="!previewUrl"
-          multiple="true"
-          customUpload="false"
-          (uploadHandler)="onFileUpload($event)"
-          accept="image/*"
-        >
-        </p-fileUpload>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-12">
+          <label class="form-label">Imagen:</label>
+          <p-fileUpload
+            *ngIf="!previewUrl"
+            multiple="true"
+            customUpload="false"
+            (uploadHandler)="onFileUpload($event)"
+            accept="image/*"
+          >
+          </p-fileUpload>
+        </div>
+      </div>
+      <div class="row">
         <div class="mb-3 text-center" *ngIf="previewUrl">
-          <p-carousel [value]="Urls" [numVisible]="2" [numScroll]="1">
+          <p-carousel [value]="Urls" [numVisible]="1" [numScroll]="1">
             <ng-template let-item pTemplate="item">
               <img [src]="item" class="rounded image-preview" />
             </ng-template>
@@ -188,30 +169,27 @@
         </div>
       </div>
       <br />
-      <br />
-
-      <div class="col-sm-12 button-save">
-        <br />
-        <br />
-        <br />
-        <button
-          mat-raised-button
-          class="btn btn-success secundary"
-          [disabled]="
-            form.invalid ||
-            nombre == '' ||
-            descripcion == '' ||
-            precio == '' ||
-            stock == '' ||
-            previewUrl == null
-          "
-          class="save"
-          (click)="save()"
-          pButton
-          label="GUARDAR"
-        ></button>
+      <div class="row">
+        <div class="col-md-12 button-save">
+          <button
+            mat-raised-button
+            class="btn btn-success"
+            [disabled]="
+              form.invalid ||
+              nombre == '' ||
+              descripcion == '' ||
+              precio == '' ||
+              stock == '' ||
+              previewUrl == null
+            "
+            class="secundary"
+            (click)="save()"
+            pButton
+            label="GUARDAR"
+          ></button>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
 </p-dialog>
 
@@ -224,11 +202,12 @@
   <p-header>
     Editar Promoción
   </p-header>
-  <div class="container-fluid" style="width: 500px;">
-    <div *ngIf="display" class="row">
-      <form [formGroup]="form">
-        <div class="form-group col-sm-12">
-          <label>Nombre:</label>
+  <div *ngIf="display" class="container-fluid" style="width: 400px;">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="form-group col-md-12">
+          <label class="form-label">Nombre</label>
+          <span class="requared">&nbsp; *</span>
           <input
             type="text"
             class="form-control"
@@ -236,9 +215,11 @@
             [(ngModel)]="ProductEdit.nombre"
           />
         </div>
-
-        <div class="form-group col-sm-12">
-          <label>Descripci&oacute;n:</label>
+      </div>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label class="form-label">Descripción</label>
+          <span class="requared">&nbsp; *</span>
           <input
             type="text"
             class="form-control"
@@ -246,39 +227,58 @@
             [(ngModel)]="ProductEdit.descripcion"
           />
         </div>
+      </div>
 
-        <div class="form-group col-sm-6" style="float: left;">
-          <label>Precio:</label>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label class="form-label">Precio</label>
+          <span class="requared">&nbsp; *</span>
           <input
-            type="text"
             class="form-control"
             formControlName="precio"
+            type="number"
+            step="any"
             [(ngModel)]="ProductEdit.precio"
           />
         </div>
-        <div class="form-group col-sm-6" style="float: left;">
-          <label>Stock:</label>
+        <div class="col-md-6 form-group">
+          <label class="form-label">Stock</label>
+          <span class="requared">&nbsp; *</span>
           <input
-            type="text"
+            type="number"
             class="form-control"
-            formControlName="stock"
             [(ngModel)]="ProductEdit.stock"
+            formControlName="stock"
           />
         </div>
-      </form>
+      </div>
+    </form>
+  </div>
+
+  <p-confirmDialog
+    header="Confirmaci&oacute;n"
+    icon="pi pi-exclamation-triangle"
+  ></p-confirmDialog>
+  <div class="row">
+    <div class="col-md-12 button-save">
+      <button
+        type="button"
+        pButton
+        (click)="confirmar()"
+        label="Editar"
+      ></button>
     </div>
   </div>
-  <p-footer>
-    <p-confirmDialog
-      header="Confirmaci&oacute;n"
-      icon="pi pi-exclamation-triangle"
-    ></p-confirmDialog>
-    <button
-      type="button"
-      pButton
-      icon="pi pi-save"
-      (click)="confirmar()"
-      label="Editar"
-    ></button>
-  </p-footer>
 </p-dialog>
+
+<p-dialog [(visible)]="slide" position="right" [style]="{ width: '40vw' }">
+  <div class="mb-3 text-center">
+    <p-carousel [value]="producSlide" [numVisible]="1" [numScroll]="1">
+      <ng-template let-item pTemplate="item">
+        <img [src]="item" class="rounded image-preview" />
+      </ng-template>
+    </p-carousel>
+  </div>
+</p-dialog>
+
+<p-toast position="bottom-right"></p-toast>

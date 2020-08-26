@@ -20,7 +20,7 @@ table {
 }
 
 .image-preview {
-  width: 150px;
+  width: 100px;
 }
 
 
@@ -30,4 +30,14 @@ td {
   margin-left: auto;
   align-content: center;
   align-self: center;
+}
+
+
+.form-label{
+  font-weight: bold;
+}
+
+.requared{
+  font-weight: bold;
+  color: red;
 }

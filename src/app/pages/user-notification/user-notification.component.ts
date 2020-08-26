@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from "@angular/common/http";
 import { CustomerNews } from "../../core/interface/customerNews";
 import { CustomerNewsView } from "../../core/interface/customerNewsView";
 import { ConfirmationService } from "primeng/api";
 import { MessageService } from "primeng/api";
 import { HttpClientModule } from "@angular/common/http";
-import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService } from "ngx-spinner";
 import { NoveltyService } from "../../core/services/novelty/novelty.service";
 import { NovelyDelivermanView } from "../../core/interface/noveltyDelivermanView";
 import { UserNotificationService } from "../../core/services/user/user-notification.service";
@@ -63,13 +63,18 @@ export class UserNotificationComponent implements OnInit {
     return listaR;
   }
 
-  listaFiltroClientes(listaC: any){
-    for (let i=0; i<environment.variables.nombreClientes.length; i++){
-      for (let j=0; j<listaC.length; j++){
-        if(environment.variables.nombreClientes[i]['cedula'] === listaC[j].idUsuarioreporta){
-          listaC[j].usuarioReporta =environment.variables.nombreClientes[i]['nombre']+' '+
-          environment.variables.nombreClientes[i]['apellido'];
-          listaC[j].esCliente=true;
+  listaFiltroClientes(listaC: any) {
+    for (let i = 0; i < environment.variables.nombreClientes.length; i++) {
+      for (let j = 0; j < listaC.length; j++) {
+        if (
+          environment.variables.nombreClientes[i]["cedula"] ===
+          listaC[j].idUsuarioreporta
+        ) {
+          listaC[j].usuarioReporta =
+            environment.variables.nombreClientes[i]["nombre"] +
+            " " +
+            environment.variables.nombreClientes[i]["apellido"];
+          listaC[j].esCliente = true;
         }
       }
     }
@@ -122,8 +127,8 @@ export class UserNotificationComponent implements OnInit {
   showAddDialog() {
     this.display = true;
   }
-  
-  addNovedad(){
+
+  addNovedad() {
     const novedadNueva = {
       idusuarioReporta: this.authService.dataUser['cedula'],
       idusuarioReportado: this.form.get('cedula').value,

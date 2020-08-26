@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-info">
-            <h4 class="card-title">Lista de pedidos a Domicilio Asignados</h4>
+            <h4 class="card-title">Lista de Pedidos a Domicilio Asignados</h4>
           </div>
           <div class="card-body accordionHeader">
             <p-accordion>
@@ -33,7 +33,7 @@
               [responsive]="true"
               sortMode="multiple"
               [paginator]="true"
-              [rows]="10"
+              [rows]="5"
               #dt
               class="tableOrder"
             >
@@ -189,6 +189,6 @@
     </p-card>
   </div>
 </p-dialog>
-<p-toast position="center"></p-toast>
+<p-toast position="bottom-right"></p-toast>
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle">
 </p-confirmDialog>

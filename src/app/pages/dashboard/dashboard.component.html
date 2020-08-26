@@ -74,7 +74,7 @@
                               <div><span *ngIf="pedido.isDomicilio">pedido a domicilio</span> <span *ngIf="!pedido.isDomicilio">pedido en local</span>&nbsp;-------&nbsp; Total a pagar:&nbsp; <strong>${{pedido.total}}</strong> </div> 
                           </div>
                       </div>
-                      <button pButton type="button" icon="pi pi-search" (click)="selectPedido(pedido)" class="buttonSearch"></button>
+                      <button pButton type="button" icon="pi pi-info-circle" (click)="selectPedido(pedido)" class="buttonSearch"></button>
                   </div>
               </ng-template>
             </p-virtualScroller>
@@ -98,7 +98,7 @@
                               <div><span *ngIf="producto.isActivo">producto activo</span> <span *ngIf="!producto.isActivo">producto inactivo</span>&nbsp;-------&nbsp;Stock:&nbsp; <strong>{{producto.stock}}</strong> </div> 
                           </div>
                       </div>
-                      <button pButton type="button" icon="pi pi-search" (click)="selectProducto(producto)" class="buttonSearch"></button>
+                      <button pButton type="button" icon="pi pi-info-circle" (click)="selectProducto(producto)" class="buttonSearch"></button>
                   </div>
               </ng-template>
             </p-virtualScroller>
