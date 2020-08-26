@@ -70,6 +70,9 @@ td {
   align-self: center;
 }
 
+.userOrder{
+  border: none;
+}
 
 .tituloCampo{
   text-align: center;
