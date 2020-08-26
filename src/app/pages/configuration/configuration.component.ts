@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 import { UsersService } from "app/core/services/user/users.service";
@@ -20,20 +20,21 @@ import {
   Validators,
   FormBuilder,
 } from "@angular/forms";
+import { Seguridad } from "app/core/utils/seguridad";
 
 @Component({
-  selector: 'app-configuration',
-  templateUrl: './configuration.component.html',
-  styleUrls: ['./configuration.component.css']
+  selector: "app-configuration",
+  templateUrl: "./configuration.component.html",
+  styleUrls: ["./configuration.component.css"],
 })
 export class ConfigurationComponent implements OnInit {
   userForm: FormGroup;
-  token: any = this.auth.getJwtToken();
-  id:string;
+  id: string;
   data: any = "";
   direccion: string;
   referencia: string;
   coordenadas: string;
+  usuario: Usuarios;
   private datosUsuario: Usuarios;
   private UsuarioComp: Usuarios;
   private datosRespaldo: any;
@@ -46,23 +47,39 @@ export class ConfigurationComponent implements OnInit {
     private userS: UsersService,
     private http: HttpClient,
     private confirmationService: ConfirmationService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.usuarioLog();
+
+    this.cargar();
   }
 
-  usuarioLog(){
-    this.UsuarioComp={
-      cedula: this.auth.dataUser['cedula'],
-      nombre: this.auth.dataUser['nombre'],
-      apellido: this.auth.dataUser['apellido'],
-      telefono: this.auth.dataUser['telefono'],
-      email: this.auth.dataUser['email'],
-      direccion: this.auth.dataUser['direccion'],
-      contrasenia: this.auth.dataUser['contrasenia'],
-      rol: this.auth.dataUser['rol']
-    }
+  cargar() {
+    console.log(localStorage.getItem("cedula"));
+    const subs = this.userS.userById(localStorage.getItem("cedula")).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.usuario = data;
+      },
+      (err: any) => {
+        console.log(err);
+        subs.unsubscribe();
+      }
+    );
+  }
+
+  usuarioLog() {
+    this.UsuarioComp = {
+      cedula: this.auth.dataUser["cedula"],
+      nombre: this.auth.dataUser["nombre"],
+      apellido: this.auth.dataUser["apellido"],
+      telefono: this.auth.dataUser["telefono"],
+      email: this.auth.dataUser["email"],
+      direccion: this.auth.dataUser["direccion"],
+      contrasenia: this.auth.dataUser["contrasenia"],
+      rol: this.auth.dataUser["rol"],
+    };
   }
 
   public submit() {
@@ -79,31 +96,36 @@ export class ConfigurationComponent implements OnInit {
   buildForm() {
     this.userForm = this.formBuilder.group({
       nombre: new FormControl("", [
-        Validators.required, 
+        Validators.required,
         Validators.minLength(1),
-        Validators.maxLength(50)]),
+        Validators.maxLength(50),
+      ]),
       apellido: new FormControl("", [
-        Validators.required, 
+        Validators.required,
         Validators.minLength(1),
-        Validators.maxLength(50)]),
+        Validators.maxLength(50),
+      ]),
       contrasenia: new FormControl("", [
-          Validators.required, 
-          Validators.minLength(1),
-          Validators.maxLength(50)]),
-      direccion: new FormControl("", [
-        Validators.required, 
-        Validators.minLength(10)]),
-      email: new FormControl("", [
-        Validators.required, 
+        Validators.required,
         Validators.minLength(1),
-        Validators.pattern(environment.emailPatter)]),
-      telefono: new FormControl("", [
-        Validators.required, 
-        Validators.maxLength(10), 
+        Validators.maxLength(50),
+      ]),
+      direccion: new FormControl("", [
+        Validators.required,
         Validators.minLength(10),
-        Validators.pattern(environment.phonePatter)]),
-      referencia: new FormControl("", [
-        Validators.required])
+      ]),
+      email: new FormControl("", [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.pattern(environment.emailPatter),
+      ]),
+      telefono: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(10),
+        Validators.minLength(10),
+        Validators.pattern(environment.phonePatter),
+      ]),
+      referencia: new FormControl("", [Validators.required]),
     });
     this.datosRespaldo = this.userForm.value;
   }
@@ -111,14 +133,14 @@ export class ConfigurationComponent implements OnInit {
   public getError(controlName: string): string {
     let field: string;
     const control = this.userForm.get(controlName);
-    if ( control.errors != null) {
+    if (control.errors != null) {
       if (control.errors.required != null) {
         field = controlName;
         if (controlName === "nombre") {
           field = "Nombre";
-        }else if (controlName === "apellido") {
-            field = "Apellido";
-        }else if (controlName === "contrasenia") {
+        } else if (controlName === "apellido") {
+          field = "Apellido";
+        } else if (controlName === "contrasenia") {
           field = "Contraseña";
         } else if (controlName === "telefono") {
           field = "Tel&eacute;fono";
@@ -142,34 +164,31 @@ export class ConfigurationComponent implements OnInit {
   }
 
   guardarCambios() {
-    this.datosUsuario={
-      cedula: this.auth.dataUser['cedula'],
+    this.datosUsuario = {
+      cedula: this.auth.dataUser["cedula"],
       nombre: this.userForm.get("nombre").value,
       apellido: this.userForm.get("apellido").value,
       telefono: this.userForm.get("telefono").value,
       email: this.userForm.get("email").value,
       direccion: this.userForm.get("direccion").value,
       contrasenia: this.userForm.get("contrasenia").value,
-      rol: this.auth.dataUser['rol']
-    }
+      rol: this.auth.dataUser["rol"],
+    };
 
-    this.userS
-    .setUserInfo(this.datosUsuario).subscribe(item=>{
-      console.log("Ingreso correcto");
-      this.showMessage(
-        "Usuario editado con &eacute;xito",
-        "success",
-        "Editado!"
-      );
-    },
-    error => {
-      console.log(error);
-      this.showMessage(
-        "Error al editar el usuario",
-        "error",
-        "Error!"
-      )
-    });
+    this.userS.setUserInfo(this.datosUsuario).subscribe(
+      (item) => {
+        console.log("Ingreso correcto");
+        this.showMessage(
+          "Usuario editado con &eacute;xito",
+          "success",
+          "Editado!"
+        );
+      },
+      (error) => {
+        console.log(error);
+        this.showMessage("Error al editar el usuario", "error", "Error!");
+      }
+    );
   }
 
   confirmarEditar() {

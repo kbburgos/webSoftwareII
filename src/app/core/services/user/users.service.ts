@@ -60,12 +60,8 @@ export class UsersService {
    * @author Brenda Bermello <bremiber@espol.edu.ec>
    */
 
-  userById(token: string, id: string) {
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    };
-    return this.http.get(environment.rutas.usersS + id, { headers });
+  userById(id: string) {
+    return this.http.get(environment.rutas.usersS + id);
   }
 
   /**

@@ -68,10 +68,8 @@ export class AuthService {
     return localStorage.getItem(this.JWT_TOKEN);
   }
 
-  doLoginUser(tokens: Token) {
-    // this.loggedUser = username;
-    console.log("estas en el doLoginUser ", tokens);
-    this.storeTokens(tokens);
+  doLoginUser(tokens: Token, cedula: string) {;
+    this.storeTokens(tokens, cedula);
   }
 
   private doLogoutUser() {
@@ -87,11 +85,10 @@ export class AuthService {
     localStorage.setItem(this.JWT_TOKEN, jwt);
   }
 
-  private storeTokens(tokens: Token) {
-    console.log("estas en el storage token ", tokens);
-    console.log("Este es el this.JWT_TOKEN ", this.JWT_TOKEN);
+  private storeTokens(tokens: Token, cedula:string) {
     localStorage.setItem(this.JWT_TOKEN, tokens.token);
     localStorage.setItem(this.REFRESH_TOKEN, tokens.refreshToken);
+    localStorage.setItem("cedula", cedula)
   }
 
   private removeTokens() {

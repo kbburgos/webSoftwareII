@@ -69,6 +69,7 @@ import { TokenInterceptorService } from "app/core/services/interceptor/token-int
 import {VirtualScrollerModule} from 'primeng/virtualscroller';
 import {DropdownModule} from 'primeng/dropdown';
 import { SalesComponent } from "app/pages/sales/sales.component"
+import { ConfigurationComponent } from "app/pages/configuration/configuration.component"
 
 
 
@@ -113,6 +114,7 @@ import { SalesComponent } from "app/pages/sales/sales.component"
   ],
   declarations: [
     DashboardComponent,
+    ConfigurationComponent,
     OnHoldComponent,
     CurrentPromotionComponent,
     OldPromotionComponent,

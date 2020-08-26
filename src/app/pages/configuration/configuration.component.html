@@ -1,51 +1,26 @@
-<div class="container-fluid" style="width: 1000px;">
-    <div *ngIf="display" class="row">
-      <form [formGroup]="form">
-        <div class="form-group col-sm-6" style="float: left;">
-          <label>Nombre:</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="nombre"
-            [(ngModel)]="UsuarioComp.nombre"
-          />
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div *ngIf="usuario" class="col-md-12">
+        <div class="row">
+          <input type="text" [(ngModel)]="usuario.cedula" />
         </div>
-
-        <div class="form-group col-sm-6" style="float: left;">
-          <label>Apellido</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="apellido"
-            [(ngModel)]="UsuarioComp.apellido"
-          />
+        <div class="row">
+          <input type="text" [(ngModel)]="usuario.nombre" />
         </div>
-
-        <div class="form-group col-sm-6" style="float: left;">
-          <label>Tel&eacute;fono:</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="telefono"
-            [(ngModel)]="UsuarioComp.telefono"
-          />
+        <div class="row">
+          <input type="text" [(ngModel)]="usuario.apellido" />
         </div>
-        <div class="form-group col-sm-6" style="float: left;">
-          <label>Email:</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="email"
-            [(ngModel)]="UsuarioComp.email"
-          />
+        <div class="row">
+          <input type="text" [(ngModel)]="usuario.telefono" />
         </div>
-    </form>
-    <div class="col-sm-6 button-save">
-        <button
-            mat-raised-button
-            class="btn btn-success"
-            (click)="confirmarEditar()"
-            pButton label="Editar"
-        ></button>
+        <div class="row">
+          <input type="text" [(ngModel)]="usuario.direccion" />
+        </div>
+        <div class="row">
+          <input type="text" [(ngModel)]="usuario.email" />
+        </div>
+      </div>
     </div>
+  </div>
 </div>

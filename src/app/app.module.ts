@@ -63,7 +63,6 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ToastModule } from 'primeng/toast';
 import { DropdownModule } from 'primeng/dropdown';
 import { SalesComponent } from './pages/sales/sales.component';
-import { ConfigurationComponent } from './pages/configuration/configuration.component';
 
 @NgModule({
   imports: [
@@ -109,7 +108,6 @@ import { ConfigurationComponent } from './pages/configuration/configuration.comp
     DeliverymanComponent,
     PromotionNewComponent,
     DeliveryOrderComponent,
-    ConfigurationComponent,
     // CurrentPromotionComponent,
     // OldPromotionComponent,
   ],

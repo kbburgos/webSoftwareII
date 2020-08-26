@@ -26,10 +26,10 @@ export const ROUTES: RouteInfo[] = [
     { path: '/delivery-notification', title: 'Registro de novedad de cliente',  class: '', component: 'DeliveryNotificationComponent'},
     { path: '/customers', title: 'Clientes registrados',  class: '', component: 'CustomersComponent'},
     { path: '/conflicting', title: 'Clientes conflictivos',  class: '', component: 'ConflictingComponent'},
-    { path: '/notifications', title: 'Notifications',  class: '', component:  'NotificationsComponent'},
+    { path: '/notifications', title: 'Notificaciones',  class: '', component:  'NotificationsComponent'},
     { path: '/upgrade', title: 'Upgrade to PRO',  class: 'active-pro', component: 'UpgradeComponent'},
 
-    { path: '/configuration', title: 'Editar perfil de Usuario',  class: 'active-pro', component: 'ConfigurationComponent'},
+    { path: '/configuration', title: 'Configuración de perfil',  class: 'active-pro', component: 'ConfigurationComponent'},
 ];
 
 @Component({

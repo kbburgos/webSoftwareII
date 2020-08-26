@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
 
             //    console.log("estas en login ", dt);
             //    console.log("aqui aqui ", dt.token);
-            this.auth.doLoginUser(this.auth.token);
+            this.auth.doLoginUser(this.auth.token, dt.data.cedula);
 
             this.auth.isAuth = true;
             this.userInfo.email = dt.data.email;
