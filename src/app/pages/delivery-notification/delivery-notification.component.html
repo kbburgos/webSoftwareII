@@ -3,13 +3,14 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header card-header-danger">
+          <div class="card-header card-header-info">
             <div class="row">
               <div class="col-md-10">
                 <h4 class="card-title">Lista novedades: Repartidores</h4>
               </div>
               <div class="col-md-2">
                 <button
+                  class="secundary"
                   type="text"
                   (click)="showAddDialog()"
                   pButton
@@ -65,28 +66,20 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header card-header-danger">
+                <div class="card-header card-header-info">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-10">
                         <h4 class="card-title">Lista de novedades creadas por el administrador</h4>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <button
+                          class="secundary"
                           type="text"
                           (click)="showAddDialog()"
                           pButton
                           icon="pi pi-plus"
                           label="  Nuevo"
                         ></button>
-                        &nbsp;
-                        <button
-                          type="text"
-                          (click)="showAddDialog()"
-                          pButton
-                          icon="pi pi-download"
-                          label="  Exportar"
-                        ></button>
-                        
                       </div>
                 </div>
                 </div>
@@ -164,7 +157,7 @@
       pButton
       icon="pi pi-save"
       (click)="addNovedad()"
-      label="Crear novedad"
+      label="Guardar"
     ></button>
   </p-footer>
 </p-dialog>
