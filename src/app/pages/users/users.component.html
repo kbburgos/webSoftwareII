@@ -368,6 +368,10 @@
         </div>
       </form>
     </div>
+    <p-confirmDialog
+      header="Confirmaci&oacute;n"
+      icon="pi pi-exclamation-triangle"
+    ></p-confirmDialog>
     <div class="col-sm-12 button-save">
       <br />
       <button
@@ -383,7 +387,7 @@
           telefono == ''
         "
         class="secundary"
-        (click)="guardarCambios()"
+        (click)="confirmar()"
         pButton
         label="GUARDAR"
       ></button>

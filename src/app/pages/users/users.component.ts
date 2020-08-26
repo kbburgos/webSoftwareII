@@ -182,6 +182,22 @@ export class UsersComponent implements OnInit {
     }
   }
 
+  confirmar() {
+    this.confirmationService.confirm({
+      message: "¿Est&aacute; seguro que deseas editar el usuario?",
+      accept: () => {
+        console;
+        this.guardarCambios(),
+          (err: any) => {
+            console.log(err);
+            this.showMessage("Error al editar el usuario", "error", "Error!");
+          };
+        this.edit = false;
+        this.clearState();
+      },
+    });
+  }
+
   abrirEditar(user) {
     console.log("LLEGAS", user);
     this.edit = true;
