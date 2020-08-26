@@ -29,7 +29,6 @@ export class DeliveryOrderComponent implements OnInit {
   selectednovelty: deliverymanNoveltys;
   repartidor: Deliveryman;
   cedulaRepartidor: string;
-  cols: any[];
   display = false;
   listaPedidosRepartidor: Array<string> = [];
   pedidoidDelRepartidor: string;
@@ -42,7 +41,15 @@ export class DeliveryOrderComponent implements OnInit {
   private actual = new Date();
   horaRetiro: any = new Date().setMinutes(this.actual.getMinutes());
   token: any;
+  refreshToken:any;
   cantidadCompras = 0;
+  cols: any=[
+    { field: "cedula_cliente", header: "CEDULA_CLIENTE" },
+    { field: "cliente", header: "CLIENTE" },
+    { field: "pedido", header: "PEDIDO" },
+    { field: "productos", header: "PRODUCTOS" },
+  ];
+
   private deliveryman;
   private obtenerpedido;
   private productosSubscribe;
@@ -54,7 +61,7 @@ export class DeliveryOrderComponent implements OnInit {
   private verCompraApi;
   private crearPedidoApi;
   private deleteOrder;
-
+  private logOutSession;
   constructor(
     private deliveryManService: DeliverymanService,
     private authDeliveryman: AuthDeliverymanService,
@@ -92,6 +99,7 @@ export class DeliveryOrderComponent implements OnInit {
     }, error => {
       this.errorMessage('No se pudo cargar los productos de los pedidos');
     });
+    this.generarToken();
   }
 
   // tslint:disable-next-line: use-life-cycle-interface
@@ -130,7 +138,26 @@ export class DeliveryOrderComponent implements OnInit {
       this.deleteOrder.unsubscribe();
     }
   }
-
+  generarToken() {
+    this.loginApi = this.authDeliveryman.loginToApi(environment.emailRepartidor, environment.passwRReartidor).subscribe( (item: any) => {
+      this.token = item.token;
+      this.refreshToken = item.refreshToken;
+      console.log(this.token);
+    }, ( err ) => {
+      this.spinner.hide();
+      this.errorMessage('No se pudo acceder al api');
+    });
+  }
+  cargarCompras() {
+    this.verCompraApi = this.purchase.getPurchaseRepartidor(this.token).subscribe( (item: any) => {
+      this.cantidadCompras = item.length;
+      console.log('cantidad de compras: ', this.cantidadCompras);
+      this.spinner.hide();
+    }, ( err ) => {
+      this.spinner.hide();
+      this.errorMessage('No se pudo acceder a las compras');
+    });
+  }
   finalOrder(pedidoCulminado) {
     this.spinner.show();
     this.pedidoidDelRepartidor = pedidoCulminado.idPedido;
@@ -140,18 +167,10 @@ export class DeliveryOrderComponent implements OnInit {
       this.pedidoCambiaEstado = data[0];
     },
     (err) => {
+      this.spinner.hide();
       this.errorMessage('No se pudo cargar los pedidos');
     });
-    this.verCompraApi = this.purchase.getPurchase(this.token).subscribe( (item: any) => {
-      this.cantidadCompras = item.length;
-      this.spinner.hide();
-    });
-    this.loginApi = this.authDeliveryman.loginToApi(environment.emailRepartidor, environment.passwRReartidor).subscribe( (item: any) => {
-      this.token = item.token;
-      console.log(this.token);
-    }, ( err ) => {
-      this.errorMessage('No se pudo acceder al api');
-    });
+    this.cargarCompras();
   }
 
   detailsProducts (productos: [], cantidades: []) {
@@ -179,6 +198,7 @@ export class DeliveryOrderComponent implements OnInit {
         header: 'Confirmación',
         icon: 'pi pi-exclamation-circle',
         accept: () => {
+          this.crearCompra();
           this.sendFinallyOrder(this.pedidoCambiaEstado);
         }
     });
@@ -192,7 +212,20 @@ export class DeliveryOrderComponent implements OnInit {
 
 
   }
-
+  crearCompra() {
+    const compraNueva = {
+      idcompra: null,
+      idusuario: this.pedidoCambiaEstado.idUsuario,
+      entregaDomocilio: this.pedidoCambiaEstado.isDomicilio,
+    }
+    console.log(compraNueva);
+    this.crearCompraApi = this.purchase.createPurchaseRepartidor(this.token, compraNueva).subscribe((item: any) => {
+      this.confirmationAction('compra');
+      this.cargarCompras();
+    }, (err) => {
+      this.errorMessage('No se pudo realizar la compra');
+    });
+  }
   sendFinallyOrder(pedido) {
     let novedadRepartidor = '';
     if (this.selectednovelty != null) {
@@ -226,17 +259,8 @@ export class DeliveryOrderComponent implements OnInit {
     cantidadApi = cantidadApi.substring(0, cantidadApi.length - 1);
     productoApi = productoApi.substring(0, productoApi.length - 1);
     const idCompraApi = this.cantidadCompras + 1 ;
-    const compraNueva = {
-      idcompra: null,
-      idusuario: pedido.idUsuario,
-      entregaDomocilio: pedido.isDomicilio,
-    }
-    this.crearCompraApi = this.purchase.createPurchase(this.token, compraNueva).subscribe((item: any) => {
-      this.confirmationAction('compra');
-    }, (err) => {
-      this.errorMessage('No se pudo realizar la compra');
-    });
-    this.cantidadTotalProductosxPedido = pedido.cantidades.reduce( (a, b) => a + b , 0);
+
+    //this.cantidadTotalProductosxPedido = pedido.cantidades.reduce( (a, b) => a + b , 0);
     const pedidoNuevo = {
       idpedido: null,
       idcompra: idCompraApi,
@@ -246,20 +270,22 @@ export class DeliveryOrderComponent implements OnInit {
       cubiertos: pedido.cubiertos,
       estado: '3',
     }
-    this.crearPedidoApi = this.orderService.setPedidosToDispatched(this.token, pedidoNuevo).subscribe( item => {
+    console.log(pedidoNuevo);
+    this.crearPedidoApi = this.orderService.setPedidosToDispatchedByRepartidor(this.token, pedidoNuevo).subscribe( item => {
       this.confirmationAction('pedido');
     },
     error => {
+      console.log(error);
       this.errorMessage('No se pudo realizar el pedido');
     });
     this.display = false;
     this.deleteOrder = this.orderService.deletePedido(pedido.idPedido);
+    this.generarToken();
   }
 
   logOut() {
     this.authDeliveryman.removeTokens();
     this.router.navigate(['deliveryman']);
-
   }
   confirmationAction( data: string) {
     let mensaje = '';
@@ -267,6 +293,14 @@ export class DeliveryOrderComponent implements OnInit {
       mensaje = 'La compra finalizó con éxito';
     } else if (data === 'pedido') {
       mensaje = 'El pedido finalizó con éxito';
+      const rejectToken = {
+        refreshToken: this.refreshToken
+      };
+      this.logOutSession = this.authDeliveryman.rejectTokenFromApi(rejectToken).subscribe( (item: any) =>{
+        this.confirmationLogOut('Acción completada');
+      }, error => {
+        this.errorMessage('No se pudo finalizar la acción');
+      });
     }
     this.messageService.add(
       {severity: 'success', summary: 'CONFIRMACIÓN',
@@ -280,4 +314,9 @@ export class DeliveryOrderComponent implements OnInit {
       detail: mensaje, life: 2000 });
   }
 
+  confirmationLogOut( data: string) {
+    this.messageService.add(
+      {severity: 'success', summary: 'CONFIRMACIÓN',
+      detail: data, life: 1500 });
+  }
 }

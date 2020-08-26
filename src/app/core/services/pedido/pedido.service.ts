@@ -99,21 +99,29 @@ export class PedidoService {
     this.PedidosDoc.update(pedido);
   }
 
-  getPedidosDispatchedFromApi(token: string) {
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token};
-    return this.http.get(environment.rutas.getPedidos, { headers });
+  getPedidosDispatchedFromApi() {
+    return this.http.get(environment.rutas.getPedidos);
   }
 
-  setPedidosToDispatched(token: string, body) {
+  setPedidosToDispatched( body) {
+    const hash = this.seguridad.hashJSON(body);
+    body['hash'] = hash;
+    console.log(body);
+    return this.http.post(environment.rutas.createPedidos, body);
+  }
+  setPedidosToDispatchedByRepartidor(token: string, body) {
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token};
+      Authorization: 'Bearer ' + token,
+    };
     const hash = this.seguridad.hashJSON(body);
     body['hash'] = hash;
     console.log(body);
     return this.http.post(environment.rutas.createPedidos, body, { headers });
+  }
+
+  getPedidosApl () {
+    return new EventSource(environment.rutas.getPedidos);
   }
 
 }

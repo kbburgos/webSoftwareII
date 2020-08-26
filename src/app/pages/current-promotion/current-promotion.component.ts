@@ -127,41 +127,58 @@ export class CurrentPromotionComponent implements OnInit {
     this.ProductEdit = Object.assign({}, productos);
   }
 
-  confirmar(item: Products) {
+  confirmar() {
     let producto: Products = {
       idProducto: this.ProductEdit.idProducto,
-      descripcion: this.form.get("descripcion").value,
+      descripcion: this.ProductEdit.descripcion,
       foto: this.ProductEdit.foto,
       idCategoria: this.categoria,
-      nombre: this.form.get("nombre").value,
+      nombre: this.ProductEdit.nombre,
       isActivo: true,
-      precio: this.form.get("precio").value,
-      stock: this.form.get("stock").value,
+      precio: this.ProductEdit.precio,
+      stock: this.ProductEdit.stock,
       slide: this.ProductEdit.slide,
     };
 
     this.confirmationService.confirm({
       message: "¿Est&aacute; seguro que desea editar la promoción?",
       accept: () => {
-        this.update(producto);
-        this.clearState();
+        console;
+        this.update(producto),
+          (err: any) => {
+            console.log(err);
+            this.showMessage("Error al editar la promoción", "error", "Error!");
+          };
         this.display = false;
+        this.clearState();
       },
     });
   }
 
   confirmarEliminar(producto: Products) {
     this.confirmationService.confirm({
-      message: "¿Est&aacute; seguro que desea eliminar la promoción?",
+      message: "¿Est&aacute; seguro que deseas eliminar la promoción?",
       accept: () => {
-        this.eliminarProduct(producto);
+        this.eliminarProduct(producto),
+          (err: any) => {
+            console.log(err);
+            this.showMessage(
+              "Error al eliminar la promoción",
+              "error",
+              "Error!"
+            );
+          };
       },
     });
   }
 
   update(producto: Products) {
     producto.idCategoria = this.categoria;
-    this.productosService.updateProduct(producto);
+    this.productosService.updateProduct(producto),
+      (err: any) => {
+        console.log(err);
+        this.showMessage("Error al editar la promoción", "error", "Error!");
+      };
     this.clearState();
     this.showMessage("Promoción activa", "success", "Activa!");
   }
@@ -187,10 +204,15 @@ export class CurrentPromotionComponent implements OnInit {
       this.allfiles.push(file[i]);
       console.log(file[i]);
       const reader = new FileReader();
-      reader.onload = (fileData) => {
+      (reader.onload = (fileData) => {
         this.previewUrl = reader.result;
+        //this.imageUp=false
         this.Urls.push(this.previewUrl);
-      };
+      }),
+        (err: any) => {
+          console.log(err);
+          this.showMessage("Error al cargar las imágenes", "error", "Error!");
+        };
       reader.readAsDataURL(file[i]);
     }
   }
@@ -202,7 +224,11 @@ export class CurrentPromotionComponent implements OnInit {
   eliminarProduct(producto: Products) {
     console.log(producto);
     producto.isActivo = false;
-    this.productosService.updateProduct(producto);
+    this.productosService.updateProduct(producto),
+      (err: any) => {
+        console.log(err);
+        this.showMessage("Error al eliminar la promoción", "error", "Error!");
+      };
     this.showMessage("Promoción inactiva", "success", "Inactiva!");
     this.clearState();
   }
@@ -232,6 +258,8 @@ export class CurrentPromotionComponent implements OnInit {
       .pushProductos(producto)
       .then((data: any) => {
         console.log("Guardado");
+        this.display = false;
+        this.bandera = false;
         this.clearState();
         this.showMessage(
           "Promoción creado exitósamente",

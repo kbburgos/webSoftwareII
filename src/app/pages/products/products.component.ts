@@ -23,7 +23,7 @@ import { CategoriaService } from "../../core/services/categoria/categoria.servic
   providers: [MessageService],
 })
 export class ProductsComponent implements OnInit {
-  private form: FormGroup;
+  form: FormGroup;
   display: boolean = false;
   bandera: boolean = false;
   slide: boolean = false;
@@ -37,6 +37,7 @@ export class ProductsComponent implements OnInit {
   previewUrl: any = null;
   producSlide: any = [];
   data: any = "";
+  imageUp: boolean = true;
 
   cols: any = [
     { field: "nombre", header: "NOMBRE" },
@@ -55,7 +56,7 @@ export class ProductsComponent implements OnInit {
     private messageService: MessageService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.spinner.show();
     this.productos = [];
 
@@ -114,6 +115,7 @@ export class ProductsComponent implements OnInit {
   }
 
   fileProgress(file: any) {
+    this.imageUp = false;
     for (let i = 0; i < file.length; i++) {
       var mimeType = file[i].type;
       if (mimeType.match(/image\/*/) == null) {
@@ -123,10 +125,15 @@ export class ProductsComponent implements OnInit {
       this.allfiles.push(file[i]);
       console.log(file[i]);
       const reader = new FileReader();
-      reader.onload = (fileData) => {
+      (reader.onload = (fileData) => {
         this.previewUrl = reader.result;
+        //this.imageUp=false
         this.Urls.push(this.previewUrl);
-      };
+      }),
+        (err: any) => {
+          console.log(err);
+          this.showMessage("Error al cargar las imágenes", "error", "Error!");
+        };
       reader.readAsDataURL(file[i]);
     }
   }
@@ -137,34 +144,34 @@ export class ProductsComponent implements OnInit {
     this.categoria = this.ProductEdit.idCategoria;
   }
 
-  confirmar(item: Products) {
-    console.log(item);
+  confirmar() {
     let producto: Products = {
-      idProducto: item.idProducto,
-      descripcion: item.descripcion,
-      foto: item.foto,
-      idCategoria: item.idCategoria,
-      nombre: item.nombre,
+      idProducto: this.ProductEdit.idProducto,
+      descripcion: this.ProductEdit.descripcion,
+      foto: this.ProductEdit.foto,
+      idCategoria: this.ProductEdit.idCategoria,
+      nombre: this.ProductEdit.nombre,
       isActivo: true,
-      precio: item.precio,
-      stock: item.stock,
-      slide: item.slide,
+      precio: this.ProductEdit.precio,
+      stock: this.ProductEdit.stock,
+      slide: this.ProductEdit.slide,
     };
     console.log(producto);
     this.confirmationService.confirm({
       message: "¿Est&aacute; seguro que desea editar el producto?",
       accept: () => {
         console;
-        if (this.categoria == "") {
-          this.update(producto);
-          this.display = false;
-          this.clearState();
-        } else {
-          producto.idCategoria = this.categoria;
-          this.update(producto);
-          this.display = false;
-          this.clearState();
-        }
+        this.update(producto),
+          (err: any) => {
+            console.log(err);
+            this.showMessage(
+              "Error al editar los productos",
+              "error",
+              "Error!"
+            );
+          };
+        this.display = false;
+        this.clearState();
       },
     });
   }
@@ -173,7 +180,15 @@ export class ProductsComponent implements OnInit {
     this.confirmationService.confirm({
       message: "¿Est&aacute; seguro que desea eliminar el producto?",
       accept: () => {
-        this.eliminarProduct(producto);
+        this.eliminarProduct(producto),
+          (err: any) => {
+            console.log(err);
+            this.showMessage(
+              "Error al eliminar los productos",
+              "error",
+              "Error!"
+            );
+          };
       },
     });
   }
@@ -181,7 +196,12 @@ export class ProductsComponent implements OnInit {
   update(producto: Products) {
     this.guardarCategoria(producto.idCategoria);
     producto.idCategoria = this.categoria;
-    this.productosService.updateProduct(producto);
+
+    this.productosService.updateProduct(producto),
+      (err: any) => {
+        console.log(err);
+        this.showMessage("Error al editar los productos", "error", "Error!");
+      };
     this.clearState();
     this.showMessage("Producto editado exitósamente", "success", "Editado!");
   }
@@ -209,11 +229,7 @@ export class ProductsComponent implements OnInit {
       .then((data: any) => {
         this.bandera = false;
         console.log("Guardado");
-        this.showMessage(
-          "Prducto creado exitósamente",
-          "success",
-          "Agregado!"
-        );
+        this.showMessage("Prducto creado exitósamente", "success", "Agregado!");
       })
       .catch((err: any) => {
         console.log(err);
@@ -224,17 +240,36 @@ export class ProductsComponent implements OnInit {
 
   eliminarProduct(producto: Products) {
     console.log(producto);
-    this.productosService.deleteProduct(producto.idProducto);
-    this.showMessage("Producto eliminado exitósamente", "success", "Eliminado!");
+    this.productosService.deleteProduct(producto.idProducto),
+      (err: any) => {
+        console.log(err);
+        this.showMessage("Error al eliminar los productos", "error", "Error!");
+      };
+    this.showMessage(
+      "Producto eliminado exitósamente",
+      "success",
+      "Eliminado!"
+    );
     this.clearState();
   }
 
   clearState() {
     this.display = false;
-    this.ProductEdit = null;
-    this.previewUrl = null;
+    this.ProductEdit = {
+      descripcion: "",
+      foto: "",
+      idCategoria: "",
+      idProducto: "",
+      isActivo: true,
+      nombre: "",
+      precio: 0,
+      slide: [],
+      stock: 0,
+    };
+    this.previewUrl = "";
     this.Urls = [];
     this.form.reset();
+    this.bandera = false;
   }
 
   private buildForm() {

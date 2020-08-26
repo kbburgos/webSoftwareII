@@ -98,4 +98,8 @@ export class AuthDeliverymanService {
   getLogginFirebase() {
     return !!localStorage.getItem(this.REPARTIDOR);
   }
+
+  rejectTokenFromApi(body) {
+    return this.httpClient.post(environment.rutas.rejectToken, body);
+  }
 }

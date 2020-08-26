@@ -48,6 +48,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: "configuration",
+    redirectTo: "configuration",
+    pathMatch: "full",
+    canActivate: [AuthGuard],
+  },
+  {
     path: "",
     component: AdminLayoutComponent,
     children: [

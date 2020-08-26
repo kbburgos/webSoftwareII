@@ -36,12 +36,12 @@ export class UsersComponent implements OnInit {
   usuarios: UserRol[];
   temp: any[] = [];
   column: Usuarios[];
-  display: boolean = false;
+  display = false;
   rolName: String = "Rol";
   datosUsuario: UsuarioInterface;
   data: any = "";
-  rol: number = 1;
-  edit: boolean = false;
+  rol = 0;
+  edit = false;
   UsuarioEdit: UsersService;
 
   cols = [
@@ -73,7 +73,7 @@ export class UsersComponent implements OnInit {
 
   cargar() {
     this.spinner.show();
-    let subs = this.user.usuarios().subscribe(
+    const subs = this.user.usuarios().subscribe(
       (data: any) => {
         console.log(data);
         this.usuarios = this.filtrado(data);
@@ -89,7 +89,7 @@ export class UsersComponent implements OnInit {
   }
 
   filtrado(coleccion) {
-    let temporal: any[] = [];
+    const temporal: any[] = [];
     coleccion.map((item) => {
       if (item.rol == 1) {
         item.rol = "Admin";
@@ -140,7 +140,7 @@ export class UsersComponent implements OnInit {
   save() {
     console.log("entra a save");
     this.data = "";
-    //let clave = String(Math.random() * (999999999 - 111111111) + 111111111);
+    // let clave = String(Math.random() * (999999999 - 111111111) + 111111111);
     this.datosUsuario = {
       cedula: this.form.get("cedula").value,
       nombre: this.form.get("nombre").value,
@@ -183,35 +183,45 @@ export class UsersComponent implements OnInit {
   }
 
   abrirEditar(user) {
-    console.log("LLEGAS");
+    console.log("LLEGAS", user);
     this.edit = true;
-    this.UsuarioEdit = user;
-
+    if (user.rol == "Admin") {
+      this.rol = 1;
+    } else {
+      this.rol = 2;
+    }
+    this.UsuarioEdit = Object.assign({}, user);
+    this.rolName = user.rol;
     console.log(this.UsuarioEdit);
   }
 
-  //TIENE FALLAS
+  // TIENE FALLAS
   guardarCambios() {
+    this.data = "";
     this.datosUsuario = {
       cedula: this.form.get("cedula").value,
       nombre: this.form.get("nombre").value,
       apellido: this.form.get("apellido").value,
       telefono: this.form.get("telefono").value,
       email: this.form.get("email").value,
-      contrasenia: "contrasenia",
-      rol: 1,
       direccion: this.form.get("direccion").value,
+      contrasenia: "contrasenia",
+      rol: this.rol,
     };
-
+    //console.log(this.datosUsuario);
     this.user
       .setUserInfo(this.datosUsuario)
       .toPromise()
       .then((data) => {
         console.log("ingresado correctamente");
+        this.cargar();
+        this.edit = false;
+        this.showMessage("Usuario editado exitósamente", "success", "Editado!");
       })
       .catch((err) => {
         console.log(err);
         this.edit = false;
+        this.showMessage("Error al editar el usuario", "error", "Error!");
       });
   }
 

@@ -25,7 +25,6 @@ export class AssignedComponent implements OnInit {
   cedulaRepartidor: string;
   displayDetail = false;
   displayDeliveryman = false;
-  cols: any[];
   pedido: Orders;
   pedidosDomicilioAsignados: Orders[] = [];
   productos: Producto[];
@@ -36,6 +35,12 @@ export class AssignedComponent implements OnInit {
   private pedidosAsignadosSubscribe;
   private repartidoresSubscribe;
   private productosSubscribe;
+
+  cols: any = [
+    { field: "pedido", header: "PEDIDO" },
+    { field: "cliente", header: "CLIENTE" },
+    { field: "productos", header: "PRODUCTOS" },
+  ];
 
   constructor(
     private pedidoService: PedidoService,

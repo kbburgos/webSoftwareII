@@ -108,3 +108,15 @@
     background-color: #91CCDD;
     border: transparent;
 }
+
+
+.pInfo{
+    font-size: 1rem;
+}
+
+@media screen and (min-width: 400px) {  
+    .divCardProduct {
+      width: 400px;
+      margin: 0 auto;
+    }
+}

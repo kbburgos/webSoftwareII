@@ -1,8 +1,15 @@
 import { Component, OnInit} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { ConfirmationService } from "primeng/api";
+import { switchMap, concatAll, filter, distinct, tap } from 'rxjs/operators';
+
+import { DelivermanReporterService } from "../../core/services/deliverman/deliverman-reporter.service";
+import { DeliverymanService } from "../../core/services/deliverman/deliveryman.service";
+import { NovelyDeliverman } from "../../core/interface/noveltyDeliverman";
+import { NovelyCustomerView } from "../../core/interface/noveltyCustomerView";
 
 import { UsersService } from "../../core/services/user/users.service";
+import { NoveltyService } from "../../core/services/novelty/novelty.service";
 import { AuthService } from "../../core/services/auth/auth.service";
 import { environment } from "environments/environment";
 
@@ -22,13 +29,26 @@ import {
 export class ConflictingComponent implements OnInit {
   private form: FormGroup;
   token: any = this.authService.getJwtToken();
+  cont: number = 0;
   //listconflicting: Conflicting[];
   listcustomers: Usuarios[];
-  clientes: Usuarios[];
-  cols: any[];
+  clientesTodos: Usuarios[];
+  clientesConflictivos: NovelyCustomerView[];
+  deliverymannew: NovelyDeliverman[];
+  direccion: string;
+  referencia: string;
+  coordenadas: string;
+  cols: any=[
+    { field: "cedula", header: "CEDULA" },
+    { field: "nombre", header: "NOMBRE" },
+    { field: "apellido", header: "APELLIDO" },
+  ];
+
   constructor(private confirmationService: ConfirmationService,
     private http: HttpClient,
+    private deliverymanreportService: DelivermanReporterService,
     private user: UsersService,
+    private novelty: NoveltyService,
     private authService: AuthService,
     private formBuilder: FormBuilder,
   ) { }
@@ -36,29 +56,54 @@ export class ConflictingComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.clearState();
+    let novedadesSubscribe = this.deliverymanreportService.getNovedadesRepartidores().subscribe((data:any)=>{
+      this.clientesConflictivos=this.listaClientesConflictivos(this.deleteDuplicate(data));
+    })
 
-    let subs = this.user.usuarios().subscribe(
-      (data: any) => {
-        this.clientes = data;
-        console.log(this.clientes);
-      },
-      (err: any) => {
-        console.log(err);
-        subs.unsubscribe();
-      }
-    );
   }
 
-  eliminarCustomers(cedula){
-    this.confirmationService.confirm({
-      message: "¿Est&aacute; seguro que desea eliminar al cliente?",
-      accept: () =>{
-        this.user.deleteUser(cedula).toPromise().then(result => {
-          console.log('From delete: ', result);
-        });
-        console.log(cedula, "usuario eliminado");
-      },
-    });
+  listaClientesConflictivos(lista: any){
+    for(let i=0; i<environment.variables.nombreClientes.length; i++){
+      for(let j=0; j<lista.length; j++){
+        if(environment.variables.nombreClientes[i]['cedula'] === lista[j].idCliente){
+          lista[j].nombre = environment.variables.nombreClientes[i]['nombre'];
+          lista[j].apellido = environment.variables.nombreClientes[i]['apellido'];
+          lista[j].email = environment.variables.nombreClientes[i]['email'];
+          this.getAddress(environment.variables.nombreClientes[i]['direccion']);
+          lista[j].direccion= this.direccion;
+          lista[j].telefono = environment.variables.nombreClientes[i]['telefono'];
+          lista[j].rol = environment.variables.nombreClientes[i]['rol'];
+        }
+      }
+    }
+    return lista;
+  }
+
+  getAddress(address:any){
+    const obj=JSON.parse(address);
+    this.direccion=obj.direccion;
+    this.referencia=obj.referencia;
+    this.coordenadas=obj.coordenadas;
+  }
+
+  deleteDuplicate(coleccion: any){
+    const unique=[];
+    let count=0;
+    let found=false;
+    for(let i=0; i<coleccion.length; i++){
+      for(let j=0; j<unique.length; j++){
+        if(coleccion[i].idCliente == unique[j].idCliente){
+          found=true;
+        }
+      }
+      count++;
+      if(count==1 && found ==false){
+        unique.push(coleccion[i]);
+      }
+      count=0;
+      found=false;
+    }
+    return unique;
   }
 
   private buildForm() {
