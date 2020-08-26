@@ -6,7 +6,6 @@ import { AuthService } from "app/core/services/auth/auth.service";
 import { environment } from "environments/environment";
 
 import { Usuarios } from "app/core/interface/Usuarios";
-import { Rol } from "app/core/interface/rol";
 import { UserInfoService } from "app/core/services/userInfo/user-info.service";
 
 import { NgxSpinnerService } from "ngx-spinner";
