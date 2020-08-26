@@ -19,6 +19,15 @@ import { UserInfoService } from 'app/core/services/userInfo/user-info.service';
   styleUrls: ['./deliveryman.component.css'],
   providers: [MessageService]
 })
+
+/**
+ * @classdesc Container class of DeliverymanComponent.
+ * @desc Creation Date: 08/07/2020
+ * @class
+ * @public
+ * @version 2.0.0
+ * @author Danny Rios <dprios@espol.edu.ec>
+ */
 export class DeliverymanComponent implements OnInit {
   idRepartidor: string;
   form: FormGroup;
@@ -37,10 +46,28 @@ export class DeliverymanComponent implements OnInit {
     private http: HttpClient
   ) {}
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for loading the functions in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   ngOnInit(): void {
     this.buildForm();
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for checking if a deliveryman exist in firebase. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   ingresar() {
     if (this.form.valid) {
       this.repartidor = this.deliveryManService
@@ -68,6 +95,15 @@ export class DeliverymanComponent implements OnInit {
     }
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for building a form in page. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   private buildForm() {
     this.form = this.formBuilder.group({
       cedula: new FormControl('', [Validators.required]),
@@ -75,6 +111,15 @@ export class DeliverymanComponent implements OnInit {
     });
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for unsubscribe methods in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   // tslint:disable-next-line: use-life-cycle-interface
   ngOnDestroy() {
     if (this.repartidor) {
@@ -82,6 +127,15 @@ export class DeliverymanComponent implements OnInit {
     }
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for showing message dialog in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   showDialog(value: string) {
     this.messageService.clear();
     this.messageService.add(

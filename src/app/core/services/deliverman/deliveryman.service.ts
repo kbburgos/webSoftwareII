@@ -13,6 +13,15 @@ import { SeguridadService } from '../seguridad.service';
 @Injectable({
   providedIn: 'root',
 })
+
+/**
+ * @classdesc Container class of DeliverymanService.
+ * @desc Creation Date: 08/07/2020
+ * @class
+ * @public
+ * @version 2.0.0
+ * @author Danny Rios <dprios@espol.edu.ec>
+ */
 export class DeliverymanService {
   DeliverDoc: AngularFirestoreDocument<Deliveryman>;
 
@@ -21,6 +30,16 @@ export class DeliverymanService {
     private seguridad: SeguridadService
   ) {}
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @returns {JSON} JSON with the data obtained from the query.
+   * @desc This method is responsible for searching all deliveryman in firebase. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   getRepartidores() {
     return this.firebase
       .collection(environment.nombresColecciones.repartidor)
@@ -33,6 +52,16 @@ export class DeliverymanService {
         })
       );
   }
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for updating an deliveryman by id in firebase. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   updateDeliveryMan(deliveryman: Deliveryman) {
     this.DeliverDoc = this.firebase.doc(
       `repartidor/${deliveryman.idRepartidor}`
@@ -40,6 +69,16 @@ export class DeliverymanService {
     this.DeliverDoc.update(deliveryman);
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @returns {JSON} JSON with the data obtained from the query.
+   * @desc This method is responsible for searching a delivryman by id in firebase. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   getDeliveryManByCedula(cedula: string): any {
     return this.firebase
       .collection(environment.nombresColecciones.repartidor, (ref) =>
@@ -55,6 +94,16 @@ export class DeliverymanService {
       );
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @returns {JSON} JSON with the data obtained from the query.
+   * @desc This method is responsible for searching all a deliveryman by id and password in firebase. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Danny Rios <dprios@espol.edu.ec>
+   */
   getRepartidorLogin(cedula: any, contrasena: any) {
     return this.firebase
       .collection(environment.nombresColecciones.repartidor, (ref) =>
@@ -70,14 +119,5 @@ export class DeliverymanService {
       );
   }
 
-
-  getClientIdStorage() {
-    const encryptext = localStorage.getItem('cliente');
-    const decrypt = CryptoJS.AES.decrypt(
-      encryptext.trim(),
-      environment.keyCrypto.trim()
-    ).toString(CryptoJS.enc.Utf8);
-    return decrypt;
-  }
 
 }
