@@ -50,6 +50,15 @@ export class ConflictingComponent implements OnInit {
     private formBuilder: FormBuilder,
   ) { }
 
+       /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for loading the functions in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Brenda Bermello <bremiber@espol.edu.ec>
+   */
   ngOnInit() {
     this.buildForm();
     this.clearState();
@@ -59,6 +68,16 @@ export class ConflictingComponent implements OnInit {
 
   }
 
+      /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for searching the conflicting custumers. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @returns {JSON} JSON customer
+   * @author Brenda Bermello <bremiber@espol.edu.ec>
+   */
   listaClientesConflictivos(lista: any){
     for(let i=0; i<environment.variables.nombreClientes.length; i++){
       for(let j=0; j<lista.length; j++){
@@ -83,6 +102,16 @@ export class ConflictingComponent implements OnInit {
     this.coordenadas=obj.coordenadas;
   }
 
+        /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for deleting the conflicting custumers. <br> Creation Date: 08/25/2020
+   * @type {Promise<void>} Void type promise.
+   * @returns {JSON} JSON customer
+   * @author Brenda Bermello <bremiber@espol.edu.ec>
+   */
   deleteDuplicate(coleccion: any){
     const unique=[];
     let count=0;

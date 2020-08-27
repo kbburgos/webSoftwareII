@@ -10,6 +10,16 @@ import { CustomerNews } from '../../interface/customerNews';
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * @classdesc Container class of UserNotificationService.
+ * @desc Creation Date: 08/07/2020
+ * @class
+ * @public
+ * @version 2.0.0
+ * @author Brenda Bermello Burgos <bremiber@espol.edu.ec>
+ */
+
 export class UserNotificationService {
 
   private readonly JWT_TOKEN = 'JWT_TOKEN';

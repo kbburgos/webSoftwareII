@@ -9,19 +9,36 @@ import { map } from "rxjs/operators";
 @Injectable({
   providedIn: "root",
 })
+
+/**
+ * @classdesc Container class of ProductoService.
+ * @desc Creation Date: 08/07/2020
+ * @class
+ * @public
+ * @version 2.0.0
+ * @author Brenda Bermello <bremiber@espol.edu.ec>
+ */
 export class ProductoService {
   
   constructor(private firebase: AngularFirestore) {}
 
+      /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @returns {JSON} JSON with the data obtained from firebase.
+   * @desc This method is responsible for searching all products in firebase. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Brenda Bermello <bremiber@espol.edu.ec>
+   */
   getProductos() {
     return this.firebase
       .collection(environment.nombresColecciones.producto)
       .snapshotChanges()
       .pipe(
         map((producto) => {
-         // console.log("VA UNA ", producto);
           return producto.map((e) => {
-          //  console.log("VA DOS ", e);
             return e.payload.doc.data() as Products;
           });
         })
@@ -51,6 +68,16 @@ export class ProductoService {
       });
   }
 
+        /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @returns {JSON} JSON with the data obtained from firebase.
+   * @desc This method is responsible for editing products in firebase. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Brenda Bermello <bremiber@espol.edu.ec>
+   */
   updateProduct(producto: Products){
     console.log(producto)
     this.firebase

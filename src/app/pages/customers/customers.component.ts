@@ -41,6 +41,16 @@ export class CustomersComponent implements OnInit {
     private formBuilder: FormBuilder,
   ) { }
 
+  
+      /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for loading the functions in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Brenda Bermello <bremiber@espol.edu.ec>
+   */
   ngOnInit() {
     this.buildForm();
     this.clearState();
@@ -56,6 +66,16 @@ export class CustomersComponent implements OnInit {
     );
   }
 
+    /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for filter the customer and getting their address. <br> Creation Date: 08/25/2020
+   * @type {Promise<void>} Void type promise.
+   * @returns {JSON} JSON customer
+   * @author Brenda Bermello <bremiber@espol.edu.ec>
+   */
   filtrado(coleccion){
     const temporal: any[]= [];
     coleccion.map((item)=>{

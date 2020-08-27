@@ -49,11 +49,29 @@ export class DeliveryNotificationComponent implements OnInit {
 
   ) { }
 
+      /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for loading the functions in the system. <br> Creation Date: 08/14/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Brenda Bermello <bremiber@espol.edu.ec>
+   */
   ngOnInit() {
     this.buildForm();
     this.cargar();
   }
 
+      /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for capturing the names and surnames of deliveryman. <br> Creation Date: 08/15/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Brenda Bermello <bremiber@espol.edu.ec>
+   */
   listaFiltroRepartidores(listaR: any){
     for(let i=0; i<environment.variables.nombreRepartidores.length; i++){
       for(let j=0; j<listaR.length; j++){
@@ -67,6 +85,15 @@ export class DeliveryNotificationComponent implements OnInit {
     return listaR;
   }
 
+        /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for capturing the names and surnames of customers from the API. <br> Creation Date: 08/15/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Brenda Bermello <bremiber@espol.edu.ec>
+   */
   listaFiltroClientes(listaC: any){
     for(let i=0; i<environment.variables.nombreClientes.length; i++){
       for(let j=0; j<listaC.length; j++){
@@ -79,6 +106,15 @@ export class DeliveryNotificationComponent implements OnInit {
     return listaC;
   }
 
+        /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for capturing the names and surnames of deliveryman for novelty. <br> Creation Date: 08/15/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Brenda Bermello <bremiber@espol.edu.ec>
+   */
   listaAdmin(listaAdmin: any){
     for(let i=0; i<environment.variables.nombreClientes.length; i++){
       for (let j=0; j<listaAdmin.length; j++){
@@ -92,6 +128,16 @@ export class DeliveryNotificationComponent implements OnInit {
     return listaAdmin;
   }
 
+    /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for loading deliveryman and novelty information from API. <br> Creation Date: 08/22/2020
+   * @type {Promise<void>} Void type promise.
+   * @returns {JSON} JSON users
+   * @author Brenda Bermello <bremiber@espol.edu.ec>
+   */
   cargar(){
     this.spinner.show();
     let subsubscribe = this.deliverymanreportService.getNovedadesRepartidores()
@@ -125,10 +171,15 @@ export class DeliveryNotificationComponent implements OnInit {
     this.display = true;
   }
 
-  eliminarRepartidorNovedad(novelydeliverman){
-    this.deliverymanreportService.deleteNovedadRepartidor(novelydeliverman.idNovedad);
-  }
-
+    /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method takes care of adding a novelty. <br> Creation Date: 08/17/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Brenda Bermello <bremiber@espol.edu.ec>
+   */
   addNovedad(){
     const novedadNueva = {
       idusuarioReporta: this.authService.dataUser['cedula'],
@@ -180,6 +231,15 @@ export class DeliveryNotificationComponent implements OnInit {
     this.form.reset();
   }
 
+    /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for unsubscribe methods in the system. <br> Creation Date: 08/25/2020
+   * @type {Promise<void>} Void type promise.
+   * @author Brenda Bermello <bremiber@espol.edu.ec>
+   */
   ngOnDestroy() {
     if (this.adminNoveltySubscribe) {
       this.adminNoveltySubscribe.unsubscribe();

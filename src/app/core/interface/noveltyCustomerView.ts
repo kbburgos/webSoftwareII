@@ -1,3 +1,11 @@
+/**
+ * @interface NovelyCustomerView
+ * @public
+ * @version 1.0.0
+ * @desc NovelyCustomerView interface.
+ * @author Brenda Bermello <bremiber@espol.edu.ec>
+ */
+
 import { Timestamp } from "rxjs/internal/operators/timestamp";
 import { Time } from "@angular/common";
 
