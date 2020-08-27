@@ -7,6 +7,7 @@ import { NovelyDelivermanView } from "../../core/interface/noveltyDelivermanView
 import { NoveltyService } from "../../core/services/novelty/novelty.service";
 import { ConfirmationService } from "primeng/api";
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MessageService } from "primeng/api";
 import { environment } from 'environments/environment';
 import { HttpClient } from '@angular/common/http';
 import {
@@ -22,7 +23,7 @@ import {
   styleUrls: ["./delivery-notification.component.css"],
 })
 export class DeliveryNotificationComponent implements OnInit {
-  private form: FormGroup;
+  form: FormGroup;
   token: any = this.authService.getJwtToken();
   display: boolean = false;
   bandera: boolean = false;
@@ -31,10 +32,8 @@ export class DeliveryNotificationComponent implements OnInit {
   deliverymannewView: NovelyDelivermanView[];
   listanovedades: Array<any> = [];
   dato: string;
-  envU = environment;
   private subsubscribe;
   private adminNoveltySubscribe;
-  private 
   cols: any[];
 
   constructor(
@@ -45,55 +44,82 @@ export class DeliveryNotificationComponent implements OnInit {
     private authService: AuthService,
     private http: HttpClient,
     private spinner: NgxSpinnerService,
+    private messageService: MessageService,
     private formBuilder: FormBuilder
 
   ) { }
 
   ngOnInit() {
+    this.buildForm();
+    this.cargar();
+  }
+
+  listaFiltroRepartidores(listaR: any){
+    for(let i=0; i<environment.variables.nombreRepartidores.length; i++){
+      for(let j=0; j<listaR.length; j++){
+        if(environment.variables.nombreRepartidores[i]['cedula'] === listaR[j].idRepartidor){
+          listaR[j].repartidor = environment.variables.nombreRepartidores[i]['nombre']+' '+
+          environment.variables.nombreRepartidores[i]['apellido'];
+          listaR[j].fecha = (listaR[j].fecha.toDate());
+        }
+      }
+    }
+    return listaR;
+  }
+
+  listaFiltroClientes(listaC: any){
+    for(let i=0; i<environment.variables.nombreClientes.length; i++){
+      for(let j=0; j<listaC.length; j++){
+        if(environment.variables.nombreClientes[i]['cedula'] === listaC[j].idCliente){
+          listaC[j].cliente = environment.variables.nombreClientes[i]['nombre']+' '+
+          environment.variables.nombreClientes[i]['apellido'];
+        }
+      }
+    }
+    return listaC;
+  }
+
+  listaAdmin(listaAdmin: any){
+    for(let i=0; i<environment.variables.nombreClientes.length; i++){
+      for (let j=0; j<listaAdmin.length; j++){
+        if(environment.variables.nombreClientes[i]['cedula'] === listaAdmin[i].idUsuarioreportado){
+          listaAdmin[j].usuarioReportado=environment.variables.nombreClientes[i]['nombre']+' '+
+          environment.variables.nombreClientes[i]['apellido'];
+          listaAdmin[j].esCliente=true;
+        }
+      }
+    }
+    return listaAdmin;
+  }
+
+  cargar(){
     this.spinner.show();
     let subsubscribe = this.deliverymanreportService.getNovedadesRepartidores()
     .subscribe((item: any) => {
-      this.deliverymannewView = item;
-      this.spinner.hide();
+      console.log(item);
+      this.deliverymannewView = this.listaFiltroClientes(this.listaFiltroRepartidores(item));
+      console.log(this.deliverymannewView);
 
-      for(let i=0; i<environment.variables.nombreRepartidores.length; i++){
-        for(let j=0; j<this.deliverymannewView.length; j++){
-          if(environment.variables.nombreRepartidores[i]['cedula'] === this.deliverymannewView[j].idRepartidor){
-            this.deliverymannewView[j].repartidor = environment.variables.nombreRepartidores[i]['nombre']+' '+
-            environment.variables.nombreRepartidores[i]['apellido'];
-            this.deliverymannewView[j].fecha = (this.deliverymannewView[j].fecha.toDate());
-          }
-        }
-      }
-
-      for(let i=0; i<environment.variables.nombreClientes.length; i++){
-        for(let j=0; j<this.deliverymannewView.length; j++){
-          if(environment.variables.nombreClientes[i]['cedula'] === this.deliverymannewView[j].idCliente){
-            this.deliverymannewView[j].cliente = environment.variables.nombreClientes[i]['nombre']+' '+
-            environment.variables.nombreClientes[i]['apellido'];
-          }
-        }
-      }
     });
 
-    let adminNoveltySubscribe = this.novelty.getnovedadesReporta(this.token, this.authService.dataUser.cedula)
+    let adminNoveltySubs = this.novelty.getnovedadesReporta(this.token, this.authService.dataUser.cedula)
     .subscribe((data:any)=>{
-      this.novedadAdmin = data;
-      for(let i=0; i<environment.variables.nombreClientes.length; i++){
-        for (let j=0; j<this.novedadAdmin.length; j++){
-          if(environment.variables.nombreClientes[i]['cedula'] === this.novedadAdmin[i].idUsuarioreportado){
-            this.novedadAdmin[j].usuarioReportado=environment.variables.nombreClientes[i]['nombre']+' '+
-            environment.variables.nombreClientes[i]['apellido'];
-            this.novedadAdmin[j].esCliente=true;
-          }
-        }
+      console.log(data);
+      this.spinner.hide();
+/*
+      this.novedadAdmin = this.listaAdmin(data);
+      if(Object.keys(this.novedadAdmin).length === 0){
+        console.log("No existe novedad!");
       }
-    })
-    
-    this.buildForm();
+      },
+      (err: any)=> {
+        console.log(err);
+        adminNoveltySubs.unsubscribe();
+        this.showMessage("Error al cargar las novedades realizadas por el Administrador",
+        "error",
+        "Error!");*/
+    });
   }
-
-  
 
   showAddDialog() {
     this.display = true;
@@ -111,12 +137,29 @@ export class DeliveryNotificationComponent implements OnInit {
     };
 
     this.novelty.addNovelty(this.token, novedadNueva).subscribe(item=>{
-      console.log(item);
+      this.cargar();
+      this.showMessage(
+        "Novedad ingresada exitosamente",
+        "success",
+        "Agregada!"
+      )
     },
     error=>{
       console.log(error);
+      this.showMessage(
+        "Error al agregar la novedad", "error", "Error!"
+      )
     });
     this.display=false;
+  }
+
+  showMessage(mensaje: string, tipo: string, titulo: string) {
+    this.messageService.add({
+      severity: tipo,
+      summary: titulo,
+      detail: mensaje,
+      life: 4000,
+    });
   }
 
   private buildForm() {

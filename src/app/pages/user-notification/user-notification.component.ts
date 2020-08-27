@@ -24,13 +24,13 @@ import {
   styleUrls: ["./user-notification.component.css"],
 })
 export class UserNotificationComponent implements OnInit {
-  private form: FormGroup;
-  token: any = this.authService.getJwtToken();
+  form: FormGroup;
+  token:any = this.authService.getJwtToken();
   display: boolean = false;
-  cols: any[];
   dato: string;
   novedadAdmin: any[];
   customernewsView: CustomerNewsView[];
+  cols: any [];
 
   constructor(
     private confirmationService: ConfirmationService,
@@ -44,50 +44,19 @@ export class UserNotificationComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    //this.spinner.show();
     this.buildForm();
-    this.userNotification
-      .clienteNotification(this.token)
-      .subscribe((data: any) => {
-        this.customernewsView = this.listaFiltroClientes(
-          this.listaFiltroRepartidores(data)
-        );
-        //this.spinner.hide();
-        console.log(this.customernewsView);
-      });
-
-    let adminNoveltySubscribe = this.novelty
-      .getnovedadesReporta(this.token, this.authService.dataUser.cedula)
-      .subscribe(
-        (data: any) => {
-          this.novedadAdmin = this.listaAdmin(data);
-          if (Object.keys(this.novedadAdmin).length === 0) {
-            console.log("No existe novedad!");
-          }
-        },
-        (err: any) => {
-          console.log(err);
-          adminNoveltySubscribe.unsubscribe();
-          this.showMessage(
-            "Error al cargar las novedades realizadas por el Administrador",
-            "error",
-            "Error!"
-          );
-        }
-      );
+    this.cargar();
+    
+    
   }
 
-  listaFiltroRepartidores(listaR: any) {
-    for (let i = 0; i < environment.variables.nombreRepartidores.length; i++) {
-      for (let j = 0; j < listaR.length; j++) {
-        if (
-          environment.variables.nombreRepartidores[i]["cedula"] ===
-          listaR[j].idUsuarioreportado
-        ) {
-          listaR[j].usuarioReportado =
-            environment.variables.nombreRepartidores[i]["nombre"] +
-            " " +
-            environment.variables.nombreRepartidores[i]["apellido"];
+
+  listaFiltroRepartidores(listaR: any){
+    for (let i=0; i<environment.variables.nombreRepartidores.length; i++){
+      for (let j=0; j<listaR.length; j++){
+        if(environment.variables.nombreRepartidores[i]['cedula'] === listaR[j].idUsuarioreportado){
+          listaR[j].usuarioReportado =environment.variables.nombreRepartidores[i]['nombre']+' '+
+          environment.variables.nombreRepartidores[i]['apellido']
         }
       }
     }
@@ -112,23 +81,47 @@ export class UserNotificationComponent implements OnInit {
     return listaC;
   }
 
-  listaAdmin(listaAdmin: any) {
-    for (let i = 0; i < environment.variables.nombreRepartidores.length; i++) {
-      for (let j = 0; j < listaAdmin.length; j++) {
-        if (
-          environment.variables.nombreRepartidores[i]["cedula"] ===
-          listaAdmin[j].idUsuarioreportado
-        ) {
-          listaAdmin[j].usuarioReportado =
-            environment.variables.nombreRepartidores[i]["nombre"] +
-            " " +
-            environment.variables.nombreRepartidores[i]["apellido"];
-          listaAdmin[j].esCliente = false;
+  
+  listaAdmin(listaAdmin: any){
+    for (let i=0; i<environment.variables.nombreRepartidores.length; i++){
+      for (let j=0; j<listaAdmin.length; j++){
+        if(environment.variables.nombreRepartidores[i]['cedula'] === listaAdmin[j].idUsuarioreportado){
+          listaAdmin[j].usuarioReportado =environment.variables.nombreRepartidores[i]['nombre']+' '+
+          environment.variables.nombreRepartidores[i]['apellido'];
+          listaAdmin[j].esCliente=false;
           console.log(listaAdmin[j].esCliente);
         }
       }
     }
     return listaAdmin;
+  }
+
+  cargar(){
+    this.spinner.show();
+    this.userNotification.clienteNotification(this.token).subscribe((data: any) => {
+    console.log(data);
+    this.customernewsView = this.listaFiltroClientes(this.listaFiltroRepartidores(data));
+    
+    console.log(this.customernewsView);
+
+    });
+  
+    let adminNoveltySubscribe = this.novelty.getnovedadesReporta(this.token, this.authService.dataUser.cedula)
+      .subscribe((data:any)=>{
+      this.novedadAdmin = this.listaAdmin(data);
+      this.spinner.hide();
+      if(Object.keys(this.novedadAdmin).length === 0){
+        console.log("No existe novedad!");
+      }
+      },
+      (err: any)=> {
+        console.log(err);
+        adminNoveltySubscribe.unsubscribe();
+        this.showMessage("Error al cargar las novedades realizadas por el Administrador",
+        "error",
+        "Error!");
+    });
+    //this.spinner.hide();
   }
 
   showAddDialog() {
@@ -137,25 +130,25 @@ export class UserNotificationComponent implements OnInit {
 
   addNovedad() {
     const novedadNueva = {
-      idusuarioReporta: this.authService.dataUser["cedula"],
-      idusuarioReportado: this.form.get("cedula").value,
-      descripcion: this.form.get("novedad").value,
-    };
-    this.novelty.addNovelty(this.token, novedadNueva).subscribe(
-      (item) => {
-        this.showMessage(
-          "Novedad ingresada exitosamente",
-          "success",
-          "Agregada!"
-        );
-      },
-      (error) => {
-        console.log(error);
-        this.showMessage("Error al agregar la novedad", "error", "Error!");
-      }
-    );
-
-    this.display = false;
+      idusuarioReporta: this.authService.dataUser['cedula'],
+      idusuarioReportado: this.form.get('cedula').value,
+      descripcion: this.form.get('novedad').value,
+    }; 
+    this.novelty.addNovelty(this.token, novedadNueva).subscribe(item=>{
+      this.cargar();
+      this.showMessage(
+        "Novedad ingresada exitosamente",
+        "success",
+        "Agregada!"
+      )
+    },
+    error => {
+      console.log(error);
+      this.showMessage(
+        "Error al agregar la novedad", "error", "Error!"
+      )
+    });
+    this.display=false;
   }
 
   private buildForm() {
@@ -163,6 +156,7 @@ export class UserNotificationComponent implements OnInit {
       cedula: new FormControl("", [
         Validators.required,
         Validators.minLength(1),
+        Validators.maxLength(10),
       ]),
       novedad: new FormControl("", [
         Validators.required,

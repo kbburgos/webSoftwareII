@@ -47,8 +47,7 @@ export class CustomersComponent implements OnInit {
 
     let subs = this.user.usuarios().subscribe(
       (data: any) => {
-        this.clientes = this.filtrarCliente(data);
-        console.log(this.clientes);
+        this.clientes=this.filtrado(data);
       },
       (err: any) => {
         console.log(err);
@@ -57,16 +56,16 @@ export class CustomersComponent implements OnInit {
     );
   }
 
-  filtrarCliente(lista: any){
-    for(let i=0; i<environment.variables.nombreClientes.length; i++){
-      for(let j=0; j<lista.length;j++){
-        if(environment.variables.nombreClientes[i]['cedula'] === lista[j].idUsuarioreporta){
-          this.getAddress(environment.variables.nombreClientes[i]['direccion']);
-          lista[j].direccion=this.direccion;
-        }
+  filtrado(coleccion){
+    const temporal: any[]= [];
+    coleccion.map((item)=>{
+      if(item.rol == 3){
+        this.getAddress(item.direccion);
+        item.direccion=this.direccion;
+        temporal.push(item);
       }
-    }
-    return lista;
+    });
+    return temporal;
   }
 
   getAddress(address:any){
@@ -74,18 +73,6 @@ export class CustomersComponent implements OnInit {
     this.direccion=obj.direccion;
     this.referencia=obj.referencia;
     this.coordenadas=obj.coordenadas;
-  }
-
-  eliminarCustomers(cedula){
-    this.confirmationService.confirm({
-      message: "¿Est&aacute; seguro que desea eliminar al cliente?",
-      accept: () =>{
-        this.user.deleteUser(cedula).toPromise().then(result => {
-          console.log('From delete: ', result);
-        });
-        console.log(cedula, "usuario eliminado");
-      },
-    });
   }
 
   private buildForm() {

@@ -36,7 +36,7 @@ export class ConfigurationComponent implements OnInit {
   coordenadas: string;
   usuario: Usuarios;
   private datosUsuario: Usuarios;
-  private UsuarioComp: Usuarios;
+  UsuarioComp = {};
   private datosRespaldo: any;
 
   constructor(

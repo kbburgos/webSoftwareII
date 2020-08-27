@@ -3,7 +3,6 @@ import { CommonModule } from "@angular/common";
 import { BrowserModule } from "@angular/platform-browser";
 import { Routes, RouterModule } from "@angular/router";
 import { LoginComponent } from "../app/pages//login/login.component";
-
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { DeliverymanComponent } from "./pages/deliveryman/deliveryman.component";
 import { DeliveryOrderComponent } from "./pages/delivery-order/delivery-order.component";
@@ -20,7 +19,6 @@ const routes: Routes = [
   {
     path: "login",
     component: LoginComponent,
-    //canActivate: [AuthGuard]
   },
   {
     path: "",

@@ -11,9 +11,6 @@ import { OnHoldComponent } from 'app/pages/on-hold/on-hold.component';
 import { CurrentPromotionComponent } from 'app/pages/current-promotion/current-promotion.component';
 import { OldPromotionComponent } from 'app/pages/old-promotion/old-promotion.component'
 import { DispatchedComponent } from 'app/pages/dispatched/dispatched.component';
-import { ReportNewsComponent } from 'app/pages/report-news/report-news.component';
-import { ReportSalesComponent } from 'app/pages/report-sales/report-sales.component';
-import { ReportProductComponent } from 'app/pages/report-product/report-product.component';
 import { ProductsComponent } from 'app/pages/products/products.component';
 import { PromotionsComponent } from 'app/pages/promotions/promotions.component';
 import { UsersComponent } from 'app/pages/users/users.component';
@@ -21,9 +18,6 @@ import { CustomersComponent } from 'app/pages/customers/customers.component';
 import { ConflictingComponent } from 'app/pages/conflicting/conflicting.component';
 import { DeliveryNotificationComponent } from 'app/pages/delivery-notification/delivery-notification.component';
 import { UserNotificationComponent } from 'app/pages/user-notification/user-notification.component';
-import { ProductNewComponent } from 'app/pages/product-new/product-new.component';
-
-
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 //Services
 import{ ProductoService } from 'app/core/services/product/producto.service';
@@ -118,12 +112,8 @@ import { ConfigurationComponent } from "app/pages/configuration/configuration.co
     OnHoldComponent,
     CurrentPromotionComponent,
     OldPromotionComponent,
-    DispatchedComponent,
-    ReportNewsComponent,
-    ReportSalesComponent,
-    ReportProductComponent,
+    DispatchedComponent, 
     ProductsComponent,
-    ProductNewComponent,
     PromotionsComponent,
     UsersComponent,
     CustomersComponent,
