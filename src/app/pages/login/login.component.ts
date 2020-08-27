@@ -16,10 +16,18 @@ import { NgxSpinnerService } from "ngx-spinner";
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.css"],
 })
+
+/**
+ * @classdesc Container class of LoginComponent.
+ * @desc Creation Date: 08/20/2020
+ * @class
+ * @public
+ * @version 2.0.0
+ * @author Karla Burgos <kbburgos@espol.edu.ec>
+ */
 export class LoginComponent implements OnInit {
   isSubmitted = false;
   currentPopover = null;
-
   emailUser: string;
   password: string;
   user: any = {};
@@ -44,6 +52,17 @@ export class LoginComponent implements OnInit {
     this.notFound = false;
     this.buildForm();
   }
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for user authentication. <br> Creation Date: 08/20/2020
+   * @type {Promise<void>} Void type promise.
+   * @returns {JSON} JSON user
+   * @author Karla Burgos <kbburgos@espol.edu.ec>
+  */
 
   ingresar() {
     this.spinner.show();
@@ -109,6 +128,19 @@ export class LoginComponent implements OnInit {
       pass: new FormControl("", [Validators.required]),
     });
   }
+
+
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for valid the form fields. <br> Creation Date: 08/20/2020
+   * @type {Promise<void>} Void type promise.
+   * @returns {string} string field
+   * @author Karla Burgos <kbburgos@espol.edu.ec>
+  */
 
   public getError(controlName: string): string {
     const control = this.form.get(controlName);

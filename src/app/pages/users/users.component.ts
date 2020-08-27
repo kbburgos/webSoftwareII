@@ -29,6 +29,15 @@ import { UserRol } from "app/core/interface/user-rol";
   styleUrls: ["./users.component.css"],
   providers: [MessageService],
 })
+
+/**
+ * @classdesc Container class of UsersComponent.
+ * @desc Creation Date: 08/20/2020
+ * @class
+ * @public
+ * @version 2.0.0
+ * @author Karla Burgos <kbburgos@espol.edu.ec>
+ */
 export class UsersComponent implements OnInit {
   form: FormGroup;
   token: any = this.auth.getJwtToken();
@@ -70,6 +79,17 @@ export class UsersComponent implements OnInit {
     this.cargar();
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for loading user information from API. <br> Creation Date: 08/20/2020
+   * @type {Promise<void>} Void type promise.
+   * @returns {JSON} JSON users
+   * @author Karla Burgos <kbburgos@espol.edu.ec>
+   */
+
   cargar() {
     this.spinner.show();
     const subs = this.user.usuarios().subscribe(
@@ -86,6 +106,17 @@ export class UsersComponent implements OnInit {
       }
     );
   }
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for filter the user and their roles. <br> Creation Date: 08/20/2020
+   * @type {Promise<void>} Void type promise.
+   * @returns {JSON} JSON users
+   * @author Karla Burgos <kbburgos@espol.edu.ec>
+   */
 
   filtrado(coleccion) {
     const temporal: any[] = [];
@@ -136,10 +167,19 @@ export class UsersComponent implements OnInit {
     this.display = true;
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for add an user to the relational database. <br> Creation Date: 08/20/2020
+   * @type {Promise<void>} Void type promise.
+   * @returns {JSON} JSON users
+   * @author Karla Burgos <kbburgos@espol.edu.ec>
+   */
   save() {
     console.log("entra a save");
     this.data = "";
-    // let clave = String(Math.random() * (999999999 - 111111111) + 111111111);
     this.datosUsuario = {
       cedula: this.form.get("cedula").value,
       nombre: this.form.get("nombre").value,
@@ -171,6 +211,16 @@ export class UsersComponent implements OnInit {
     this.form.reset();
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for filter the user roles. <br> Creation Date: 08/20/2020
+   * @returns {String} string rol
+   * @author Karla Burgos <kbburgos@espol.edu.ec>
+   */
+
   guardarRol(rol: Number) {
     if (rol == 1) {
       this.rolName = "Administrador";
@@ -181,6 +231,16 @@ export class UsersComponent implements OnInit {
     }
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is gets the confirmation by the client to edit an user information. <br> Creation Date: 08/20/2020
+   * @type {Promise<void>} Void type promise.
+   * @returns {JSON} JSON users
+   * @author Karla Burgos <kbburgos@espol.edu.ec>
+   */
   confirmar() {
     this.confirmationService.confirm({
       message: "¿Est&aacute; seguro que deseas editar el usuario?",
@@ -210,7 +270,17 @@ export class UsersComponent implements OnInit {
     console.log(this.UsuarioEdit);
   }
 
-  // TIENE FALLAS
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method send a request to update an user information. <br> Creation Date: 08/20/2020
+   * @type {Promise<void>} Void type promise.
+   * @returns {JSON} JSON users
+   * @author Karla Burgos <kbburgos@espol.edu.ec>
+   */
+
   guardarCambios() {
     this.data = "";
     this.datosUsuario = {
@@ -240,6 +310,17 @@ export class UsersComponent implements OnInit {
       });
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method delete an user from the database. <br> Creation Date: 08/20/2020
+   * @type {Promise<void>} Void type promise.
+   * @returns {JSON} JSON users
+   * @author Karla Burgos <kbburgos@espol.edu.ec>
+   */
+
   EliminarUser(cedula: string) {
     this.data = "";
     this.user
@@ -260,6 +341,15 @@ export class UsersComponent implements OnInit {
       });
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method gets the forms fields validation. <br> Creation Date: 08/20/2020
+   * @returns {string} string form invalid field
+   * @author Karla Burgos <kbburgos@espol.edu.ec>
+   */
   public getError(controlName: string): string {
     let field: string;
     // console.log(this.form.controls);

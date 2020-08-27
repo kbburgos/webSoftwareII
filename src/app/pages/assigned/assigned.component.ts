@@ -4,14 +4,13 @@ import { DeliverymanService } from 'app/core/services/deliverman/deliveryman.ser
 import { Orders } from 'app/core/interface/orders';
 import { AuthService } from 'app/core/services/auth/auth.service';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'environments/environment';
 import { MessageService } from 'primeng/api';
 import {ConfirmationService} from 'primeng/api';
 import { Deliveryman } from 'app/core/interface/deliveryman';
 import { Producto } from 'app/core/models/producto';
 import { ProductoService } from 'app/core/services/product/producto.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { error } from 'protractor';
+
 @Component({
   selector: 'app-assigned',
   templateUrl: './assigned.component.html',

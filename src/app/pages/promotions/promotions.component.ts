@@ -10,7 +10,6 @@ import {
 } from "@angular/forms";
 import { Categoria } from "../../core/interface/categoria";
 import { CategoriaService } from "../../core/services/categoria/categoria.service";
-import { PromotionNewComponent } from "../promotion-new/promotion-new.component";
 import { Router } from "@angular/router";
 import { MessageService } from "primeng/api";
 

@@ -1,10 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { ConfirmationService } from "primeng/api";
-import { switchMap, concatAll, filter, distinct, tap } from 'rxjs/operators';
-
 import { DelivermanReporterService } from "../../core/services/deliverman/deliverman-reporter.service";
-import { DeliverymanService } from "../../core/services/deliverman/deliveryman.service";
 import { NovelyDeliverman } from "../../core/interface/noveltyDeliverman";
 import { NovelyCustomerView } from "../../core/interface/noveltyCustomerView";
 

@@ -11,6 +11,16 @@ import { Observable, throwError, BehaviorSubject } from "rxjs";
 import { catchError, filter, take, switchMap } from "rxjs/operators";
 
 @Injectable()
+
+
+/**
+ * @classdesc Container class of token interceptor functions.
+ * @desc Creation Date: 08/10/2020
+ * @class
+ * @public
+ * @version 2.0.0
+ * @author Karla Burgos Gayrey <kbburgos@espol.edu.ec>
+ */
 export class TokeInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(

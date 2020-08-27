@@ -4,13 +4,9 @@ import { Products } from "../../core/interface/products";
 import { NgxSpinnerService } from "ngx-spinner";
 import {
   FormGroup,
-  FormControl,
-  Validators,
   FormBuilder,
 } from "@angular/forms";
-import { Categoria } from "../../core/interface/categoria";
 import { CategoriaService } from "../../core/services/categoria/categoria.service";
-import { PromotionNewComponent } from "../promotion-new/promotion-new.component";
 import { Router } from "@angular/router";
 import { MessageService } from "primeng/api";
 
@@ -20,6 +16,17 @@ import { MessageService } from "primeng/api";
   styleUrls: ["./old-promotion.component.css"],
   providers: [MessageService],
 })
+
+
+
+/**
+ * @classdesc Container class of OldPromotionComponent.
+ * @desc Creation Date: 08/18/2020
+ * @class 
+ * @public
+ * @version 2.0.0
+ * @author Karla Burgos <kbburgos@espol.edu.ec>
+ */
 export class OldPromotionComponent implements OnInit {
   private form: FormGroup;
 
@@ -69,6 +76,17 @@ export class OldPromotionComponent implements OnInit {
     this.cargar()
   }
 
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for loading products from firebase. <br> Creation Date: 08/18/2020
+   * @type {Promise<void>} Void type promise.
+   * @returns {JSON} JSON products
+   * @author Karla Burgos <kbburgos@espol.edu.ec>
+  */
+
   cargar() {
     this.spinner.show();
     let pro = this.productosService.getProductos().subscribe(
@@ -84,6 +102,18 @@ export class OldPromotionComponent implements OnInit {
       }
     );
   }
+
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method is responsible for filter the promotions from firebase. <br> Creation Date: 08/18/2020
+   * @type {Promise<void>} Void type promise.
+   * @returns {JSON} JSON promotions
+   * @author Karla Burgos <kbburgos@espol.edu.ec>
+  */
 
   filtrado(coleccion) {
     let temporal: any[] = [];
@@ -107,6 +137,19 @@ export class OldPromotionComponent implements OnInit {
     this.producSlide = producto;
     this.slide = true;
   }
+
+
+
+  /**
+   * @async
+   * @method
+   * @public
+   * @version 1.0.0
+   * @desc This method update a promotion. <br> Creation Date: 08/18/2020
+   * @type {Promise<void>} Void type promise.
+   * @returns {JSON} JSON products
+   * @author Karla Burgos <kbburgos@espol.edu.ec>
+  */
 
   editarEstado(producto: Products) {
     console.log(producto);
