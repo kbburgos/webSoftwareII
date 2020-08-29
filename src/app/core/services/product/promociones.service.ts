@@ -18,9 +18,7 @@ export class PromocionesService {
       .snapshotChanges()
       .pipe(
         map((promociones) => {
-          console.log("VA UNA ",promociones);
           return promociones.map(e=>{
-            console.log("VA DOS ",e)
             return e.payload.doc.data() as Promociones
           })
         })

@@ -93,7 +93,6 @@ export class ProductsComponent implements OnInit {
     this.spinner.show();
     let pro = this.productosService.getProductos().subscribe(
       (item: any) => {
-        console.log(item);
         this.filtrado(item);
       },
       (err: any) => {
@@ -209,7 +208,6 @@ export class ProductsComponent implements OnInit {
       stock: this.ProductEdit.stock,
       slide: this.ProductEdit.slide,
     };
-    console.log(producto);
     this.confirmationService.confirm({
       message: "¿Est&aacute; seguro que desea editar el producto?",
       accept: () => {
@@ -295,8 +293,6 @@ export class ProductsComponent implements OnInit {
    * @author Karla Burgos <kbburgos@espol.edu.ec>
    */
   addProduct() {
-    console.log(this.categoria);
-
     let producto: Products = {
       descripcion: this.form.get("descripcion").value,
       foto: this.previewUrl,
@@ -323,7 +319,6 @@ export class ProductsComponent implements OnInit {
   }
 
   eliminarProduct(producto: Products) {
-    console.log(producto);
     this.productosService.deleteProduct(producto.idProducto),
       (err: any) => {
         console.log(err);
@@ -381,8 +376,6 @@ export class ProductsComponent implements OnInit {
     for (let i = 0; i < this.categorias.length; i++) {
       if (this.categorias[i].nombre == categoria) {
         this.catName = this.categorias[i].nombre;
-        console.log(this.categorias[i].nombre);
-        console.log(this.categorias[i].idCategoria);
         this.categoria = this.categorias[i].idCategoria;
       }
     }

@@ -137,7 +137,6 @@ export class NavbarComponent implements OnInit {
 
 
   logout(){
-      console.log("estas en cerrar sesion")
       this.auth.logout()
   }
 }

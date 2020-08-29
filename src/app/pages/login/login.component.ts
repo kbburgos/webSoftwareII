@@ -18,12 +18,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 
 /**
- * @classdesc Container class of LoginComponent.
- * @desc Creation Date: 08/20/2020
- * @class
- * @public
- * @version 2.0.0
- * @author Karla Burgos <kbburgos@espol.edu.ec>
+ * This class contains all the login methods
  */
 export class LoginComponent implements OnInit {
   isSubmitted = false;
@@ -54,15 +49,12 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   * @async
-   * @method
-   * @public
-   * @version 1.0.0
-   * @desc This method is responsible for user authentication. <br> Creation Date: 08/20/2020
-   * @type {Promise<void>} Void type promise.
-   * @returns {JSON} JSON user
+   * This method valid the user credential on the login.
+   * @param email the email of the user
+   * @param password the password of the user
+   * @returns JSON whit the user information
    * @author Karla Burgos <kbburgos@espol.edu.ec>
-  */
+   */
 
   ingresar() {
     this.spinner.show();
@@ -83,11 +75,7 @@ export class LoginComponent implements OnInit {
               refreshToken: dt.refreshToken,
               token: dt.token,
             };
-
-            //    console.log("estas en login ", dt);
-            //    console.log("aqui aqui ", dt.token);
-            this.auth.doLoginUser(this.auth.token, dt.data.cedula);
-
+            this.auth.doLoginUser(this.auth.token, dt.data.cedula, dt.data.rol);
             this.auth.isAuth = true;
             this.userInfo.email = dt.data.email;
             this.userInfo.cedula = dt.data.cedula;
@@ -129,8 +117,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
-
-
   /**
    * @async
    * @method
@@ -140,7 +126,7 @@ export class LoginComponent implements OnInit {
    * @type {Promise<void>} Void type promise.
    * @returns {string} string field
    * @author Karla Burgos <kbburgos@espol.edu.ec>
-  */
+   */
 
   public getError(controlName: string): string {
     const control = this.form.get(controlName);

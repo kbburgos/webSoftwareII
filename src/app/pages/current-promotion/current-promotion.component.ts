@@ -297,11 +297,9 @@ export class CurrentPromotionComponent implements OnInit {
       }
 
       this.allfiles.push(file[i]);
-      console.log(file[i]);
       const reader = new FileReader();
       (reader.onload = (fileData) => {
         this.previewUrl = reader.result;
-        //this.imageUp=false
         this.Urls.push(this.previewUrl);
       }),
         (err: any) => {
@@ -331,7 +329,6 @@ export class CurrentPromotionComponent implements OnInit {
   */
 
   eliminarProduct(producto: Products) {
-    console.log(producto);
     producto.isActivo = false;
     this.productosService.updateProduct(producto),
       (err: any) => {
@@ -362,8 +359,6 @@ export class CurrentPromotionComponent implements OnInit {
    * @author Karla Burgos <kbburgos@espol.edu.ec>
   */
   addProduct() {
-    console.log(this.categoria);
-
     let producto: Products = {
       descripcion: this.form.get("descripcion").value,
       foto: this.previewUrl,

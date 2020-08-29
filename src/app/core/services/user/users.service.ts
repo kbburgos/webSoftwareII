@@ -110,7 +110,6 @@ export class UsersService {
   setUserInfo(datos: UsuarioInterface) {
     const hash = this.seguridad.hashJSON(datos);
     datos.hash = hash;
-    console.log("here I'm", datos);
     const url = environment.rutas.updateUser + datos.cedula;
     return this.http.put(url, datos);
   }

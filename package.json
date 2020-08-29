@@ -1,5 +1,5 @@
 {
-  "name": "material-dashboard-angular",
+  "name": "OmiyPali",
   "version": "2.4.0",
   "license": "MIT",
   "scripts": {
@@ -83,6 +83,7 @@
     "protractor": "^7.0.0",
     "ts-node": "8.6.2",
     "tslint": "6.0.0",
+    "typedoc": "^0.18.0",
     "typescript": "3.7.5"
   }
 }

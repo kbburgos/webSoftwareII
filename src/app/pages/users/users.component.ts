@@ -51,6 +51,7 @@ export class UsersComponent implements OnInit {
   rol = 0;
   edit = false;
   UsuarioEdit: UsersService;
+  pass: any = "";
 
   cols = [
     { field: "cedula", header: "CÉDULA" },
@@ -94,7 +95,6 @@ export class UsersComponent implements OnInit {
     this.spinner.show();
     const subs = this.user.usuarios().subscribe(
       (data: any) => {
-        console.log(data);
         this.usuarios = this.filtrado(data);
         this.spinner.hide();
       },
@@ -121,12 +121,14 @@ export class UsersComponent implements OnInit {
   filtrado(coleccion) {
     const temporal: any[] = [];
     coleccion.map((item) => {
-      if (item.rol == 1) {
-        item.rol = "Admin";
-        temporal.push(item);
-      } else if (item.rol == 2) {
-        item.rol = "Vend";
-        temporal.push(item);
+      if (item.nombre != "repartidor") {
+        if (item.rol == 1) {
+          item.rol = "Admin";
+          temporal.push(item);
+        } else if (item.rol == 2) {
+          item.rol = "Vend";
+          temporal.push(item);
+        }
       }
     });
     this.data = coleccion;
@@ -178,7 +180,6 @@ export class UsersComponent implements OnInit {
    * @author Karla Burgos <kbburgos@espol.edu.ec>
    */
   save() {
-    console.log("entra a save");
     this.data = "";
     this.datosUsuario = {
       cedula: this.form.get("cedula").value,
@@ -195,7 +196,6 @@ export class UsersComponent implements OnInit {
       .guardarUser(this.datosUsuario)
       .toPromise()
       .then((data: any) => {
-        console.log("Parece que si");
         this.display = false;
         this.cargar();
         this.showMessage("Usuario creado exitósamente", "success", "Agregado!");
@@ -225,7 +225,8 @@ export class UsersComponent implements OnInit {
     if (rol == 1) {
       this.rolName = "Administrador";
       this.rol = 1;
-    } else {
+    }
+    if (rol == 2) {
       this.rolName = "Vendedor";
       this.rol = 2;
     }
@@ -258,7 +259,7 @@ export class UsersComponent implements OnInit {
   }
 
   abrirEditar(user) {
-    console.log("LLEGAS", user);
+    this.pass = user.contrasenia;
     this.edit = true;
     if (user.rol == "Admin") {
       this.rol = 1;
@@ -267,7 +268,6 @@ export class UsersComponent implements OnInit {
     }
     this.UsuarioEdit = Object.assign({}, user);
     this.rolName = user.rol;
-    console.log(this.UsuarioEdit);
   }
 
   /**
@@ -290,10 +290,9 @@ export class UsersComponent implements OnInit {
       telefono: this.form.get("telefono").value,
       email: this.form.get("email").value,
       direccion: this.form.get("direccion").value,
-      contrasenia: "contrasenia",
+      contrasenia: this.pass,
       rol: this.rol,
     };
-    //console.log(this.datosUsuario);
     this.user
       .setUserInfo(this.datosUsuario)
       .toPromise()
@@ -327,7 +326,6 @@ export class UsersComponent implements OnInit {
       .deleteUser(cedula)
       .toPromise()
       .then((data) => {
-        console.log("here we comes ");
         this.cargar();
         this.showMessage(
           "Usuario eliminado exitósamente",
@@ -352,7 +350,6 @@ export class UsersComponent implements OnInit {
    */
   public getError(controlName: string): string {
     let field: string;
-    // console.log(this.form.controls);
     const control = this.form.get(controlName);
     if ((control.touched || control.dirty) && control.errors != null) {
       if (control.errors.required != null) {

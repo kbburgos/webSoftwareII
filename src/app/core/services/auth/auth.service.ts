@@ -5,12 +5,11 @@ import { environment } from "../../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { Token } from "../../interface/token";
 import { Usuarios } from "../../interface/Usuarios";
-import { tap } from "rxjs/operators";
+import { tap, flatMap } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
 })
-
 
 /**
  * @classdesc Container class of the authentication services.
@@ -20,17 +19,16 @@ import { tap } from "rxjs/operators";
  * @version 1.0.0
  * @author Karla Burgos Gayrey <kbburgos@espol.edu.ec>
  */
-
 export class AuthService {
   private readonly JWT_TOKEN = "JWT_TOKEN";
   private readonly REFRESH_TOKEN = "REFRESH_TOKEN";
-  envUsuario = environment;
+
   loggedUser: string;
   token: Token;
   isAuth: boolean = false;
   dataUser: Usuarios;
-  idUserFirebase: string;
-  data: any;
+
+  isAdmin: boolean = false;
 
   constructor(
     private httpClient: HttpClient,
@@ -56,10 +54,8 @@ export class AuthService {
       email,
       clave,
     };
-    console.log(body);
     return this.httpClient.post(environment.rutas.urlLogin, body);
   }
-
 
   /**
    * @static
@@ -75,7 +71,6 @@ export class AuthService {
     this.router.navigateByUrl("login");
   }
 
-
   /**
    * @async
    * @method
@@ -88,7 +83,6 @@ export class AuthService {
   isLoggedIn() {
     return !!this.getJwtToken();
   }
-
 
   /**
    * @async
@@ -117,7 +111,6 @@ export class AuthService {
       );
   }
 
-
   /**
    * @async
    * @method
@@ -126,23 +119,22 @@ export class AuthService {
    * @returns {string} user token.
    * @desc this method returns a new token for the user session. <br> Creation Date: 08/10/2020
    * @author Karla Burgos Gayrey <kbburgos@espol.edu.ec>
-   */  
+   */
   getJwtToken() {
     return localStorage.getItem(this.JWT_TOKEN);
   }
 
-    /**
+  /**
    * @async
    * @method
    * @public
    * @version 1.0.0
    * @desc this method returns a new token for the user session. <br> Creation Date: 08/10/2020
    * @author Karla Burgos Gayrey <kbburgos@espol.edu.ec>
-   */  
-  doLoginUser(tokens: Token, cedula: string) {;
-    this.storeTokens(tokens, cedula);
+   */
+  doLoginUser(tokens: Token, cedula: string, rol: any) {
+    this.storeTokens(tokens, cedula, rol);
   }
-
 
   /**
    * @async
@@ -157,7 +149,6 @@ export class AuthService {
     this.removeTokens();
   }
 
-
   /**
    * @async
    * @method
@@ -170,7 +161,6 @@ export class AuthService {
   getRefreshToken() {
     return localStorage.getItem(this.REFRESH_TOKEN);
   }
-
 
   /**
    * @async
@@ -185,7 +175,6 @@ export class AuthService {
     localStorage.setItem(this.JWT_TOKEN, jwt);
   }
 
-
   /**
    * @async
    * @method
@@ -196,12 +185,12 @@ export class AuthService {
    * @author Karla Burgos Gayrey <kbburgos@espol.edu.ec>
    */
 
-  private storeTokens(tokens: Token, cedula:string) {
+  private storeTokens(tokens: Token, cedula: string, rol: any) {
     localStorage.setItem(this.JWT_TOKEN, tokens.token);
     localStorage.setItem(this.REFRESH_TOKEN, tokens.refreshToken);
-    localStorage.setItem("cedula", cedula)
+    localStorage.setItem("cedula", cedula);
+    localStorage.setItem("rol", rol);
   }
-
 
   /**
    * @async
@@ -215,5 +204,8 @@ export class AuthService {
   private removeTokens() {
     localStorage.removeItem(this.JWT_TOKEN);
     localStorage.removeItem(this.REFRESH_TOKEN);
+    localStorage.removeItem("cedula");
+    localStorage.removeItem("rol");
   }
+
 }

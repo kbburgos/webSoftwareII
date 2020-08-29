@@ -73,7 +73,6 @@ export class PromotionsComponent implements OnInit {
     let subs = this.productosService.getProductos().subscribe(
       (data: any) => {
         this.productos = data;
-        console.log(this.productos);
         this.spinner.hide();
         //subs.unsubscribe();
       },
@@ -130,7 +129,6 @@ export class PromotionsComponent implements OnInit {
       }
 
       this.allfiles.push(file[i]);
-      console.log(file[i]);
       const reader = new FileReader();
       reader.onload = (fileData) => {
         this.previewUrl = reader.result;
@@ -145,7 +143,6 @@ export class PromotionsComponent implements OnInit {
   }
 
   eliminarProduct(producto: Products) {
-    console.log(producto);
     this.mensaje = true;
 
     this.message = {
@@ -167,8 +164,6 @@ export class PromotionsComponent implements OnInit {
 
   addProduct() {
     this.bandera = false;
-
-    console.log(this.categoria);
 
     let producto: Products = {
       descripcion: this.form.get("descripcion").value,

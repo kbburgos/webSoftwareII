@@ -58,7 +58,6 @@ var AssignedComponent = /** @class */ (function () {
                 }
             }
         }
-        // console.log(this.repartidorxPedido);
         this.nombreRepartidor = this.repartidorxPedido.nombre;
         this.apellidoRepartidor = this.repartidorxPedido.apellido;
         this.cedulaRepartidor = this.repartidorxPedido.cedula;

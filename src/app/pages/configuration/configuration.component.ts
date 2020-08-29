@@ -56,7 +56,6 @@ export class ConfigurationComponent implements OnInit {
   }
 
   cargar() {
-    console.log(localStorage.getItem("cedula"));
     const subs = this.userS.userById(localStorage.getItem("cedula")).subscribe(
       (data: any) => {
         console.log(data);

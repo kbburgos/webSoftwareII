@@ -55,7 +55,6 @@ export class ProductoService {
   }
 
   deleteProduct(idProducto) {
-    //console.log("A VER QUE ONDITA");
     this.firebase
       .collection("producto")
       .doc(idProducto)
@@ -79,7 +78,7 @@ export class ProductoService {
    * @author Brenda Bermello <bremiber@espol.edu.ec>
    */
   updateProduct(producto: Products){
-    console.log(producto)
+    console.log("Producto a editar: ",producto)
     this.firebase
     .collection("producto")
     .doc(producto.idProducto)

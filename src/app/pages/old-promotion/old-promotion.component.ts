@@ -91,7 +91,6 @@ export class OldPromotionComponent implements OnInit {
     this.spinner.show();
     let pro = this.productosService.getProductos().subscribe(
       (item: any) => {
-        console.log(item);
         this.filtrado(item);
       },
       (err: any) => {
@@ -152,7 +151,6 @@ export class OldPromotionComponent implements OnInit {
   */
 
   editarEstado(producto: Products) {
-    console.log(producto);
     this.showMessage("Promoción activa", "success", "Activada!");
     producto.isActivo = true;
     this.productosService.updateProduct(producto);

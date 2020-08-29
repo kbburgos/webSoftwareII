@@ -36,9 +36,7 @@ export class CategoriaService {
       .snapshotChanges()
       .pipe(
         map((categoria) => {
-          //    console.log("VA UNA ", categoria);
           return categoria.map((e) => {
-            //   console.log("VA DOS ", e);
             return e.payload.doc.data() as Categoria;
           });
         })
@@ -77,7 +75,6 @@ export class CategoriaService {
    * @author Karla Burgos Gayrey <kbburgos@espol.edu.ec>
    */
   deleteCategorias(idCategoria) {
-    //console.log("A VER QUE ONDITA");
     this.firebase
       .collection("categorias")
       .doc(idCategoria)

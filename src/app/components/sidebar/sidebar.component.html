@@ -7,6 +7,7 @@
   </a>
 </div>
 <div class="sidebar-wrapper">
+  <br>
   <ul class="nav">
     <li routerLinkActive="active" class="nav-item">
       <a class="nav-link" routerLink="/dashboard">
@@ -77,13 +78,13 @@
       </div>
     </li>
     <br />
-    <li routerLinkActive="active" class="nav-item">
+    <li *ngIf="isAdmin" routerLinkActive="active" class="nav-item">
       <a class="nav-link" routerLink="/users">
         <i class="material-icons">account_circle</i>Usuarios</a
       >
     </li>
     <br />
-    <li class="nav-item dropdown" routerLinkActive="active">
+    <li *ngIf="isAdmin" class="nav-item dropdown" routerLinkActive="active">
       <a
         class="nav-link dropdown-toggle"
         href="#"
@@ -108,7 +109,7 @@
       </div>
     </li>
     <br />
-    <li class="nav-item dropdown" routerLinkActive="active">
+    <li *ngIf="isAdmin" class="nav-item dropdown" routerLinkActive="active">
       <a
         class="nav-link dropdown-toggle"
         href="#"
