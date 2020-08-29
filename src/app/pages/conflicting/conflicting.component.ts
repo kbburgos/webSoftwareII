@@ -4,6 +4,7 @@ import { ConfirmationService } from "primeng/api";
 import { DelivermanReporterService } from "../../core/services/deliverman/deliverman-reporter.service";
 import { NovelyDeliverman } from "../../core/interface/noveltyDeliverman";
 import { NovelyCustomerView } from "../../core/interface/noveltyCustomerView";
+import { NgxSpinnerService } from "ngx-spinner";
 
 import { UsersService } from "../../core/services/user/users.service";
 import { NoveltyService } from "../../core/services/novelty/novelty.service";
@@ -27,11 +28,13 @@ export class ConflictingComponent implements OnInit {
   private form: FormGroup;
   token: any = this.authService.getJwtToken();
   cont: number = 0;
+  displayNovelty=false;
   //listconflicting: Conflicting[];
   listcustomers: Usuarios[];
   clientesTodos: Usuarios[];
   clientesConflictivos: NovelyCustomerView[];
   deliverymannew: NovelyDeliverman[];
+  novedadesLista: [];
   direccion: string;
   referencia: string;
   coordenadas: string;
@@ -47,6 +50,7 @@ export class ConflictingComponent implements OnInit {
     private user: UsersService,
     private novelty: NoveltyService,
     private authService: AuthService,
+    private spinner: NgxSpinnerService,
     private formBuilder: FormBuilder,
   ) { }
 
@@ -60,10 +64,12 @@ export class ConflictingComponent implements OnInit {
    * @author Brenda Bermello <bremiber@espol.edu.ec>
    */
   ngOnInit() {
+    this.spinner.show();
     this.buildForm();
     this.clearState();
     let novedadesSubscribe = this.deliverymanreportService.getNovedadesRepartidores().subscribe((data:any)=>{
       this.clientesConflictivos=this.listaClientesConflictivos(this.deleteDuplicate(data));
+      this.spinner.hide();
     })
 
   }
@@ -155,6 +161,13 @@ export class ConflictingComponent implements OnInit {
           Validators.minLength(1),
         ]),
       });
+  }
+
+  detalleNovedad(idCliente){
+    this.displayNovelty = true;
+    let reportadoSubscribe=this.novelty.getnovedadesReportado(this.token, idCliente).subscribe((data:any)=>{
+      this.novedadesLista=data;
+    })
   }
 
   clearState() {

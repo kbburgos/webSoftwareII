@@ -6,7 +6,7 @@
                     <div class="card-header card-header-info">
                     <div class="row">
                         <div class="col-md-12">
-                            <h4 class="card-title">Lista de clientes registrados</h4>
+                            <h4 class="card-title">Lista de clientes conflictivos</h4>
                         </div>
                     </div>
                     </div>
@@ -24,6 +24,7 @@
                                 <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                                     {{col.header}}
                                 </th>
+                                <th>NOVEDADES</th>
                                 <th>EMAIL</th>
                                 <th>DIRECCION</th>
                                 <th>TELEFONO</th>
@@ -35,6 +36,7 @@
                                 <th></th>
                                 <th></th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-novelycustomerview>
@@ -42,6 +44,17 @@
                                 <td>{{ novelycustomerview.idCliente }}</td>
                                 <td>{{ novelycustomerview.nombre }}</td>
                                 <td>{{ novelycustomerview.apellido }}</td>
+                                <td>
+                                    <u
+                                      (click)="
+                                        detalleNovedad(novelycustomerview.idCliente
+                                        )
+                                      "
+                                      class="uDetail"
+                                    >
+                                      ver detalle
+                                    </u>
+                                </td>
                                 <td>{{ novelycustomerview.email }}</td>
                                 <td>{{ novelycustomerview.direccion }}</td>
                                 <td>{{ novelycustomerview.telefono }}</td>
@@ -55,3 +68,31 @@
         </div>
     </div>
   </div>
+
+  <p-dialog [(visible)]="displayNovelty" [responsive]="true" showEffect="fade" >
+    <div class="divCard">
+      <p-card>
+        <div class="datosDiv">
+          Detalle de novedades
+        </div>
+        <p-table
+          [columns]="cols"
+          [value]="novedadesLista"
+          styleClass="p-datatable-sm"
+          [resizableColumns]="true"
+        >
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th>NOVEDAD: </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-novedad>
+            <tr>
+              <td>{{ novedad.descripcion }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-card>
+    </div>
+  </p-dialog>
+  <p-toast position="bottom-right"></p-toast>
