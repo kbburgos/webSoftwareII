@@ -43,14 +43,10 @@ export class ProductsComponent implements OnInit {
   catName: string = "Categoría";
   Urls: any = [];
   allfiles: any = [];
-  previewUrl: any = null;
+  previewUrl: any = '';
   producSlide: any = [];
-  data: any = "";
+  data: any = '';
   imageUp: boolean = true;
-  nombre: string = "";
-  descripcion: string = "";
-  precio: number=0;
-  stock: number=0;
 
   cols: any = [
     { field: "nombre", header: "NOMBRE" },

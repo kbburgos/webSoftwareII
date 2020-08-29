@@ -1,122 +1,134 @@
 .car-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
 }
 
 .car-details > div {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .car-item-image {
-    margin-right: 14px;
-    width: 60px;
-    height: 60px;
+  margin-right: 14px;
+  width: 60px;
+  height: 60px;
 }
 
 .empty-car-item-image {
-    background-color: #f1f1f1;
-    animation: pulse 1s infinite ease-in-out;
-    margin-right: 14px;
-    border-radius: 3px;
+  background-color: #f1f1f1;
+  animation: pulse 1s infinite ease-in-out;
+  margin-right: 14px;
+  border-radius: 3px;
 }
 
 .empty-car-item-text {
-    background-color: #f1f1f1;
-    height: 19px;
-    animation: pulse 1s infinite ease-in-out;
-    display: block;
-    width: 100px;
-    margin-bottom: 2px;
-    border-radius: 3px;
+  background-color: #f1f1f1;
+  height: 19px;
+  animation: pulse 1s infinite ease-in-out;
+  display: block;
+  width: 100px;
+  margin-bottom: 2px;
+  border-radius: 3px;
+}
+
+.card-stats {
+  height: 10rem;
+}
+
+.sucess {
+  background-color: rgba(23, 212, 86, 0.144);
+}
+
+.warning {
+  background-color: rgba(212, 199, 23, 0.144);
+}
+
+.danger {
+  background-color: rgba(212, 67, 23, 0.144);
 }
 
 .empty-car-item-button {
-    background-color: #f1f1f1;
-    height: 33px;
-    width: 33px;
-    animation: pulse 1s infinite ease-in-out;
-    display: block;
-    border-radius: 3px;
+  background-color: #f1f1f1;
+  height: 33px;
+  width: 33px;
+  animation: pulse 1s infinite ease-in-out;
+  display: block;
+  border-radius: 3px;
 }
 
 .list-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .title-container {
-    text-align: left;
+  text-align: left;
 }
 
 .sort-container {
-    text-align: right;
+  text-align: right;
 }
 
 @media (max-width: 40em) {
-    .car-item {
-        text-align: center;
-    }
-}
-
-
-
-@media screen and (min-width: 400px) {  
-    .divCard {
-      width: 400px;
-      margin: 0 auto;
-    }
-}
-
-
-.datosDiv{
+  .car-item {
     text-align: center;
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-    background-color:#91CCDD;
-    color: white;
-    padding: 5px;
+  }
 }
 
-.labelCard{
-    color: black;
-    font-weight: bold;
+@media screen and (min-width: 400px) {
+  .divCard {
+    width: 400px;
+    margin: 0 auto;
+  }
 }
 
-.datosDivFooter{
+.datosDiv {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  background-color: #91ccdd;
+  color: white;
+  padding: 5px;
+}
+
+.labelCard {
+  color: black;
+  font-weight: bold;
+}
+
+.datosDivFooter {
   text-align: left;
   font-size: 1.25rem;
   font-weight: bold;
   margin-top: 10px;
   margin-bottom: 5px;
-  background-color:#91CCDD;
+  background-color: #91ccdd;
   color: white;
   padding: 5px;
 }
 
-.subtitleCard{
-    font-size: 1.25rem;
+.subtitleCard {
+  font-size: 1.25rem;
 }
-.titleCard{
-    font-size: 1.56rem;
+.titleCard {
+  font-size: 1.56rem;
 }
-.buttonSearch{
-    background-color: #91CCDD;
-    border: transparent;
-}
-
-
-.pInfo{
-    font-size: 1rem;
+.buttonSearch {
+  background-color: #91ccdd;
+  border: transparent;
 }
 
-@media screen and (min-width: 400px) {  
-    .divCardProduct {
-      width: 400px;
-      margin: 0 auto;
-    }
+.pInfo {
+  font-size: 1rem;
+}
+
+@media screen and (min-width: 400px) {
+  .divCardProduct {
+    width: 400px;
+    margin: 0 auto;
+  }
 }

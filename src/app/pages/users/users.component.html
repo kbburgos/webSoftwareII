@@ -250,12 +250,6 @@
         class="btn btn-success"
         [disabled]="
           form.invalid ||
-          nombre == '' ||
-          email == '' ||
-          direccion == '' ||
-          cedula == '' ||
-          apellido == '' ||
-          telefono == '' ||
           rol == 0
         "
         class="secundary"
@@ -379,13 +373,7 @@
         mat-raised-button
         class="btn btn-success"
         [disabled]="
-          form.invalid ||
-          nombre == '' ||
-          email == '' ||
-          direccion == '' ||
-          cedula == '' ||
-          apellido == '' ||
-          telefono == ''
+          form.invalid
         "
         class="secundary"
         (click)="confirmar()"

@@ -52,12 +52,6 @@ export class UsersComponent implements OnInit {
   edit = false;
   UsuarioEdit: UsersService;
   pass: any = "";
-  nombre: string = "";
-  email: string = "";
-  direccion: string = "";
-  cedula: string = "";
-  apellido: string = "";
-  telefono: string = "";
 
   cols = [
     { field: "cedula", header: "CÉDULA" },
@@ -102,6 +96,7 @@ export class UsersComponent implements OnInit {
     const subs = this.user.usuarios().subscribe(
       (data: any) => {
         this.usuarios = this.filtrado(data);
+        console.log("usuarios ", data);
         this.spinner.hide();
       },
       (err: any) => {
@@ -266,6 +261,8 @@ export class UsersComponent implements OnInit {
 
   abrirEditar(user) {
     this.pass = user.contrasenia;
+    console.log("Este es el usuario ", user);
+    console.log("Esta es la contrasenia ", this.pass);
     this.edit = true;
     if (user.rol == "Admin") {
       this.rol = 1;
@@ -274,6 +271,18 @@ export class UsersComponent implements OnInit {
     }
     this.UsuarioEdit = Object.assign({}, user);
     this.rolName = user.rol;
+  }
+
+  findUserId(cedula: string) {
+    this.user
+      .userById(cedula)
+      .toPromise()
+      .then((data) => {
+        console.log("este es el usaurio ", data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   /**
@@ -296,7 +305,7 @@ export class UsersComponent implements OnInit {
       telefono: this.form.get("telefono").value,
       email: this.form.get("email").value,
       direccion: this.form.get("direccion").value,
-      contrasenia: this.pass,
+      contrasenia: "contrasenia",
       rol: this.rol,
     };
     this.user

@@ -38,16 +38,13 @@ export class CurrentPromotionComponent implements OnInit {
   imagen: any;
   productos: Products[];
   colsdata: Products[];
-  categoria: string = "B9MwktyLd7z4onQIKKAw";
+  categoria: string = 'B9MwktyLd7z4onQIKKAw';
   Urls: any = [];
   allfiles: any = [];
-  previewUrl: any = null;
+  previewUrl: any = '';
   producSlide: any = [];
-  data: any = "";
-  nombre: string = "";
-  descripcion: string = "";
-  precio: number=0;
-  stock: number=0;
+  data: any = '';
+ 
 
   cols = [
     { field: "nombre", header: "Nombre" },

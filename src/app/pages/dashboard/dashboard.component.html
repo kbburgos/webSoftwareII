@@ -2,14 +2,14 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="card card-stats">
+        <div class="card card-stats sucess">
           <div class="card-header card-header-success card-header-icon">
             <div class="card-icon">
               <i class="material-icons">monetization_on</i>
             </div>
             <p class="card-category">VENTAS TOTALES</p>
             <h3 class="card-title">
-              <span *ngIf="ventasTotales!= 0">$</span>{{this.ventasTotales}}
+              <span *ngIf="ventasTotales != 0">$</span>{{ this.ventasTotales }}
             </h3>
           </div>
           <div class="card-footer">
@@ -20,14 +20,15 @@
         </div>
       </div>
       <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="card card-stats">
-          <div class="card-header card-header-info card-header-icon">
+        <div class="card card-stats warning">
+          <div class="card-header card-header-warning card-header-icon">
             <div class="card-icon">
               <i class="material-icons">store</i>
             </div>
             <p class="card-category">PEDIDOS LOCAL</p>
             <h3 class="card-title">
-              <span *ngIf="numeroPedidosLocal!= 0">#</span>{{this.numeroPedidosLocal}}
+              <span *ngIf="numeroPedidosLocal != 0">#</span
+              >{{ this.numeroPedidosLocal }}
             </h3>
           </div>
           <div class="card-footer">
@@ -38,14 +39,15 @@
         </div>
       </div>
       <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="card card-stats">
-          <div class="card-header card-header-info card-header-icon">
+        <div class="card card-stats danger">
+          <div class="card-header card-header-danger card-header-icon">
             <div class="card-icon">
               <i class="material-icons">moped</i>
             </div>
             <p class="card-category">PEDIDOS DOMICILIO</p>
             <h3 class="card-title">
-              <span *ngIf="numeroPedidosDomicilio!= 0">#</span>{{this.numeroPedidosDomicilio}}
+              <span *ngIf="numeroPedidosDomicilio != 0">#</span
+              >{{ this.numeroPedidosDomicilio }}
             </h3>
           </div>
           <div class="card-footer">
@@ -59,50 +61,108 @@
     <div class="row">
       <div class="col-lg-6 col-md-12">
         <div class="card">
-          <div class="card-header card-header-info">
-            <h4 class="card-title titleCard" >Pedidos Entrantes</h4>
-            <p class="card-category subtitleCard">Cantidad de pedidos: <strong>{{cantidadPedidos}}</strong> </p>
-            <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordenar por" (onChange)="onSortChange()" [style]="{'min-width':'140px'}" class="dropdown"></p-dropdown>
+          <div class="card-header card-header-primary">
+            <h4 class="card-title titleCard">Pedidos Entrantes</h4>
+            <p class="card-category subtitleCard">
+              Cantidad de pedidos: <strong>{{ cantidadPedidos }}</strong>
+            </p>
+            <p-dropdown
+              [options]="sortOptions"
+              [(ngModel)]="sortKey"
+              placeholder="Ordenar por"
+              (onChange)="onSortChange()"
+              [style]="{ 'min-width': '140px' }"
+              class="dropdown"
+            ></p-dropdown>
           </div>
           <div class="card-body">
-            <p-virtualScroller [value]="pedidosEntrantes" scrollHeight="500px" [itemSize]="100">
+            <p-virtualScroller
+              [value]="pedidosEntrantes"
+              scrollHeight="500px"
+              [itemSize]="100"
+            >
               <ng-template let-pedido pTemplate="item" let-i="index">
-                  <div class="car-details">
+                <div class="car-details">
+                  <div>
+                    <div>
+                      <b
+                        ><strong
+                          >{{ i + 1 }}.&nbsp;{{ pedido.idPedido }}</strong
+                        ></b
+                      >
                       <div>
-                          <div>
-                              <b><strong>{{i+1}}.&nbsp;{{pedido.idPedido}}</strong></b>
-                              <div><span *ngIf="pedido.isDomicilio">pedido a domicilio</span> <span *ngIf="!pedido.isDomicilio">pedido en local</span>&nbsp;-------&nbsp; Total a pagar:&nbsp; <strong>${{pedido.total}}</strong> </div> 
-                          </div>
+                        <span *ngIf="pedido.isDomicilio"
+                          >pedido a domicilio</span
+                        >
+                        <span *ngIf="!pedido.isDomicilio">pedido en local</span
+                        >&nbsp;-------&nbsp; Total a pagar:&nbsp;
+                        <strong>${{ pedido.total }}</strong>
                       </div>
-                      <button pButton type="button" icon="pi pi-info-circle" (click)="selectPedido(pedido)" class="buttonSearch"></button>
+                    </div>
                   </div>
+                  <button
+                    pButton
+                    type="button"
+                    icon="pi pi-info-circle"
+                    (click)="selectPedido(pedido)"
+                    class="buttonSearch"
+                  ></button>
+                </div>
               </ng-template>
             </p-virtualScroller>
-          </div>       
+          </div>
         </div>
       </div>
       <div class="col-lg-6 col-md-12">
         <div class="card">
-          <div class="card-header card-header-info">
-            <h4 class="card-title titleCard" >Stock Productos</h4>
-            <p class="card-category subtitleCard">Cantidad de productos: <strong>{{productos.length}}</strong> </p>
-            <p-dropdown [options]="sortOptionsProducts" [(ngModel)]="sortkeyProduct" placeholder="Ordenar por" (onChange)="onSortChangeProducts()"  [style]="{'min-width':'140px'}" class="dropdown"></p-dropdown>
+          <div class="card-header card-header-warning">
+            <h4 class="card-title titleCard">Stock Productos</h4>
+            <p class="card-category subtitleCard">
+              Cantidad de productos: <strong>{{ productos.length }}</strong>
+            </p>
+            <p-dropdown
+              [options]="sortOptionsProducts"
+              [(ngModel)]="sortkeyProduct"
+              placeholder="Ordenar por"
+              (onChange)="onSortChangeProducts()"
+              [style]="{ 'min-width': '140px' }"
+              class="dropdown"
+            ></p-dropdown>
           </div>
           <div class="card-body">
-            <p-virtualScroller [value]="productos" scrollHeight="500px" [itemSize]="100">
+            <p-virtualScroller
+              [value]="productos"
+              scrollHeight="500px"
+              [itemSize]="100"
+            >
               <ng-template let-producto pTemplate="item" let-i="index">
-                  <div class="car-details">
+                <div class="car-details">
+                  <div>
+                    <div>
+                      <b
+                        ><strong
+                          >{{ i + 1 }}.&nbsp;{{ producto.nombre }}</strong
+                        ></b
+                      >
                       <div>
-                          <div>
-                              <b><strong>{{i+1}}.&nbsp;{{producto.nombre}}</strong></b>
-                              <div><span *ngIf="producto.isActivo">producto activo</span> <span *ngIf="!producto.isActivo">producto inactivo</span>&nbsp;-------&nbsp;Stock:&nbsp; <strong>{{producto.stock}}</strong> </div> 
-                          </div>
+                        <span *ngIf="producto.isActivo">producto activo</span>
+                        <span *ngIf="!producto.isActivo">producto inactivo</span
+                        >&nbsp;-------&nbsp;Stock:&nbsp;
+                        <strong>{{ producto.stock }}</strong>
                       </div>
-                      <button pButton type="button" icon="pi pi-info-circle" (click)="selectProducto(producto)" class="buttonSearch"></button>
+                    </div>
                   </div>
+                  <button
+                    pButton
+                    type="button"
+                    icon="pi pi-info-circle"
+                    (click)="selectProducto(producto)"
+                    class="buttonSearch"
+                  ></button>
+                </div>
               </ng-template>
             </p-virtualScroller>
-          </div>       
+          </div>
         </div>
       </div>
     </div>
@@ -110,46 +170,53 @@
 </div>
 
 <p-dialog [(visible)]="display" [responsive]="true" showEffect="fade">
-  <div class = "divCard" >
+  <div class="divCard">
     <p-card>
-      <div class="datosDiv">
-          Información de Productos
-      </div>
-      <p-table [columns]="cols" [value]="listaProductos" styleClass="p-datatable-sm" [resizableColumns]="true" >  
+      <div class="datosDiv">Información de Productos</div>
+      <p-table
+        [columns]="cols"
+        [value]="listaProductos"
+        styleClass="p-datatable-sm"
+        [resizableColumns]="true"
+      >
         <ng-template pTemplate="header" let-columns>
           <tr>
-              <th>NOMBRE</th>
-              <th>CANTIDAD</th>
+            <th>NOMBRE</th>
+            <th>CANTIDAD</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-productos>
           <tr>
-              <td> {{productos.producto}} </td>
-              <td> {{productos.cantidad}} </td>
-          </tr>      
+            <td>{{ productos.producto }}</td>
+            <td>{{ productos.cantidad }}</td>
+          </tr>
         </ng-template>
-        
       </p-table>
       <div class="datosDivFooter">
-        Cantidad total de productos: &nbsp; {{cantidadTotalProductosxPedido}}
+        Cantidad total de productos: &nbsp; {{ cantidadTotalProductosxPedido }}
       </div>
-  </p-card> 
-  </div> 
+    </p-card>
+  </div>
 </p-dialog>
 
 <p-dialog [(visible)]="displayProducto" [responsive]="true" showEffect="fade">
-  <div class = "divCardProduct" style="text-align: center;">
-    <p-card header="Producto" subheader="{{nombreProducto}}"  styleClass="p-card-shadow">
-      <hr style="background-color: black;">
-      <p-header >
-          <img alt="Card" src="{{imagenProducto}}">
+  <div class="divCardProduct" style="text-align: center">
+    <p-card
+      header="Producto"
+      subheader="{{ nombreProducto }}"
+      styleClass="p-card-shadow"
+    >
+      <hr style="background-color: black" />
+      <p-header>
+        <img alt="Card" src="{{ imagenProducto }}" />
       </p-header>
-      <p class = "pInfo">Descripci&oacute;n: {{this.descripcionProducto }}</p>
-      <p class = "pInfo">Categor&iacute;a: {{this.categoriaProducto}}</p>
-      <p class = "pInfo"> <strong>Precio: ${{this.costoProducto}}</strong></p>
+      <p class="pInfo">Descripci&oacute;n: {{ this.descripcionProducto }}</p>
+      <p class="pInfo">Categor&iacute;a: {{ this.categoriaProducto }}</p>
+      <p class="pInfo">
+        <strong>Precio: ${{ this.costoProducto }}</strong>
+      </p>
     </p-card>
-  </div> 
+  </div>
 </p-dialog>
-
 
 <p-toast position="center"></p-toast>
