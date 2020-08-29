@@ -8,12 +8,12 @@ table {
     width: 100%;
   }
 
-.uDetail{
+.uDetail {
   color: blue;
   cursor: pointer;
 }
 
-.datosDiv{
+.datosDiv {
   text-align: center;
   font-size: 1.25rem;
   font-weight: bold;
@@ -22,7 +22,6 @@ table {
   color: white;
   padding: 5px;
 }
-
 
 @media screen and (min-width: 400px) {  
   .divCard {

@@ -11,58 +11,59 @@ th {
   width: 25%;
 }
 
-.someStyleClass 
-{
+.someStyleClass {
 background-color: transparent;
 color: black;
 border: transparent;
 }
-.uDetail{
+
+.uDetail {
 color: blue;
 cursor: pointer;
 }
 
-.datosDiv{
+.datosDiv {
   text-align: center;
   font-size: 1.25rem;
   font-weight: bold;
   margin-bottom: 10px;
-  background-color:#91CCDD;
+  background-color:#91ccdd;
   color: white;
   padding: 5px;
 }
 
-.labelCard{
+.labelCard {
   color: black;
   font-weight: bold;
 }
 
-.datosDivFooter{
+.datosDivFooter {
 text-align: left;
 font-size: 1.25rem;
 font-weight: bold;
 margin-top: 10px;
 margin-bottom: 5px;
-background-color:#91CCDD;
+background-color:#91ccdd;
 color: white;
 padding: 5px;
 }
 
 @media screen and (min-width: 400px) {  
-.divCard {
-  width: 400px;
-  margin: 0 auto;
-}
-}
-
-.divSimbology{
-margin-left: 5px;
-margin-top: 5px;
+  .divCard {
+    width: 400px;
+    margin: 0 auto;
+  }
 }
 
-.tableOrder{
-margin-top: 10px;
+.divSimbology {
+  margin-left: 5px;
+  margin-top: 5px;
 }
+
+.tableOrder {
+  margin-top: 10px;
+}
+
 td {
   text-align: center;
   margin-right: auto;
@@ -71,6 +72,6 @@ td {
   align-self: center;
 }
 
-.tituloCampo{
+.tituloCampo {
   text-align: center;
 }
