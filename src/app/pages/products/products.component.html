@@ -36,12 +36,8 @@
                     {{ col.header }}
                     <p-sortIcon [field]="col.field"></p-sortIcon>
                   </th>
-                  <th>
-                    FOTO
-                  </th>
-                  <th>
-                    ACCIONES
-                  </th>
+                  <th>FOTO</th>
+                  <th>ACCIONES</th>
                 </tr>
                 <tr>
                   <th
@@ -117,40 +113,40 @@
   showEffect="fade"
   (onHide)="clearState()"
 >
-  <p-header>
-    Nuevo Producto
-  </p-header>
-  <div class="container-fluid" style="width: 400px;">
+  <p-header> Nuevo Producto </p-header>
+  <div class="container-fluid" style="width: 400px">
     <form [formGroup]="form">
       <div class="row">
-        <div class="col-md-6 form-group">
-          <label class="form-label">Nombre</label>
-          <span class="requared">&nbsp; *</span>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="nombre"
-            placeholder="...Cheessecake de fresa"
-          />
-        </div>
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label class="form-label">Nombre</label>
+            <span class="requared">&nbsp; *</span>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="nombre"
+              placeholder="...Cheessecake de fresa"
+            />
+          </div>
 
-        <div class="col-md-6 form-group">
-          <div class="dropdown">
-            <button
-              href="#"
-              class="btn dropdown-toggle bg-primary"
-              data-toggle="dropdown"
-              aria-expanded="true"
-            >
-              {{ catName }}
-              <b class="caret"></b>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a (click)="guardarCategoria('bebidas')">Bebidas</a></li>
-              <li><a (click)="guardarCategoria('dulces')">Dulces</a></li>
-              <li><a (click)="guardarCategoria('tortas')">Tortas</a></li>
-              <li><a (click)="guardarCategoria('postres')">Postres</a></li>
-            </ul>
+          <div class="col-md-6 form-group">
+            <div class="dropdown">
+              <button
+                href="#"
+                class="btn dropdown-toggle bg-primary"
+                data-toggle="dropdown"
+                aria-expanded="true"
+              >
+                {{ catName }}
+                <b class="caret"></b>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a (click)="guardarCategoria('bebidas')">Bebidas</a></li>
+                <li><a (click)="guardarCategoria('dulces')">Dulces</a></li>
+                <li><a (click)="guardarCategoria('tortas')">Tortas</a></li>
+                <li><a (click)="guardarCategoria('postres')">Postres</a></li>
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -217,11 +213,7 @@
             [disabled]="
               form.invalid ||
               categoria == '' ||
-              nombre == '' ||
-              descripcion == '' ||
-              precio == 0 ||
-              stock == 0 ||
-              previewUrl == null
+              previewUrl == ''
             "
             class="secundary"
             (click)="save()"
@@ -241,10 +233,8 @@
   showEffect="fade"
   (onHide)="clearState()"
 >
-  <p-header>
-    Editar Producto
-  </p-header>
-  <div *ngIf="display" class="container-fluid" style="width: 400px;">
+  <p-header> Editar Producto </p-header>
+  <div *ngIf="display" class="container-fluid" style="width: 400px">
     <form [formGroup]="form">
       <div class="row">
         <div class="col-md-6 form-group">

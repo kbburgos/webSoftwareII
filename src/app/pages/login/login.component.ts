@@ -64,6 +64,8 @@ export class LoginComponent implements OnInit {
     this.password = value.passwordField;
 
     if (this.form.valid) {
+      this.display = false;
+      this.notFound=false
       this.auth
         .loginToApi(this.form.value.email, this.form.value.pass)
         .toPromise()

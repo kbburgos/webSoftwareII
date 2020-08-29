@@ -1,14 +1,14 @@
-import { Component, OnInit } from "@angular/core";
-import { ProductoService } from "../../core/services/product/producto.service";
-import { Products } from "../../core/interface/products";
-import { NgxSpinnerService } from "ngx-spinner";
+import { Component, OnInit } from '@angular/core';
+import { ProductoService } from '../../core/services/product/producto.service';
+import { Products } from '../../core/interface/products';
+import { NgxSpinnerService } from 'ngx-spinner';
 import {
   FormGroup,
   FormBuilder,
-} from "@angular/forms";
-import { CategoriaService } from "../../core/services/categoria/categoria.service";
-import { Router } from "@angular/router";
-import { MessageService } from "primeng/api";
+} from '@angular/forms';
+import { CategoriaService } from '../../core/services/categoria/categoria.service';
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: "app-old-promotion",
@@ -34,29 +34,21 @@ export class OldPromotionComponent implements OnInit {
   bandera: boolean = false;
   mensaje: boolean = false;
   slide: boolean = false;
-
-  data: any = "";
-
+  data: any = '';
   imagen: any;
   productos: Products[];
-
   colsdata: Products[];
-
-  categoria: string = "B9MwktyLd7z4onQIKKAw";
-
+  categoria: string = 'B9MwktyLd7z4onQIKKAw';
   Urls: any = [];
-
   allfiles: any = [];
-
   previewUrl: any = null;
-
   producSlide: any = [];
 
   cols = [
-    { field: "nombre", header: "Nombre" },
-    { field: "descripcion", header: "Descripcion" },
-    { field: "precio", header: "Precio" },
-    { field: "stock", header: "Stock" },
+    { field: 'nombre', header: 'Nombre' },
+    { field: 'descripcion', header: 'Descripcion' },
+    { field: 'precio', header: 'Precio' },
+    { field: 'stock', header: 'Stock' },
   ];
 
   constructor(
@@ -97,7 +89,7 @@ export class OldPromotionComponent implements OnInit {
         console.log(err);
         this.spinner.hide();
         pro.unsubscribe();
-        this.showMessage("Error al cargar las promociones", "error", "Error!");
+        this.showMessage('Error al cargar las promociones', 'error', 'Error!');
       }
     );
   }
@@ -117,7 +109,7 @@ export class OldPromotionComponent implements OnInit {
   filtrado(coleccion) {
     let temporal: any[] = [];
     coleccion.map((item) => {
-      if (item.idCategoria == "B9MwktyLd7z4onQIKKAw" && !item.isActivo) {
+      if (item.idCategoria == 'B9MwktyLd7z4onQIKKAw' && !item.isActivo) {
         temporal.push(item);
       }
     });
@@ -151,7 +143,7 @@ export class OldPromotionComponent implements OnInit {
   */
 
   editarEstado(producto: Products) {
-    this.showMessage("Promoción activa", "success", "Activada!");
+    this.showMessage('Promoción activa', 'success', 'Activada!');
     producto.isActivo = true;
     this.productosService.updateProduct(producto);
     this.clearState();
