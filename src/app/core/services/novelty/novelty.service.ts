@@ -64,7 +64,7 @@ export class NoveltyService {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,
     };
-    return this.http.get(environment.rutas.reportadoNovelty+cedula, { headers });
+    return this.http.get(environment.rutas['reportadoNovelty'] + cedula, { headers });
   }
 
       /**

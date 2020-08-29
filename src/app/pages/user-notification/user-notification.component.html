@@ -38,7 +38,7 @@
                             <th>NOVEDAD</th>
                         </tr>
                         <tr>
-                            <th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid">
+                            <th *ngFor="let col of cols" [ngSwitch]="col.field" class="ui-fluid">
                                 <input pInputText type="text" [style]="{'width':'100%'}" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                             </th>
                             
@@ -150,10 +150,7 @@
       mat-raised-button
       class="btn btn-success"
       [disabled]="
-        form.invalid ||
-        cedula == '' ||
-        novedad == ''
-      "
+        form.invalid   "
         class="secundary"
         type="button"
         pButton
