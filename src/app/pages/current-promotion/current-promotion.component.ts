@@ -29,7 +29,7 @@ import { ConfirmationService } from "primeng/api";
  * @author Karla Burgos <kbburgos@espol.edu.ec>
  */
 export class CurrentPromotionComponent implements OnInit {
-  private form: FormGroup;
+  form: FormGroup;
   display: boolean = false;
   bandera: boolean = false;
   mensaje: boolean = false;
@@ -44,6 +44,10 @@ export class CurrentPromotionComponent implements OnInit {
   previewUrl: any = null;
   producSlide: any = [];
   data: any = "";
+  nombre: string = "";
+  descripcion: string = "";
+  precio: number=0;
+  stock: number=0;
 
   cols = [
     { field: "nombre", header: "Nombre" },

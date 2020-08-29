@@ -52,6 +52,12 @@ export class UsersComponent implements OnInit {
   edit = false;
   UsuarioEdit: UsersService;
   pass: any = "";
+  nombre: string = "";
+  email: string = "";
+  direccion: string = "";
+  cedula: string = "";
+  apellido: string = "";
+  telefono: string = "";
 
   cols = [
     { field: "cedula", header: "CÉDULA" },

@@ -47,6 +47,10 @@ export class ProductsComponent implements OnInit {
   producSlide: any = [];
   data: any = "";
   imageUp: boolean = true;
+  nombre: string = "";
+  descripcion: string = "";
+  precio: number=0;
+  stock: number=0;
 
   cols: any = [
     { field: "nombre", header: "NOMBRE" },
