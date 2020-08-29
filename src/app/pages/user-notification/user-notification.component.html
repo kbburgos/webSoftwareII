@@ -1,5 +1,6 @@
 <div class="main-content">
-
+  <p-tabView>
+  <p-tabPanel header="Novedades por administrador">
   <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -7,7 +8,7 @@
                 <div class="card-header card-header-info">
                 <div class="row">
                     <div class="col-md-10">
-                        <h4 class="card-title">Novedades por administrador</h4>
+                        <h4 class="card-title">Lista de novedades</h4>
                     </div>
                     <div class="col-md-2 ui-dialog-buttonpane">
                         <button
@@ -19,7 +20,7 @@
                           label="  Nuevo"
                         ></button>
                     </div>
-                </div>
+                  </div>
                 </div>
                 <div class="card-body" id="listaAdmin">
                   <p-table 
@@ -55,9 +56,10 @@
             </div>
         </div>
     </div>
-</div>
+  </div>
+</p-tabPanel>
 
-
+<p-tabPanel header="Novedades por usuarios">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
@@ -65,7 +67,7 @@
           <div class="card-header card-header-info">
             <div class="row">
               <div class="col-md-12">
-                <h4 class="card-title">Novedades por usuarios</h4>
+                <h4 class="card-title">Lista de novedades</h4>
               </div>
             </div>
           </div>
@@ -103,6 +105,8 @@
       </div>
     </div>
   </div>
+</p-tabPanel>
+</p-tabView>
 
   
 </div>
