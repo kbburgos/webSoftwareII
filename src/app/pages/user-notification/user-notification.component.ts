@@ -89,7 +89,7 @@ export class UserNotificationComponent implements OnInit {
    * @type {Promise<void>} Void type promise.
    * @author Brenda Bermello <bremiber@espol.edu.ec>
    */
-  listaFiltroClientes(listaC: any) {
+  nombreClientes(listaC: any) {
     for (let i = 0; i < environment.variables.nombreClientes.length; i++) {
       for (let j = 0; j < listaC.length; j++) {
         if (
@@ -105,6 +105,16 @@ export class UserNotificationComponent implements OnInit {
       }
     }
     return listaC;
+  }
+
+  listaFiltradaClientes(coleccion){
+    const temporal: any[]= [];
+    coleccion.map((item)=>{
+      if(item.esCliente){
+        temporal.push(item);
+      }
+    });
+    return temporal;
   }
 
   /**
@@ -128,12 +138,23 @@ export class UserNotificationComponent implements OnInit {
             " " +
             environment.variables.nombreRepartidores[i]["apellido"];
           listaAdmin[j].esCliente = false;
+        }else{
+          listaAdmin[j].esCliente = true;
         }
       }
     }
     return listaAdmin;
   }
 
+  listaFiltradaAdmin(coleccion){
+    const temporal: any[]= [];
+    coleccion.map((item)=>{
+      if(!item.esCliente){
+        temporal.push(item);
+      }
+    });
+    return temporal;
+  }
   /**
    * @async
    * @method
@@ -142,32 +163,33 @@ export class UserNotificationComponent implements OnInit {
    * @desc This method is responsible for loading customer and novelty information from API. <br> Creation Date: 08/22/2020
    * @type {Promise<void>} Void type promise.
    * @returns {JSON} JSON users
-   * @author Karla Burgos <kbburgos@espol.edu.ec>
+   * @author Brenda Bermello <bremiber@espol.edu.ec>
    */
   cargar() {
     this.spinner.show();
     this.userNotification
       .clienteNotification(this.token)
       .subscribe((data: any) => {
-        this.customernewsView = this.listaFiltroClientes(
+        this.customernewsView = this.listaFiltradaClientes(this.nombreClientes(
           this.listaFiltroRepartidores(data)
-        );
+        ));
       });
 
     let adminNoveltySubscribe = this.novelty
       .getnovedadesReporta(this.token, this.authService.dataUser.cedula)
       .subscribe(
         (data: any) => {
-          this.novedadAdmin = this.listaAdmin(data);
+          this.novedadAdmin = this.listaFiltradaAdmin(this.listaAdmin(data));
           this.spinner.hide();
         },
         (err: any) => {
           adminNoveltySubscribe.unsubscribe();
           this.showMessage(
-            "Error al cargar las novedades realizadas por el Administrador",
+            "No existen novedades realizadas por el Administrador",
             "error",
             "Error!"
           );
+          this.spinner.hide();
         }
       );
     //this.spinner.hide();
@@ -184,7 +206,7 @@ export class UserNotificationComponent implements OnInit {
    * @version 1.0.0
    * @desc This method takes care of adding a novelty. <br> Creation Date: 08/17/2020
    * @type {Promise<void>} Void type promise.
-   * @author Karla Burgos <kbburgos@espol.edu.ec>
+   * @author Brenda Bermello <bremiber@espol.edu.ec>
    */
   addNovedad() {
     const novedadNueva = {

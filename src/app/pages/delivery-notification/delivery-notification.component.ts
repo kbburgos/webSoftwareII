@@ -27,7 +27,7 @@ export class DeliveryNotificationComponent implements OnInit {
   token: any = this.authService.getJwtToken();
   display: boolean = false;
   bandera: boolean = false;
-  novedadAdmin: any[];
+  novedadAd: any[];
   deliverymannew: NovelyDeliverman[];
   deliverymannewView: NovelyDelivermanView[];
   listanovedades: Array<any> = [];
@@ -128,6 +128,16 @@ export class DeliveryNotificationComponent implements OnInit {
     return listaAdmin;
   }
 
+  listaFiltradaAdmin(coleccion){
+    const temporal: any[]= [];
+    coleccion.map((item)=>{
+      if(item.esCliente){
+        temporal.push(item);
+      }
+    });
+    return temporal;
+  }
+
     /**
    * @async
    * @method
@@ -148,20 +158,18 @@ export class DeliveryNotificationComponent implements OnInit {
 
     let adminNoveltySubs = this.novelty.getnovedadesReporta(this.token, this.authService.dataUser.cedula)
     .subscribe((data:any)=>{
+      //this.novedadAd=this.listaFiltradaAdmin(this.listaAdmin(data));
       this.spinner.hide();
-/*
-      this.novedadAdmin = this.listaAdmin(data);
-      if(Object.keys(this.novedadAdmin).length === 0){
-        console.log("No existe novedad!");
-      }
       },
       (err: any)=> {
-        console.log(err);
         adminNoveltySubs.unsubscribe();
-        this.showMessage("Error al cargar las novedades realizadas por el Administrador",
+        this.showMessage("No existen novedades realizadas por el Administrador",
         "error",
-        "Error!");*/
-    });
+        "Error!"
+        );
+        this.spinner.hide();
+      }
+    );
   }
 
   showAddDialog() {
@@ -185,12 +193,12 @@ export class DeliveryNotificationComponent implements OnInit {
     };
 
     this.novelty.addNovelty(this.token, novedadNueva).subscribe(item=>{
-      this.cargar();
       this.showMessage(
         "Novedad ingresada exitosamente",
         "success",
         "Agregada!"
       )
+      this.cargar();
     },
     error=>{
       this.showMessage(

@@ -45,7 +45,7 @@
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-novedades>
-                      <tr *ngIf="!novedades.esCliente">
+                      <tr >
                             <td>{{ novedades.idUsuarioreportado }}</td>
                             <td>{{ novedades.usuarioReportado }}</td>
                             <td>{{ novedades.descripcion }}</td>
@@ -91,7 +91,7 @@
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-customernewsview>
-                <tr *ngIf="customernewsview.esCliente">
+                <tr >
                   <td>{{ customernewsview.idUsuarioreporta }}</td>
                   <td>{{ customernewsview.usuarioReporta }}</td>
                   <td>{{ customernewsview.idUsuarioreportado }}</td>

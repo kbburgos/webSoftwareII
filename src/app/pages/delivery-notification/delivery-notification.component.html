@@ -25,7 +25,7 @@
                 <div class="card-body">
                   <p-table 
                     [columns]="cols" 
-                    [value]="novedadAdmin" 
+                    [value]="novedadAd" 
                     [responsive]="true" 
                     sortMode="multiple" 
                     [paginator]="true" 
@@ -38,14 +38,14 @@
                             <th>NOVEDAD</th>
                         </tr>
                         <tr>
-                            <th *ngFor="let col of cols" [ngSwitch]="col.field" class="ui-fluid">
+                            <th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid">
                                 <input pInputText type="text" [style]="{'width':'100%'}" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
                             </th>
                             
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-novedades>
-                      <tr *ngIf="novedades.esCliente">
+                      <tr>
                             <td>{{ novedades.idUsuarioreportado }}</td>
                             <td>{{ novedades.usuarioReportado }}</td>
                             <td>{{ novedades.descripcion }}</td>
