@@ -17,16 +17,12 @@
             </span>
 
             <div class="container-error-message" *ngIf="display">
-              <span class="material-icons danger-icon">
-                error
-              </span>
+              <span class="material-icons danger-icon"> error </span>
               Usuario no autorizado
             </div>
 
             <div class="container-error-message" *ngIf="notFound">
-              <span class="material-icons danger-icon">
-                error
-              </span>
+              <span class="material-icons danger-icon"> error </span>
               correo o contraseña incorrectos
             </div>
 
@@ -42,7 +38,7 @@
                 formControlName="email"
               />
               <span class="focus-input100"
-                ><i class="material-icons" style="color: white;"
+                ><i class="material-icons" style="color: white"
                   >account_box</i
                 ></span
               >
@@ -51,9 +47,7 @@
               class="container-error-message"
               *ngIf="getError('email') != ''"
             >
-              <span class="material-icons danger-icon">
-                error
-              </span>
+              <span class="material-icons danger-icon"> error </span>
               {{ getError("email") }}
             </div>
 
@@ -69,27 +63,28 @@
                 formControlName="pass"
               />
               <span class="focus-input100"
-                ><i class="material-icons" style="color: white;">lock</i></span
+                ><i class="material-icons" style="color: white">lock</i></span
               >
             </div>
 
             <div class="container-error-message" *ngIf="getError('pass') != ''">
-              <span class="material-icons danger-icon">
-                error
-              </span>
+              <span class="material-icons danger-icon"> error </span>
               {{ getError("pass") }}
             </div>
 
             <div class="text-center p-t-80">
-              <a class="txt1" href="#">
+              <!--button (click)="verContrasenia()">
                 ¿Olvid&oacute; su contrase&ntilde;a?
-              </a>
+              </button-->
+              <!--a class="txt1" href="#">
+                ¿Olvid&oacute; su contrase&ntilde;a?
+              </a-->
               &nbsp;&nbsp;
               <a class="txt1" href="#/deliveryman">
                 Ingresar como Repartidor
               </a>
             </div>
-
+            <br>
             <div class="container-login100-form-btn">
               <button class="login100-form-btn" (click)="ingresar()">
                 Login
@@ -98,8 +93,30 @@
           </form>
         </div>
       </div>
-    </div>
+      <!--p-dialog
+        [(visible)]="contrasenio"
+        [responsive]="true"
+        showEffect="fade"
+        (onHide)="clearState()"
+      >
+        <div class="row" [formGroup]="formContrasenia">
+       
+            <div class="col-md-12 form-group">
+              <input
+                type="password"
+                name="correo"
+                placeholder="Ingresa tu nueva contraseña"
+                formControlName="password"
+              />
+            </div>
+        
+        </div>
 
+        <button (click)="enviarEmail()">
+          cambiar contrasenia
+        </button>
+      </p-dialog-->
+    </div>
     <script type="text/javascript" src="main.js"></script>
   </body>
 </html>

@@ -33,11 +33,8 @@
                   <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                     {{ col.header }}
                   </th>
-                  <th>
-                    ACCIONES
-                  </th>
+                  <th>ACCIONES</th>
                 </tr>
-
               </ng-template>
               <ng-template pTemplate="body" let-user>
                 <tr>
@@ -50,14 +47,6 @@
 
                   <td>
                     <div class="ui-dialog-buttonpane">
-                      <button
-                        pButton
-                        type="button"
-                        icon="pi pi-pencil"
-                        (click)="abrirEditar(user)"
-                        class="ui-button-secundary"
-                      ></button>
-                      &nbsp;
                       <button
                         pButton
                         type="button"
@@ -87,11 +76,9 @@
   showEffect="fade"
   (onHide)="clearState()"
 >
-  <p-header>
-    Nuevo Usuario
-  </p-header>
+  <p-header> Nuevo Usuario </p-header>
 
-  <div class="container-fluid" style="width: 400px;">
+  <div class="container-fluid" style="width: 400px">
     <form [formGroup]="form">
       <div class="row">
         <div class="col-md-6 form-group">
@@ -120,18 +107,14 @@
           class="container-error-message col-md-6"
           *ngIf="getError('nombre') != ''"
         >
-          <span class="material-icons danger-icon">
-            error_outline
-          </span>
+          <span class="material-icons danger-icon"> error_outline </span>
           {{ getError("nombre") }}
         </div>
         <div
           class="container-error-message col-md-6"
           *ngIf="getError('apellido') != ''"
         >
-          <span class="material-icons danger-icon">
-            error_outline
-          </span>
+          <span class="material-icons danger-icon"> error_outline </span>
           {{ getError("apellido") }}
         </div>
       </div>
@@ -151,9 +134,7 @@
           class="container-error-message col-md-12"
           *ngIf="getError('direccion') != ''"
         >
-          <span class="material-icons danger-icon">
-            error_outline
-          </span>
+          <span class="material-icons danger-icon"> error_outline </span>
           {{ getError("direccion") }}
         </div>
       </div>
@@ -185,18 +166,14 @@
           class="container-error-message col-md-6"
           *ngIf="getError('cedula') != ''"
         >
-          <span class="material-icons danger-icon">
-            error_outline
-          </span>
+          <span class="material-icons danger-icon"> error_outline </span>
           {{ getError("cedula") }}
         </div>
         <div
           class="container-error-message col-md-6"
           *ngIf="getError('telefono') != ''"
         >
-          <span class="material-icons danger-icon">
-            error_outline
-          </span>
+          <span class="material-icons danger-icon"> error_outline </span>
           {{ getError("telefono") }}
         </div>
       </div>
@@ -235,9 +212,7 @@
           class="container-error-message col-md-12"
           *ngIf="getError('email') != ''"
         >
-          <span class="material-icons danger-icon">
-            error_outline
-          </span>
+          <span class="material-icons danger-icon"> error_outline </span>
           {{ getError("email") }}
         </div>
       </div>
@@ -248,10 +223,7 @@
       <button
         mat-raised-button
         class="btn btn-success"
-        [disabled]="
-          form.invalid ||
-          rol == 0
-        "
+        [disabled]="form.invalid || rol == 0"
         class="secundary"
         (click)="save()"
         pButton
@@ -267,10 +239,8 @@
   showEffect="fade"
   (onHide)="clearState()"
 >
-  <p-header>
-    Editar Usuario
-  </p-header>
-  <div class="container-fluid" style="width: 400px;">
+  <p-header> Editar Usuario </p-header>
+  <div class="container-fluid" style="width: 400px">
     <div *ngIf="edit">
       <form [formGroup]="form">
         <div class="row">
@@ -372,9 +342,7 @@
       <button
         mat-raised-button
         class="btn btn-success"
-        [disabled]="
-          form.invalid
-        "
+        [disabled]="form.invalid"
         class="secundary"
         (click)="confirmar()"
         pButton

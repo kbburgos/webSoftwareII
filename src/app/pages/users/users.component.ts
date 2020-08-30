@@ -1,26 +1,22 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-
 import { UsersService } from "app/core/services/user/users.service";
 import { AuthService } from "app/core/services/auth/auth.service";
 import { environment } from "environments/environment";
-
 import { Usuarios } from "app/core/interface/Usuarios";
 import { UserInfoService } from "app/core/services/userInfo/user-info.service";
-
 import { NgxSpinnerService } from "ngx-spinner";
 import { UsuarioInterface } from "app/core/interface/usuario-interface";
-
 import { MessageService } from "primeng/api";
 import { ConfirmationService } from "primeng/api";
-
+import { AngularFireAuth } from "@angular/fire/auth";
 import {
   FormGroup,
   FormControl,
   Validators,
   FormBuilder,
 } from "@angular/forms";
-
+import { SeguridadService } from "app/core/services/seguridad.service";
 import { UserRol } from "app/core/interface/user-rol";
 
 @Component({
@@ -71,7 +67,9 @@ export class UsersComponent implements OnInit {
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    public afAuth: AngularFireAuth,
+    private seguridad: SeguridadService
   ) {}
 
   ngOnInit() {
@@ -199,12 +197,21 @@ export class UsersComponent implements OnInit {
       .then((data: any) => {
         this.display = false;
         this.cargar();
+        this.register(this.datosUsuario.email, this.datosUsuario.contrasenia);
         this.showMessage("Usuario creado exitósamente", "success", "Agregado!");
       })
       .catch((err) => {
         console.log(err);
         this.showMessage("Error al crear el usuario", "error", "Error!");
       });
+  }
+
+  async register(email: string, password: string) {
+    var result = await this.afAuth.auth.createUserWithEmailAndPassword(
+      email,
+      password
+    );
+    console.log(result);
   }
 
   clearState() {
@@ -262,7 +269,8 @@ export class UsersComponent implements OnInit {
   abrirEditar(user) {
     this.pass = user.contrasenia;
     console.log("Este es el usuario ", user);
-    console.log("Esta es la contrasenia ", this.pass);
+    console.log("Esta es la contrasenia ", user.contrasenia);
+    console.log("Esta es la contrasenia ", this.seguridad.desencriptar(user.contrasenia));
     this.edit = true;
     if (user.rol == "Admin") {
       this.rol = 1;
@@ -305,7 +313,7 @@ export class UsersComponent implements OnInit {
       telefono: this.form.get("telefono").value,
       email: this.form.get("email").value,
       direccion: this.form.get("direccion").value,
-      contrasenia: "contrasenia",
+      contrasenia: this.pass,
       rol: this.rol,
     };
     this.user
