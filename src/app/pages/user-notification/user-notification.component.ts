@@ -128,7 +128,6 @@ export class UserNotificationComponent implements OnInit {
             " " +
             environment.variables.nombreRepartidores[i]["apellido"];
           listaAdmin[j].esCliente = false;
-          console.log(listaAdmin[j].esCliente);
         }
       }
     }
@@ -150,12 +149,9 @@ export class UserNotificationComponent implements OnInit {
     this.userNotification
       .clienteNotification(this.token)
       .subscribe((data: any) => {
-        console.log(data);
         this.customernewsView = this.listaFiltroClientes(
           this.listaFiltroRepartidores(data)
         );
-
-        console.log(this.customernewsView);
       });
 
     let adminNoveltySubscribe = this.novelty
@@ -164,12 +160,8 @@ export class UserNotificationComponent implements OnInit {
         (data: any) => {
           this.novedadAdmin = this.listaAdmin(data);
           this.spinner.hide();
-          if (Object.keys(this.novedadAdmin).length === 0) {
-            console.log("No existe novedad!");
-          }
         },
         (err: any) => {
-          console.log(err);
           adminNoveltySubscribe.unsubscribe();
           this.showMessage(
             "Error al cargar las novedades realizadas por el Administrador",

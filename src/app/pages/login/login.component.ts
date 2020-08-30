@@ -58,7 +58,6 @@ export class LoginComponent implements OnInit {
 
   ingresar() {
     this.spinner.show();
-    console.log("ENTRA A LOGIN");
     const value = this.form.value;
     this.emailUser = value.phoneField;
     this.password = value.passwordField;
@@ -93,7 +92,6 @@ export class LoginComponent implements OnInit {
             this.router.navigateByUrl("dashboard");
           } else {
             this.spinner.hide();
-            console.log("NO ESTAS AUTORIZADO");
             this.display = true;
             this.onResetForm();
           }
@@ -101,7 +99,6 @@ export class LoginComponent implements OnInit {
         .catch((err) => {
           this.notFound = true;
           this.spinner.hide();
-          console.log(err);
           this.auth.logout();
         });
     }

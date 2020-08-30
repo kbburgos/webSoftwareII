@@ -96,7 +96,6 @@ export class ProductsComponent implements OnInit {
         this.filtrado(item);
       },
       (err: any) => {
-        console.log(err);
         this.spinner.hide();
         pro.unsubscribe();
         this.showMessage("Error al cargar los productos", "error", "Error!");
@@ -163,7 +162,6 @@ export class ProductsComponent implements OnInit {
       }
 
       this.allfiles.push(file[i]);
-      console.log(file[i]);
       const reader = new FileReader();
       (reader.onload = (fileData) => {
         this.previewUrl = reader.result;
@@ -171,7 +169,6 @@ export class ProductsComponent implements OnInit {
         this.Urls.push(this.previewUrl);
       }),
         (err: any) => {
-          console.log(err);
           this.showMessage("Error al cargar las imágenes", "error", "Error!");
         };
       reader.readAsDataURL(file[i]);
@@ -214,7 +211,6 @@ export class ProductsComponent implements OnInit {
         console;
         this.update(producto),
           (err: any) => {
-            console.log(err);
             this.showMessage(
               "Error al editar los productos",
               "error",
@@ -243,7 +239,6 @@ export class ProductsComponent implements OnInit {
       accept: () => {
         this.eliminarProduct(producto),
           (err: any) => {
-            console.log(err);
             this.showMessage(
               "Error al eliminar los productos",
               "error",
@@ -271,7 +266,6 @@ export class ProductsComponent implements OnInit {
 
     this.productosService.updateProduct(producto),
       (err: any) => {
-        console.log(err);
         this.showMessage("Error al editar los productos", "error", "Error!");
       };
     this.clearState();
@@ -308,11 +302,9 @@ export class ProductsComponent implements OnInit {
       .pushProductos(producto)
       .then((data: any) => {
         this.bandera = false;
-        console.log("Guardado");
         this.showMessage("Prducto creado exitósamente", "success", "Agregado!");
       })
       .catch((err: any) => {
-        console.log(err);
         this.showMessage("Error al crear el producto", "error", "Error!");
       });
     this.clearState();
@@ -321,7 +313,6 @@ export class ProductsComponent implements OnInit {
   eliminarProduct(producto: Products) {
     this.productosService.deleteProduct(producto.idProducto),
       (err: any) => {
-        console.log(err);
         this.showMessage("Error al eliminar los productos", "error", "Error!");
       };
     this.showMessage(

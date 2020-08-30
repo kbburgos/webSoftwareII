@@ -154,7 +154,6 @@ export class OnHoldComponent implements OnInit {
     this.verCompraApi = this.purchase.getPurchase().subscribe( (item: any) => {
       this.cantidadCompras = item.length;
       this.spinner.hide();
-      console.log('comrpas dentro del metodo: ', this.cantidadCompras);
     }, error => {
       this.spinner.hide();
       this.errorMessage('No se pudo cargar las compras');
@@ -238,7 +237,6 @@ export class OnHoldComponent implements OnInit {
   changeState(pedido: Orders) {
     this.pedido = pedido;
     this.spinner.show();
-    console.log(this.pedido.cantidades);
     let productoApi = '';
     let cantidadApi = '';
     for (let i = 0 ; i < this.pedido.productos.length; i++) {

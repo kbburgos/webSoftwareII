@@ -96,11 +96,9 @@ export class UsersComponent implements OnInit {
     const subs = this.user.usuarios().subscribe(
       (data: any) => {
         this.usuarios = this.filtrado(data);
-        console.log("usuarios ", data);
         this.spinner.hide();
       },
       (err: any) => {
-        console.log(err);
         this.spinner.hide();
         subs.unsubscribe();
         this.showMessage("Error al cargar los usuarios", "error", "Error!");
@@ -202,7 +200,6 @@ export class UsersComponent implements OnInit {
         this.showMessage("Usuario creado exitósamente", "success", "Agregado!");
       })
       .catch((err) => {
-        console.log(err);
         this.showMessage("Error al crear el usuario", "error", "Error!");
       });
   }
@@ -250,7 +247,6 @@ export class UsersComponent implements OnInit {
         console;
         this.guardarCambios(),
           (err: any) => {
-            console.log(err);
             this.showMessage("Error al editar el usuario", "error", "Error!");
           };
         this.edit = false;
@@ -261,8 +257,6 @@ export class UsersComponent implements OnInit {
 
   abrirEditar(user) {
     this.pass = user.contrasenia;
-    console.log("Este es el usuario ", user);
-    console.log("Esta es la contrasenia ", this.pass);
     this.edit = true;
     if (user.rol == "Admin") {
       this.rol = 1;
@@ -312,13 +306,11 @@ export class UsersComponent implements OnInit {
       .setUserInfo(this.datosUsuario)
       .toPromise()
       .then((data) => {
-        console.log("ingresado correctamente");
         this.cargar();
         this.edit = false;
         this.showMessage("Usuario editado exitósamente", "success", "Editado!");
       })
       .catch((err) => {
-        console.log(err);
         this.edit = false;
         this.showMessage("Error al editar el usuario", "error", "Error!");
       });
@@ -349,7 +341,6 @@ export class UsersComponent implements OnInit {
         );
       })
       .catch((err) => {
-        console.log(err);
         this.showMessage("Error al eliminar el usuario", "error", "Error!");
       });
   }

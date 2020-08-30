@@ -142,15 +142,12 @@ export class DeliveryNotificationComponent implements OnInit {
     this.spinner.show();
     let subsubscribe = this.deliverymanreportService.getNovedadesRepartidores()
     .subscribe((item: any) => {
-      console.log(item);
       this.deliverymannewView = this.listaFiltroClientes(this.listaFiltroRepartidores(item));
-      console.log(this.deliverymannewView);
 
     });
 
     let adminNoveltySubs = this.novelty.getnovedadesReporta(this.token, this.authService.dataUser.cedula)
     .subscribe((data:any)=>{
-      console.log(data);
       this.spinner.hide();
 /*
       this.novedadAdmin = this.listaAdmin(data);
@@ -196,7 +193,6 @@ export class DeliveryNotificationComponent implements OnInit {
       )
     },
     error=>{
-      console.log(error);
       this.showMessage(
         "Error al agregar la novedad", "error", "Error!"
       )

@@ -60,7 +60,6 @@ export class CustomersComponent implements OnInit {
         this.clientes=this.filtrado(data);
       },
       (err: any) => {
-        console.log(err);
         subs.unsubscribe();
       }
     );
