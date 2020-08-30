@@ -77,7 +77,6 @@ export class DeliverymanComponent implements OnInit {
             this.dato = data;
 
             if (this.dato.length > 0) {
-              console.log(this.dato);
               this.auth.saveIdStorage(
                 this.dato[0]['cedula']
               );

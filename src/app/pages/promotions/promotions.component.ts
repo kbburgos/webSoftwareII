@@ -77,7 +77,6 @@ export class PromotionsComponent implements OnInit {
         //subs.unsubscribe();
       },
       (err: any) => {
-        console.log(err);
         this.spinner.hide();
         subs.unsubscribe();
       }
@@ -186,11 +185,7 @@ export class PromotionsComponent implements OnInit {
     this.productosService
       .pushProductos(producto)
       .then((data: any) => {
-        console.log("Guardado");
         this.clearState();
-      })
-      .catch((err: any) => {
-        console.log(err);
       });
   }
 }

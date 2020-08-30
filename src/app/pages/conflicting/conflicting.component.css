@@ -8,11 +8,24 @@ table {
     width: 100%;
   }
 
+.uDetail {
+  color: blue;
+  cursor: pointer;
+}
 
-  td{
-    text-align: center;
-    margin-right: auto;
-    margin-left: auto;
-    align-content: center;
-    align-self: center;
+.datosDiv {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  background-color:#91CCDD;
+  color: white;
+  padding: 5px;
+}
+
+@media screen and (min-width: 400px) {  
+  .divCard {
+    width: 400px;
+    margin: 0 auto;
   }
+}

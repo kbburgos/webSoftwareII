@@ -11,18 +11,17 @@ table {
     width: 25%;
   }
 
-.someStyleClass 
-{
+.someStyleClass {
   background-color: transparent;
   color: black;
   border: transparent;
 }
-.uDetail{
+.uDetail {
   color: blue;
   cursor: pointer;
 }
 
-.datosDiv{
+.datosDiv {
     text-align: center;
     font-size: 1.25rem;
     font-weight: bold;
@@ -32,12 +31,12 @@ table {
     padding: 5px;
 }
 
-.labelCard{
+.labelCard {
     color: black;
     font-weight: bold;
 }
 
-.datosDivFooter{
+.datosDivFooter {
   text-align: left;
   font-size: 1.25rem;
   font-weight: bold;
@@ -55,12 +54,10 @@ table {
   }
 }
 
-.divSimbology{
+.divSimbology {
   margin-left: 5px;
   margin-top: 5px;
 }
-
-
 
 td {
   text-align: center;
@@ -70,10 +67,10 @@ td {
   align-self: center;
 }
 
-.userOrder{
+.userOrder {
   border: none;
 }
 
-.tituloCampo{
+.tituloCampo {
   text-align: center;
 }

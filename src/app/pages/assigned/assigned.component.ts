@@ -159,7 +159,6 @@ export class AssignedComponent implements OnInit {
    * @author Danny Rios <dprios@espol.edu.ec>
   */
   sendOrder(pedidosAsignados) {
-    console.log(pedidosAsignados);
     this.confirmationService.confirm({
       header: 'Confirmación de pedido en camino',
       message: '¿Deseas cambiar el estado del pedido?',

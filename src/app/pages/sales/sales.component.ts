@@ -50,11 +50,9 @@ export class SalesComponent implements OnInit {
     this.spinner.show();
     let subs = this.sales.getcompras().subscribe(
       (data: any) => {
-        console.log(data);
         this.spinner.hide();
       },
       (err: any) => {
-        console.log(err);
         this.spinner.hide();
         subs.unsubscribe();
       }

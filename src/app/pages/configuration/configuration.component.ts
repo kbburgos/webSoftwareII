@@ -58,11 +58,9 @@ export class ConfigurationComponent implements OnInit {
   cargar() {
     const subs = this.userS.userById(localStorage.getItem("cedula")).subscribe(
       (data: any) => {
-        console.log(data);
         this.usuario = data;
       },
       (err: any) => {
-        console.log(err);
         subs.unsubscribe();
       }
     );
@@ -176,7 +174,6 @@ export class ConfigurationComponent implements OnInit {
 
     this.userS.setUserInfo(this.datosUsuario).subscribe(
       (item) => {
-        console.log("Ingreso correcto");
         this.showMessage(
           "Usuario editado con &eacute;xito",
           "success",
@@ -184,7 +181,6 @@ export class ConfigurationComponent implements OnInit {
         );
       },
       (error) => {
-        console.log(error);
         this.showMessage("Error al editar el usuario", "error", "Error!");
       }
     );

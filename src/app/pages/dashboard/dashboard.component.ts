@@ -169,7 +169,6 @@ export class DashboardComponent implements OnInit {
    * @author Danny Rios <dprios@espol.edu.ec>
    */
   onSortChangeProducts() {
-    console.log(this.sortkeyProduct);
     if (this.sortkeyProduct.indexOf('!') === 0) {
       this.sortProducts(-1);
     } else if (this.sortkeyProduct.indexOf('!') === -1) {
@@ -209,7 +208,6 @@ export class DashboardComponent implements OnInit {
    * @author Danny Rios <dprios@espol.edu.ec>
    */
   onSortChange() {
-    console.log(this.sortKey);
     if (this.sortKey.indexOf('!') === 0) {
       this.sort(-1);
     } else if (this.sortKey.indexOf('!') === -1) {

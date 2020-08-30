@@ -1,10 +1,8 @@
 
 .sidebar-wrapper li.active > a {
-    background-color: rgba(44, 167, 204, 0.486);
-    
+    background-color: rgba(44, 167, 204, 0.486);  
     box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(145, 141, 141, 0.4);
 }
-
 
 .sidebar-wrapper a:hover{
     background-color: #302d2d85;

@@ -140,7 +140,6 @@ export class LoginComponent implements OnInit {
   async ingresar() {
     this.contrasenio = false;
     this.spinner.show();
-    console.log("ENTRA A LOGIN");
     const value = this.form.value;
     this.emailUser = value.email;
     this.password = value.pass;

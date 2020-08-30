@@ -86,7 +86,6 @@ export class OldPromotionComponent implements OnInit {
         this.filtrado(item);
       },
       (err: any) => {
-        console.log(err);
         this.spinner.hide();
         pro.unsubscribe();
         this.showMessage('Error al cargar las promociones', 'error', 'Error!');

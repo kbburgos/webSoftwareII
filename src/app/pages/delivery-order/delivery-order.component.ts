@@ -178,7 +178,6 @@ export class DeliveryOrderComponent implements OnInit {
     this.loginApi = this.authDeliveryman.loginToApi(environment.emailRepartidor, environment.passwRReartidor).subscribe( (item: any) => {
       this.token = item.token;
       this.refreshToken = item.refreshToken;
-      console.log(this.token);
     }, ( err ) => {
       this.spinner.hide();
       this.errorMessage('No se pudo acceder al api');
@@ -197,7 +196,6 @@ export class DeliveryOrderComponent implements OnInit {
   cargarCompras() {
     this.verCompraApi = this.purchase.getPurchaseRepartidor(this.token).subscribe( (item: any) => {
       this.cantidadCompras = item.length;
-      console.log('cantidad de compras: ', this.cantidadCompras);
       this.spinner.hide();
     }, ( err ) => {
       this.spinner.hide();
@@ -311,7 +309,6 @@ export class DeliveryOrderComponent implements OnInit {
       idusuario: this.pedidoCambiaEstado.idUsuario,
       entregaDomocilio: this.pedidoCambiaEstado.isDomicilio,
     }
-    console.log(compraNueva);
     this.crearCompraApi = this.purchase.createPurchaseRepartidor(this.token, compraNueva).subscribe((item: any) => {
       this.confirmationAction('compra');
       this.cargarCompras();
@@ -374,12 +371,10 @@ export class DeliveryOrderComponent implements OnInit {
       cubiertos: pedido.cubiertos,
       estado: '3',
     }
-    console.log(pedidoNuevo);
     this.crearPedidoApi = this.orderService.setPedidosToDispatchedByRepartidor(this.token, pedidoNuevo).subscribe( item => {
       this.confirmationAction('pedido');
     },
     error => {
-      console.log(error);
       this.errorMessage('No se pudo realizar el pedido');
     });
     this.display = false;

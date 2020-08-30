@@ -88,11 +88,9 @@ export class CurrentPromotionComponent implements OnInit {
     this.spinner.show();
     let pro = this.productosService.getProductos().subscribe(
       (item: any) => {
-        console.log(item);
         this.filtrado(item);
       },
       (err: any) => {
-        console.log(err);
         this.spinner.hide();
         pro.unsubscribe();
         this.showMessage("Error al cargar las promociones", "error", "Error!");
@@ -205,7 +203,6 @@ export class CurrentPromotionComponent implements OnInit {
         console;
         this.update(producto),
           (err: any) => {
-            console.log(err);
             this.showMessage("Error al editar la promoción", "error", "Error!");
           };
         this.display = false;
@@ -232,7 +229,6 @@ export class CurrentPromotionComponent implements OnInit {
       accept: () => {
         this.eliminarProduct(producto),
           (err: any) => {
-            console.log(err);
             this.showMessage(
               "Error al eliminar la promoción",
               "error",
@@ -260,7 +256,6 @@ export class CurrentPromotionComponent implements OnInit {
     producto.idCategoria = this.categoria;
     this.productosService.updateProduct(producto),
       (err: any) => {
-        console.log(err);
         this.showMessage("Error al editar la promoción", "error", "Error!");
       };
     this.clearState();
@@ -304,7 +299,6 @@ export class CurrentPromotionComponent implements OnInit {
         this.Urls.push(this.previewUrl);
       }),
         (err: any) => {
-          console.log(err);
           this.showMessage("Error al cargar las imágenes", "error", "Error!");
         };
       reader.readAsDataURL(file[i]);
@@ -333,7 +327,6 @@ export class CurrentPromotionComponent implements OnInit {
     producto.isActivo = false;
     this.productosService.updateProduct(producto),
       (err: any) => {
-        console.log(err);
         this.showMessage("Error al eliminar la promoción", "error", "Error!");
       };
     this.showMessage("Promoción inactiva", "success", "Inactiva!");
@@ -374,7 +367,6 @@ export class CurrentPromotionComponent implements OnInit {
     this.productosService
       .pushProductos(producto)
       .then((data: any) => {
-        console.log("Guardado");
         this.display = false;
         this.bandera = false;
         this.clearState();
@@ -387,7 +379,6 @@ export class CurrentPromotionComponent implements OnInit {
       .catch((err: any) => {
         this.bandera = false;
         this.showMessage("Error al crear la promoción", "error", "Error!");
-        console.log(err);
       });
   }
 

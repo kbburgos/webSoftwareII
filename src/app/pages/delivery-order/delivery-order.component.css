@@ -1,14 +1,13 @@
-.footerOrder{
+.footerOrder {
     text-align: center;
 }
 
-.uDetail{
+.uDetail {
     color: blue;
     cursor: pointer;
 }
 
-
-.datosDiv{
+.datosDiv {
     text-align: center;
     font-size: 1.25rem;
     font-weight: bold;
@@ -18,12 +17,12 @@
     padding: 5px;
 }
 
-.labelCard{
+.labelCard {
     color: black;
     font-weight: bold;
 }
 
-.datosDivFooter{
+.datosDivFooter {
   text-align: left;
   font-size: 1.25rem;
   font-weight: bold;
@@ -41,19 +40,19 @@
   }
 }
 
-.divSimbology{
+.divSimbology {
   margin-left: 5px;
   margin-top: 5px;
 }
 
-.logOut{
+.logOut {
   margin-top: 10px;
   margin-bottom: 10px;
   text-align: right;
   margin-right: 15px;
 }
 
-.buttonFinally, .logOutBtn{
+.buttonFinally, .logOutBtn {
   background-color:#91CCDD;
   border: none;
 }
