@@ -9,7 +9,6 @@ import { ComponentsModule } from './components/components.module';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AppComponent } from './app.component';
-import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -23,6 +22,7 @@ import { DeliveryOrderComponent } from './pages/delivery-order/delivery-order.co
 import { AuthDeliverymanGuard } from './core/guard/auth-deliveryman.guard';
 import { DialogModule } from 'primeng/dialog';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire'
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { TokenInterceptorService } from './core/services/interceptor/token-interceptor.service';
 import { UserInfoService } from './core/services/userInfo/user-info.service';
@@ -39,6 +39,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AccordionModule } from 'primeng/accordion';
 import { ToastModule } from 'primeng/toast';
 import { DropdownModule } from 'primeng/dropdown';
+import { PasswordComponent } from './pages/password/password.component';
 
 @NgModule({
   imports: [
@@ -82,7 +83,8 @@ import { DropdownModule } from 'primeng/dropdown';
     AdminLayoutComponent,
     LoginComponent,
     DeliverymanComponent,
-    DeliveryOrderComponent
+    DeliveryOrderComponent,
+    PasswordComponent
   ],
   providers: [
     ProductoService,

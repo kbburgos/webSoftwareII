@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
-import { AngularFireAuth } from "@angular/fire/auth";
 import { Router } from "@angular/router";
 import { environment } from "../../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { Token } from "../../interface/token";
 import { Usuarios } from "../../interface/Usuarios";
-import { tap, flatMap } from "rxjs/operators";
+import { tap } from "rxjs/operators";
+import { AngularFireAuth } from "@angular/fire/auth";
+import * as firebase from "firebase/app";
 
 @Injectable({
   providedIn: "root",
@@ -22,18 +23,16 @@ import { tap, flatMap } from "rxjs/operators";
 export class AuthService {
   private readonly JWT_TOKEN = "JWT_TOKEN";
   private readonly REFRESH_TOKEN = "REFRESH_TOKEN";
-
   loggedUser: string;
   token: Token;
   isAuth: boolean = false;
   dataUser: Usuarios;
-
   isAdmin: boolean = false;
 
   constructor(
     private httpClient: HttpClient,
     private router: Router,
-    private AFauth: AngularFireAuth
+    private afAuth: AngularFireAuth
   ) {}
 
   /**
@@ -56,6 +55,28 @@ export class AuthService {
     };
     return this.httpClient.post(environment.rutas.urlLogin, body);
   }
+
+  public loginToFirebase(email: string, password: string) {
+    return new Promise((resolve, reject) => {
+      this.afAuth.auth
+        .signInWithEmailAndPassword(email, password)
+        .then((res) => {
+          const dataAuth = {
+            email: res.user.email,
+            id: res.user.uid,
+          };
+          resolve(dataAuth);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
+
+
+  async sendPasswordResetEmail(passwordResetEmail: string) {
+    return await this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail);
+ }
 
   /**
    * @static
@@ -207,5 +228,4 @@ export class AuthService {
     localStorage.removeItem("cedula");
     localStorage.removeItem("rol");
   }
-
 }
