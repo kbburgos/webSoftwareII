@@ -1,0 +1,862 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>AuthService | OmiyPali</title>
+	<meta name="description" content="Documentation for OmiyPali">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">OmiyPali</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="../modules/_app_core_services_auth_auth_service_.html">&quot;app/core/services/auth/auth.service&quot;</a>
+				</li>
+				<li>
+					<a href="_app_core_services_auth_auth_service_.authservice.html">AuthService</a>
+				</li>
+			</ul>
+			<h1>Class AuthService</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">AuthService</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_app_core_services_auth_auth_service_.authservice.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_app_core_services_auth_auth_service_.authservice.html#jwt_token" class="tsd-kind-icon">JWT_<wbr>TOKEN</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_app_core_services_auth_auth_service_.authservice.html#refresh_token" class="tsd-kind-icon">REFRESH_<wbr>TOKEN</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_app_core_services_auth_auth_service_.authservice.html#afauth" class="tsd-kind-icon">af<wbr>Auth</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_app_core_services_auth_auth_service_.authservice.html#datauser" class="tsd-kind-icon">data<wbr>User</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_app_core_services_auth_auth_service_.authservice.html#httpclient" class="tsd-kind-icon">http<wbr>Client</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_app_core_services_auth_auth_service_.authservice.html#isadmin" class="tsd-kind-icon">is<wbr>Admin</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_app_core_services_auth_auth_service_.authservice.html#isauth" class="tsd-kind-icon">is<wbr>Auth</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_app_core_services_auth_auth_service_.authservice.html#loggeduser" class="tsd-kind-icon">logged<wbr>User</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_app_core_services_auth_auth_service_.authservice.html#router" class="tsd-kind-icon">router</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_app_core_services_auth_auth_service_.authservice.html#token" class="tsd-kind-icon">token</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_app_core_services_auth_auth_service_.authservice.html#dologinuser" class="tsd-kind-icon">do<wbr>Login<wbr>User</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_app_core_services_auth_auth_service_.authservice.html#dologoutuser" class="tsd-kind-icon">do<wbr>Logout<wbr>User</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_app_core_services_auth_auth_service_.authservice.html#getjwttoken" class="tsd-kind-icon">get<wbr>Jwt<wbr>Token</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_app_core_services_auth_auth_service_.authservice.html#getrefreshtoken" class="tsd-kind-icon">get<wbr>Refresh<wbr>Token</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_app_core_services_auth_auth_service_.authservice.html#isloggedin" class="tsd-kind-icon">is<wbr>Logged<wbr>In</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_app_core_services_auth_auth_service_.authservice.html#logintoapi" class="tsd-kind-icon">login<wbr>ToApi</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_app_core_services_auth_auth_service_.authservice.html#logintofirebase" class="tsd-kind-icon">login<wbr>ToFirebase</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_app_core_services_auth_auth_service_.authservice.html#logout" class="tsd-kind-icon">logout</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_app_core_services_auth_auth_service_.authservice.html#refreshtoken" class="tsd-kind-icon">refresh<wbr>Token</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_app_core_services_auth_auth_service_.authservice.html#removetokens" class="tsd-kind-icon">remove<wbr>Tokens</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_app_core_services_auth_auth_service_.authservice.html#sendpasswordresetemail" class="tsd-kind-icon">send<wbr>Password<wbr>Reset<wbr>Email</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_app_core_services_auth_auth_service_.authservice.html#storejwttoken" class="tsd-kind-icon">store<wbr>Jwt<wbr>Token</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_app_core_services_auth_auth_service_.authservice.html#storetokens" class="tsd-kind-icon">store<wbr>Tokens</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Auth<wbr>Service<span class="tsd-signature-symbol">(</span>httpClient<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HttpClient</span>, router<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Router</span>, afAuth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AngularFireAuth</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_app_core_services_auth_auth_service_.authservice.html" class="tsd-signature-type">AuthService</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L30">app/core/services/auth/auth.service.ts:30</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>httpClient: <span class="tsd-signature-type">HttpClient</span></h5>
+								</li>
+								<li>
+									<h5>router: <span class="tsd-signature-type">Router</span></h5>
+								</li>
+								<li>
+									<h5>afAuth: <span class="tsd-signature-type">AngularFireAuth</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_app_core_services_auth_auth_service_.authservice.html" class="tsd-signature-type">AuthService</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="jwt_token" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> JWT_<wbr>TOKEN</h3>
+					<div class="tsd-signature tsd-kind-icon">JWT_<wbr>TOKEN<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"JWT_TOKEN"</span><span class="tsd-signature-symbol"> = &quot;JWT_TOKEN&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L24">app/core/services/auth/auth.service.ts:24</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="refresh_token" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> REFRESH_<wbr>TOKEN</h3>
+					<div class="tsd-signature tsd-kind-icon">REFRESH_<wbr>TOKEN<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"REFRESH_TOKEN"</span><span class="tsd-signature-symbol"> = &quot;REFRESH_TOKEN&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L25">app/core/services/auth/auth.service.ts:25</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="afauth" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> af<wbr>Auth</h3>
+					<div class="tsd-signature tsd-kind-icon">af<wbr>Auth<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AngularFireAuth</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L35">app/core/services/auth/auth.service.ts:35</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="datauser" class="tsd-anchor"></a>
+					<h3>data<wbr>User</h3>
+					<div class="tsd-signature tsd-kind-icon">data<wbr>User<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_app_core_interface_usuarios_.usuarios.html" class="tsd-signature-type">Usuarios</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L29">app/core/services/auth/auth.service.ts:29</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="httpclient" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> http<wbr>Client</h3>
+					<div class="tsd-signature tsd-kind-icon">http<wbr>Client<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HttpClient</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L33">app/core/services/auth/auth.service.ts:33</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="isadmin" class="tsd-anchor"></a>
+					<h3>is<wbr>Admin</h3>
+					<div class="tsd-signature tsd-kind-icon">is<wbr>Admin<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L30">app/core/services/auth/auth.service.ts:30</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="isauth" class="tsd-anchor"></a>
+					<h3>is<wbr>Auth</h3>
+					<div class="tsd-signature tsd-kind-icon">is<wbr>Auth<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L28">app/core/services/auth/auth.service.ts:28</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="loggeduser" class="tsd-anchor"></a>
+					<h3>logged<wbr>User</h3>
+					<div class="tsd-signature tsd-kind-icon">logged<wbr>User<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L26">app/core/services/auth/auth.service.ts:26</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="router" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> router</h3>
+					<div class="tsd-signature tsd-kind-icon">router<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Router</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L34">app/core/services/auth/auth.service.ts:34</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="token" class="tsd-anchor"></a>
+					<h3>token</h3>
+					<div class="tsd-signature tsd-kind-icon">token<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_app_core_interface_token_.token.html" class="tsd-signature-type">Token</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L27">app/core/services/auth/auth.service.ts:27</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="dologinuser" class="tsd-anchor"></a>
+					<h3>do<wbr>Login<wbr>User</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">do<wbr>Login<wbr>User<span class="tsd-signature-symbol">(</span>tokens<span class="tsd-signature-symbol">: </span><a href="../interfaces/_app_core_interface_token_.token.html" class="tsd-signature-type">Token</a>, cedula<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, rol<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L156">app/core/services/auth/auth.service.ts:156</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>async</dt>
+									<dd></dd>
+									<dt>method</dt>
+									<dd></dd>
+									<dt>version</dt>
+									<dd><p>1.0.0</p>
+									</dd>
+									<dt>desc</dt>
+									<dd><p>this method returns a new token for the user session. <br> Creation Date: 08/10/2020</p>
+									</dd>
+									<dt>author</dt>
+									<dd><p>Karla Burgos Gayrey <a href="mailto:&#x6b;&#x62;&#98;&#117;&#114;&#103;&#x6f;&#x73;&#x40;&#x65;&#115;&#x70;&#x6f;&#x6c;&#x2e;&#x65;&#x64;&#x75;&#46;&#x65;&#x63;">&#x6b;&#x62;&#98;&#117;&#114;&#103;&#x6f;&#x73;&#x40;&#x65;&#115;&#x70;&#x6f;&#x6c;&#x2e;&#x65;&#x64;&#x75;&#46;&#x65;&#x63;</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>tokens: <a href="../interfaces/_app_core_interface_token_.token.html" class="tsd-signature-type">Token</a></h5>
+								</li>
+								<li>
+									<h5>cedula: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>rol: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="dologoutuser" class="tsd-anchor"></a>
+					<h3>do<wbr>Logout<wbr>User</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">do<wbr>Logout<wbr>User<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L168">app/core/services/auth/auth.service.ts:168</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>async</dt>
+									<dd></dd>
+									<dt>method</dt>
+									<dd></dd>
+									<dt>version</dt>
+									<dd><p>1.0.0</p>
+									</dd>
+									<dt>desc</dt>
+									<dd><p>this method is called when the user close session from the web app. <br> Creation Date: 08/10/2020</p>
+									</dd>
+									<dt>author</dt>
+									<dd><p>Karla Burgos Gayrey <a href="mailto:&#x6b;&#98;&#x62;&#x75;&#114;&#x67;&#111;&#x73;&#64;&#x65;&#115;&#x70;&#111;&#108;&#x2e;&#101;&#100;&#117;&#46;&#x65;&#99;">&#x6b;&#98;&#x62;&#x75;&#114;&#x67;&#111;&#x73;&#64;&#x65;&#115;&#x70;&#111;&#108;&#x2e;&#101;&#100;&#117;&#46;&#x65;&#99;</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getjwttoken" class="tsd-anchor"></a>
+					<h3>get<wbr>Jwt<wbr>Token</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Jwt<wbr>Token<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L144">app/core/services/auth/auth.service.ts:144</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>async</dt>
+									<dd></dd>
+									<dt>method</dt>
+									<dd></dd>
+									<dt>version</dt>
+									<dd><p>1.0.0</p>
+									</dd>
+									<dt>desc</dt>
+									<dd><p>this method returns a new token for the user session. <br> Creation Date: 08/10/2020</p>
+									</dd>
+									<dt>author</dt>
+									<dd><p>Karla Burgos Gayrey <a href="mailto:&#x6b;&#x62;&#98;&#x75;&#114;&#103;&#x6f;&#x73;&#x40;&#101;&#115;&#112;&#111;&#108;&#x2e;&#x65;&#100;&#117;&#46;&#x65;&#99;">&#x6b;&#x62;&#98;&#x75;&#114;&#103;&#x6f;&#x73;&#x40;&#101;&#115;&#112;&#111;&#108;&#x2e;&#x65;&#100;&#117;&#46;&#x65;&#99;</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>user token.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getrefreshtoken" class="tsd-anchor"></a>
+					<h3>get<wbr>Refresh<wbr>Token</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Refresh<wbr>Token<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L182">app/core/services/auth/auth.service.ts:182</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>async</dt>
+									<dd></dd>
+									<dt>method</dt>
+									<dd></dd>
+									<dt>version</dt>
+									<dd><p>1.0.0</p>
+									</dd>
+									<dt>desc</dt>
+									<dd><p>this method return the refresh token from the localStorage. <br> Creation Date: 08/10/2020</p>
+									</dd>
+									<dt>author</dt>
+									<dd><p>Karla Burgos Gayrey <a href="mailto:&#x6b;&#98;&#x62;&#x75;&#114;&#x67;&#111;&#115;&#64;&#101;&#x73;&#112;&#x6f;&#x6c;&#x2e;&#101;&#100;&#x75;&#46;&#x65;&#x63;">&#x6b;&#98;&#x62;&#x75;&#114;&#x67;&#111;&#115;&#64;&#101;&#x73;&#112;&#x6f;&#x6c;&#x2e;&#101;&#100;&#x75;&#46;&#x65;&#x63;</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>JSON user access token.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="isloggedin" class="tsd-anchor"></a>
+					<h3>is<wbr>Logged<wbr>In</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Logged<wbr>In<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L104">app/core/services/auth/auth.service.ts:104</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>async</dt>
+									<dd></dd>
+									<dt>method</dt>
+									<dd></dd>
+									<dt>version</dt>
+									<dd><p>1.0.0</p>
+									</dd>
+									<dt>desc</dt>
+									<dd><p>This method looking for the user token, if there is one on the localStorage. <br> Creation Date: 08/10/2020</p>
+									</dd>
+									<dt>author</dt>
+									<dd><p>Karla Burgos Gayrey <a href="mailto:&#107;&#x62;&#98;&#x75;&#114;&#103;&#111;&#x73;&#64;&#x65;&#115;&#112;&#111;&#x6c;&#x2e;&#x65;&#x64;&#x75;&#x2e;&#x65;&#x63;">&#107;&#x62;&#98;&#x75;&#114;&#103;&#111;&#x73;&#64;&#x65;&#115;&#112;&#111;&#x6c;&#x2e;&#x65;&#x64;&#x75;&#x2e;&#x65;&#x63;</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>user token.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="logintoapi" class="tsd-anchor"></a>
+					<h3>login<wbr>ToApi</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">login<wbr>ToApi<span class="tsd-signature-symbol">(</span>email<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, clave<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L51">app/core/services/auth/auth.service.ts:51</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>static</dt>
+									<dd></dd>
+									<dt>method</dt>
+									<dd></dd>
+									<dt>version</dt>
+									<dd><p>1.0.0</p>
+									</dd>
+									<dt>author</dt>
+									<dd><p>Karla Burgos Gayrey <a href="mailto:&#x6b;&#98;&#98;&#x75;&#x72;&#103;&#111;&#x73;&#64;&#101;&#115;&#112;&#x6f;&#108;&#x2e;&#101;&#x64;&#117;&#46;&#101;&#x63;">&#x6b;&#98;&#98;&#x75;&#x72;&#103;&#111;&#x73;&#64;&#101;&#115;&#112;&#x6f;&#108;&#x2e;&#101;&#x64;&#117;&#46;&#101;&#x63;</a></p>
+									</dd>
+									<dt>desc</dt>
+									<dd><p>This method is responsible for searching an user with credentials in the database. <br> Creation Date: 08/07/2020</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>email: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>clave: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>JSON with the data obtained from the query.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="logintofirebase" class="tsd-anchor"></a>
+					<h3>login<wbr>ToFirebase</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">login<wbr>ToFirebase<span class="tsd-signature-symbol">(</span>email<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, password<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L59">app/core/services/auth/auth.service.ts:59</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>email: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>password: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="logout" class="tsd-anchor"></a>
+					<h3>logout</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">logout<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L90">app/core/services/auth/auth.service.ts:90</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>static</dt>
+									<dd></dd>
+									<dt>method</dt>
+									<dd></dd>
+									<dt>version</dt>
+									<dd><p>1.0.0</p>
+									</dd>
+									<dt>author</dt>
+									<dd><p>Karla Burgos Gayrey <a href="mailto:&#107;&#x62;&#98;&#117;&#x72;&#x67;&#x6f;&#x73;&#x40;&#101;&#x73;&#112;&#111;&#x6c;&#x2e;&#101;&#x64;&#117;&#x2e;&#101;&#99;">&#107;&#x62;&#98;&#117;&#x72;&#x67;&#x6f;&#x73;&#x40;&#101;&#x73;&#112;&#111;&#x6c;&#x2e;&#101;&#x64;&#117;&#x2e;&#101;&#99;</a></p>
+									</dd>
+									<dt>desc</dt>
+									<dd><p>This method is responsible for link the doLogoutUser. <br> Creation Date: 08/10/2020</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="refreshtoken" class="tsd-anchor"></a>
+					<h3>refresh<wbr>Token</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">refresh<wbr>Token<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_app_core_interface_token_.token.html" class="tsd-signature-type">Token</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L118">app/core/services/auth/auth.service.ts:118</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>async</dt>
+									<dd></dd>
+									<dt>method</dt>
+									<dd></dd>
+									<dt>version</dt>
+									<dd><p>1.0.0</p>
+									</dd>
+									<dt>desc</dt>
+									<dd><p>this method is responsable for refresh the user token when that is expired. <br> Creation Date: 08/10/2020</p>
+									</dd>
+									<dt>author</dt>
+									<dd><p>Karla Burgos Gayrey <a href="mailto:&#x6b;&#x62;&#98;&#x75;&#x72;&#103;&#111;&#115;&#64;&#101;&#x73;&#112;&#111;&#108;&#x2e;&#x65;&#100;&#117;&#46;&#101;&#x63;">&#x6b;&#x62;&#98;&#x75;&#x72;&#103;&#111;&#115;&#64;&#101;&#x73;&#112;&#111;&#108;&#x2e;&#x65;&#100;&#117;&#46;&#101;&#x63;</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_app_core_interface_token_.token.html" class="tsd-signature-type">Token</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>new token.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="removetokens" class="tsd-anchor"></a>
+					<h3>remove<wbr>Tokens</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">remove<wbr>Tokens<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L225">app/core/services/auth/auth.service.ts:225</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>async</dt>
+									<dd></dd>
+									<dt>method</dt>
+									<dd></dd>
+									<dt>version</dt>
+									<dd><p>1.0.0</p>
+									</dd>
+									<dt>desc</dt>
+									<dd><p>this method remove from the localStorage the user authorization token. <br> Creation Date: 08/10/2020</p>
+									</dd>
+									<dt>author</dt>
+									<dd><p>Karla Burgos Gayrey <a href="mailto:&#107;&#98;&#98;&#117;&#x72;&#x67;&#111;&#115;&#x40;&#101;&#x73;&#x70;&#x6f;&#x6c;&#x2e;&#101;&#100;&#x75;&#x2e;&#x65;&#x63;">&#107;&#98;&#98;&#117;&#x72;&#x67;&#111;&#115;&#x40;&#101;&#x73;&#x70;&#x6f;&#x6c;&#x2e;&#101;&#100;&#x75;&#x2e;&#x65;&#x63;</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="sendpasswordresetemail" class="tsd-anchor"></a>
+					<h3>send<wbr>Password<wbr>Reset<wbr>Email</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">send<wbr>Password<wbr>Reset<wbr>Email<span class="tsd-signature-symbol">(</span>passwordResetEmail<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L77">app/core/services/auth/auth.service.ts:77</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>passwordResetEmail: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="storejwttoken" class="tsd-anchor"></a>
+					<h3>store<wbr>Jwt<wbr>Token</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">store<wbr>Jwt<wbr>Token<span class="tsd-signature-symbol">(</span>jwt<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L195">app/core/services/auth/auth.service.ts:195</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>async</dt>
+									<dd></dd>
+									<dt>method</dt>
+									<dd></dd>
+									<dt>version</dt>
+									<dd><p>1.0.0</p>
+									</dd>
+									<dt>desc</dt>
+									<dd><p>this method storage the user authorization token in the localStorage. <br> Creation Date: 08/10/2020</p>
+									</dd>
+									<dt>author</dt>
+									<dd><p>Karla Burgos Gayrey <a href="mailto:&#x6b;&#98;&#x62;&#x75;&#x72;&#103;&#x6f;&#115;&#64;&#x65;&#x73;&#112;&#x6f;&#x6c;&#46;&#101;&#100;&#117;&#46;&#x65;&#99;">&#x6b;&#98;&#x62;&#x75;&#x72;&#103;&#x6f;&#115;&#64;&#x65;&#x73;&#112;&#x6f;&#x6c;&#46;&#101;&#100;&#117;&#46;&#x65;&#99;</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>jwt: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<p>JSON user access token.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="storetokens" class="tsd-anchor"></a>
+					<h3>store<wbr>Tokens</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">store<wbr>Tokens<span class="tsd-signature-symbol">(</span>tokens<span class="tsd-signature-symbol">: </span><a href="../interfaces/_app_core_interface_token_.token.html" class="tsd-signature-type">Token</a>, cedula<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, rol<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kbburgos/webSoftwareII/blob/e6db306/src/app/core/services/auth/auth.service.ts#L209">app/core/services/auth/auth.service.ts:209</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>async</dt>
+									<dd></dd>
+									<dt>method</dt>
+									<dd></dd>
+									<dt>version</dt>
+									<dd><p>1.0.0</p>
+									</dd>
+									<dt>desc</dt>
+									<dd><p>this method storage the user authorization token in the localStorage. <br> Creation Date: 08/10/2020</p>
+									</dd>
+									<dt>author</dt>
+									<dd><p>Karla Burgos Gayrey <a href="mailto:&#107;&#x62;&#98;&#x75;&#114;&#x67;&#111;&#115;&#x40;&#x65;&#115;&#x70;&#x6f;&#108;&#x2e;&#x65;&#x64;&#117;&#46;&#x65;&#99;">&#107;&#x62;&#98;&#x75;&#114;&#x67;&#111;&#115;&#x40;&#x65;&#115;&#x70;&#x6f;&#108;&#x2e;&#x65;&#x64;&#117;&#46;&#x65;&#99;</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>tokens: <a href="../interfaces/_app_core_interface_token_.token.html" class="tsd-signature-type">Token</a></h5>
+								</li>
+								<li>
+									<h5>cedula: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>rol: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<p>JSON user information.</p>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="../modules/_app_core_services_auth_auth_service_.html">&quot;app/core/services/auth/auth.service&quot;</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-module">
+						<a href="_app_core_services_auth_auth_service_.authservice.html" class="tsd-kind-icon">Auth<wbr>Service</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#jwt_token" class="tsd-kind-icon">JWT_<wbr>TOKEN</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#refresh_token" class="tsd-kind-icon">REFRESH_<wbr>TOKEN</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#afauth" class="tsd-kind-icon">af<wbr>Auth</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#datauser" class="tsd-kind-icon">data<wbr>User</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#httpclient" class="tsd-kind-icon">http<wbr>Client</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#isadmin" class="tsd-kind-icon">is<wbr>Admin</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#isauth" class="tsd-kind-icon">is<wbr>Auth</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#loggeduser" class="tsd-kind-icon">logged<wbr>User</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#router" class="tsd-kind-icon">router</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#token" class="tsd-kind-icon">token</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#dologinuser" class="tsd-kind-icon">do<wbr>Login<wbr>User</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#dologoutuser" class="tsd-kind-icon">do<wbr>Logout<wbr>User</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#getjwttoken" class="tsd-kind-icon">get<wbr>Jwt<wbr>Token</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#getrefreshtoken" class="tsd-kind-icon">get<wbr>Refresh<wbr>Token</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#isloggedin" class="tsd-kind-icon">is<wbr>Logged<wbr>In</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#logintoapi" class="tsd-kind-icon">login<wbr>ToApi</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#logintofirebase" class="tsd-kind-icon">login<wbr>ToFirebase</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#logout" class="tsd-kind-icon">logout</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#refreshtoken" class="tsd-kind-icon">refresh<wbr>Token</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#removetokens" class="tsd-kind-icon">remove<wbr>Tokens</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#sendpasswordresetemail" class="tsd-kind-icon">send<wbr>Password<wbr>Reset<wbr>Email</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#storejwttoken" class="tsd-kind-icon">store<wbr>Jwt<wbr>Token</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_app_core_services_auth_auth_service_.authservice.html#storetokens" class="tsd-kind-icon">store<wbr>Tokens</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
