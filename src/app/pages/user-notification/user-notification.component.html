@@ -1,74 +1,23 @@
 <div class="main-content">
-  <p-tabView>
-  <p-tabPanel header="Novedades por administrador">
-  <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header card-header-info">
-                <div class="row">
-                    <div class="col-md-10">
-                        <h4 class="card-title">Lista de novedades</h4>
-                    </div>
-                    <div class="col-md-2 ui-dialog-buttonpane">
-                        <button
-                          class="secundary"
-                          type="text"
-                          (click)="showAddDialog()"
-                          pButton
-                          icon="pi pi-plus"
-                          label="  Nuevo"
-                        ></button>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body" id="listaAdmin">
-                  <p-table 
-                    [columns]="cols" 
-                    [value]="novedadAdmin" 
-                    [responsive]="true" 
-                    sortMode="multiple" 
-                    [paginator]="true" 
-                    [rows]="3" 
-                    #dt  >
-                    <ng-template pTemplate="header" >
-                        <tr>
-                            <th>C&Eacute;DULA</th>
-                            <th>REPARTIDOR</th>
-                            <th>NOVEDAD</th>
-                        </tr>
-                        <tr>
-                            <th *ngFor="let col of cols" [ngSwitch]="col.field" class="ui-fluid">
-                                <input pInputText type="text" [style]="{'width':'100%'}" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                            </th>
-                            
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-novedades>
-                      <tr >
-                            <td>{{ novedades.idUsuarioreportado }}</td>
-                            <td>{{ novedades.usuarioReportado }}</td>
-                            <td>{{ novedades.descripcion }}</td>
-                      </tr>
-                    </ng-template>
-                  </p-table>
-                </div>
-            </div>
-        </div>
-    </div>
-  </div>
-</p-tabPanel>
-
-<p-tabPanel header="Novedades por usuarios">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-info">
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-10">
                 <h4 class="card-title">Lista de novedades</h4>
               </div>
+              <div class="col-md-2 ui-dialog-buttonpane">
+                <button
+                  class="secundary"
+                  type="text"
+                  (click)="showAddDialog()"
+                  pButton
+                  icon="pi pi-plus"
+                  label="  Nuevo"
+                ></button>
+            </div>
             </div>
           </div>
           <div class="card-body">
@@ -105,10 +54,6 @@
       </div>
     </div>
   </div>
-</p-tabPanel>
-</p-tabView>
-
-  
 </div>
 
 <p-dialog

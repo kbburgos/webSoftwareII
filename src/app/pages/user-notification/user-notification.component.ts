@@ -74,10 +74,21 @@ export class UserNotificationComponent implements OnInit {
             environment.variables.nombreRepartidores[i]["nombre"] +
             " " +
             environment.variables.nombreRepartidores[i]["apellido"];
+            listaR[j].esCliente = false;
         }
       }
     }
     return listaR;
+  }
+
+  listaFiltradaRepartidor(coleccion){
+    const temporal: any[]= [];
+    coleccion.map((item)=>{
+      if(!item.esCliente){
+        temporal.push(item);
+      }
+    });
+    return temporal;
   }
 
   /**
@@ -122,44 +133,6 @@ export class UserNotificationComponent implements OnInit {
    * @method
    * @public
    * @version 1.0.0
-   * @desc This method is responsible for capturing the names and surnames of deliveryman for novelty. <br> Creation Date: 08/14/2020
-   * @type {Promise<void>} Void type promise.
-   * @author Brenda Bermello <bremiber@espol.edu.ec>
-   */
-  listaAdmin(listaAdmin: any) {
-    for (let i = 0; i < environment.variables.nombreRepartidores.length; i++) {
-      for (let j = 0; j < listaAdmin.length; j++) {
-        if (
-          environment.variables.nombreRepartidores[i]["cedula"] ===
-          listaAdmin[j].idUsuarioreportado
-        ) {
-          listaAdmin[j].usuarioReportado =
-            environment.variables.nombreRepartidores[i]["nombre"] +
-            " " +
-            environment.variables.nombreRepartidores[i]["apellido"];
-          listaAdmin[j].esCliente = false;
-        }else{
-          listaAdmin[j].esCliente = true;
-        }
-      }
-    }
-    return listaAdmin;
-  }
-
-  listaFiltradaAdmin(coleccion){
-    const temporal: any[]= [];
-    coleccion.map((item)=>{
-      if(!item.esCliente){
-        temporal.push(item);
-      }
-    });
-    return temporal;
-  }
-  /**
-   * @async
-   * @method
-   * @public
-   * @version 1.0.0
    * @desc This method is responsible for loading customer and novelty information from API. <br> Creation Date: 08/22/2020
    * @type {Promise<void>} Void type promise.
    * @returns {JSON} JSON users
@@ -171,28 +144,10 @@ export class UserNotificationComponent implements OnInit {
       .clienteNotification(this.token)
       .subscribe((data: any) => {
         this.customernewsView = this.listaFiltradaClientes(this.nombreClientes(
-          this.listaFiltroRepartidores(data)
+          this.listaFiltradaRepartidor(this.listaFiltroRepartidores(data))
         ));
+        this.spinner.hide();
       });
-
-    let adminNoveltySubscribe = this.novelty
-      .getnovedadesReporta(this.token, this.authService.dataUser.cedula)
-      .subscribe(
-        (data: any) => {
-          this.novedadAdmin = this.listaFiltradaAdmin(this.listaAdmin(data));
-          this.spinner.hide();
-        },
-        (err: any) => {
-          adminNoveltySubscribe.unsubscribe();
-          this.showMessage(
-            "No existen novedades realizadas por el Administrador",
-            "error",
-            "Error!"
-          );
-          this.spinner.hide();
-        }
-      );
-    //this.spinner.hide();
   }
 
   showAddDialog() {
