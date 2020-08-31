@@ -13,8 +13,8 @@ export interface NovelyCustomerView{
     idNovedad?: string;
     idPedido?: string;
     idRepartidor: string;
-    novedad: string;
-    idCliente: string;
+    descripcion: string;
+    idUsuarioreportado: string;
     fecha?: Time;
     nombre: string;
     apellido: string;

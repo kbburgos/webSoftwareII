@@ -5,6 +5,7 @@ import { DelivermanReporterService } from "../../core/services/deliverman/delive
 import { NovelyDeliverman } from "../../core/interface/noveltyDeliverman";
 import { NovelyCustomerView } from "../../core/interface/noveltyCustomerView";
 import { NgxSpinnerService } from "ngx-spinner";
+import { UserNotificationService } from "../../core/services/user/user-notification.service";
 
 import { UsersService } from "../../core/services/user/users.service";
 import { NoveltyService } from "../../core/services/novelty/novelty.service";
@@ -48,6 +49,7 @@ export class ConflictingComponent implements OnInit {
     private http: HttpClient,
     private deliverymanreportService: DelivermanReporterService,
     private user: UsersService,
+    private userNotification: UserNotificationService,
     private novelty: NoveltyService,
     private authService: AuthService,
     private spinner: NgxSpinnerService,
@@ -67,10 +69,16 @@ export class ConflictingComponent implements OnInit {
     this.spinner.show();
     this.buildForm();
     this.clearState();
-    let novedadesSubscribe = this.deliverymanreportService.getNovedadesRepartidores().subscribe((data:any)=>{
+    let novSubscribe = this.userNotification.clienteNotification(this.token)
+      .subscribe((data:any)=>{
+        this.clientesConflictivos=this.listaClientesConflictivos(this.deleteDuplicate(data));
+        console.log(this.clientesConflictivos);
+        this.spinner.hide();
+      })
+    /*let novedadesSubscribe = this.deliverymanreportService.getNovedadesRepartidores().subscribe((data:any)=>{
       this.clientesConflictivos=this.listaClientesConflictivos(this.deleteDuplicate(data));
       this.spinner.hide();
-    })
+    })*/
 
   }
 
@@ -87,7 +95,7 @@ export class ConflictingComponent implements OnInit {
   listaClientesConflictivos(lista: any){
     for(let i=0; i<environment.variables.nombreClientes.length; i++){
       for(let j=0; j<lista.length; j++){
-        if(environment.variables.nombreClientes[i]['cedula'] === lista[j].idCliente){
+        if(environment.variables.nombreClientes[i]['cedula'] === lista[j].idUsuarioreportado){
           lista[j].nombre = environment.variables.nombreClientes[i]['nombre'];
           lista[j].apellido = environment.variables.nombreClientes[i]['apellido'];
           lista[j].email = environment.variables.nombreClientes[i]['email'];
@@ -124,7 +132,7 @@ export class ConflictingComponent implements OnInit {
     let found=false;
     for(let i=0; i<coleccion.length; i++){
       for(let j=0; j<unique.length; j++){
-        if(coleccion[i].idCliente == unique[j].idCliente){
+        if(coleccion[i].idUsuarioreportado == unique[j].idUsuarioreportado){
           found=true;
         }
       }

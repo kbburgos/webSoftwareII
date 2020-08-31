@@ -41,13 +41,13 @@
                         </ng-template>
                         <ng-template pTemplate="body" let-novelycustomerview>
                             <tr *ngIf="novelycustomerview.rol === 3">
-                                <td>{{ novelycustomerview.idCliente }}</td>
+                                <td>{{ novelycustomerview.idUsuarioreportado }}</td>
                                 <td>{{ novelycustomerview.nombre }}</td>
                                 <td>{{ novelycustomerview.apellido }}</td>
                                 <td>
                                     <u
                                       (click)="
-                                        detalleNovedad(novelycustomerview.idCliente
+                                        detalleNovedad(novelycustomerview.idUsuarioreportado
                                         )
                                       "
                                       class="uDetail"
