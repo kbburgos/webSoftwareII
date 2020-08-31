@@ -143,8 +143,8 @@ export class UserNotificationComponent implements OnInit {
     this.userNotification
       .clienteNotification(this.token)
       .subscribe((data: any) => {
-        this.customernewsView = this.listaFiltradaClientes(this.nombreClientes(
-          this.listaFiltradaRepartidor(this.listaFiltroRepartidores(data))
+        this.customernewsView = this.listaFiltradaRepartidor(this.listaFiltroRepartidores(
+          this.listaFiltradaClientes(this.nombreClientes(data))
         ));
         this.spinner.hide();
       });
