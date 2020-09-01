@@ -1,4 +1,99 @@
 <div class="main-content">
+  <div class="container-fluid" style="width: 400px">
+      <form [formGroup]="userForm">
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label class="form-label">Nombre</label>
+            <span class="requared">&nbsp; *</span>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="nombre"
+              [(ngModel)]="UsuarioComp.nombre"
+            />
+          </div>
+          <div class="col-md-6 form-group">
+            <label class="form-label">Apellido</label>
+            <span class="requared">&nbsp; *</span>
+            <input
+              class="form-control"
+              formControlName="apellido"
+              type="text"
+              [(ngModel)]="UsuarioComp.apellido"
+            />
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-md-12 form-group">
+            <label class="form-label">Contrase&ntilde;a</label>
+            <span class="requared">&nbsp; *</span>
+            <input
+              type="password"
+              class="form-control"
+              formControlName="contrasenia"
+              [(ngModel)]="UsuarioComp.contrasenia"
+            />
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-md-12 form-group">
+            <label class="form-label">Dirección</label>
+            <span class="requared">&nbsp; *</span>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="direccion"
+              [(ngModel)]="UsuarioComp.direccion"
+            />
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label class="form-label">Email</label>
+            <span class="requared">&nbsp; *</span>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="email"
+              [(ngModel)]="UsuarioComp.email"
+            />
+          </div>
+          <div class="col-md-6 form-group">
+            <label class="form-label">Teléfono</label>
+            <span class="requared">&nbsp; *</span>
+            <input
+              class="form-control"
+              formControlName="telefono"
+              type="text"
+              [(ngModel)]="UsuarioComp.telefono"
+            />
+          </div>
+        </div>
+        <br />
+      </form>
+
+
+    <p-confirmDialog
+      header="Confirmaci&oacute;n"
+      icon="pi pi-exclamation-triangle"
+    ></p-confirmDialog>
+
+    <div class="col-sm-12 button-save">
+      <br />
+      <button
+        (click)="confirmarEditar()"
+        pButton
+        label="GUARDAR"
+      ></button>
+    </div>
+  </div>
+</div>
+<p-toast position="bottom-right"></p-toast>
+<!--
+<div class="main-content">
   <div class="container-fluid">
     <div class="row">
       <div *ngIf="usuario" class="col-md-12">
@@ -23,4 +118,4 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->

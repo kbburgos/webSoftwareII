@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { ConfirmationService } from "primeng/api";
+import { NgxSpinnerService } from "ngx-spinner";
 
 import { UsersService } from "../../core/services/user/users.service";
 import { AuthService } from "../../core/services/auth/auth.service";
@@ -38,6 +39,7 @@ export class CustomersComponent implements OnInit {
     private http: HttpClient,
     private user: UsersService,
     private authService: AuthService,
+    private spinner: NgxSpinnerService,
     private formBuilder: FormBuilder,
   ) { }
 
@@ -52,12 +54,14 @@ export class CustomersComponent implements OnInit {
    * @author Brenda Bermello <bremiber@espol.edu.ec>
    */
   ngOnInit() {
+    this.spinner.show();
     this.buildForm();
     this.clearState();
 
     let subs = this.user.usuarios().subscribe(
       (data: any) => {
         this.clientes=this.filtrado(data);
+        this.spinner.hide();
       },
       (err: any) => {
         subs.unsubscribe();

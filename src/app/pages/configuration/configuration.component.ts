@@ -45,13 +45,16 @@ export class ConfigurationComponent implements OnInit {
     private messageService: MessageService,
     private user: UserInfoService,
     private userS: UsersService,
+    private spinner: NgxSpinnerService,
     private http: HttpClient,
     private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit(): void {
+    this.spinner.show();
     this.usuarioLog();
-
+    this.buildForm();
+    this.spinner.hide();
     this.cargar();
   }
 
