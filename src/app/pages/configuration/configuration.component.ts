@@ -143,7 +143,7 @@ export class ConfigurationComponent implements OnInit {
         } else if (controlName === "contrasenia") {
           field = "Contraseña";
         } else if (controlName === "telefono") {
-          field = "Tel&eacute;fono";
+          field = "Teléfono";
         } else if (controlName === "email") {
           field = "Correo Electrónico";
         } else if (controlName === "direccion") {
@@ -153,9 +153,9 @@ export class ConfigurationComponent implements OnInit {
       }
       if (control.errors.pattern != null) {
         if (controlName === "telefono") {
-          field = "Tel&eacute;fono";
+          field = "Teléfono";
         } else if (controlName === "email") {
-          field = "Correo Electr&oacute;nico";
+          field = "Correo Electrónico";
         }
         return "Ingrese un " + field + " válido";
       }
@@ -178,7 +178,7 @@ export class ConfigurationComponent implements OnInit {
     this.userS.setUserInfo(this.datosUsuario).subscribe(
       (item) => {
         this.showMessage(
-          "Usuario editado con &eacute;xito",
+          "Usuario editado con éxito",
           "success",
           "Editado!"
         );

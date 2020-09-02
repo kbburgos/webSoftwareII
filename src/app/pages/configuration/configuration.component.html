@@ -23,6 +23,22 @@
             />
           </div>
         </div>
+        <div class="row">
+          <div
+            class="container-error-message col-md-6"
+            *ngIf="getError('nombre') != ''"
+          >
+            <span class="material-icons danger-icon"> error_outline </span>
+            {{ getError("nombre") }}
+          </div>
+          <div
+            class="container-error-message col-md-6"
+            *ngIf="getError('apellido') != ''"
+          >
+            <span class="material-icons danger-icon"> error_outline </span>
+            {{ getError("apellido") }}
+          </div>
+        </div>
         <br />
         <div class="row">
           <div class="col-md-12 form-group">
@@ -36,6 +52,13 @@
             />
           </div>
         </div>
+        <div
+          class="container-error-message col-md-12"
+          *ngIf="getError('contrasenia') != ''"
+        >
+          <span class="material-icons danger-icon"> error_outline </span>
+          {{ getError("contrasenia") }}
+        </div>
         <br />
         <div class="row">
           <div class="col-md-12 form-group">
@@ -48,6 +71,13 @@
               [(ngModel)]="UsuarioComp.direccion"
             />
           </div>
+        </div>
+        <div
+          class="container-error-message col-md-12"
+          *ngIf="getError('direccion') != ''"
+        >
+          <span class="material-icons danger-icon"> error_outline </span>
+          {{ getError("direccion") }}
         </div>
         <br />
         <div class="row">
@@ -70,6 +100,22 @@
               type="text"
               [(ngModel)]="UsuarioComp.telefono"
             />
+          </div>
+        </div>
+        <div class="row">
+          <div
+            class="container-error-message col-md-6"
+            *ngIf="getError('email') != ''"
+          >
+            <span class="material-icons danger-icon"> error_outline </span>
+            {{ getError("emailnombre") }}
+          </div>
+          <div
+            class="container-error-message col-md-6"
+            *ngIf="getError('telefono') != ''"
+          >
+            <span class="material-icons danger-icon"> error_outline </span>
+            {{ getError("telefono") }}
           </div>
         </div>
         <br />
