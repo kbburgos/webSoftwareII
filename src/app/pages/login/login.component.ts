@@ -144,12 +144,12 @@ export class LoginComponent implements OnInit {
     this.emailUser = value.email;
     this.password = value.pass;
     this.cargar();
-    await this.auth
+    /*await this.auth
       .loginToFirebase(this.emailUser, this.password)
       .then(async (data: any) => {
         if (data && this.form.valid) {
           this.display = false;
-          this.notFound = false;
+          this.notFound = false;*/
           await this.auth
             .loginToApi(this.form.value.email, this.form.value.pass)
             .toPromise()
@@ -191,7 +191,7 @@ export class LoginComponent implements OnInit {
               this.spinner.hide();
               console.log(err);
               this.auth.logout();
-            });
+            });/*
         }
       })
       .catch((err) => {
@@ -199,7 +199,7 @@ export class LoginComponent implements OnInit {
         this.spinner.hide();
         console.log(err);
         this.auth.logout();
-      });
+      });*/
   }
 
   onResetForm() {
