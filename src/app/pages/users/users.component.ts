@@ -306,7 +306,7 @@ export class UsersComponent implements OnInit {
       telefono: this.form.get("telefono").value,
       email: this.form.get("email").value,
       direccion: this.form.get("direccion").value,
-      contrasenia: this.pass,
+      contrasenia: "contrasenia",
       rol: this.rol,
     };
     this.user

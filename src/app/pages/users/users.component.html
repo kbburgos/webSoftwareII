@@ -50,6 +50,14 @@
                       <button
                         pButton
                         type="button"
+                        (click)="abrirEditar(user)"
+                        icon="pi pi-pencil"
+                        class="ui-button-secundary"
+                      ></button>
+                      &nbsp;
+                      <button
+                        pButton
+                        type="button"
                         icon="pi pi-trash"
                         (click)="confirmarEliminar(user.cedula)"
                         class="ui-button-danger"
@@ -285,6 +293,7 @@
             <span class="requared">&nbsp; *</span>
             <input
               type="text"
+              disabled
               class="form-control"
               formControlName="cedula"
               [(ngModel)]="UsuarioEdit.cedula"
